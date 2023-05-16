@@ -19,21 +19,21 @@ public class ContextSqlMapper {
     @Autowired
     ApplicationContext applicationContext;
 
-//    @Bean
-//    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
-//        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-//        factoryBean.setDataSource(dataSource);
-//        factoryBean.setMapperLocations(applicationContext.getResources("classpath:/postgresql/mapper/*.xml"));
-////        factoryBean.setTypeAliases(new Class<?>[] {CustomUserDetailVO.class});
-//        // Select 컬럼명 스네이크 케이스 -> 카멜케이스 자동변환
-//        Properties properties = new Properties();
-//        properties.put("mapUnderscoreToCamelCase", true);
-//        factoryBean.setConfigurationProperties(properties);
-//        return factoryBean;
-//    }
-//
-//    @Bean
-//    public SqlSessionTemplate sqlSession(SqlSessionFactory sqlSessionFactory) {
-//        return new SqlSessionTemplate(sqlSessionFactory);
-//    }
+    @Bean
+    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
+        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        factoryBean.setDataSource(dataSource);
+        factoryBean.setMapperLocations(applicationContext.getResources("classpath:/postgresql/mapper/*.xml"));
+//        factoryBean.setTypeAliases(new Class<?>[] {CustomUserDetailVO.class});
+        // Select 컬럼명 스네이크 케이스 -> 카멜케이스 자동변환
+        Properties properties = new Properties();
+        properties.put("mapUnderscoreToCamelCase", true);
+        factoryBean.setConfigurationProperties(properties);
+        return factoryBean;
+    }
+
+    @Bean
+    public SqlSessionTemplate sqlSession(SqlSessionFactory sqlSessionFactory) {
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
 }

@@ -1,5 +1,7 @@
 package com.weaverloft.octopus.basic.main.controller;
 
+import com.weaverloft.octopus.basic.main.service.MainService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +19,12 @@ import java.security.Principal;
 @RequestMapping("main")
 public class MainController {
 
+    @Autowired
+    private MainService mainService;
+
     @GetMapping("/main-page")
     public String showMainPage() {
+        System.out.println(mainService.test());
         return "/main/main-page";
     }
 }
