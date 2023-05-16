@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../asset/css/common.css">
+    <script src="../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../asset/js/prefixfree.min.js"></script>
+    <script src="../asset/js/basic.js"></script>
+    <title>Octopus-Account Modify</title>
+    <style>
+        .sub-tit {background: sandybrown; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <div id="container" style="width:90%; margin: 0 auto;">
+        <!--========== HEADER ==========-->
+        <header id="header">
+            <h1 class="header-logo" style="display: block; width: 200px; margin: 30px auto;"><a href="/"><img src="../asset/img/logo.png" alt="Octopus_logo"><span class="hidden">Octopus</span></a></h1>
+        </header>
+
+        <!--========== CONTENTS ==========-->
+        <main id="main" class="page-account-mod">
+            <section class="section sub-sec account-mod-sec">
+                <div class="tit-wrap account-mod">
+                    <h2 class="sec-title">회원정보 수정</h2>
+                </div>
+                <div class="account-mod-wrap">
+                    <form>
+                        <!-- 01. 기본정보 입력 -->
+                        <fieldset>
+                            <legend class="hidden">기본 정보 입력</legend>
+                            <div class="sub-tit">
+                                <p>기본 정보 <span class="must">&lpar;필수&rpar;</span></p>
+                            </div>
+                            <ul class="account-mod-inner info">
+                                <!-- 아이디 -->
+                                <li class="id">
+                                    <p class="content-tit">아이디</p>
+                                    <div class="account-mod-box">
+                                        <p class="id" style="font-weight: bold;">weaverloft(id고정)</p>
+                                    </div>
+                                </li>
+                                <!-- 비밀번호 -->
+                                <li class="password">
+                                    <p class="content-tit">비밀번호</p>
+                                    <div class="account-mod-box">
+                                        <div class="input-box password">
+                                            <input type="password" name="password" placeholder="비밀번호">
+                                            <p class="info-txt">영문+숫자+특수문자 조합 8자리 이상 12자리 이내로 입력</p>
+                                        </div>
+                                        <div class="error-wrap">
+                                            <p class="error account-mod-error password01">잘못된 비밀번호입니다. 비밀번호를 다시 입력하세요.</p>
+                                            <p class="error account-mod-error password-wrong01">영문숫자조합 4자리 이상 12자리 이내로 입력하세요.
+                                            </p>
+                                        </div>
+                                        <div class="input-box password check">
+                                            <input type="password" name="password-check" placeholder="비밀번호 확인">
+                                        </div>
+                                        <div class="error-wrap">
+                                            <p class="error account-mod-error password02">비밀번호 확인을 입력하세요.</p>
+                                            <p class="error account-mod-error password-wrong02">비밀번호가 일치하지않습니다. 비밀번호 확인 후 다시 입력하세요.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- 이름 -->
+                                <li class="name">
+                                    <p class="content-tit">이름</p> 
+                                    <div class="account-mod-box">
+                                        <div class="input-box text">
+                                            <input type="text" placeholder="이름" minlength="2">
+                                        </div>
+                                        <div class="error-wrap">
+                                            <p class="error account-mod-error name">이름을 입력하세요.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- 휴대폰 번호 -->
+                                <li class="tel">
+                                    <p class="content-tit">휴대폰 번호</p>
+                                    <div class="account-mod-box">
+                                        <div class="input-box-wrap">
+                                            <div class="basic-select-box">
+                                                <select>
+                                                    <option value="010" selected>010</option>
+                                                    <option value="011">011</option>
+                                                    <option value="016">016</option>
+                                                    <option value="017">017</option>
+                                                    <option value="018">018</option>
+                                                    <option value="019">019</option>
+                                                </select>
+                                            </div>
+                                            <span>-</span>
+                                            <div class="input-box tel middle">
+                                                <p class="hidden">휴대전화번호 중간자리</p>
+                                                <input type="tel" tabindex="0" maxlength="4">
+                                            </div>
+                                            <span>-</span>
+                                            <div class="input-box tel end">
+                                                <p class="hidden">휴대전화번호 끝자리</p>
+                                                <input type="tel" tabindex="0" maxlength="4">
+                                            </div>
+                                        </div>
+                                        <div class="error-wrap">
+                                            <p class="error account-mod-error tel">휴대폰 번호를 입력하세요.</p>
+                                            <p class="error account-mod-error tel-wrong">잘못된 번호입니다. 휴대폰 번호를 다시 입력하세요.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- 이메일 -->
+                                <li class="email">
+                                    <p class="content-tit">이메일</p>
+                                    <div class="account-mod-box">
+                                        <div class="email-input-box">
+                                            <div class="input-box-wrap">
+                                                <div class="input-box text email">
+                                                    <input type="text" title="이메일아이디를 입력해주세요" tabindex="0" placeholder="이메일 주소">
+                                                </div>
+                                                <span>@</span>
+                                                <div class="input-box text email selected-email">
+                                                    <input type="text" name="selected-email" placeholder="직접입력">
+                                                </div>
+                                            </div>
+                                            <div class="basic-select-box email">
+                                                <select onChange="selectEmail(this)">
+                                                    <option value="1" selected>직접입력</option>
+                                                    <option value="gmail.com">gmail.com</option>
+                                                    <option value="naver.com">naver.com</option>
+                                                    <option value="hanmail.net">hanmail.net</option>
+                                                    <option value="hotmail.com">hotmail.com</option>
+                                                    <option value="nate.com">nate.com</option>
+                                                    <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-box button certificattion-email">
+                                                <input type="button" value="이메일인증" onclick="" class="common-btn">
+                                                <p class="info-txt">계정 분실 시 본인인증 정보로 활용됩니다.</p>
+                                            </div>
+                                        </div>
+                                        <div class="error-wrap">
+                                            <p class="error account-mod-error email">이메일을 입력하세요.</p>
+                                            <p class="error account-mod-error email-wrong">잘못된 이메일입니다. 이메일 주소를 다시 입력하세요.</p>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        function selectEmail(ele) {
+                                            var $ele = $(ele);
+                                            var $email = $( 'input[name=selected-email]');
+                                            if($ele.val() == "1"){  // '1'인 경우 직접입력
+                                                $email.attr('readonly', false); $email.val(''); 
+                                            } else { 
+                                                $email.attr('readonly', true); $email.val($ele.val()); 
+                                            };
+                                        };
+                                    </script>
+                                </li>
+                                <!-- 생년월일 -->
+                                <li class="birth">
+                                    <p class="content-tit">생년월일</p>
+                                    <div class="account-mod-box">
+                                        <div class="input-box num birth">
+                                            <input type="number" tabindex="0" placeholder="생년월일(예:19810707)">
+                                        </div>
+                                        <div class="error-wrap">
+                                            <p class="error account-mod-error birth">생년월일 8자리를 입력하세요.</p>
+                                            <p class="error account-mod-error birth-wrong">잘못된 생년월일입니다. 다시 입력하세요.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- 주소 -->
+                                <li class="address">
+                                    <p class="content-tit">주소</p>
+                                    <div class="account-mod-box">
+                                        <div class="input-box-wrap zipcode">
+                                            <div class="input-box text zipcode">
+                                                <input type="text" class="" placeholder="우편번호" name="zipcode">
+                                            </div>
+                                            <div class="input-box button address-search">
+                                                <input type="button" value="주소찾기" onclick="" class="common-btn" >
+                                            </div>
+                                        </div>
+                                        <div class="error-wrap">
+                                            <p class="error account-mod-error address01">주소를 입력하세요.</p>
+                                        </div>
+                                        <div class="input-box-wrap auto">
+                                            <div class="input-box text address">
+                                                <p class="hidden">주소 자동입력 부분 01</p>
+                                                <input type="text" class="" tabindex="0" placeholder="주소를 찾아서 입력해주세요.">
+                                            </div>
+                                            <div class="input-box text address">
+                                                <p class="hidden">주소 자동입력 부분 02</p>
+                                                <input type="text" class="" tabindex="0" placeholder="주소를 찾아서 입력해주세요.">
+                                            </div>
+                                        </div>
+                                        <div class="input-box text address detail">
+                                            <p class="hidden">상세주소 직접입력 부분</p>
+                                            <input type="text" class="" tabindex="0" placeholder="상세주소">
+                                        </div>
+                                        <div class="error-wrap">
+                                            <p class="error account-mod-error address02">상세주소를 입력하세요. 만약 상세주소가 없다면 -를 입력하세요.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <!-- 02. 추가정보 입력 -->
+                        <fieldset>
+                            <legend class="hidden">추가 정보 입력</legend>
+                            <div class="sub-tit">
+                                <p>추가 정보 입력 <span class="must">&lpar;선택&rpar;</span></p>
+                            </div>
+                            <div class="account-mod-inner add">
+                                <p class="content-tit">성별</p>
+                                <ul class="add-box-wrap">
+                                    <li class="gender">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="gender" id="genderM" tabindex="-1">
+                                            <label for="genderM" class="gender" tabindex="0"><span>남자</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="gender" id="genderW" tabindex="-1">
+                                            <label for="genderW" class="gender" tabindex="0"><span>여자</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="gender" id="genderN" checked="" tabindex="-1">
+                                            <label for="genderN" class="gender" tabindex="0"><span>선택안함</span></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="content-tit">직업</p>
+                                <ul class="add-box-wrap">
+                                    <li class="job">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="job" id="jobS" tabindex="-1">
+                                            <label for="jobS" class="job" tabindex="0"><span>학생</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="job" id="jobW" tabindex="-1">
+                                            <label for="jobW" class="job" tabindex="0"><span>직장인</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="job" id="jobN" checked="" tabindex="-1">
+                                            <label for="jobN" class="job" tabindex="0"><span>선택안함</span></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="input-box text interest">
+                                    <p class="hidden">관심태그 입력 부분</p>
+                                    <input type="text" class="" tabindex="0" placeholder="관심태그">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <!-- 03. 수신 동의 -->
+                        <fieldset>
+                            <legend class="hidden">수신 동의</legend>
+                            <div class="sub-tit">
+                                <p>수신 동의 <span class="must">&lpar;필수&rpar;</span></p>
+                            </div>
+                            <div class="account-mod-inner receive">
+                                <p class="content-tit">수신동의 선택</p>
+                                <ul class="receive-box-wrap">
+                                    <li class="message">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="message" id="messageY" checked="" tabindex="-1">
+                                            <label for="messageY" class="message" tabindex="0"><span>문자 수신 동의</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="message" id="messageN" tabindex="-1">
+                                            <label for="messageN" class="message" tabindex="0"><span>문자 수신 미동의</span></label>
+                                        </div>
+                                    </li>
+                                    <li class="email">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="email" id="emailY" checked="" tabindex="-1">
+                                            <label for="emailY" class="email" tabindex="0"><span>이메일 수신 동의</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="email" id="emailN" tabindex="-1">
+                                            <label for="emailN" class="email" tabindex="0"><span>이메일 수신 미동의</span></label>
+                                        </div>
+                                    </li>
+                                    <li class="mail">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="mail" id="mailY" checked="" tabindex="-1">
+                                            <label for="mailY" class="mail" tabindex="0"><span>우편물 수신 동의</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" name="mail" id="mailN" tabindex="-1">
+                                            <label for="mailN" class="mail" tabindex="0"><span>우편물 수신 미동의</span></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                        <div class="popup-group">
+                            <div id="exPop" class="modal exPop">
+                                <div class="modal-wrap">
+                                    <section class="modal-content">
+                                        <div class="modal-tit-wrap">
+                                            <h3 class="modal-tit">팝업 예제</h3>
+                                        </div>
+                                        <div class="modal-cont-wrap">
+                                            <div class="scroll-wrap" style="height: 100px; overflow-y: auto;">
+                                                <p>팝업 예제입니다. <br>팝업 예제입니다. <br>팝업 예제입니다. <br>팝업 예제입니다. <br></p>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="modal-close-btn">
+                                            <a href="javascript:;" onclick="modalPopupClose('#exPop')" title="팝업창 닫기">팝업창 닫기</a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 04. 정보 수정 버튼 -->
+                        <div class="input-box submit account-mod">
+                            <input type="submit" onclick="" value="회원 정보 수정" tabindex="0" class="common-btn">
+                        </div>
+                        <div class="input-box submit withdrawal">
+                            <input type="submit" onclick="" value="회원 탈퇴" tabindex="0" class="common-btn">
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0" title="선택적 제목">페이지 맨 위로</a>
+        </div>
+    </div>
+</body>
+</html>

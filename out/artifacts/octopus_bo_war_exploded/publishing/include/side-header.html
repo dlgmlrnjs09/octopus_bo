@@ -1,0 +1,138 @@
+<div class="side-header-inner">
+    <div class="close-btn-wrap">
+        <button type="button" class="close-btn" aria-label="펼친 메뉴 닫기">
+            <span class="hidden">닫기</span>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 512 512" xml:space="preserve">
+                <g>
+                    <g>
+                        <polygon
+                            points="512,59.076 452.922,0 256,196.922 59.076,0 0,59.076 196.922,256 0,452.922 59.076,512 256,315.076 452.922,512  512,452.922 315.076,256" />
+                    </g>
+                </g>
+            </svg>
+        </button>
+    </div>
+    <nav class="side-menu">
+        <ul class="side-list">
+            <li class="side-link">
+                <a href="javascript:;"><span>New</span></a>
+                <ul class="side-sub-list">
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                </ul>
+            </li>
+            <li class="side-link">
+                <a href="javascript:;"><span>Best</span></a>
+                <ul class="side-sub-list">
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                </ul>
+            </li>
+            <li class="side-link">
+                <a href="javascript:;"><span>Men</span></a>
+                <ul class="side-sub-list">
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                </ul>
+            </li>
+            <li class="side-link">
+                <a href="javascript:;"><span>Women</span></a>
+                <ul class="side-sub-list">
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                </ul>
+            </li>
+            <li class="side-link">
+                <a href="javascript:;"><span>Sale</span></a>
+                <ul class="side-sub-list">
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                </ul>
+            </li>
+            <li class="side-link">
+                <a href="javascript:;"><span>Event</span></a>
+                <ul class="side-sub-list">
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                </ul>
+            </li>
+            <li class="side-link">
+                <a href="javascript:;"><span>Notice</span></a>
+                <ul class="side-sub-list">
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                    <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script>
+    // topBannerClose
+    function topBannerClose() {
+        if (window.innerWidth > 767) {
+            $('.top-banner').slideUp();
+        } else $('.top-banner').fadeOut(200, 0);
+    }
+    // header
+    $(function () {
+        // #container 높이 판단
+        if(($("#container").height() - window.innerHeight) > $("#header").height()) {
+            var contScroll = true;
+        } else {
+            var contScroll = false;
+        }
+        $(window).resize(function(){
+            if(($("#container").height() - window.innerHeight) > $("#header").height()) {
+                contScroll = true;
+            } else {
+                contScroll = false;
+            }
+        });
+        var header = $("#header").offset().top;
+        $(window).scroll(function () {
+            var window = $(this).scrollTop();
+            if (header < window) {
+                if (contScroll) {
+                    $("#header").addClass("fixed");
+                    $("#main").addClass("scroll");
+                    console.log($("#container").height());
+                }
+            } else {
+                $("#header").removeClass("fixed");
+                $("#main").removeClass("scroll");
+            }
+        });
+
+        $('.menu-trigger').click(function () {
+            // $(this).toggleClass("click");
+            $('#side-header').addClass("show");
+        });
+        $(document).mouseup(function (e) {
+            var sideHeader = $("#side-header");
+            if (sideHeader.has(e.target).length === 0) {
+                sideHeader.removeClass("show");
+                $('.side-link').removeClass("on");
+            }
+            $('.side-sub-list').slideUp();
+        });
+        $('#side-header .close-btn').click(function () {
+            $('#side-header').removeClass("show");
+            $('.side-sub-list').slideUp();
+            $('.side-link').removeClass("on");
+        });
+        $('#side-header .side-link > a').click(function (e) {
+            e.preventDefault();
+            $(this).parent().addClass('on').siblings().removeClass('on');
+            $(this).parent().siblings().children('.side-sub-list').stop().slideUp();
+            $(this).next('.side-sub-list').stop().slideDown();
+        });
+    });
+</script>

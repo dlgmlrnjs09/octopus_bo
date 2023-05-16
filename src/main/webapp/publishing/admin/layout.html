@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../asset/css/admin/common.css">
+    <script src="../../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../../asset/js/prefixfree.min.js"></script>
+    <title>Octopus</title>
+</head>
+<body>
+    <div id="container" class="admin">
+        <div class="head-area"></div>
+        <script>
+            $(function(){
+                $('.head-area').load("header.html");
+            });
+        </script>
+
+        <!--========== CONTENTS ==========-->
+        <main id="main">
+            <section class="section main-sec 해당영역을 나타내는 클래스-sec">
+                <h2 class="sec-title">레이아웃 페이지</h2>
+                <div class="blank" style="height: 150vh;"></div>
+            </section>
+        </main>
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0"><span class="hidden">페이지 맨 위로</span></a>
+        </div>
+    </div>
+    <script src="../../asset/js/basic.js"></script>
+    <script src="../../asset/js/basic_admin.js"></script>
+</body>
+</html>

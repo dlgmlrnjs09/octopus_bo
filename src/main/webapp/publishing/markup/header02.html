@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../asset/css/common.css">
+    <link rel="stylesheet" href="../../asset/css/header02.css">
+    <script src="../../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../../asset/js/prefixfree.min.js"></script>
+    <script src="../../asset/js/basic.js"></script>
+    <title>Octopus-Header02</title>
+</head>
+<body>
+    <div id="container">
+        <!--========== Top Banner ==========-->
+        <div class="top-banner">
+            <div class="inner">
+                <div class="desc"><a href="">이곳은 탑 배너 영역입니다.</a></div>
+                <button class="close-btn" onclick="topBannerClose();">
+                    <span class="hidden">닫기</span>
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                        <g><g><polygon points="512,59.076 452.922,0 256,196.922 59.076,0 0,59.076 196.922,256 0,452.922 59.076,512 256,315.076 452.922,512  512,452.922 315.076,256"/></g></g>
+                        </svg>
+                </button>
+            </div>
+        </div>
+        <script>
+            function topBannerClose() {
+                $('.top-banner').slideUp();
+            }  
+            $(function() {
+				var header = $("#header").offset().top;
+				$(window).scroll(function() {
+					var window = $(this).scrollTop();
+
+					if(header <= window) {
+						$("#header").addClass("fixed");
+					} else {
+						$("#header").removeClass("fixed");
+					}
+				})
+			});
+        </script>
+
+        <!--========== HEADER ==========-->
+        <header id="header">
+            <div class="inner">
+                <div class="top-area">
+                    <div class="my-menu logout">
+                        <ul class="my-menu-list">
+                            <li><a href="#none">JOIN</a></li>
+                            <li><a href="#none">LOGIN</a></li>
+                            <li><a href="#none">ORDER</a></li>
+                            <li><a href="#none">CART</a></li>
+                        </ul>
+                    </div>
+                    <h1 class="header-logo"><a href="/"><img src="../../asset/img/logo.png" alt="Octopus_logo"><span class="hidden">Octopus</span></a></h1>
+                </div>
+                <div class="nav-area">
+                    <button class="menu-trigger"><span class="hidden">전체메뉴 열기</span></button>
+                    <nav class="category-menu">
+                        <ul class="category-list">
+                            <li class="category-link"><a href="">MENU</a></li>
+                            <li class="category-link"><a href="">MENU</a></li>
+                            <li class="category-link"><a href="">MENU</a></li>
+                            <li class="category-link"><a href="">MENU</a></li>
+                            <li class="category-link"><a href="">MENU</a></li>
+                        </ul>
+                    </nav>
+                    <div class="util-menu">
+                        <ul class="util-list">
+                            <li class="util-link">
+                                <button class="search-btn" onclick="">
+                                    <span class="hidden">검색하기</span>
+                                    <svg class="search" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 451 451" xml:space="preserve">
+                                        <g><path d="M447.05,428l-109.6-109.6c29.4-33.8,47.2-77.9,47.2-126.1C384.65,86.2,298.35,0,192.35,0C86.25,0,0.05,86.3,0.05,192.3 s86.3,192.3,192.3,192.3c48.2,0,92.3-17.8,126.1-47.2L428.05,447c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4 C452.25,441.8,452.25,433.2,447.05,428z M26.95,192.3c0-91.2,74.2-165.3,165.3-165.3c91.2,0,165.3,74.2,165.3,165.3 s-74.1,165.4-165.3,165.4C101.15,357.7,26.95,283.5,26.95,192.3z"/></g>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li class="util-link">
+                                <button class="mypage-btn" onclick="">
+                                    <span class="hidden">마이페이지 바로가기</span>
+                                    <svg class="person" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 482.9 482.9" xml:space="preserve">
+                                        <g><g><path d="M239.7,260.2c0.5,0,1,0,1.6,0c0.2,0,0.4,0,0.6,0c0.3,0,0.7,0,1,0c29.3-0.5,53-10.8,70.5-30.5 c38.5-43.4,32.1-117.8,31.4-124.9c-2.5-53.3-27.7-78.8-48.5-90.7C280.8,5.2,262.7,0.4,242.5,0h-0.7c-0.1,0-0.3,0-0.4,0h-0.6 c-11.1,0-32.9,1.8-53.8,13.7c-21,11.9-46.6,37.4-49.1,91.1c-0.7,7.1-7.1,81.5,31.4,124.9C186.7,249.4,210.4,259.7,239.7,260.2z M164.6,107.3c0-0.3,0.1-0.6,0.1-0.8c3.3-71.7,54.2-79.4,76-79.4h0.4c0.2,0,0.5,0,0.8,0c27,0.6,72.9,11.6,76,79.4 c0,0.3,0,0.6,0.1,0.8c0.1,0.7,7.1,68.7-24.7,104.5c-12.6,14.2-29.4,21.2-51.5,21.4c-0.2,0-0.3,0-0.5,0l0,0c-0.2,0-0.3,0-0.5,0 c-22-0.2-38.9-7.2-51.4-21.4C157.7,176.2,164.5,107.9,164.6,107.3z"/><path d="M446.8,383.6c0-0.1,0-0.2,0-0.3c0-0.8-0.1-1.6-0.1-2.5c-0.6-19.8-1.9-66.1-45.3-80.9c-0.3-0.1-0.7-0.2-1-0.3 c-45.1-11.5-82.6-37.5-83-37.8c-6.1-4.3-14.5-2.8-18.8,3.3c-4.3,6.1-2.8,14.5,3.3,18.8c1.7,1.2,41.5,28.9,91.3,41.7 c23.3,8.3,25.9,33.2,26.6,56c0,0.9,0,1.7,0.1,2.5c0.1,9-0.5,22.9-2.1,30.9c-16.2,9.2-79.7,41-176.3,41 c-96.2,0-160.1-31.9-176.4-41.1c-1.6-8-2.3-21.9-2.1-30.9c0-0.8,0.1-1.6,0.1-2.5c0.7-22.8,3.3-47.7,26.6-56 c49.8-12.8,89.6-40.6,91.3-41.7c6.1-4.3,7.6-12.7,3.3-18.8c-4.3-6.1-12.7-7.6-18.8-3.3c-0.4,0.3-37.7,26.3-83,37.8 c-0.4,0.1-0.7,0.2-1,0.3c-43.4,14.9-44.7,61.2-45.3,80.9c0,0.9,0,1.7-0.1,2.5c0,0.1,0,0.2,0,0.3c-0.1,5.2-0.2,31.9,5.1,45.3 c1,2.6,2.8,4.8,5.2,6.3c3,2,74.9,47.8,195.2,47.8s192.2-45.9,195.2-47.8c2.3-1.5,4.2-3.7,5.2-6.3 C447,415.5,446.9,388.8,446.8,383.6z"/></g></g>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li class="util-link">
+                                <button class="wish-btn" onclick="">
+                                    <span class="hidden">위시리스트 바로가기</span>
+                                    <svg class="heart" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 471.701 471.701" xml:space="preserve">
+                                        <g><path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"/></g>
+                                    </svg>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <aside id="side-header">
+            <div class="side-header-inner">
+                <div class="close-btn-wrap">
+                    <button class="close-btn">
+                        <span class="hidden">닫기</span>
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                            <g><g><polygon points="512,59.076 452.922,0 256,196.922 59.076,0 0,59.076 196.922,256 0,452.922 59.076,512 256,315.076 452.922,512  512,452.922 315.076,256"/></g></g>
+                        </svg>
+                    </button>
+                </div>
+                <nav class="side-menu">
+                    <ul class="side-list">
+                        <li class="side-link">
+                            <a href="javascript:;"><span>MENU</span></a>
+                            <ul class="side-sub-list">
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                            </ul>
+                        </li>
+                        <li class="side-link">
+                            <a href="javascript:;"><span>MENU</span></a>
+                            <ul class="side-sub-list">
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                            </ul>
+                        </li>
+                        <li class="side-link">
+                            <a href="javascript:;"><span>MENU</span></a>
+                            <ul class="side-sub-list">
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                            </ul>
+                        </li>
+                        <li class="side-link">
+                            <a href="javascript:;"><span>MENU</span></a>
+                            <ul class="side-sub-list">
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                            </ul>
+                        </li>
+                        <li class="side-link">
+                            <a href="javascript:;"><span>MENU</span></a>
+                            <ul class="side-sub-list">
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                                <li class="side-sub-link"><a href="javascript:;">Sub Menu</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <script>
+            $(function () {
+                $('.menu-trigger').click(function () {
+                    // $(this).toggleClass("click");
+                    $('#side-header').addClass("show");
+                });
+                $('#side-header .close-btn').click(function () {
+                    $('#side-header').removeClass("show");
+                    $('.side-sub-list').slideUp();
+                    $('.side-link').removeClass("on");
+                });
+                $(document).mouseup(function (e){
+                    var sideHeader = $("#side-header");
+                    if(sideHeader.has(e.target).length === 0){
+                        sideHeader.removeClass("show");
+                        $('.side-link').removeClass("on");
+                    }
+                    $('.side-sub-list').slideUp();
+                });
+                $('.side-link > a').click(function(e){
+                    e.preventDefault();
+                    $(this).parent().addClass('on').siblings().removeClass('on');
+                    $(this).parent().siblings().children('.side-sub-list').stop().slideUp();
+                    $(this).next('.side-sub-list').stop().slideDown();
+                });
+            });
+        </script>
+
+        <!--========== CONTENTS ==========-->
+        <main id="main" style="height: 2000px;">
+            <section class="section main-sec 해당영역을 나타내는 클래스-sec">
+                <h2 class="sec-title hidden">페이지 제목</h2>
+            </section>
+        </main>
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0"><span class="hidden">페이지 맨 위로</span></a>
+        </div>
+    </div>
+</body>
+</html>

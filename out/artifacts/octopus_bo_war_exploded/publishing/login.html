@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../asset/css/common.css">
+    <link rel="stylesheet" href="../asset/css/access.css">
+    <script src="../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../asset/js/prefixfree.min.js"></script>
+    <title>Octopus</title>
+</head>
+<body>
+    <div id="container">
+        <div class="head-area">
+            <div class="header-wrap"></div>
+            <aside id="side-header"></aside>
+            <div class="my-menu logout mo">
+                <ul class="my-menu-list">
+                    <li>
+                        <button type="button" class="menu-trigger mo" aria-label="전체메뉴 열기">
+                            <img src="../asset/img/icon-burger.svg" alt="MENU">
+                        </button>
+                        <p>MENU</p>
+                    </li>
+                    <li>
+                        <a href="#none">
+                            <img src="../asset/img/icon-heart.svg" alt="WISH">
+                            <p>WISH</p>
+                        </a>
+                    </li>
+                    <li class="on">
+                        <a href="#none">
+                            <img src="../asset/img/icon-home.svg" alt="HOME">
+                            <p>HOME</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="login.html">
+                            <img src="../asset/img/icon-person.svg" alt="MY">
+                            <p>MY</p> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none">
+                            <span class="circle"></span><p>WATCH</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <script>
+                $(function(){
+                    $('.header-wrap').load("include/header.html");
+                    $('#side-header').load("include/side-header.html");
+                });
+            </script>
+        </div>
+
+        <!--========== CONTENTS ==========-->
+        <main id="main" class="page-login">
+            <section class="section access-sec login-sec">
+                <div class="tit-wrap login">
+                    <h2 class="sec-title">로그인</h2>
+                    <button type="button" class="goto-back" onclick="" aria-label="뒤로가기">
+                        <img src="../asset/img/arrow-left.svg" alt="뒤로가기">
+                    </button>
+                </div>
+                <div class="tab-container login">
+                    <!-- 탭 버튼 -->
+                    <ul class="tab-menu">
+                        <li class="slider"></li>
+                        <li class="tab-link current" data-tab="tab-1"><a href="javascript:;"><span>회원로그인</span></a></li>
+                        <li class="tab-link" data-tab="tab-2"><a href="javascript:;"><span>비회원주문조회</span></a></li>
+                    </ul>
+                    <div class="tab-content-wrap">
+                        <!-- 회원 로그인 -->
+                        <div id="tab-1" class="tab-content current">
+                            <div class="login-wrap member">
+                                <form>
+                                    <fieldset>
+                                        <legend class="hidden">회원 로그인 - 정보입력</legend>
+                                        <div class="input-box-wrap">
+                                            <div class="input-box line text">
+                                                <input type="text" name="id" class="id" placeholder="아이디" tabindex="0">
+                                                <span class="line-focus"></span>
+                                            </div>
+                                            <div class="input-box line password">
+                                                <input type="password" name="password" class="pw" placeholder="비밀번호 (8-16자 영문자+숫자+특수문자)" tabindex="0">
+                                                <span class="line-focus"></span>
+                                                <button type="button" class="eye-btn" aria-label="비밀번호 보이기/숨기기"></button>
+                                            </div>
+                                        </div>
+                                        <div class="error-wrap">
+                                            <!-- .error는 에러 발생 시 보이기 -->
+                                            <p class="error login-error id">아이디를 입력해주세요.</p>
+                                            <p class="error login-error pw">비밀번호를 입력해주세요.</p>
+                                            <p class="error login-error wrong">아이디 또는 비밀번호를 잘못 입력하셨습니다.</p>
+                                        </div>
+                                        <div class="middle-wrap">
+                                            <div class="basic-check-box login">
+                                                <input type="checkbox" id="check-box-login02" tabindex="-1">
+                                                <label for="check-box-login02" tabindex="0">아이디/이메일 저장</label>
+                                            </div>
+                                            <ul class="find-wrap">
+                                                <li class="find-id">
+                                                    <a href="./find_id.html" tabindex="0">아이디 찾기</a>
+                                                </li>
+                                                <li class="mid-line"><span></span></li>
+                                                <li class="find-password">
+                                                    <a href="./find_pw.html" tabindex="0">비밀번호 찾기</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="input-box submit login">
+                                            <input type="submit" onclick="" value="로그인" tabindex="0" class="common-btn">
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <div class="login-sns-wrap">
+                                    <p>SNS계정으로 간편 로그인/회원가입 하기</p>
+                                    <div class="sns-btn-wrap">
+                                        <a href="#" class="naver"><img src="../asset/img/icon-naver.png" alt="네이버 아이콘"></a>
+                                        <a href="#" class="kakao"><img src="../asset/img/icon-kakao.png" alt="카카오톡 아이콘"></a>
+                                        <a href="#" class="facebook"><img src="../asset/img/icon-facebook.png" alt="페이스북 아이콘"></a>
+                                        <a href="#" class="apple"><img src="../asset/img/icon-apple.png" alt="애플 아이콘"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 비회원 로그인 -->
+                        <div id="tab-2" class="tab-content">
+                            <div class="login-wrap non-member">
+                                <form>
+                                    <fieldset>
+                                        <legend class="hidden">비회원 로그인 - 정보입력</legend>
+                                        <div class="input-box-wrap">
+                                            <div class="input-box line num">
+                                                <input type="number" name="order-num" class="id" placeholder="주문번호 13자리" tabindex="0">
+                                                <span class="line-focus"></span>
+                                            </div>
+                                            <div class="input-box line password">
+                                                <input type="password" name="password" class="pw" placeholder="비밀번호" tabindex="0">
+                                                <span class="line-focus"></span>
+                                                <button type="button" class="eye-btn" aria-label="비밀번호 보이기/숨기기"></button>
+                                            </div>
+                                        </div>
+                                        <div class="error-wrap">
+                                            <!-- .error는 에러 발생 시 보이기 -->
+                                            <p class="error login-error phone">주문번호를 입력해주세요.</p>
+                                            <p class="error login-error pw">비밀번호를 입력해주세요.</p>
+                                            <p class="error login-error wrong">주문번호 또는 비밀번호를 잘못 입력하셨습니다.</p>
+                                        </div>
+                                        <div class="input-box submit login">
+                                            <input type="submit" onclick="" value="조회하기" tabindex="0" class="common-btn">
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <div class="login-link-wrap non-member-find-pw">
+                                    <a href="javascript:;" onclick="modalPopup('#nonMemberPw')" tabindex="0">주문 비밀번호를 잊으셨나요?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0" title="선택적 제목"></a>
+        </div>
+    </div>
+
+    <div class="popup-group">
+        <div id="nonMemberPw" class="modal nonMemberPw">
+            <div class="modal-wrap">
+                <section class="modal-content">
+                    <div class="modal-tit-wrap">
+                        <h3 class="modal-tit">주문 비밀번호 찾기</h3> 
+                    </div>
+                    <div class="modal-cont-wrap">
+                        <div class="modal-cont-inner">
+                            <p>주문시 입력한 이메일 주소 또는 휴대폰 번호로 임시 비밀번호를 보내드립니다.</p>
+                            <form>
+                                <fieldset>
+                                    <legend class="hidden">비회원 로그인 - 정보입력</legend>
+                                    <div class="radio-box-wrap">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="phone" name="certification" checked="">
+                                            <label for="phone"><span>휴대폰 번호로 받기</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="email" name="certification" >
+                                            <label for="email"><span>이메일로 받기</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="input-box-wrap">
+                                        <div class="input-box text">
+                                            <input type="text" name="name" placeholder="주문자 이름" tabindex="0">
+                                        </div>
+                                        <div class="input-box tel">
+                                            <input type="tel" name="tel" maxlength="11" placeholder="휴대폰번호('-' 생략)" tabindex="0">
+                                        </div>
+                                        <div class="input-box number">
+                                            <input type="number" placeholder="주문 번호" tabindex="0">
+                                        </div>
+                                    </div>
+                                    <div class="input-box">
+                                        <button type="button" class="common-btn" onclick="" aria-label="전송받기" ><span>전송받기</span></button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-close-btn">
+                        <a href="javascript:;" onclick="modalPopupClose('#nonMemberPw')" title="팝업창 닫기">팝업창 닫기</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="../asset/js/basic.js"></script>
+</body>
+</html>

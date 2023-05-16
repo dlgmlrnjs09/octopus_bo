@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+/* Info
+   ========================================================================== */
+/**
+ * 1. Writer: Hyerin Lim. (Weaverloft Corp.)
+ * 2. Production Date: 2023-03-20
+ * 3. Client: Weaverloft UX
+ */
+
+/*========== Common ==========*/
+.inner {width:90%; margin: 0 auto;}
+
+/*========== Top Banner ==========*/
+.top-banner {position: relative;  width: 100%; background-color: #000;}
+.top-banner .inner {display: flex; align-items: center; width: 90%; height: 40px; margin: 0 auto; }
+.top-banner .inner .desc{width: 100%; height: 100%; }
+.top-banner .inner .desc a{ height: 100%; line-height: 40px; font-size: 14px; color: #fff; text-align: center;}
+.top-banner .inner .close-btn {position: absolute; top: 0; right: 30px; width: 40px; height: 40px;}
+.top-banner .inner .close-btn svg{display: inline-block; width: 12px; fill: #fff;}
+
+/*========== Header ==========*/
+/* top-area */
+#header{width: 100%; background-color: #fff;}
+#header .top-area {display: flex; flex-direction: column; padding: 20px 0 40px; transition: padding 300ms;}
+#header .top-area .my-menu {align-self: flex-end;}
+#header .top-area .my-menu .my-menu-list {display: flex; flex-flow: row nowrap; align-items: center; margin-right: -10px;}
+#header .top-area .my-menu .my-menu-list li a{padding: 10px; font-size: 13px; color: #888; transition: color 300ms;}
+#header .top-area .my-menu .my-menu-list li a:hover{color: #333;}
+#header .top-area .header-logo {align-self: center; width: 200px; margin: 0 auto; transition: width 300ms;}
+/* nav-area */
+#header .nav-area {position: relative; display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center; padding: 0 0 40px;}
+/* menu-trigger */
+#header .nav-area .menu-trigger{display: block; width: 40px; height: 40px; background-size: 28px auto; background-position: center center; background-repeat: no-repeat; background-image: url('../img/icon-burger.svg'); transform: translateX(-9px);}
+/* category-menu */
+.category-menu {position: absolute; left: 0; right: 0; width: fit-content; margin:0 auto; }
+.category-menu .category-list {display: flex; flex-flow: row nowrap; align-items: center; }
+.category-menu .category-list .category-link a{width: 90px; height: 60px; line-height: 60px; text-align: center; transition: all 300ms;}
+.category-menu .category-list .category-link a:hover{ font-weight: 600; color: var(--main-point-color);  ; transition: all 300ms;}
+/* util-menu */
+.util-menu{ margin-right: -9px;}
+.util-menu .util-list{ display: flex; flex-flow: row nowrap; align-items: center;}
+.util-menu .util-list .util-link {margin-left: 15px;}
+/* .util-menu .util-list .util-link button{ display: block; width: 40px; height: 40px; background-size: 24px auto; background-position: center center; background-repeat: no-repeat;}
+.util-menu .util-list .util-link button.search-btn{ background-image: url('../img/icon-search.svg');}
+.util-menu .util-list .util-link button.mypage-btn{ background-image: url('../img/icon-person.svg');}
+.util-menu .util-list .util-link button.wish-btn{ background-image: url('../img/icon-heart.svg');} */
+.util-menu .util-list .util-link button{ display: block; width: 40px; height: 40px;}
+.util-menu .util-list .util-link button svg{ display: inline-block; width: 24px; fill: #333; vertical-align: middle; transition: fill 300ms;}
+.util-menu .util-list .util-link button:hover svg{ fill: var(--main-point-color);  ;}
+
+/* fix header */
+#header.fixed{position: fixed; top: 0;}
+#header.fixed .top-area{ padding: 10px 0 20px;}
+#header.fixed .top-area .header-logo{width: 160px;}
+#header.fixed .nav-area {padding: 0 0 20px;}
+#header.fixed ~ #main{ padding-top: 170px;}
+
+/*========== Side Menu ==========*/
+#side-header{ position: fixed; top: 0; bottom: 0; left: -240px; z-index: 1001; overflow-x: hidden; overflow-y: auto; width: 240px; min-width: 225px; height: 100%; background-color: #fff; transition: left 0.4s ease; }
+#side-header.show{ left: 0; transition: left 0.4s ease;}
+#side-header::after{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 0, 0.1); z-index: -1; content: ''; opacity: 0; transition: all 0.4s ease;}
+#side-header.show::after{position: fixed; left: 240px; opacity: 1; transition: all 0.4s ease;}
+#side-header .side-header-inner{ height: 100%; }
+#side-header .close-btn-wrap{ padding: 10px; text-align: right;}
+#side-header .close-btn { width: 40px; height: 40px;}
+#side-header .close-btn svg{ display: inline-block; width: 20px; fill: #666;}
+.side-menu {padding: 10px 30px;}
+.side-menu .side-link { margin: 10px 0;}
+.side-menu .side-link a{ padding: 4px;}
+.side-menu .side-link a:hover{ color: var(--main-point-color);  ;}
+.side-menu .side-link.on > a{ color: var(--main-point-color);  ;}
+.side-sub-list {display: none; padding: 0 16px;}

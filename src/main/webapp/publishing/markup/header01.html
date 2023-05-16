@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../asset/css/common.css">
+    <link rel="stylesheet" href="../../asset/css/header01.css">
+    <script src="../../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../../asset/js/prefixfree.min.js"></script>
+    <script src="../../asset/js/basic.js"></script>
+    <title>Octopus-Header01</title>
+</head>
+<body>
+    <div id="container">
+        <!--========== Top Banner ==========-->
+        <div class="top-banner">
+            <div class="inner">
+                <a href="#">
+                    <span class="hidden">탑 배너 영역 - 맴버쉽 혜택 페이지 이동</span>
+                    탑 배너 영역
+                </a>
+            </div>
+        </div>
+
+        <!--========== HEADER ==========-->
+        <header id="header">
+            <div class="nav-left">
+                <button type="button" class="menu-btn">
+                    <span class="menu-open">≡</span>
+                    <span class="menu-close">×</span>
+                </button>
+                <h1 class="header-logo"><a href="/"><img src="../../asset/img/logo.png" alt="Octopus_logo"><span class="hidden">Octopus</span></a></h1>
+            </div>
+            <div class="menu">
+                <ul class="menu-list">
+                    <li class="menu-depth1"><a href="">메뉴1</a>
+                        <ul class="menu-sub-list">
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-depth1"><a href="">메뉴2</a>
+                        <ul class="menu-sub-list">
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-depth1"><a href="">메뉴3</a>
+                        <ul class="menu-sub-list">
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-depth1"><a href="">메뉴4</a>
+                        <ul class="menu-sub-list">
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-depth1"><a href="">메뉴5</a>
+                        <ul class="menu-sub-list">
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-depth1"><a href="">메뉴6</a>
+                        <ul class="menu-sub-list">
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    <li class="menu-depth1"><a href="">커뮤니티</a>
+                        <ul class="menu-sub-list">
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                            <li class="menu-depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <script>
+                    // Header Menu Open
+                    $(function(){ 
+                        $(".menu-open").on('click', function(){ 
+                            $(".menu").addClass("on"); // on클래스 추가 -> 메뉴 열기
+                            $(".menu-btn").addClass("on"); // on클래스 추가 -> menu-close 아이콘 보이기
+                        }); 
+    
+                        $(".menu-close").on('click', function(){
+                            $(".menu").removeClass("on"); // on클래스 삭제 -> 메뉴 닫기
+                            $(".menu-btn").removeClass("on"); // on클래스 추가 -> menu-open 아이콘 보이기
+                        });
+                    });
+                </script>
+            </div>
+            <div class="nav-center">
+                <ul class="nav-list">
+                    <li class="depth1"><a href="">브랜드</a></li>
+                    <li class="depth1"><a href="">메뉴1</a>
+                        <ul class="nav-sub-list">
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="depth1"><a href="">메뉴2</a>
+                        <ul class="nav-sub-list">
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="depth1"><a href="">메뉴3</a>
+                        <ul class="nav-sub-list">
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="depth1"><a href="">메뉴4</a>
+                        <ul class="nav-sub-list">
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="depth1"><a href="">메뉴5</a>
+                        <ul class="nav-sub-list">
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="depth1"><a href="">메뉴6</a>
+                        <ul class="nav-sub-list">
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="depth1"><a href="">이벤트</a></li>
+                    <li class="depth1"><a href="">신상품</a></li>
+                    <li class="depth1"><a href="">리뷰</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <ul class="nav-list">
+                    <li class="depth1"><a href="">로그인</a></li>
+                    <li class="depth1"><a href="">회원가입</a></li>
+                    <li class="depth1">
+                        <button class="search-btn"><span>🔎</span></button>
+                        <div class="search-box-wrap">
+                            <fieldset title="어떤 상품을 찾으시나요?">
+                                <div class="input-box text">
+                                    <input type="text" id="search" name="search" placeholder="어떤 상품을 찾으시나요?" onmousedown="SEARCH_BANNER.clickSearchForm(this)" value>
+                                    <button class="search-btn"><span>🔎</span></button>
+                                </div>
+                            </fieldset>
+                            <div class="search-box-under">
+                                <button class="search-close-btn"><span>×</span></button>
+                                <div class="search-box-under-list search-best">
+                                    <p>인기 검색어</p>
+                                    <a href=""><span class="num">01</span> 검색어</a>
+                                    <a href=""><span class="num">02</span> 검색어</a>
+                                    <a href=""><span class="num">03</span> 검색어</a>
+                                    <a href=""><span class="num">04</span> 검색어</a>
+                                    <a href=""><span class="num">05</span> 검색어</a>
+                                    <a href=""><span class="num">06</span> 검색어</a>
+                                    <a href=""><span class="num">07</span> 검색어</a>
+                                    <a href=""><span class="num">08</span> 검색어</a>
+                                </div>
+                                <div class="search-box-under-list search-recommend">
+                                    <p>추천 검색어</p>
+                                    <a href="">검색어</a>
+                                    <a href="">검색어</a>
+                                    <a href="">검색어</a>
+                                    <a href="">검색어</a>
+                                    <a href="">검색어</a>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            // Header Search Open
+                            $(function(){ 
+                                $(".search-btn").on('click', function(){ 
+                                    $(".search-box-wrap").addClass("on"); // on클래스 추가 -> 메뉴 열기
+                                }); 
+                    
+                                $(".search-close-btn").on('click', function(){
+                                    $(".search-box-wrap").removeClass("on"); // on클래스 삭제 -> 메뉴 닫기
+                                });
+                            });
+                        </script>
+                    </li>
+                    <li class="depth1"><a href="">👤</a>
+                        <ul class="nav-sub-list">
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                            <li class="depth2"><a href="">Sub Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="depth1"><a href="">🛒</a></li>
+                </ul>
+            </div>
+            
+        </header>
+    </div>
+</body>
+</html>

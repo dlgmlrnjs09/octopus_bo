@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+/* Info
+   ========================================================================== */
+/**
+ * 1. Writer: Jiyeon Song. (Weaverloft Corp.)
+ * 2. Production Date: 2023-04-06
+ * 3. Client: Weaverloft UX
+ */
+
+/*========== Common ==========*/
+.access-sec {width: 400px; margin: 0 auto; padding: 110px 0;}
+.access-sec .tit-wrap {position: relative;}
+.access-sec .sec-title {display: block; margin: 0 auto 50px; text-align: center; font-size: var(--title-size); font-weight: 700;}
+.error {display: none; margin: 0 0 0 10px; font-size: var(--small-text-size); color: var(--error-color);}
+.goto-back {position: absolute; left: 0; top: -5px; width: 44px; height: 44px;}
+.goto-back svg g path {fill:none; stroke: var(--main-color); stroke-width: 15px;}
+
+/* 간편 로그인/회원가입 */
+.access-sec .login-sns-wrap p {margin: 0 0 26px 0; font-size: var(--small-text-size); color: var(--sub-color01); text-align: center;}
+.access-sec .sns-btn-wrap {display: flex; flex-flow: row nowrap; gap: 10px; width: fit-content; margin: 0 auto;}
+.access-sec .sns-btn-wrap a {width: 38px; height: 38px; transition: opacity 300ms; }
+.access-sec .sns-btn-wrap a:hover {opacity: 0.7; transition: opacity 300ms; }
+.signup-sec .signup-sns-wrap {margin: 0 0 35px 0; padding: 0 0 35px 0; border-bottom: 1px solid var(--sub-color05);}
+.signup-sec .signup-sns-wrap p {margin: 0 0 25px 0; font-size: var(--placeholder-text-size); color: var(--sub-color03); text-align: center;}
+
+/*========== Login ==========*/
+/* 탭 버튼(tab-menu) */
+.login-sec .tab-container {width: 100%;}
+.login-sec .tab-menu {justify-content: space-between; width: 100%; margin: 0 auto 30px;}
+.login-sec .tab-menu li{width: 50%;}
+
+/* 탭 콘텐츠(tab-content-wrap) */
+.login-wrap .input-box input::placeholder{ font-size: var(--medium-text-size); }
+.login-wrap .input-box-wrap .input-box:first-child{margin-bottom: 10px;}
+.login-wrap .input-box-wrap .input-box input {padding-left: 39px; background-repeat: no-repeat; background-size: 28px 28px; background-position: 3px center;}
+.login-wrap .input-box-wrap .input-box input.id { background-image: url("../img/icon-login-id.svg");}
+.login-wrap .input-box-wrap .input-box input.pw {background-image: url("../img/icon-login-pw.svg");}
+.login-wrap .middle-wrap {display: flex; flex-flow: row nowrap; justify-content: space-between; margin-top: 18px;}
+.login-wrap .middle-wrap .find-wrap {display: flex; flex-flow: row nowrap; align-items: center;}
+.login-wrap .middle-wrap .find-wrap a {font-size: var(--small-text-size); color: var(--sub-color02);}
+.login-wrap .middle-wrap .find-wrap .mid-line span{ display: inline-block; width: 1px; height: 8px; margin: 0 8px; background-color: #DDDDDD; transform: translateY(-2px);}
+.login-wrap .basic-check-box input[type="checkbox"] + label {font-size: var(--small-text-size); color: var(--sub-color02);}
+.login-wrap .basic-check-box input[type="checkbox"] + label::before {width: 12px; height: 12px;}
+.login-wrap .basic-check-box input[type="checkbox"]:checked + label::before {background-color: var(--main-color);}
+.login-wrap .input-box.login {margin: 42px auto 36px;}
+
+/* 비회원 주문조회 */
+.non-member-find-pw {text-align: center;}
+.non-member-find-pw a { display: inline-block; border-bottom: 1px solid var(--main-color); font-size: var(--small-text-size);}
+
+/*========== Signup ==========*/
+/* signup-sec common */
+.signup-sec .signup-inner > li, 
+.signup-sec .signup-inner > div {margin: 0 0 30px 0;}
+.signup-sec .signup-inner .signup-box div, 
+.signup-sec .email-input-box div, 
+.signup-sec .agreement-list > li {margin: 5px 0 10px 0;}
+.signup-sec .content-tit {margin: 0 0 5px 0; font-weight: 700;}
+/* 이메일 */
+.signup-sec .email .input-box-wrap {justify-content: space-between;}
+.signup-sec .email .input-box.email, .signup-sec .email .input-box.email2, 
+.signup-sec .email .basic-select-box.email {width: 47%; margin-bottom: 0;}
+.signup-sec .email .info-txt {font-size: var(--small-text-size); color: var(--sub-color03);}
+.signup-sec .email .email-input-box .input-box-wrap span {color: var(--sub-color03);}
+.signup-sec .email .input-box.email2 {position: relative;}
+.signup-sec .email .input-box.email2 .sel-email-direct{position: absolute; top: 7px; right: 7px; width: 28px; height: 28px; background-image: url('../img/icon-close-g.svg'); background-repeat: no-repeat; background-position: center center; background-size: 18px 18px;}
+.signup-sec .email .input-box.email2 .sel-email-direct:hover{ background-image: url('../img/icon-close.svg');}
+.signup-sec .certification-email {display: none;}
+.signup-sec .certification-email .input-box-wrap{ flex-flow: column;}
+.signup-sec .certification-email-wrap .common-btn{ width: 100%; margin-bottom: 10px;}
+.signup-sec .certification-email-wrap .common-btn:last-child{margin: 0;}
+/* 약관동의 */
+.signup-sec .agreement {padding: 20px 15px 10px; border: 1px solid var(--sub-color04); border-radius: 3px; box-sizing: border-box;}
+.signup-sec .agreement .agreement-list {font-size: var(--sub-text-size); color: var(--sub-color03);}
+.signup-sec .agreement .agreement-list > li {display: flex; flex-flow: row nowrap; justify-content: space-between;}
+.signup-sec .agreement .agreement-list .basic-check-box span { display: inline-block; font-size: var(--small-text-size); transform: translateY(-1px);}
+.signup-sec .agreement .agree-see {padding: 0 0 0 25px;}
+.signup-sec .agreement .agree-see a { display: inline-block; font-size: var(--small-text-size); color: var(--sub-color03); text-decoration: underline; white-space: nowrap;}
+.signup-sec .input-box.signup {margin:34px auto;}
+
+/* 비회원안내 */
+.signup-sec .non-member-txt {color: var(--sub-color03); text-align: center;}
+.signup-sec .non-member-txt .common-btn {padding: 0; border: none; background: none;}
+.signup-sec .non-member-txt .common-btn span {color: var(--main-color); text-decoration: underline;}
+
+/* input check-text */
+.signup-sec .check-text-wrap {display: none; margin: 20px 0 0 5px;}
+.signup-sec .check-text-wrap.on {display: flex; flex-flow: row nowrap; gap: 10px;}
+.signup-sec .check-text-wrap .check-text { font-size: var(--small-text-size); color: var(--sub-color03);}
+.signup-sec .check-text-wrap .check-text.checked {color: var(--checked-color);}
+.signup-sec .check-text .check-icon {display: inline-block; width: 16px; height: 16px; vertical-align: text-bottom; background-image: url('../img/icon-check.svg'); background-position: center center; background-repeat: no-repeat; background-size: 100% 100%;}
+.signup-sec .check-text.checked .check-icon { background-image: url('../img/icon-checked.svg'); }
+
+@media screen and (max-width: 767px){
+   .access-sec {width: 100%; margin: 60px auto; padding:30px 20px;}
+   .goto-back {top: -10px;}
+}

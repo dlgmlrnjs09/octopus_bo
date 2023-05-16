@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../asset/css/swiper.min.css">
+    <link rel="stylesheet" href="../asset/css/common.css">
+    <script src="../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../asset/js/prefixfree.min.js"></script>
+    <script src="../asset/js/swiper.min.js"></script>
+    <script defer src="../asset/js/basic.js"></script>
+    <title>Octopus-Slide-Banner</title>
+    <style>
+    /* 공통 */
+        main {overflow: hidden;}
+        .tit {width: 100%;}
+        .swiper-container-box {margin-top: 5%;}
+        .swiper-container {width: 100%; height: 20vw; margin-top: 5%;}
+        .swiper-wrapper, figure {width: 100%; height: 100%;}
+        figure {position: absolute; left: 0; top: 0;}
+        .txt-box {position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);}
+        .swiper-wrapper img {display: block; width: 100%; height: 100%; background: #ddd;}
+    /* swiper-nav */
+        .swiper-nav {width: auto; position: absolute; bottom: 5%; right: 5%; z-index: 2;}
+        .swiper-btn-play, .swiper-nav.on .swiper-btn-pause {display: none;}
+        .swiper-nav.on .swiper-btn-play {display: inline-block;}
+        .swiper-pagination {position: relative;}
+        .min-line {display:inline-block; width: 2px; height: 12px; margin: 0 2%; background: #000;}
+    /* swiper02 */
+        .swiper02 {width: 50%; overflow: visible;}
+        .swiper02 .swiper-slide {opacity: 0.4; transition: opacity 0.4s;}
+        .swiper02 .swiper-slide-active {opacity: 1; transition: opacity 0.4s;}
+        .swiper02 .swiper-btn-prev {position: absolute; top: 50%; left: -5%; z-index: 3;}
+        .swiper02 .swiper-btn-next {position: absolute; top: 50%; right: -5%; z-index: 3;}
+    /* swiper03 */
+        .swiper03 {width: 70%; overflow: visible;}
+        .swiper03 .swiper-btn-prev {position: absolute; top: 50%; left: 5%; z-index: 3;}
+        .swiper03 .swiper-btn-next {position: absolute; top: 50%; right: 5%; z-index: 3;}
+        .swiper03 .swiper-nav {right: 5%;}
+        .swiper03 .swiper-mask {height: 100%; width: 21.5%; background: transparent; position: absolute; top: 20px; left: -21.5%; z-index: 3; background: rgba(0,0,0,0.3);}
+        .swiper03 .swiper-mask.mask-2 {left: initial; right: -21.5%;}
+    /* swiper04 */
+        .swiper04 .swiper-nav {width: 90%; bottom:2%; right: initial; left: 50%; transform: translateX(-50%); display: flex; justify-content: space-between;}
+        .swiper04 .swiper-pagination-bullets {display: flex; justify-content: space-between;}
+        .swiper04 .swiper-pagination-bullet {display: inline-block; width: 300px; height: 50px; border-radius: 0; border: 1px solid #000; background: url(asset/img/temp.png) center/cover no-repeat;}
+    /* swiper05 */
+        .swiper05 {width: 70%; display: flex; justify-content: space-between; flex-wrap: wrap;}
+        .swiper05a {width: 30%; margin-top: 0;}
+        .swiper05b {width: 60%; margin-top: 0;}
+        .swiper05a .swiper-nav {position: relative; display: inline-block;  margin: 0 auto; height: 10%; bottom: initial; right: 0; display: flex;}
+    /* swiper06 */
+        .swiper06 {width: 100%; height: 37vw; position: relative;}
+        .swiper06 .swiper-slide-container {text-align: center; font-size: 18px; background: #ddd; height: 100%; margin: auto; }
+        .swiper06a {position: relative; width: 100%; height: 25vw;}
+        .swiper06a .swiper-slide-active {transform: translateX(-70%);}
+        .swiper06b {width: 40%; height: 30vw; position: absolute; top: 0px; left: 10%; z-index: 2; border: 1px solid #000; background: #fff;}
+        .swiper06b .swiper-slide {width: 100%; height: 100%; opacity: 0.5;}
+        .swiper06b .swiper-slide-active {opacity: 1;}
+        .swiper06 .common-btn {position: absolute;  width: 100px; z-index: 5; background: #fff;}
+        .swiper06 .swiper-btn-prev {top: 20vw; left: 8%;}
+        .swiper06 .swiper-btn-next {top: 20vw; left: 45%;}
+    /* swiper07 */
+        .swiper07 {width: 100%; height: 600px;}
+        .swiper07 .swiper-slide {width: 100%; position: relative;}
+        .swiper07 .swiper-slide a {display: block; width: 300px; height: 200px; margin: 0 auto; transform: rotate(-15deg); transition: all 1s;}
+        .swiper07 .swiper-slide a .img {width: 100%; height: 100%; opacity: 0.2; transition: all 0.5s; overflow: hidden;}
+        .swiper07 .swiper-slide a .img img {width: 100%;}
+        .swiper07 .textBox {position: absolute; width: 500px; top: 40%; right: 5%; opacity: 0;}
+        .swiper07 .textBox p {font-size: 30px; opacity: 0.8; margin-bottom: 0; line-height: 1;}
+        .swiper07 .swiper-slide.swiper-slide-active a {transform: rotate(0); transition: all 1s; width: 500px; height: 400px;}
+        .swiper07 .swiper-slide.swiper-slide-active .img {opacity: 0.9; width: 100%; height: 100%; transition: all 0.3s; overflow: hidden;}
+        .swiper07 .swiper-slide.swiper-slide-active .textBox {opacity: 1;}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!--========== HEADER ==========-->
+        <header id="header">
+            <h1 class="header-logo" style="display: block; width: 200px; margin: 30px auto;"><a href="/"><img src="../asset/img/logo.png" alt="Octopus_logo"><span class="hidden">Octopus</span></a></h1>
+        </header>
+
+        <!--========== CONTENTS ==========-->
+        <main id="main">
+            <section class="section sub-sec slide-sec">
+                <h2 class="sec-title">Slide Banner 레이아웃</h2>
+
+                <!-- swiper01 -->
+                <div class="swiper-container swiper01">
+                    <strong class="tit">Swiper01 : width 100% 메인 슬라이드 배너</strong>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지1"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지2"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지3"></figure></a></div>
+                    </div>
+                    <!-- nav -->
+                    <div class="swiper-nav">
+                        <div class="swiper-pagination"></div>
+                        <button class="common-btn swiper-btn-more" title="전체 배너리스트 팝업" onclick="modalPopup('#exPop')"><span>more</span></button>
+                        <button class="common-btn swiper-btn-prev" title="이전페이지"><span>prev</span></button>
+                        <button class="common-btn swiper-btn-next" title="다음페이지"><span>next</span></button>
+                        <button class="common-btn swiper-btn-pause" title="정지"><span>pause</span></button>
+                        <button class="common-btn swiper-btn-play" title="시작"><span>play</span></button>
+                    </div>
+                    <script>
+                        // 스와이퍼 옵션
+                        var mySwiper01 = new Swiper(".swiper01", {
+                            spaceBetween: 30,
+                            slidesPerView : 1,
+                            centeredSlides: true,
+                            loop : true,
+                            loopedSlides: 1,
+                            autoplay: {
+                                delay: 1000,
+                                disableOnlnteraction: false,
+                            },
+                            pagination: {
+                                el: ".swiper01 .swiper-pagination",
+                                type: 'custom',
+                                renderCustom: function (swiper, current, total) {
+                                    return '<span class="active">0' + current +'</span>' + '<span class="min-line"></span>' + '0' + (total);
+                                }
+                            },
+                            navigation: {
+                                nextEl: ".swiper01 .swiper-btn-next",
+                                prevEl: ".swiper01 .swiper-btn-prev",
+                            }
+                        });
+                        // 일시정지/시작 버튼
+                        $('.swiper01 .swiper-btn-pause').click(function(){
+                            mySwiper01.autoplay.stop();
+                            $('.swiper01 .swiper-nav').addClass('on');
+                        });
+                        $('.swiper01 .swiper-btn-play').click(function(){
+                            mySwiper01.autoplay.start();
+                            $('.swiper01 .swiper-nav').removeClass('on');
+                        });
+                    </script>
+                </div>
+                <div class="popup-wrap">
+                    <!-- nav의 swiper-btn-more 클릭 시 팝업 오픈 -->
+                    <div id="exPop" class="modal exPop">
+                        <div class="modal-wrap">
+                            <section class="modal-content">
+                                <div class="modal-tit-wrap">
+                                    <h3 class="modal-tit">팝업 예제</h3>
+                                </div>
+                                <div class="modal-cont-wrap">
+                                    <div class="scroll-wrap" style="height: 100px; overflow-y: auto;">
+                                        <p>팝업 예제입니다. <br>팝업 예제입니다. <br>팝업 예제입니다. <br>팝업 예제입니다. <br></p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-close-btn">
+                                    <a href="javascript:;" onclick="modalPopupClose('#exPop')" title="팝업창 닫기">팝업창 닫기</a>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- swiper02 -->
+                <div class="swiper-container swiper02">
+                    <strong class="tit">Swiper02 : 다수 슬라이드 배너, active만 opacity 조정</strong>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지1"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지2"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지3"></figure></a></div>
+                    </div>
+                    <button class="common-btn swiper-btn-prev" title="이전페이지"><span>prev</span></button>
+                    <button class="common-btn swiper-btn-next" title="다음페이지"><span>next</span></button>
+                    <script>
+                        var mySwiper02 = new Swiper(".swiper02", {
+                                slidesPerView : 3,
+                                spaceBetween: 30,
+                                centeredSlides: true,
+                                loop : true,
+                                autoplay: {
+                                    delay: 1000,
+                                    disableOnlnteraction: false,
+                                },
+                                navigation: {
+                                nextEl: ".swiper02 .swiper-btn-next",
+                                prevEl: ".swiper02 .swiper-btn-prev",
+                                }
+                            });
+                    </script>
+                </div>
+
+                <!-- swiper03 -->
+                <div class="swiper-container swiper03">
+                    <strong class="tit">Swiper03 : 좌우 mask 활용</strong>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지1"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지2"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지3"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지4"></figure></a></div>
+                    </div>
+                    <!-- nav -->
+                    <div class="swiper-nav">
+                        <div class="swiper-pagination"></div>
+                        <button class="common-btn swiper-btn-more" title="전체 배너리스트 팝업" onclick="modalPopup('#exPop')"><span>more</span></button>
+                        <button class="common-btn swiper-btn-pause" title="정지"><span>pause</span></button>
+                        <button class="common-btn swiper-btn-play" title="시작"><span>play</span></button>
+                    </div>
+                    <button class="common-btn swiper-btn-prev" title="이전페이지"><span>prev</span></button>
+                    <button class="common-btn swiper-btn-next" title="다음페이지"><span>next</span></button>
+                    <!-- mask -->
+                    <div class="swiper-mask mask-1"></div>
+                    <div class="swiper-mask mask-2"></div>
+                    <script>
+                        // 스와이퍼 옵션
+                        var mySwiper03 = new Swiper(".swiper03", {
+                            spaceBetween: 0,
+                            slidesPerView : 1,
+                            //slidesPerGroup : 1,
+                            centeredSlides: true,
+                            loop : true,
+                            loopedSlides: 1,
+                            autoplay: {
+                                delay: 1000,
+                                disableOnlnteraction: false,
+                            },
+                            pagination: {
+                                el: ".swiper03 .swiper-pagination",
+                                type: 'custom',
+                                renderCustom: function (swiper, current, total) {
+                                    return '<span class="active">0' + current +'</span>' + '<span class="min-line"></span>' + '0' + (total);
+                                }
+                            },
+                            navigation: {
+                                nextEl: ".swiper03 .swiper-btn-next",
+                                prevEl: ".swiper03 .swiper-btn-prev",
+                            }
+                        });
+                        // 일시정지/시작 버튼
+                        $('.swiper03 .swiper-btn-pause').click(function(){
+                            mySwiper03.autoplay.stop();
+                            $('.swiper03 .swiper-nav').addClass('on');
+                        });
+                        $('.swiper03 .swiper-btn-play').click(function(){
+                            mySwiper03.autoplay.start();
+                            $('.swiper03 .swiper-nav').removeClass('on');
+                        });
+                    </script>
+                </div>
+
+                <!-- swiper04 -->
+                <div class="swiper-container swiper04">
+                    <strong class="tit">Swiper04 : 탭st 페이지 버튼</strong>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지1"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지2"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지3"></figure></a></div>
+                        <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지4"></figure></a></div>
+                    </div>
+                    <!-- nav -->
+                    <div class="swiper-nav">
+                        <div class="swiper-pagination"></div>
+                        <button class="common-btn swiper-btn-more" title="전체 배너리스트 팝업" onclick="modalPopup('#exPop')"><span>more</span></button>
+                        <button class="common-btn swiper-btn-pause" title="정지"><span>pause</span></button>
+                        <button class="common-btn swiper-btn-play" title="시작"><span>play</span></button>
+                    </div>
+                    <script>
+                        // 스와이퍼 옵션
+                        var mySwiper04 = new Swiper(".swiper04", {
+                            spaceBetween: 30,
+                            slidesPerView : 1,
+                            centeredSlides: true,
+                            loop : true,
+                            loopedSlides: 1,
+                            autoplay: {
+                                delay: 1000,
+                                disableOnlnteraction: false,
+                            },
+                            pagination: {
+                                el: ".swiper-pagination",
+                                clickable : true,
+                            },
+                        });
+                        // 일시정지/시작 버튼
+                        $('.swiper04 .swiper-btn-pause').click(function(){
+                            mySwiper04.autoplay.stop();
+                            $('.swiper04 .swiper-nav').addClass('on');
+                        });
+                        $('.swiper04 .swiper-btn-play').click(function(){
+                            mySwiper04.autoplay.start();
+                            $('.swiper04 .swiper-nav').removeClass('on');
+                        });
+                    </script>
+                </div>
+
+                <!-- swiper05 -->
+                <div class="swiper-container swiper05">
+                    <strong class="tit">Swiper05 : swiper 2개 연동, 나란히 배치</strong>
+                    <div class="swiper-container swiper05a">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지1"></figure></a></div>
+                            <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지2"></figure></a></div>
+                            <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지3"></figure></a></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <div class="swiper-container swiper05b">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지1"></figure></a></div>
+                            <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지2"></figure></a></div>
+                            <div class="swiper-slide"><a href=""><figure><img src=".." alt="이미지3"></figure></a></div>
+                        </div>
+                    </div>
+                    <div class="swiper-nav">
+                        <div class="swiper-pagination"></div>
+                        <button class="common-btn swiper-btn-prev" title="이전페이지"><span>prev</span></button>
+                        <button class="common-btn swiper-btn-next" title="다음페이지"><span>next</span></button>
+                    </div>
+                    <script>
+                        var swiperTopNum = $('.swiper05a').find('.swiper-slide');
+                        var swiperSubNum = $('.swiper05b').find('.swiper05b');
+                
+                        var swiper05a = new Swiper('.swiper05a', {
+                            spaceBetween: 10,	//슬라이드 간격
+                            loop: true,	//슬라이드 반복
+                            loopedSlides: swiperTopNum.length	//loop 시 파라미터 duplicate 개수 - 정적으로 숫자 4 표현 가능
+                        });
+                
+                        var swiper05b = new Swiper('.swiper05b', {
+                            spaceBetween: 0,	//슬라이드 간격
+                            navigation: {	//네비게이션 사용자 설정
+                                nextEl: '.swiper05 .swiper-btn-next',	//다음 버튼 클래스 설정
+                                prevEl: '.swiper05 .swiper-btn-prev',	//이전 버튼 클래스 설정
+                            },
+                            pagination: {
+                                el: ".swiper05 .swiper-pagination",
+                                type: 'custom',
+                                renderCustom: function (swiper, current, total) {
+                                    return '<span class="active">0' + current +'</span>' + '<span class="min-line"></span>' + '0' + (total);
+                                }
+                            },
+                            centeredSlides: true,	//슬라이드 중앙 배치
+                            slidesPerView: 'auto',	//한번에 보여지는 슬라이드 개수(auto 가능)
+                            touchRatio: 0.2,	//드래그 비율 설정(기본값: 1, 기본값을 0으로 설정할 경우 드래그 불가능)
+                            slideToClickedSlide: true,	//슬라이드가 여러개 나열되어 있을 경우, 클릭 시 해당 슬라이드 위치로 이동
+                            loop: true,	//슬라이드 반복
+                            loopedSlides: swiperSubNum.length //loop 시 파라미터 duplicate 개수 - 정적으로 숫자 4 표현 가능
+                        });
+                        //서로를 제어
+                        swiper05a.controller.control = swiper05b;
+                        swiper05b.controller.control = swiper05a;
+                    </script>
+                </div>
+                
+                <!-- swiper06 -->
+                <div class="swiper-container swiper06">
+                    <strong class="tit">Swiper06 : swiper 2개 연동, 겹쳐서 배치</strong>
+                    <div class="swiper-container swiper06a">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="swiper-slide-container" style="background-color: tomato;">Slide 1</div></div>
+                            <div class="swiper-slide"><div class="swiper-slide-container" style="background-color: skyblue;">Slide 2</div></div>
+                            <div class="swiper-slide"><div class="swiper-slide-container" style="background-color: sandybrown;">Slide 3</div></div>
+                            <div class="swiper-slide"><div class="swiper-slide-container" style="background-color: seagreen;">Slide 4</div></div>
+                        </div>
+                    </div>
+                    <div class="swiper-container swiper06b">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="swiper-slide-container" style="background-color: skyblue;">Slide 2</div></div>
+                            <div class="swiper-slide"><div class="swiper-slide-container" style="background-color: sandybrown;">Slide 3</div></div>
+                            <div class="swiper-slide"><div class="swiper-slide-container" style="background-color: seagreen;">Slide 4</div></div>
+                            <div class="swiper-slide"><div class="swiper-slide-container" style="background-color: tomato;">Slide 1</div></div>
+                        </div>
+                    </div>
+                    <button class="common-btn swiper-btn-prev" title="이전페이지"><span>prev</span></button>
+                    <button class="common-btn swiper-btn-next" title="다음페이지"><span>next</span></button>
+                    <script>
+                        var swiperTopNum = $('.swiper06a').find('.swiper-slide');
+                        var swiperSubNum = $('.swiper06b').find('.swiper06b');
+                
+                        var swiper06a = new Swiper('.swiper06a', {
+                            spaceBetween: 80,	//슬라이드 간격
+                            slidesPerView: '4',
+                            loop: true,	//슬라이드 반복
+                            loopedSlides: swiperTopNum.length	//loop 시 파라미터 duplicate 개수 - 정적으로 숫자 4 표현 가능
+                        });
+                
+                        var swiper06b = new Swiper('.swiper06b', {
+                            spaceBetween: 0,	//슬라이드 간격
+                            navigation: {	//네비게이션 사용자 설정
+                                nextEl: '.swiper06 .swiper-btn-next',	//다음 버튼 클래스 설정
+                                prevEl: '.swiper06 .swiper-btn-prev',	//이전 버튼 클래스 설정
+                            },
+                            centeredSlides: false,	//슬라이드 중앙 배치
+                            slidesPerView: 'auto',	//한번에 보여지는 슬라이드 개수(auto 가능)
+                            //touchRatio: 0.2,	//드래그 비율 설정(기본값: 1, 기본값을 0으로 설정할 경우 드래그 불가능)
+                            slideToClickedSlide: true,	//슬라이드가 여러개 나열되어 있을 경우, 클릭 시 해당 슬라이드 위치로 이동
+                            loop: true,	//슬라이드 반복
+                            loopedSlides: 4, //loop 시 파라미터 duplicate 개수 - 정적으로 숫자 4 표현 가능
+                            effect: 'fade'
+                        });
+                        //서로를 제어
+                        swiper06a.controller.control = swiper06b;
+                        swiper06b.controller.control = swiper06a;
+                    </script>
+                </div>
+
+                <!-- swiper07 -->
+                <div class="swiper-container swiper07">
+                    <strong class="tit">Swiper07 : swiper parallax</strong>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img" data-swiper-parallax-y="70%"><img src=".." alt="이미지1"></div>
+                                <div class="textBox" data-swiper-parallax-x="-60%"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi delectus alias ab reiciendis velit veritatis doloribus!</p></div>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img" data-swiper-parallax-y="70%"><img src=".." alt="이미지2"></div>
+                                <div class="textBox" data-swiper-parallax-x="-60%"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi delectus alias ab reiciendis velit veritatis doloribus!</p></div>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img" data-swiper-parallax-y="70%"><img src=".." alt="이미지3"></div>
+                                <div class="textBox" data-swiper-parallax-x="-60%"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi delectus alias ab reiciendis velit veritatis doloribus!</p></div>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img" data-swiper-parallax-y="70%"><img src=".." alt="이미지4"></div>
+                                <div class="textBox" data-swiper-parallax-x="-60%"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi delectus alias ab reiciendis velit veritatis doloribus!</p></div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- nav -->
+                    <div class="swiper-nav">
+                        <div class="swiper-pagination"></div>
+                        <button class="common-btn swiper-btn-prev" title="이전페이지"><span>prev</span></button>
+                        <button class="common-btn swiper-btn-next" title="다음페이지"><span>next</span></button>
+                        <button class="common-btn swiper-btn-pause" title="정지"><span>pause</span></button>
+                        <button class="common-btn swiper-btn-play" title="시작"><span>play</span></button>
+                    </div>
+                    <script>
+                        // 스와이퍼 옵션
+                        var mySwiper07 = new Swiper(".swiper07", {
+                            direction: "horizontal",
+                            slidesPerView: 3,
+                            centeredSlides: true,
+                            loop : false,
+                            loopedSlides: 1,
+                            parallax: !0,
+                            paginationClickable: !0,
+                            spaceBetween: 0,
+                            speed: 800,
+                            autoplay: {
+                                delay: 2000, 
+                                disableOnInteraction: false,
+                            },
+                            pagination: {
+                                el: ".swiper-pagination",
+                                type: 'custom',
+                                renderCustom: function (swiper, current, total) {
+                                    return '<span class="active">0' + current +'</span>' + '<span class="min-line"></span>' + '0' + (total);
+                                }
+                            },
+                            navigation: {
+                                nextEl: ".swiper07 .swiper-btn-next",
+                                prevEl: ".swiper07 .swiper-btn-prev",
+                            }
+                        })
+                        // 일시정지/시작 버튼
+                        $('.swiper07 .swiper-btn-pause').click(function(){
+                            mySwiper07.autoplay.stop();
+                            $('.swiper07 .swiper-nav').addClass('on');
+                        });
+                        $('.swiper07 .swiper-btn-play').click(function(){
+                            mySwiper07.autoplay.start();
+                            $('.swiper07 .swiper-nav').removeClass('on');
+                        });
+                    </script>
+                </div>
+            </section>
+        </main>
+
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0"><span class="hidden">페이지 맨 위로</span></a>
+        </div>
+    </div>
+
+    
+</body>
+</html>

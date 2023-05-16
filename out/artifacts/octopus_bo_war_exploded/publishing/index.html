@@ -1,0 +1,648 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="No-Cache">
+<meta name="robots" content="noindex">
+<meta name="googlebot" content="noindex">
+<title>Octopus-Index</title>
+<meta name="viewport" content="width=1400,user-scalable=yes">
+<style type="text/css">
+*{font-size:14px; margin: 0; padding: 0;}
+table, th, td {padding:0;margin:0;border:0;border-spacing:0;border-collapse:collapse;font-size:14px}
+table.type1 thead th{height:20px;background:#fff}
+ul,li, ol{list-style:none}
+#header{position:relative;top:0;left:0;width:100%;color:#fff;background:#000;z-index:999}
+#header h1{padding:20px 0 16px;text-align:center;font-size:20px}
+#header .info{position:absolute;left:5px;top:0;line-height:1.4}
+#header .left{position:absolute;left:-2px;top:52px;z-index:1}
+#header .left li{float:left;}
+#header .left li a, #header .left li a span{font-size:14px;background:#4c7ed6}
+#header .left li a{display:inline-block;padding:3px 20px;color:#fff;}
+#header .left li.on a,
+#header .left li.on a span{color:#000;font-weight:bold;background:#fff}
+#header .right{position:absolute;top:12px;right:0}
+#header .right{vertical-align:middle}
+#header .right a{display:inline-block;width:25px;height:25px;line-height:25px;text-align:center;text-decoration:none;color:#fff;background:#555;border:1px solid #2a2a2a}
+#header .right a:hover{background:#fff;color:#000}
+#header table thead th{text-align:left}
+#header table .notice th{text-align:center;color:red;background:#fbfbfb}
+#header .notice {overflow:hidden;position:relative;height:65px;color:#000;background:#fff}
+#header .notice a {display:inline-block}
+#header .notice .icon {position:absolute;right:5px;top:5px;background:#fff}
+#header .notice .btn {position:absolute;right:180px;top:5px;background:#fff}
+#header .notice .btn a {display:inline-block;padding:1px 4px;color:#000;font-size:14px;border:1px solid #000;text-decoration:none}
+#contents{padding-top:135px;font-size:14px;}
+.tab-A {border-bottom:1px solid #eee}
+table {width:100%;table-layout:fixed;border-collapse:collapse}
+table tbody td {color:#000}
+table tbody td, table tbody th{text-align:left;padding:2px 8px;font-size:14px;border:1px solid #eee;background-color:#fbfbfb}
+table thead th {padding:4px 10px;font-weight:normal;color:#000;background:#fff;border:1px solid #eee}
+table tbody th {font-weight:normal;color:#000;}
+table th:first-child, table td:first-child,
+table th:nth-child(2), table td:nth-child(2) { font-weight: 700; }
+table tr.done th, table tr.done td { background-color: #eee; color: #999;}
+table tr.done a { color: #888;}
+table tr.done2 th, table tr.done2 td { background-color: #EEF3FF; color: #999;}
+table tr.done2 a { color: #888;}
+table tr.done3 th, table tr.done3 td { background-color: #f5f5f5; color: #aaa;}
+table tr.done3 a { color: #aaa;}
+table tr.complete th, table tr.complete td { background-color: #eb0d75; color: #fff;}
+table tr.complete a { color: #fff;}
+table a {color:#555;text-decoration:none;}
+table a:hover {text-decoration:underline;}
+table.type2 { margin-bottom: 24px; }
+table.type2 tbody td { color: #777; height: auto; padding: 6px 8px; font-weight: 700; }
+.i:before,
+.c:before,
+.c2:before,
+.c3:before,
+.h:before,
+.h2:before,
+.m:before,
+.r:before,
+.d:before,
+.manager:before {
+	content:"→";
+	background:#525252;
+	color:#fff;
+	padding:2px 4px;
+	text-align:center;
+	display:inline-block;
+	font-size:14px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
+.i:before {content:"진행중";background:#5b9ad5}
+.c:before {content:"완료";background:#eb0d75}
+.c2:before {content:"2차-완료";background:#FFE1D8; color: #FF6F24; font-weight: bold; border: 1px solid #FF6F24;}
+.c3:before {content:"1차개선완료";background:#fff; color: #666; font-weight: bold; border: 1px solid #666;}
+.h:before {content:"HTML완료";background:#555555}
+.h2:before {content:"디자인시안완료";background:#888888}
+.m:before {content:"수정";background:#615586;opacity:1;filter:alpha(opacity=100)}
+.r:before {content:"대기";background:#eeb147}
+.d:before {content:"보류";color:#999;background:#efefef}
+.manager:before {content:"관";color:#fff;background:lightseagreen;}
+/*.d {text-decoration:line-through;}*/
+.i, .c, .d, .r, .m {margin:0 2px;}
+.ing {display:inline-block;margin-right:10px;padding:0 3px;color:#fff;background:#5b9ad5;
+	-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;
+}
+.fc_d {color:#7566a4;}
+.date {display:block;color:#222;}
+.top-btn{position:fixed;bottom:0;right:0;z-index:999}
+.top-btn a{display:block;width:30px;height:24px;padding-top:6px;text-align:center;color:#fff;font-size:10px;background:#000}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		/* TOP Btn */
+		var currentPosition = parseInt($(".top-btn").css("top"));
+		$(window).scroll(function() {
+			var position = $(window).scrollTop();
+			$(".top-btn").stop().animate({"top":position+currentPosition+"px"},0);
+			if( $(this).scrollTop() > 200 ) {
+				$('.top-btn .top').fadeIn(0);
+			}
+			else {
+				$('.top-btn .top').fadeOut(0);
+			}
+		});
+		$('.top-btn .top').css('display','none');
+		$('.top-btn .top').click(function(){
+			$('html, body').animate({scrollTop:0}, 500 );
+			return false;
+		});
+	})
+</script>
+</head>
+
+<body>
+<div id="header">
+	<h1>OCTOPUS</h1>
+
+	<div class="notice">
+		<div class="icon">
+			<a href="#" class="i"></a>
+			<a href="#" class="c"></a>
+			<!-- <a href="#" class="c2"></a>
+			<a href="#" class="c3"></a> -->
+			<a href="#" class="h"></a>
+			<a href="#" class="h2"></a>
+			<a href="#" class="d"></a>
+			<a href="#" class="r"></a>
+			<a href="#" class="m"></a>
+		</div>
+	</div>
+
+</div>
+
+	<table class="type2">
+		<colgroup>
+			<col width="15%">
+			<col width="*">
+			<col width="10%">
+			<col width="10%">
+		</colgroup>
+		<!-- <tr>
+			<td>업데이트일</td>
+			<td>23-04-04</td>
+			<td>작성자</td>
+			<td>임혜린, 송지연</td>
+		</tr> -->
+		<tr>
+			<td>MEMO</td>
+			<td colspan="3">
+				<p></p>
+			</td>
+		</tr>
+	</table>
+
+	<hr />
+	<table class="type1">
+		<colgroup>
+			<col width="10%">
+			<col width="25%">
+			<col width="15%">
+			<col width="9%">
+			<col width="9%">
+			<col width="*">
+		</colgroup>
+		<thead>
+			<tr>
+				<th>depth1</th>
+				<th>depth2</th>
+				<th>FILE</th>
+				<th>완료여부</th>
+				<th>담당/완료일</th>
+				<th>기타</th>
+			</tr>
+			<tr>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- ==================================================== FRONT ==================================================== -->
+			<tr>
+				<td colspan="6" style="background:#062c5e; color: #fff;">OCTOPUS - Front</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">공통 요소</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>기본 레이아웃</td>
+				<td><a href="layout.html" target="_blank">layout.html</a></td>
+				<td class="ta_c"><span class="i"></span></td>
+				<td>임혜린</td>
+				<td></td>
+			</tr>
+            <!-- <tr>
+				<td></td>
+				<td>Header 01</td>
+				<td><a href="header01.html" target="_blank">header01.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>송지연/230323</td>
+				<td></td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>Header 02</td>
+				<td><a href="header02.html" target="_blank">header02.html</a></td>
+				<td class="ta_c"><span class="i"></span></td>
+				<td>임혜린</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Header 03</td>
+				<td><a href="header03.html" target="_blank">header03.html</a></td>
+				<td class="ta_c"><span class="i"></span></td>
+				<td>송지연</td>
+				<td>모바일 작업 필요</td>
+			</tr> -->
+            <tr>
+				<td></td>
+				<td>component</td>
+				<td><a href="component.html" target="_blank">component.html</a></td>
+				<td class="ta_c"><span class="i"></span></td>
+				<td>임혜린</td>
+				<td></td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>slide banner</td>
+				<td><a href="slide-banner.html" target="_blank">slide-banner.html</a></td>
+				<td class="ta_c"><span class="i"></span></td>
+				<td>송지연</td>
+				<td>메인배너(full, min-width), PRM배너, 상품 슬라이드 등 다양하게. swiper사용. 각 div로 구분해서 생성</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>slide banner</td>
+				<td><a href="slide-banner02.html" target="_blank">slide-banner02.html</a></td>
+				<td class="ta_c"><span class="i"></span></td>
+				<td>임혜린</td>
+				<td>어디서든 사용가능 한 swiper 예제들</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">메인</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>메인</td>
+				<td><a href="main.html" target="_blank">main.html</a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">회사(브랜드)소개</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>회사소개/브랜드스토리</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>연혁</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>보도자료</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>오시는길/매장안내/연락처</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">상품</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>상품 리스트</td>
+				<td><a href="prd_list.html" target="_blank">prd_list.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>230328</td>
+				<td>1열보기(mo,pc), 2열보기, 3열보기, 4열보기 각 div로 생성</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>상품 상세</td>
+				<td><a href="prd_detail.html" target="_blank">prd_detail.html</a></td>
+				<td class="ta_c"><span class="r"></span></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>상품 검색</td>
+				<td><a href="prd_search.html" target="_blank">prd_search.html</a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>전체 리뷰 리스트</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">이벤트</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>이벤트/프로모션</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td>종료된 이벤트 구분 필요</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>당첨자발표</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td>게시판 형태</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">주문/결제</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>장바구니</td>
+				<td><a href="cart.html" target="_blank">cart.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>송지연/230404</td>
+				<td>모바일 기획서 나오면 반응형으로 수정 필요</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>관심상품/최근본상품</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>결제</td>
+				<td><a href="pay.html" target="_blank">pay.html</a></td>
+				<td class="ta_c"><span class="i"></span></td>
+				<td>송지연/</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>결제(정기)</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>주문내역확인</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">마이페이지</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>쇼핑정보(주문/배송/취소/반품/교환 등)</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>혜택관리(쿠폰/포인트/회원등급)</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>회원정보 수정</td>
+				<td><a href="account_mod.html" target="_blank">account_mod.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td>화면설계서 나오면 수정 예정</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>회원 탈퇴</td>
+				<td><a href="withdrawal.html" target="_blank">withdrawal.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td>화면설계서 나오면 수정 예정</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">고객센터</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>고객센터</td>
+				<td><a href="cs_center.html" target="_blank">cs_center.html</a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>공지사항</td>
+				<td><a href="notice.html" target="_blank">notice.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td>이미지형식, 글형식 각 섹션으로 생성</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>공지사항 - 상세보기</td>
+				<td><a href="notice_view.html" target="_blank">notice_view.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td></td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>공지사항 - 등록</td>
+				<td><a href="notice_reg.html" target="_blank">notice_reg.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>FAQ</td>
+				<td><a href="faq.html" target="_blank">faq.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td>카테고리 탭 구분, 아코디언 메뉴(details/summary활용, script작성 두 가지 방법으로)</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>FAQ - 등록</td>
+				<td><a href="faq_reg.html" target="_blank">faq_reg.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>1:1문의(유선/게시판)</td>
+				<td><a href="inquiry.html" target="_blank">inquiry.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td></td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>1:1문의(유선/게시판) - 상세보기</td>
+				<td><a href="inquiry_view.html" target="_blank">inquiry_view.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td></td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>1:1문의(유선/게시판) - 등록</td>
+				<td><a href="inquiry_reg.html" target="_blank">inquiry_reg.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>임혜린</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>이벤트</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>매장안내</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<!-- <tr>
+				<td></td>
+				<td>상담톡/챗봇</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr> -->
+			<!-- <tr>
+				<td></td>
+				<td>푸터(약관 및 이용안내 관련)</td>
+				<td><a href="" target="_blank"></a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td>글 형식</td>
+			</tr> -->
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">로그인/회원가입 access</td>
+			</tr>
+            <tr>
+				<td></td>
+				<td>로그인</td>
+				<td><a href="login.html" target="_blank">login.html</a></td>
+				<td class="ta_c"><span class="c"></span></td>
+				<td>임혜린/230418</td>
+				<td>시안 수정 시 추가 작업</td>
+			</tr>
+            <!-- <tr>
+				<td></td>
+				<td>로그인 마크업</td>
+				<td><a href="markup/login_markup.html" target="_blank">login_markup.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>송지연/230323</td>
+				<td></td>
+			</tr> -->
+			<tr>
+				<td></td>
+				<td>회원가입</td>
+				<td><a href="signup.html" target="_blank">signup.html</a></td>
+				<td class="ta_c"><span class="c"></span></td>
+				<td>임혜린/230418</td>
+				<td>시안 수정 시 추가 작업</td>
+			</tr>
+			<!-- <tr>
+				<td></td>
+				<td>회원가입 마크업</td>
+				<td><a href="markup/signup_markup.html" target="_blank">signup_markup.html</a></td>
+				<td class="ta_c"><span class="h"></span></td>
+				<td>송지연/230323</td>
+				<td></td>
+			</tr> -->
+			<tr>
+				<td></td>
+				<td>아이디 찾기</td>
+				<td><a href="find_id.html" target="_blank">find_id.html</a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>패스워드 찾기</td>
+				<td><a href="find_pw.html" target="_blank">find_pw.html</a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+            <tr>
+				<td colspan="6">&nbsp;</td>
+			</tr>
+			<!-- ==================================================== BACK ==================================================== -->
+            <tr>
+				<td colspan="6" style="background:#062c5e; color: #fff;">OCTOPUS - Admin</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">홈</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>login</td>
+				<td><a href="admin/login.html" target="_blank">login.html</a></td>
+				<td class="ta_c"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>layout</td>
+				<td><a href="admin/layout.html" target="_blank">layout.html</a></td>
+				<td class="ta_c"><span class="i"></span></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">주문관리</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">상품관리</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">고객관리</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">디자인관리</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">이벤트/프로모션관리</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">게시판관리</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">통계</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background:#c9d9ff; color: #062c5e;">쇼핑몰 기본설정 관리</td>
+			</tr>
+            <tr>
+				<td colspan="6">&nbsp;</td>
+			</tr>
+		</tbody>
+	</table>
+	<br />
+	<br />
+	<br />
+	<br />
+<hr />
+<div class="top-btn"><a href="#top" class="top">▲</a></div>
+</body>
+</html>

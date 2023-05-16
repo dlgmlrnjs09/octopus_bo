@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../asset/css/common.css">
+    <script src="../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../asset/js/prefixfree.min.js"></script>
+    <title>Octopus-inquiry</title>
+</head>
+<body>
+    <div id="container" style="width:90%; margin: 0 auto;">
+        <!--========== HEADER ==========-->
+        <header id="header">
+            <h1 class="header-logo" style="display: block; width: 200px; margin: 30px auto;"><a href="/"><img src="../asset/img/logo.png" alt="Octopus_logo"><span class="hidden">Octopus</span></a></h1>
+        </header>
+
+        <!--========== CONTENTS ==========-->
+        <main id="main" class="page-inquiry-reg">
+            <section class="section board-sec board-reg-sec inquiry-reg-sec">
+                <div class="board-inner">
+                    <div class="tit-wrap board inquiry">
+                        <h2 class="sec-title">inquiry</h2>
+                    </div>
+                    <div class="board-wrap inquiry-wrap inquiry-reg-wrap">
+                        <ul class="board-reg-table inquiry-reg-table">
+                            <li>
+                                <div class="board-reg-tit inquiry-reg-tit">
+                                    <p>문의유형</p>
+                                </div>
+                                <div class="basic-select-box board-reg-box">
+                                    <select>
+                                        <option value="선택하세요" selected hidden>선택하세요</option>
+                                        <option value="회원">회원</option>
+                                        <option value="쿠폰/혜택/이벤트">쿠폰/혜택/이벤트</option>
+                                        <option value="주문/결제">주문/결제</option>
+                                        <option value="배송">배송</option>
+                                        <option value="취소/반품/교환">취소/반품/교환</option>
+                                        <option value="기타">기타</option>
+                                    </select>
+                                    <span class="border-focus"><i></i></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="board-reg-tit inquiry-reg-tit">
+                                    <p>문의내용</p>
+                                </div>
+                                <!-- textarea or editor -->
+                                <div class="board-reg-box board-reg-text">
+                                    <div class="textarea-box">
+                                        <textarea placeholder="게시물 답변을 입력하세요."></textarea>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                </div>
+                                <div class="board-reg-box board-reg-text">
+                                    <div class="editor-area" style="height: 300px; background-color: #ddd; font-size: 24px; display: flex; justify-content: center; align-items: center;">SMART EDITOR</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="board-reg-tit inquiry-reg-tit">
+                                    <p>첨부파일</p>
+                                </div>
+                                <div class="board-reg-box board-reg-file upload-file">
+                                    <div>
+                                        <input type="file" id="upload-file" multiple="">
+                                        <label for="upload-file" class="common-btn"><span>찾아보기</span></label>
+                                    </div>
+                                    <div class="file-list"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="board-bottom-wrap" style="display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center; ">
+                        <div class="blank"></div>
+                        <div class="btn-wrap">
+                            <button class="common-btn" onclick="location.href='inquiry.html'"><span>취소</span></button>
+                            <button class="common-btn" onclick="location.href='#'"><span>등록</span></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0" title="선택적 제목">페이지 맨 위로</a>
+        </div>
+    </div>
+    <script src="../asset/js/basic.js"></script>
+</body>
+</html>
