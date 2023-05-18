@@ -7,10 +7,17 @@
     <title>Octopus</title>
 </head>
 <body>
-<div id="container" style="width:90%; margin: 0 auto;">
-    <tiles:insertAttribute name="header"/>
-    <tiles:insertAttribute name="body"/>
-    <tiles:insertAttribute name="footer"/>
-</div>
+    <div id="container" class="admin">
+        <div class="head-area">
+            <tiles:insertAttribute name="header"/>
+        </div>
+        <main id="main">
+            <section class="section main-sec 해당영역을 나타내는 클래스-sec">
+                <tiles:insertAttribute name="body"/>
+                <div class="blank" style="height: 150vh;"></div>
+            </section>
+        </main>
+        <tiles:insertAttribute name="footer"/>
+    </div>
 </body>
 </html>
