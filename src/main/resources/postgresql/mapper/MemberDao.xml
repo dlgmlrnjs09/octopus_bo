@@ -20,11 +20,11 @@
         </if>
 
         <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
-            AND reg_dt <![CDATA[>=]]> #{startDate}
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp
         </if>
 
         <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
-            AND reg_dt <![CDATA[<=]]> #{endReg}
+            AND reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
         </if>
 
         <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">

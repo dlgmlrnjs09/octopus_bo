@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/include/common_taglib.jsp" %>
-<html>
-<body>
 <table id="dataTable" class="common-table" style="width:100%;">
     <caption class="hidden">회원 조회 테이블</caption>
     <!-- colgroup 대신 css로 적용 -->
@@ -19,7 +17,7 @@
     <c:choose>
         <c:when test="${fn:length(memberList) == 0}">
             <tr>
-                <td colspan="5">조회 결과가 없습니다.</td>
+                <td colspan="6" style="text-align: center;">조회 결과가 없습니다.</td>
             </tr>
         </c:when>
         <c:otherwise>
@@ -39,16 +37,24 @@
     </tbody>
 </table>
 <!--페이징-->
-<div class="pagination-wrap">
-    <button class="pagination-btn first" title="첫 페이지" onclick="getUserList(1)">첫 페이지</button>
-    <button class="pagination-btn prev" title="이전 페이지" onclick="getUserList(${(pagingModel.curPage - 1) < 1 ? 1 : pagingModel.curPage - 1})">이전 페이지</button>
-    <ul class="pagination-list">
-        <c:forEach var="i" begin="${pagingModel.startPage}" end="${pagingModel.endPage}" step="1">
-            <li class="<c:if test='${pagingModel.curPage eq i}'>current</c:if>"><button onclick="getUserList(${i})">${i}</button></li>
-        </c:forEach>
-    </ul>
-    <button class="pagination-btn next" title="다음 페이지" onclick="getUserList(${(pagingModel.curPage + 1) > pagingModel.endPage ? pagingModel.endPage : pagingModel.curPage + 1})">다음 페이지</button>
-    <button class="pagination-btn last" title="마지막 페이지" onclick="getUserList(${pagingModel.endPage})">마지막 페이지</button>
+<div style="margin-top: 20px;">
+    <div class="pagination-wrap">
+        <button class="pagination-btn first" title="첫 페이지" onclick="getUserList(1)">첫 페이지</button>
+        <button class="pagination-btn prev" title="이전 페이지" onclick="getUserList(${(pagingModel.curPage - 1) < 1 ? 1 : pagingModel.curPage - 1})">이전 페이지</button>
+        <ul class="pagination-list">
+            <c:choose>
+                <c:when test="${fn:length(memberList) == 0}">
+                    <li class="current"><button onclick="getUserList(1)">1</button></li>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="i" begin="${pagingModel.startPage}" end="${pagingModel.endPage}" step="1">
+                        <li class="<c:if test='${pagingModel.curPage eq i}'>current</c:if>"><button onclick="getUserList(${i})">${i}</button></li>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+
+        </ul>
+        <button class="pagination-btn next" title="다음 페이지" onclick="getUserList(${(pagingModel.curPage + 1) > pagingModel.endPage ? pagingModel.endPage : pagingModel.curPage + 1})">다음 페이지</button>
+        <button class="pagination-btn last" title="마지막 페이지" onclick="getUserList(${pagingModel.endPage})">마지막 페이지</button>
+    </div>
 </div>
-</body>
-</html>

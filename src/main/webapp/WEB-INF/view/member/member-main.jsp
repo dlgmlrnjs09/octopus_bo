@@ -32,7 +32,14 @@
             let searchType = $("#searchType").val();
             let searchKeyword = $("#searchKeyword").val();
 
-            console.log(startDate,endDate,searchType,searchKeyword);
+            let sDate = new Date(startDate);
+            let eDate = new Date(endDate);
+
+            if(sDate > eDate) {
+                alert("시작 날짜가 종료 날짜보다 클 수 없습니다.");
+                $("#startReg").val(endDate);
+                return false;
+            }
 
             let params = {
                 'curPage' : (page) ? page : '1',
@@ -48,18 +55,10 @@
                 dataType:"html",
                 data : params,
                 success : function(data){
-                    let member = data.split('<!--페이징-->')[0];
-                    let paging = data.split('<!--페이징-->')[1];
-
-                    console.log(paging);
-
                     // 초기화
                     $("#dataTable").empty();
-                    $("#pagingDiv").empty();
 
-                    $("#dataTable").html(member);
-                    $("#pagingDiv").html(paging);
-
+                    $("#dataTable").html(data);
                 }
             });
         }
@@ -70,22 +69,66 @@
                 getUserList(1);
             });
 
-            $('#startReg').datepicker();
-            $('#endReg').datepicker();
+            $("#searchKeyword").on("keyup",function(key){
+                if(key.keyCode==13) {
+                    getUserList(1);
+                }
+            });
+
+            $('#startReg').datepicker({
+                onSelect: function (selectDate) {
+                    let orgEndDate = $('#endReg').val();
+                    if (orgEndDate !== '' && orgEndDate != null) {
+                        let endDate = new Date($('#endReg').val());
+                        endDate.setMonth(endDate.getMonth() - 3);
+                        if (!isSameDate(new Date(selectDate), endDate)) {
+                            if (!(new Date(selectDate) >= endDate)) {
+                                alert('날짜의 범위는 3개월을 초과할 수 없습니다.');
+                                $('#startReg').datepicker('setDate', endDate).datepicker('fill');
+                                return false;
+                            }
+                        }
+                    }
+                }
+            });
+            $("#endReg").datepicker({
+                onSelect : function (selectDate) {
+                    let orgStartDate = $('#startReg').val();
+                    if (orgStartDate !== '' && orgStartDate != null) {
+                        let startDate = new Date($('#startReg').val());
+                        startDate.setMonth(startDate.getMonth() + 3);
+                        if (!isSameDate(new Date(selectDate), startDate)) {
+                            if (!(new Date(selectDate) < startDate)) {
+                                alert('날짜의 범위는 3개월을 초과할 수 없습니다.');
+                                $('#endReg').datepicker('setDate', startDate);
+                                return false;
+                            }
+                        }
+                    }
+                }
+            });
+
+            const isSameDate = (date1, date2) => {
+                return date1.getFullYear() === date2.getFullYear()
+                    && date1.getMonth() === date2.getMonth()
+                    && date1.getDate() === date2.getDate();
+            };
 
             getUserList();
         });
+
+
 
     </script>
 
     <!--========== CONTENTS ==========-->
     <main id="main" class="page-home">
-        <section class="component-sec component-sec00" style="margin-top: 20px;">
-            <div class="tit-wrap member-main">
+        <div class="home-section-wrap">
+            <div>
                 <h2 class="sec-title">회원 관리</h2>
                 <p class="txt">회원 정보 상세조회</p>
             </div>
-        </section>
+        </div>
         <div class="home-section-wrap">
             <section class="section home-sec notice-sec">
                 <table class="common-table" summary="검색" style="width:100%;">
@@ -123,10 +166,6 @@
         <div class="home-section-wrap">
             <section class="section home-sec notice-sec">
                 <div id="dataTable">
-                </div>
-                <div style="margin-top: 20px;">
-                    <div id="pagingDiv" class="pagination-wrap">
-                    </div>
                 </div>
             </section>
         </div>
