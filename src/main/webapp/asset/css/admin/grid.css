@@ -1,0 +1,62 @@
+.common-table th, td {
+    padding: 6px 15px !important;
+}
+
+.common-table th {
+    background: #69649c;
+    color: #fff;
+    text-align: left;
+}
+
+.common-table tr:first-child th:first-child {
+    border-top-left-radius: 6px;
+}
+
+.common-table tr:first-child th:last-child {
+    border-top-right-radius: 6px;
+}
+
+.common-table td {
+    border-right: 1px solid #c6c9cc !important;
+    border-bottom: 1px solid #c6c9cc !important;
+    cursor: pointer;
+}
+
+.common-table td:first-child {
+    border-left: 1px solid #c6c9cc;
+}
+
+.common-table tr:nth-child(even) td {
+    background: #f3f3f9;
+}
+
+.common-table tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+.common-table tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+input {
+    height: 30px;
+    padding: 8px 14px;
+    border: 1px solid var(--grayscale-color07) !important;
+    border-radius: 4px !important;
+    font-size: var(--main-text-size);
+    color: var(--grayscale-color04);
+}
+
+select {
+    width: 100px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 4px !important;
+    font-size: var(--main-text-size);
+    color: var(--grayscale-color04);
+    border: 1px solid var(--grayscale-color07) !important;
+}
+
+select::-ms-expand {
+    display: block;
+}

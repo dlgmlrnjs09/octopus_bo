@@ -350,53 +350,13 @@
                     <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>회원 관리</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>회원 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu02"><a href="#none"><span>회원 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>회원 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>회원 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>회원 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>회원 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
+                    <li class="menu menu01"><a href="/member/main"><span>회원 조회</span></a>
+<%--                        <ul class="menu-3depth">--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                        </ul>--%>
                     </li>
                 </ul>
             </nav>

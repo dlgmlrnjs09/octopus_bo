@@ -221,7 +221,7 @@ public class PagingModel {
     public static PagingModel getPagingModel(String curPage, String pageSize, int totalCnt) {
         int currPage = CommonUtil.isEmpty(curPage) ? 1 : Integer.parseInt(curPage);
         int pgSize = CommonUtil.isEmpty(pageSize) ? 10 : Integer.parseInt(pageSize);
-        return new PagingModel(totalCnt, totalCnt <= 10 ? 1 : currPage, pgSize);
+        return new PagingModel(totalCnt, totalCnt <= pgSize ? 1 : currPage, pgSize);
     }
 
     /**

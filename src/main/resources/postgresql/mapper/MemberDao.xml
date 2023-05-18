@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.main.dao.MemberDao">
+
+    <!-- 기본 where절 -->
+    <sql id="defaultWhere">
+        <if test="searchKeyword != null and searchKeyword !=''">
+            <if test="searchType == 'memberId' ">
+                AND UPPER(member_id) LIKE '%'||UPPER(#{searchKeyword})||'%'
+            </if>
+            <if test="searchType == 'memberNm' ">
+                AND UPPER(member_nm) LIKE '%'||UPPER(#{searchKeyword})||'%'
+            </if>
+            <if test="searchType == 'memberEmail' ">
+                AND UPPER(member_email_full) LIKE '%'||UPPER(#{searchKeyword})||'%'
+            </if>
+        </if>
+
+        <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
+            AND reg_dt <![CDATA[>=]]> #{startDate}
+        </if>
+
+        <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
+            AND reg_dt <![CDATA[<=]]> #{endReg}
+        </if>
+
+        <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+        </if>
+    </sql>
+
+    <select id="selectUserCount" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            octopus.member_info
+        WHERE
+            1=1
+        <include refid="defaultWhere"/>
+    </select>
+
+    <select id="selectUserList" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+        SELECT
+            A.*
+        FROM
+            (SELECT
+                member_id AS memberId,
+                member_nm AS memberNm,
+                member_phone1 AS memberPhone1,
+                member_phone2 AS memberPhone2,
+                member_phone3 AS memberPhone3,
+                member_birth AS memberBirth,
+                member_addr1 AS memberAddr1,
+                member_addr2 AS memberAddr2,
+                member_addr_detail AS memberAddrDetail,
+                member_zip_code AS memberZipCode,
+                member_email_id AS memberEmailId,
+                member_email_domain AS memberEmailDomain,
+                member_email_full AS memberEmailFull,
+                TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+            FROM
+                octopus.member_info
+            WHERE
+                1=1
+            <include refid="defaultWhere"/>
+            ORDER BY
+                memberId DESC) A
+        LIMIT
+            #{pagingModel.pageSize}
+        OFFSET
+            (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+</mapper>
