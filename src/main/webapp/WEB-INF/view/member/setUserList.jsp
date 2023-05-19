@@ -5,6 +5,12 @@
     <!-- colgroup 대신 css로 적용 -->
     <thead style="font-weight:bold;">
     <tr>
+        <th style="text-align: center;">
+            <div class="basic-check-box all-check-box">
+                <input type="checkbox" name="selectAll" id="selectAll" tabindex="-1">
+                <label for="selectAll" tabindex="0"></label>
+            </div>
+        </th>
         <th>번호</th>
         <th>회원 아이디</th>
         <th>회원 이름</th>
@@ -17,19 +23,25 @@
     <c:choose>
         <c:when test="${fn:length(memberList) == 0}">
             <tr>
-                <td colspan="6" style="text-align: center;">조회 결과가 없습니다.</td>
+                <td colspan="7" style="text-align: center;">조회 결과가 없습니다.</td>
             </tr>
         </c:when>
         <c:otherwise>
             <c:forEach var="member" items="${memberList}" varStatus="status">
                 <tr>
                     <!-- 총 개수 - ( ((현재페이지 - 1) * 화면당 게시글 로우행 수) + 로우인덱스) -->
-                    <td>${pagingModel.listCnt - (((pagingModel.curPage - 1) * pagingModel.pageSize) + status.index)}</td>
-                    <td>${member.memberId}</td>
-                    <td>${member.memberNm}</td>
-                    <td>${member.memberPhone1}-${member.memberPhone2}-${member.memberPhone3}</td>
-                    <td>${member.memberEmailFull}</td>
-                    <td>${member.regDt}</td>
+                    <td style="text-align: center; cursor: default;">
+                        <div class="basic-check-box">
+                            <input type="checkbox" name="select" id="chk_${member.memberSeq}" tabindex="-1" class="chkgroup">
+                            <label for="chk_${member.memberSeq}" tabindex="0"></label>
+                        </div>
+                    </td>
+                    <td class="memberData" data-seq="${member.memberSeq}">${pagingModel.listCnt - (((pagingModel.curPage - 1) * pagingModel.pageSize) + status.index)}</td>
+                    <td class="memberData" data-seq="${member.memberSeq}">${member.memberId}</td>
+                    <td class="memberData" data-seq="${member.memberSeq}">${member.memberNm}</td>
+                    <td class="memberData" data-seq="${member.memberSeq}">${member.memberPhoneFull}</td>
+                    <td class="memberData" data-seq="${member.memberSeq}">${member.memberEmailFull}</td>
+                    <td class="memberData" data-seq="${member.memberSeq}">${member.regDt}</td>
                 </tr>
             </c:forEach>
         </c:otherwise>
@@ -57,4 +69,8 @@
         <button class="pagination-btn next" title="다음 페이지" onclick="getUserList(${(pagingModel.curPage + 1) > pagingModel.endPage ? pagingModel.endPage : pagingModel.curPage + 1})">다음 페이지</button>
         <button class="pagination-btn last" title="마지막 페이지" onclick="getUserList(${pagingModel.endPage})">마지막 페이지</button>
     </div>
+</div>
+<div style="margin-top: 20px; float: right;">
+    <button type="button" id="excelMemberUpload" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" aria-label="title"><span>엑셀 일괄 등록</span></button>
+    <button type="button" id="excelMemberDownload" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>엑셀 다운로드</span></button>
 </div>

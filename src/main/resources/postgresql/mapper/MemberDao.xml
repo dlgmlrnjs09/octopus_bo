@@ -47,11 +47,10 @@
             A.*
         FROM
             (SELECT
+                member_seq AS memberSeq,
                 member_id AS memberId,
                 member_nm AS memberNm,
-                member_phone1 AS memberPhone1,
-                member_phone2 AS memberPhone2,
-                member_phone3 AS memberPhone3,
+                member_phone1 || '-' || member_phone2 || '-' || member_phone3 AS memberPhoneFull,
                 member_birth AS memberBirth,
                 member_addr1 AS memberAddr1,
                 member_addr2 AS memberAddr2,
@@ -60,6 +59,7 @@
                 member_email_id AS memberEmailId,
                 member_email_domain AS memberEmailDomain,
                 member_email_full AS memberEmailFull,
+                member_role AS memberRole,
                 TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
             FROM
                 octopus.member_info
@@ -73,4 +73,62 @@
         OFFSET
             (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
     </select>
+
+    <select id="getMemberDetail" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+        SELECT
+                member_seq AS memberSeq,
+                member_id AS memberId,
+                member_nm AS memberNm,
+                member_phone1 AS memberPhone1,
+                member_phone2 AS memberPhone2,
+                member_phone3 AS memberPhone3,
+                TO_CHAR(TO_DATE(member_birth, 'YYYYMMDD'), 'YYYY/MM/DD') AS memberBirth,
+                member_addr1 || ' ' || member_addr2 || ' ' || member_addr_detail AS memberAddrDetail,
+                member_zip_code AS memberZipCode,
+                member_email_id AS memberEmailId,
+                member_email_domain AS memberEmailDomain,
+                member_email_full AS memberEmailFull,
+                member_role AS memberRole,
+                TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+        FROM
+            octopus.member_info
+        WHERE
+            member_seq = #{memberSeq}
+    </select>
+
+    <update id="updateMember" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+        UPDATE
+            octopus.member_info
+        SET
+            member_nm = #{memberNm},
+            member_phone1 = #{memberPhone1},
+            member_phone2 = #{memberPhone2},
+            member_phone3 = #{memberPhone3},
+            <if test="memberZipCode != null and memberZipCode != '' and memberAddr1 != null and memberAddr1 != ''">
+                member_zip_code = #{memberZipCode},
+                member_addr1 = #{memberAddr1},
+                member_addr2 = #{memberAddr2},
+                member_addr_detail = #{memberAddrDetail},
+            </if>
+            <if test="memberRole != null and memberRole != ''">
+                member_role = #{memberRole},
+            </if>
+            member_email_id = #{memberEmailId},
+            member_email_domain = #{memberEmailDomain},
+            member_email_full = #{memberEmailFull}
+        WHERE
+            member_seq = #{memberSeq}
+    </update>
+
+    <update id="updateMemberRole" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+        UPDATE
+            octopus.member_info
+        SET
+        <if test="memberRole != null and memberRole != ''">
+            member_role = #{memberRole}
+        </if>
+        WHERE
+            member_seq = #{memberSeq}
+    </update>
+
 </mapper>

@@ -2,7 +2,10 @@ package com.weaverloft.octopus.basic.common.util;
 
 import org.apache.commons.lang.RandomStringUtils;
 
+import java.util.Arrays;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author note-gram-015
@@ -83,5 +86,100 @@ public class CommonUtil {
     */
     public static String createNumberSecureKey() {
         return RandomStringUtils.randomNumeric(6);
+    }
+
+    /**
+     *  @brief 개인정보 마스킹(성명)
+     *  @date 2023-05-19
+     *  @return String(마스킹 값)
+     *  @param
+     */
+    public static String maskingName(String name) {
+        int maskingCount = 0;
+        String masking = "";
+        String splitName = "";
+        name = name.trim();
+
+        if (!CommonUtil.isEmpty(name)) {
+            String trimName = name.trim().replaceAll(" ", "");
+            String firstName = name.substring(0, 1);
+            String lastName = name.substring(trimName.length() - 1);
+
+            // 내국인
+            if (Pattern.matches("^[ㄱ-ㅎ가-힣]*$", trimName)) {
+                // 외자
+                if (trimName.length() == 2) {
+                    name = firstName + "*";
+                } else {
+                    maskingCount = name.length() - 2;
+
+                    for (int i = 0; i < maskingCount; i++) {
+                        masking += "*";
+                    }
+                    name = firstName + masking + lastName;
+                }
+
+            } else {
+                // 외국인 (5번째부터 마스킹)
+                if (name.length() >= 5) {
+                    splitName = name.substring(0, 4);
+                    maskingCount = name.length() - splitName.length();
+                    for (int i = 0; i < maskingCount; i++) {
+                        masking += "*";
+                    }
+                    name = splitName + masking;
+                }
+            }
+        }
+
+        return name;
+
+    }
+
+    /**
+     *  @brief 개인정보 마스킹(주소)
+     *  @date 2023-05-19
+     *  @return String(마스킹 값)
+     *  @param
+     */
+    //주소 숫자만 마스킹
+    public static String maskingAddr(String addr) {
+
+        String result = "";
+        addr = addr.trim();
+
+        if (!CommonUtil.isEmpty(addr)) {
+            result = addr.replaceAll("[0-9]", "*");
+        }
+
+        return result;
+    }
+
+    /**
+     *  @brief 개인정보 마스킹(전화번호)
+     *  @date 2023-05-19
+     *  @return String(마스킹 값)
+     *  @param
+     */
+    // 가운데 숫자 4자리 마스킹 '-'의 여부 상관없이 마스킹 처리
+    public static String maskingPhone(String userPhone) {
+
+        userPhone = userPhone.trim();
+
+        if(!CommonUtil.isEmpty(userPhone)) {
+            String regex = "(\\d{2,3})-?(\\d{3,4})-?(\\d{4})$";
+
+            Matcher matcher = Pattern.compile(regex).matcher(userPhone);
+            if(matcher.find()) {
+                String target = matcher.group(2);
+                int length = target.length();
+                char[] c = new char[length];
+                Arrays.fill(c, '*');
+
+                return userPhone.replace(target, String.valueOf(c));
+            }
+        }
+
+        return userPhone;
     }
 }

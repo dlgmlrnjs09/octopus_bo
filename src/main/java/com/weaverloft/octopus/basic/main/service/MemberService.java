@@ -16,4 +16,10 @@ public interface MemberService {
     int selectUserCount(MemberVo memberVo);
 
     List<MemberVo> selectUserList(MemberVo memberVo);
+
+    MemberVo getMemberDetail(MemberVo memberVo);
+
+    int updateMember(MemberVo memberVo);
+
+    int updateMemberRole(MemberVo memberVo);
 }

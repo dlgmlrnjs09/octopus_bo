@@ -1,11 +1,13 @@
 package com.weaverloft.octopus.basic.main.vo;
 
 public class MemberVo extends PagingVo{
+    private int memberSeq;
     private String memberId;
     private String memberNm;
     private String memberPhone1;
     private String memberPhone2;
     private String memberPhone3;
+    private String memberPhoneFull;
     private String memberBirth;
     private String memberAddr1;
     private String memberAddr2;
@@ -14,11 +16,37 @@ public class MemberVo extends PagingVo{
     private String memberEmailId;
     private String memberEmailDomain;
     private String memberEmailFull;
+    private String memberRole;
+    private String memberRoleName;
     private String regDt;
     private String startDate;
     private String endDate;
     private String searchType;
     private String searchKeyword;
+
+    public String getMemberRole() {
+        return memberRole;
+    }
+
+    public void setMemberRole(String memberRole) {
+        this.memberRole = memberRole;
+    }
+
+    public String getMemberRoleName() {
+        return memberRoleName;
+    }
+
+    public void setMemberRoleName(String memberRoleName) {
+        this.memberRoleName = memberRoleName;
+    }
+
+    public int getMemberSeq() {
+        return memberSeq;
+    }
+
+    public void setMemberSeq(int memberSeq) {
+        this.memberSeq = memberSeq;
+    }
 
     public String getStartDate() {
         return startDate;
@@ -90,6 +118,14 @@ public class MemberVo extends PagingVo{
 
     public void setMemberPhone3(String memberPhone3) {
         this.memberPhone3 = memberPhone3;
+    }
+
+    public String getMemberPhoneFull() {
+        return memberPhoneFull;
+    }
+
+    public void setMemberPhoneFull(String memberPhoneFull) {
+        this.memberPhoneFull = memberPhoneFull;
     }
 
     public String getMemberBirth() {
