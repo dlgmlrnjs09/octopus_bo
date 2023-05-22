@@ -63,6 +63,23 @@
             });
         }
 
+        $(document).on("click", ".memberData", function() {
+            let seq = $(this).data("seq")
+            window.location.href = "/member/member-detail?memberSeq=" + seq;
+        });
+
+        $(document).on("click", "#excelMemberDownload", function() {
+            let dataList = [];
+
+            $("input:checkbox[name='select']").each(function() {
+               if($(this).is(":checked") == true) {
+                    dataList.push({'memberSeq' : $(this).attr("id").split("_")[1]});
+               }
+            });
+
+            console.log(dataList);
+        });
+
         $(document).ready(function() {
             //검색 버튼
             $("#searchBtn").click(function() {
@@ -91,6 +108,7 @@
                     }
                 }
             });
+
             $("#endReg").datepicker({
                 onSelect : function (selectDate) {
                     let orgStartDate = $('#startReg').val();
@@ -126,7 +144,7 @@
         <div class="home-section-wrap">
             <div>
                 <h2 class="sec-title">회원 관리</h2>
-                <p class="txt">회원 정보 상세조회</p>
+                <p class="txt">회원 리스트 조회</p>
             </div>
         </div>
         <div class="home-section-wrap">
@@ -145,18 +163,19 @@
                     <tr>
                         <th scope="row" style="border-bottom-left-radius: 6px;"><em>검색어</em></th>
                         <td style="cursor: default;">
-                            <div class="field">
+                            <div class="basic-select-box" style="width: 10%; display: inline-block;">
                                 <select id="searchType" name="searchType" style="">
                                     <option value="memberId">아이디</option>
                                     <option value="memberNm">이름</option>
                                     <option value="memberEmail">이메일</option>
                                 </select>
-                                <input type="text" id="searchKeyword" placeholder="검색어를 입력하세요.">
                                 <span class="border-focus"><i></i></span>
-                                <button type="button" class="search-btn" id="searchBtn">
-                                    <img src="../../asset/img/admin/icon-search.svg" alt="검색하기">
-                                </button>
                             </div>
+                            <input type="text" id="searchKeyword" placeholder="검색어를 입력하세요." style="height: 43px;">
+                            <span class="border-focus"><i></i></span>
+                            <button type="button" class="search-btn" id="searchBtn">
+                                <img src="../../asset/img/admin/icon-search.svg" alt="검색하기">
+                            </button>
                         </td>
                     </tr>
                     </tbody>
