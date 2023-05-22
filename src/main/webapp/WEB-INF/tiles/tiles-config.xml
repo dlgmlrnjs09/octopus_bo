@@ -10,8 +10,12 @@
         <put-attribute name="footer" value="/WEB-INF/tiles/tiles-footer.jsp"/>
     </definition>
 
-    <definition name="/*/*" extends="layout-tiles">
+    <definition name="/*/*.admin" extends="layout-tiles">
         <put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp"/>
+    </definition>
+
+    <definition name="/*/*/*.admin" extends="layout-tiles">
+        <put-attribute name="body" value="/WEB-INF/view/{1}/{2}/{3}.jsp"/>
     </definition>
 
 </tiles-definitions>

@@ -12,10 +12,10 @@
             <tiles:insertAttribute name="header"/>
         </div>
         <main id="main">
-            <section class="section main-sec 해당영역을 나타내는 클래스-sec">
+            <div id="container" class="admin">
                 <tiles:insertAttribute name="body"/>
                 <div class="blank" style="height: 10vh;"></div>
-            </section>
+            </div>
         </main>
         <tiles:insertAttribute name="footer"/>
     </div>
