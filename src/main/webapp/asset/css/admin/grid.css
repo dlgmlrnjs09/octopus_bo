@@ -38,7 +38,7 @@
     border-bottom-right-radius: 6px;
 }
 
-input {
+.common-table input {
     height: 30px;
     padding: 8px 14px;
     border: 1px solid var(--grayscale-color07) !important;
@@ -47,16 +47,47 @@ input {
     color: var(--grayscale-color04);
 }
 
-select {
-    width: 100px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 4px !important;
-    font-size: var(--main-text-size);
-    color: var(--grayscale-color04);
-    border: 1px solid var(--grayscale-color07) !important;
+.btnArea {position:relative; width:100%; margin-top:20px; height:26px; text-align:center; *zoom:1; z-index:1;}
+.btnC{clear:both; margin:10px 0 0 0; text-align:center;}
+
+.custom-btn, .input-box input.custom-btn{
+    display: inline-block;
+    margin-left:10px;
+    min-width: 90px;
+    height: auto;
+    padding: 10px;
+    background-color: var(--purple-color05);
+    border: 1px solid transparent;
+    border-radius: 2px;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+    white-space: nowrap;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 300ms, opacity 300ms;
 }
 
-select::-ms-expand {
-    display: block;
+.wrap-loading{ /*화면 전체를 어둡게 합니다.*/
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background: rgba(0,0,0,0.2); /*not in ie */
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000',endColorstr='#20000000');    /* ie */
+    z-index: 999;
+}
+
+.wrap-loading div{ /*로딩 이미지*/
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-left: -21px;
+    margin-top: -21px;
+}
+
+.display-none{ /*감추기*/
+    display:none;
 }

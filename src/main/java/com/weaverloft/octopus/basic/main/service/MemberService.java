@@ -13,13 +13,19 @@ import java.util.Map;
  * @date 2023-05-16
  */
 public interface MemberService {
-    int selectUserCount(MemberVo memberVo);
+    int selectMemberCount(MemberVo memberVo);
 
-    List<MemberVo> selectUserList(MemberVo memberVo);
+    List<MemberVo> selectMemberList(MemberVo memberVo);
 
     MemberVo getMemberDetail(MemberVo memberVo);
 
     int updateMember(MemberVo memberVo);
 
     int updateMemberRole(MemberVo memberVo);
+
+    int insertMember(MemberVo memberVo);
+
+    List<String> selectMemberIdList();
+
+    List<?> selectExcelMemberList(MemberVo memberVo);
 }

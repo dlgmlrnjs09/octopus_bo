@@ -25,6 +25,6 @@ public class MainController {
     @GetMapping("/main-page")
     public String showMainPage() {
         System.out.println(mainService.test());
-        return "/main/main-page";
+        return "/main/main-page.admin";
     }
 }
