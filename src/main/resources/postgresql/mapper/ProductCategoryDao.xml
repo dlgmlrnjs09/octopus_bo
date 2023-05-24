@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.product.category.dao.ProductCategoryDao">
+
+    <select id="getProductCategoryInfo" parameterType="String" resultType="map">
+        SELECT
+            product_category_seq
+            , product_category_nm
+        FROM
+            octopus.product_category_info
+        WHERE
+            is_use = true
+            <choose>
+                <when test="value == 0">
+                    and parent_category_seq is null
+                </when>
+                <otherwise>
+                    and parent_category_seq = #{value}
+                </otherwise>
+            </choose>
+        order by
+            product_category_seq
+    </select>
+
+    <insert id="insertProductCategoryInfo" parameterType="map">
+        INSERT INTO octopus.product_category_info (
+             parent_category_seq
+             , product_category_nm
+        ) VALUES (
+            #{parent_seq}::int4
+            , #{current_name}
+        )
+    </insert>
+
+    <update id="updateProductCategoryInfo" parameterType="map">
+        UPDATE
+            octopus.product_category_info
+        SET
+            product_category_nm = #{current_name}
+            , udt_dt = now()
+        WHERE
+            product_category_seq = #{current_seq}::int4
+    </update>
+
+    <delete id="deleteProductCategoryInfo" parameterType="map">
+        UPDATE
+            octopus.product_category_info
+        SET
+            is_use = false
+            , del_dt = now()
+        WHERE
+            product_category_seq = #{current_seq}::int4
+    </delete>
+
+</mapper>
