@@ -77,8 +77,6 @@
                     return false;
                 }
 
-
-
                 $.ajax({
                     type : "GET",
                     url : "/member/member-update",
@@ -89,8 +87,7 @@
                             alert("수정이 완료되었습니다.");
                             window.location.reload();
                         } else if(result == 'fail') {
-                            alert("전화번호 형식을 다시 확인해주세요.");
-                            $("#memberPhoneFull").focus();
+                            alert("전화번호 또는 이메일 형식을 다시 확인해주세요.");
                         } else {
                             alert("수정에 문제가 생겼습니다.");
                         }

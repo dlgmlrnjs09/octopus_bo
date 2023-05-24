@@ -71,6 +71,6 @@
     </div>
 </div>
 <div style="margin-top: 20px; float: right;">
-    <button type="button" id="excelMemberUpload" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" aria-label="title"><span>엑셀 일괄 등록</span></button>
+    <button type="button" id="excelMemberUpload" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" aria-label="title"><span>회원 일괄 등록</span></button>
     <button type="button" id="excelMemberDownload" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>엑셀 다운로드</span></button>
 </div>

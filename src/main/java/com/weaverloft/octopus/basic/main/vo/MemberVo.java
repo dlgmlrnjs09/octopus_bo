@@ -1,8 +1,11 @@
 package com.weaverloft.octopus.basic.main.vo;
 
+import java.util.List;
+
 public class MemberVo extends PagingVo{
     private int memberSeq;
     private String memberId;
+    private String memberPw;
     private String memberNm;
     private String memberPhone1;
     private String memberPhone2;
@@ -12,6 +15,7 @@ public class MemberVo extends PagingVo{
     private String memberAddr1;
     private String memberAddr2;
     private String memberAddrDetail;
+    private String memberAddrFull;
     private String memberZipCode;
     private String memberEmailId;
     private String memberEmailDomain;
@@ -23,6 +27,15 @@ public class MemberVo extends PagingVo{
     private String endDate;
     private String searchType;
     private String searchKeyword;
+    private List<Integer> memberSeqList;
+
+    public List<Integer> getMemberSeqList() {
+        return memberSeqList;
+    }
+
+    public void setMemberSeqList(List<Integer> memberSeqList) {
+        this.memberSeqList = memberSeqList;
+    }
 
     public String getMemberRole() {
         return memberRole;
@@ -46,6 +59,14 @@ public class MemberVo extends PagingVo{
 
     public void setMemberSeq(int memberSeq) {
         this.memberSeq = memberSeq;
+    }
+
+    public String getMemberPw() {
+        return memberPw;
+    }
+
+    public void setMemberPw(String memberPw) {
+        this.memberPw = memberPw;
     }
 
     public String getStartDate() {
@@ -158,6 +179,14 @@ public class MemberVo extends PagingVo{
 
     public void setMemberAddrDetail(String memberAddrDetail) {
         this.memberAddrDetail = memberAddrDetail;
+    }
+
+    public String getMemberAddrFull() {
+        return memberAddrFull;
+    }
+
+    public void setMemberAddrFull(String memberAddrFull) {
+        this.memberAddrFull = memberAddrFull;
     }
 
     public String getMemberZipCode() {

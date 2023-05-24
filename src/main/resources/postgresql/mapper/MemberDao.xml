@@ -7,32 +7,42 @@
 
     <!-- 기본 where절 -->
     <sql id="defaultWhere">
-        <if test="searchKeyword != null and searchKeyword !=''">
-            <if test="searchType == 'memberId' ">
-                AND UPPER(member_id) LIKE '%'||UPPER(#{searchKeyword})||'%'
-            </if>
-            <if test="searchType == 'memberNm' ">
-                AND UPPER(member_nm) LIKE '%'||UPPER(#{searchKeyword})||'%'
-            </if>
-            <if test="searchType == 'memberEmail' ">
-                AND UPPER(member_email_full) LIKE '%'||UPPER(#{searchKeyword})||'%'
-            </if>
-        </if>
+        <choose>
+            <when test="!@org.springframework.util.CollectionUtils@isEmpty(memberSeqList)">
+                AND member_seq IN
+                <foreach collection="memberSeqList" item="arr" open="(" close=")" separator=",">
+                    #{arr}
+                </foreach>
+            </when>
+            <otherwise>
+                <if test="searchKeyword != null and searchKeyword !=''">
+                    <if test="searchType == 'memberId' ">
+                        AND UPPER(member_id) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                    <if test="searchType == 'memberNm' ">
+                        AND UPPER(member_nm) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                    <if test="searchType == 'memberEmail' ">
+                        AND UPPER(member_email_full) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                </if>
 
-        <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
-            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp
-        </if>
+                <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
+                    AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp
+                </if>
 
-        <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
-            AND reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
-        </if>
+                <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
+                    AND reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
+                </if>
 
-        <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
-            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
-        </if>
+                <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
+                    AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+                </if>
+            </otherwise>
+        </choose>
     </sql>
 
-    <select id="selectUserCount" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="int">
+    <select id="selectMemberCount" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="int">
         SELECT
             count(*)
         FROM
@@ -42,7 +52,7 @@
         <include refid="defaultWhere"/>
     </select>
 
-    <select id="selectUserList" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+    <select id="selectMemberList" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="com.weaverloft.octopus.basic.main.vo.MemberVo">
         SELECT
             A.*
         FROM
@@ -72,6 +82,30 @@
             #{pagingModel.pageSize}
         OFFSET
             (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+    <select id="selectExcelMemberList" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+        SELECT
+            member_seq AS memberSeq,
+            member_id AS memberId,
+            member_nm AS memberNm,
+            member_phone1 || '-' || member_phone2 || '-' || member_phone3 AS memberPhoneFull,
+            member_birth AS memberBirth,
+            member_zip_code AS memberZipCode,
+            member_addr1 || ' ' || member_addr2 || ' ' || member_addr_detail AS memberAddrFull,
+            member_email_full AS memberEmailFull,
+            CASE WHEN member_role = 'A' THEN '어드민'
+                 WHEN member_role = 'G' THEN '일반 회원'
+                 WHEN member_role = 'M' THEN '매장 관리자'
+                 ELSE '-' END AS memberRole,
+            TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+        FROM
+            octopus.member_info
+        WHERE
+            1=1
+        <include refid="defaultWhere"/>
+        ORDER BY
+            member_seq DESC
     </select>
 
     <select id="getMemberDetail" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="com.weaverloft.octopus.basic.main.vo.MemberVo">
@@ -125,10 +159,42 @@
             octopus.member_info
         SET
         <if test="memberRole != null and memberRole != ''">
-            member_role = #{memberRole}
+            member_role = #{memberRole},
         </if>
+            udt_dt = now()
         WHERE
             member_seq = #{memberSeq}
     </update>
+
+    <insert id="insertMember" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+        INSERT INTO octopus.member_info (
+            member_seq,
+            member_id,
+            member_pw,
+            member_phone1,
+            member_phone2,
+            member_phone3,
+            member_email_id,
+            member_email_domain,
+            member_email_full
+        ) VALUES (
+            nextval('octopus.member_info_member_seq_seq'),
+            #{memberId},
+            #{memberPw},
+            #{memberPhone1},
+            #{memberPhone2},
+            #{memberPhone3},
+            #{memberEmailId},
+            #{memberEmailDomain},
+            #{memberEmailFull}
+        )
+    </insert>
+
+    <select id="selectMemberIdList" resultType="String">
+        SELECT
+            DISTINCT member_id
+        FROM
+            octopus.member_info
+    </select>
 
 </mapper>

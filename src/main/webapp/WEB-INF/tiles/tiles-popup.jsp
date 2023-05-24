@@ -8,16 +8,11 @@
 </head>
 <body>
     <div id="container">
-        <div class="head-area">
-            <tiles:insertAttribute name="header"/>
-        </div>
         <main id="main">
             <div class="admin">
                 <tiles:insertAttribute name="body"/>
-                <div class="blank" style="height: 10vh;"></div>
             </div>
         </main>
-        <tiles:insertAttribute name="footer"/>
     </div>
 </body>
 </html>

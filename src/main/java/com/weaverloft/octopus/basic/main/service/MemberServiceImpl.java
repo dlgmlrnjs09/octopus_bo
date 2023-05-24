@@ -21,12 +21,12 @@ public class MemberServiceImpl implements MemberService{
     @Autowired
     private MemberDao memberDao;
 
-    public int selectUserCount(MemberVo memberVo) {
-        return memberDao.selectUserCount(memberVo);
+    public int selectMemberCount(MemberVo memberVo) {
+        return memberDao.selectMemberCount(memberVo);
     }
 
-    public List<MemberVo> selectUserList(MemberVo memberVo) {
-        return memberDao.selectUserList(memberVo);
+    public List<MemberVo> selectMemberList(MemberVo memberVo) {
+        return memberDao.selectMemberList(memberVo);
     }
 
     public MemberVo getMemberDetail(MemberVo memberVo) { return memberDao.getMemberDetail(memberVo); }
@@ -34,4 +34,10 @@ public class MemberServiceImpl implements MemberService{
     public int updateMember(MemberVo memberVo) { return memberDao.updateMember(memberVo); }
 
     public int updateMemberRole(MemberVo memberVo) { return memberDao.updateMemberRole(memberVo); }
+
+    public int insertMember(MemberVo memberVo) { return memberDao.insertMember(memberVo); }
+
+    public List<String> selectMemberIdList() { return memberDao.selectMemberIdList(); }
+
+    public List<?> selectExcelMemberList(MemberVo memberVo) { return memberDao.selectExcelMemberList(memberVo); }
 }
