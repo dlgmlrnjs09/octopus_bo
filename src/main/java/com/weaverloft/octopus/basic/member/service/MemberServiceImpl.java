@@ -1,8 +1,7 @@
-package com.weaverloft.octopus.basic.main.service;
+package com.weaverloft.octopus.basic.member.service;
 
-import com.weaverloft.octopus.basic.main.dao.MainDao;
-import com.weaverloft.octopus.basic.main.dao.MemberDao;
-import com.weaverloft.octopus.basic.main.vo.MemberVo;
+import com.weaverloft.octopus.basic.member.dao.MemberDao;
+import com.weaverloft.octopus.basic.member.vo.MemberVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,4 +39,6 @@ public class MemberServiceImpl implements MemberService{
     public List<String> selectMemberIdList() { return memberDao.selectMemberIdList(); }
 
     public List<?> selectExcelMemberList(MemberVo memberVo) { return memberDao.selectExcelMemberList(memberVo); }
+
+    public int insertMemberDownloadLog(Map<String, Object> map) { return memberDao.insertMemberDownloadLog(map); }
 }

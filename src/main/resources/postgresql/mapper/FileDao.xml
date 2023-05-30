@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.main.dao.FileDao">
+    <insert id="insertFileInfo" parameterType="com.weaverloft.octopus.basic.main.vo.FileVo">
+        INSERT INTO octopus.file_info (
+            type_depth1,
+            type_depth2,
+            type_depth3,
+            foreign_seq,
+            file_org_name,
+            file_saved_name,
+            file_extension,
+            file_size,
+            file_path
+        ) VALUES (
+            #{typeDepth1},
+            #{typeDepth2},
+            #{typeDepth3},
+            #{foreignSeq}::int4,
+            #{orginFileNm},
+            #{strgeFileNm},
+            #{fileExtsnmn},
+            #{fileSize}::numeric,
+            #{strgePath}
+        )
+    </insert>
+
+    <select id="selectFileInfo" parameterType="com.weaverloft.octopus.basic.main.vo.FileVo" resultType="map">
+        SELECT
+            seq,
+            type_depth1,
+            type_depth1,
+            type_depth2,
+            type_depth3,
+            foreign_seq,
+            file_org_name,
+            file_saved_name,
+            file_extension,
+            file_size,
+            file_download_cnt,
+            file_path,
+            is_use,
+            reg_dt,
+            mod_dt,
+            del_dt
+        FROM
+            octopus.file_info
+        WHERE
+            1=1
+        <if test="typeDepth1 != null and typeDepth1 != ''">
+        AND
+            type_depth1 = #{typeDepth1}
+        </if>
+        <if test="foreignSeq != null and foreignSeq != ''">
+        AND
+            foreign_seq = #{foreignSeq}::int4
+        </if>
+    </select>
+
+    <select id="selectFileInfoList" parameterType="com.weaverloft.octopus.basic.main.vo.FileVo" resultType="map">
+        SELECT
+            seq,
+            foreign_seq,
+            file_path
+        FROM
+            octopus.file_info
+        WHERE
+            1=1
+        <if test="!@org.springframework.util.CollectionUtils@isEmpty(menuSeqList)">
+            AND foreign_seq IN
+            <foreach collection="menuSeqList" item="arr" open="(" close=")" separator=",">
+                #{arr}::int4
+            </foreach>
+        </if>
+        <if test="typeDepth1 != null and typeDepth1 != ''">
+            AND
+                type_depth1 = #{typeDepth1}
+        </if>
+    </select>
+
+    <update id="updateFileInfo" parameterType="com.weaverloft.octopus.basic.main.vo.FileVo">
+        UPDATE
+            octopus.file_info
+        SET
+            file_org_name = #{orginFileNm},
+            file_saved_name = #{strgeFileNm},
+            file_extension = #{fileExtsnmn},
+            file_size = #{fileSize}::numeric,
+            file_path = #{strgePath}
+        WHERE
+            1=1
+        AND
+            type_depth1 = #{typeDepth1}
+        AND
+            foreign_seq = #{foreignSeq}::int4
+    </update>
+</mapper>

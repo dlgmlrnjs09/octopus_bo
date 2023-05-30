@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!--========== HEADER ==========-->
 <header id="header">
     <div class="header-wrap">
@@ -110,480 +113,181 @@
         <div class="main-menu-area">
             <nav class="main-menu">
                 <ul class="menu-list">
-                    <li class="menu menu01 home"><a href="#none"><span>홈</span></a></li>
-                    <li class="menu menu02"><a href="#none"><span>기본설정</span></a></li>
-                    <li class="menu menu03"><a href="#none"><span>사이트관리</span></a></li>
-                    <li class="menu menu04"><a href="#none"><span>상품관리</span></a></li>
-                    <li class="menu menu05"><a href="#none"><span>주문/배송관리</span></a></li>
-                    <li class="menu menu06"><a href="#none"><span>회원관리</span></a></li>
-                    <li class="menu menu07"><a href="#none"><span>프로모션관리</span></a></li>
-                    <li class="menu menu08"><a href="#none"><span>부가서비스</span></a></li>
-                    <li class="menu menu09"><a href="#none"><span>마케팅</span></a></li>
-                    <li class="menu menu10"><a href="#none"><span>통계</span></a></li>
+                    <tiles:importAttribute name="menuList"/>
+                    <c:set var="menuIcon" value="1"/>
+                    <c:set var="menuIconUrl" value=""/>
+                    <c:forEach varStatus="status" items="${menuList}" var="menu">
+                        <c:if test="${menu.level == 1}">
+                            <li class="menu icon${menu.menu_seq} <c:if test="${menuIcon == 1}">home</c:if>"><a href="<c:choose><c:when test="${menuIcon == 1}">${menu.menu_url}</c:when><c:otherwise>#none</c:otherwise></c:choose>"><span>${menu.menu_nm}</span></a></li>
+                            <c:set var="menuIcon" value="${menuIcon + 1}"/>
+                            <c:set var="menuIconUrl" value="${menuIconUrl += menu.menu_seq += '|' += menu.file_path += ','}"/>
+                        </c:if>
+                    </c:forEach>
+
+<%--                    <li class="menu menu01 home"><a href="#none"><span>홈</span></a></li>--%>
+<%--                    <li class="menu menu02"><a href="#none"><span>기본설정</span></a></li>--%>
+<%--                    <li class="menu menu03"><a href="#none"><span>사이트관리</span></a></li>--%>
+<%--                    <li class="menu menu04"><a href="#none"><span>상품관리</span></a></li>--%>
+<%--                    <li class="menu menu05"><a href="#none"><span>주문/배송관리</span></a></li>--%>
+<%--                    <li class="menu menu06"><a href="#none"><span>회원관리</span></a></li>--%>
+<%--                    <li class="menu menu07"><a href="#none"><span>프로모션관리</span></a></li>--%>
+<%--                    <li class="menu menu08"><a href="#none"><span>부가서비스</span></a></li>--%>
+<%--                    <li class="menu menu09"><a href="#none"><span>마케팅</span></a></li>--%>
+<%--                    <li class="menu menu10"><a href="#none"><span>통계</span></a></li>--%>
+
                 </ul>
             </nav>
         </div>
         <div class="sub-menu-area">
-            <nav class="sub-menu sub-menu01"></nav>
-            <nav class="sub-menu sub-menu02">
-                <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>기본 설정</span></a>
-                </div>
-                <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>기본 설정01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu02"><a href="#none"><span>기본 설정02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>기본 설정03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>기본 설정04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>기본 설정05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>기본 설정06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <nav class="sub-menu sub-menu03">
-                <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>사이트 관리</span></a>
-                </div>
-                <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>사이트 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu02"><a href="#none"><span>사이트 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>사이트 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>사이트 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>사이트 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>사이트 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <nav class="sub-menu sub-menu04">
-                <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>상품 관리</span></a>
-                </div>
-                <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>상품 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu02"><a href="#none"><span>상품 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>상품 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>상품 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>상품 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>상품 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <nav class="sub-menu sub-menu05">
-                <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>주문/배송 관리</span></a>
-                </div>
-                <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>주문/배송 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu02"><a href="#none"><span>주문/배송 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>주문/배송 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>주문/배송 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>주문/배송 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>주문/배송 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <nav class="sub-menu sub-menu06">
-                <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>회원 관리</span></a>
-                </div>
-                <ul class="menu-list">
-                    <li class="menu menu01"><a href="/member/main"><span>회원 조회</span></a>
+            <nav class="sub-menu">
+            <c:forEach varStatus="status" items="${menuList}" var="menu">
+                <c:set var="hasChild" value="${menu.level < menuList[status.count].level}"/>
+                <c:set var="isEnd" value="${menu.level > menuList[status.count].level}"/>
+
+                <c:if test="${menu.parent_menu_seq ne null}">
+                    <c:choose>
+                        <c:when test="${menu.level == 1}">
+                            <div class="sub-menu-title">
+                                <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>${menu.menu_nm}</span></a>
+                            </div>
+                            <ul class="menu-list">
+                        </c:when>
+                        <c:otherwise>
+                            <c:if test="${isEnd and menu.level == 2}">
+                                <li class="menu menu01"><a href="${menu.menu_url}"><span>${menu.menu_nm}</span></a></li>
+                            </c:if>
+                            <c:if test="${hasChild and menu.level == 2}">
+                                <li class="menu menu01">
+                                    <a href="#none"><span>${menu.menu_nm}</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                                    <ul class="menu-3depth">
+                            </c:if>
+                            <c:if test="${menu.level == 3}">
+                                    <li><a href="${menu.menu_url}"><span>${menu.menu_nm}</span></a></li>
+                            </c:if>
+                            <c:if test="${isEnd and menu.level == 3}">
+                                    </ul>
+                                </li>
+                            </c:if>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:if test="${isEnd and menuList[status.count].level == 1}">
+                            </ul>
+                        </nav>
+                        <nav class="sub-menu">
+                    </c:if>
+                    <c:if test="${!isEnd and !hasChild and status.count != fn:length(menuList)}">
+                        </nav>
+                        <nav class="sub-menu">
+                    </c:if>
+                    <c:if test="${status.count == fn:length(menuList)}">
+                        </nav>
+                    </c:if>
+                </c:if>
+            </c:forEach>
+<%--            <nav class="sub-menu sub-menu02">--%>
+<%--                <div class="sub-menu-title">--%>
+<%--                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>기본 설정</span></a>--%>
+<%--                </div>--%>
+<%--                <ul class="menu-list">--%>
+<%--                    <li class="menu menu01"><a href="#none"><span>기본 설정01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>--%>
 <%--                        <ul class="menu-3depth">--%>
 <%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
 <%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
 <%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
 <%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
 <%--                        </ul>--%>
-                    </li>
-                </ul>
-            </nav>
-            <nav class="sub-menu sub-menu07">
-                <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>프로모션 관리</span></a>
-                </div>
-                <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>프로모션 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu02"><a href="#none"><span>프로모션 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>프로모션 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>프로모션 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>프로모션 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>프로모션 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <nav class="sub-menu sub-menu07">
-                <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>부가서비스</span></a>
-                </div>
-                <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>부가서비스01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu02"><a href="#none"><span>부가서비스02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>부가서비스03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>부가서비스04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>부가서비스05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>부가서비스06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <nav class="sub-menu sub-menu07">
-                <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>마케팅</span></a>
-                </div>
-                <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>마케팅01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu02"><a href="#none"><span>마케팅02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>마케팅03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>마케팅04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>마케팅05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>마케팅06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <nav class="sub-menu sub-menu07">
-                <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>통계</span></a>
-                </div>
-                <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>통계01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu02"><a href="#none"><span>통계02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>통계03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>통계04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>통계05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>통계06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+<%--                    </li>--%>
+<%--                    <li class="menu menu02"><a href="#none"><span>기본 설정02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>--%>
+<%--                        <ul class="menu-3depth">--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                        </ul>--%>
+<%--                    </li>--%>
+<%--                    <li class="menu menu03"><a href="#none"><span>기본 설정03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>--%>
+<%--                        <ul class="menu-3depth">--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                        </ul>--%>
+<%--                    </li>--%>
+<%--                    <li class="menu menu04"><a href="#none"><span>기본 설정04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>--%>
+<%--                        <ul class="menu-3depth">--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                        </ul>--%>
+<%--                    </li>--%>
+<%--                    <li class="menu menu05"><a href="#none"><span>기본 설정05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>--%>
+<%--                        <ul class="menu-3depth">--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                        </ul>--%>
+<%--                    </li>--%>
+<%--                    <li class="menu menu06"><a href="#none"><span>기본 설정06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>--%>
+<%--                        <ul class="menu-3depth">--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                            <li><a href="#none"><span>sub-menu</span></a></li>--%>
+<%--                        </ul>--%>
+<%--                    </li>--%>
+<%--                </ul>--%>
+<%--            </nav>--%>
         </div>
     </div>
 </div>
 <script>
+
+    <%--var styleElem = document.head.appendChild(document.createElement("style"));--%>
+
+    <%--styleElem.innerHTML = "";--%>
+    <%--// styleElem.innerHTML += ".menu02 > a:before {background-image: url('../../asset/img/admin/header-icon10.svg'); background-size: cover;}";--%>
+
+    <%--var menuSeqList = '${menuIconUrl}'.slice(0, -1).split(',');--%>
+
+    <%--let params = {--%>
+    <%--    'menuSeqList' : menuSeqList,--%>
+    <%--    'typeDepth1' : 'menu'--%>
+    <%--};--%>
+
+    <%--$.ajax({--%>
+    <%--    type : "POST",--%>
+    <%--    url : "/menu/select-menu-icon",--%>
+    <%--    dataType:"json",--%>
+    <%--    contentType : 'application/json; charset=utf-8',--%>
+    <%--    data : JSON.stringify(params),--%>
+    <%--    success : function(data){--%>
+    <%--        for(var i = 0;  i < data.length; i++) {--%>
+    <%--            menuSeqList.forEach(function(seq) {--%>
+    <%--                if(data[i].foreign_seq == seq) {--%>
+    <%--                    styleElem.innerHTML += ".icon" + seq +" > a:before {background-image: url('../../asset/upload/img" + data[i].file_path + "'); background-size: cover;} ";--%>
+    <%--                }--%>
+    <%--            });--%>
+    <%--        }--%>
+    <%--    }--%>
+    <%--});--%>
+
+    $(document).ready(function() {
+        var styleElem = document.head.appendChild(document.createElement("style"));
+        styleElem.innerHTML = "";
+
+        var menuIconList = '${menuIconUrl}'.slice(0, -1).split(',');
+
+        menuIconList.forEach(function(menu) {
+           var seq = menu.split("|")[0];
+           var path = menu.split("|")[1];
+
+           styleElem.innerHTML += ".icon" + seq +" > a:before {background-image: url('../../asset/upload/img" + path + "'); background-size: cover;} ";
+        });
+    });
+
+
     // bubble
     $(".bubble-btn").click(function () {
         $(this).toggleClass('on');
@@ -621,16 +325,6 @@
     $('.main-menu .menu.home a').click(function () {
         $('.sub-menu').animate({marginLeft: "200px"}, 300 ).removeClass('on');
     });
-    // $(document).on('mouseenter', '.nav .bottom', function(){
-    //     if($('#container').hasClass('navHidden')){
-    //         $('#container').addClass('over');
-    //     };
-    // });
-    // $(document).on('mouseleave', '.nav .bottom', function(){
-    //     if($('#container').hasClass('navHidden')){
-    //         $('#container').removeClass('over');
-    //     }
-    // });
 
     // menu 3depth
     var accordion_nav = $('.sub-menu .menu > a'), accordion_nav_con = $('.menu-3depth');

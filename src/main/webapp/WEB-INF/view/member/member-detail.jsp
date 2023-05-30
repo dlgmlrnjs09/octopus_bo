@@ -6,8 +6,6 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-<div id="container" class="admin">
-    <div class="head-area"></div>
     <script>
         //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
         function execDaumPostcode() {
@@ -246,7 +244,6 @@
     <div id="top-btn">
         <a href="javascript:;" tabindex="0"><span class="hidden">페이지 맨 위로</span></a>
     </div>
-</div>
 <script src="../../asset/js/basic.js"></script>
 <script src="../../asset/js/basic_admin.js"></script>
 </body>

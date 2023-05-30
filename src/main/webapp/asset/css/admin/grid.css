@@ -16,6 +16,10 @@
     border-top-right-radius: 6px;
 }
 
+.cursor-default {
+    cursor: default !important;
+}
+
 .common-table td {
     border-right: 1px solid #c6c9cc !important;
     border-bottom: 1px solid #c6c9cc !important;

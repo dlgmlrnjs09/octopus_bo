@@ -1,8 +1,10 @@
-package com.weaverloft.octopus.basic.main.vo;
+package com.weaverloft.octopus.basic.member.vo;
+
+import com.weaverloft.octopus.basic.main.vo.PagingVo;
 
 import java.util.List;
 
-public class MemberVo extends PagingVo{
+public class MemberVo extends PagingVo {
     private int memberSeq;
     private String memberId;
     private String memberPw;

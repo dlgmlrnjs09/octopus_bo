@@ -5,8 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-<div id="container" class="admin">
-    <div class="head-area"></div>
     <script>
         $(function(){
             $('.head-area').load("header.html");
@@ -249,7 +247,6 @@
     <div id="top-btn">
         <a href="javascript:;" tabindex="0"><span class="hidden">페이지 맨 위로</span></a>
     </div>
-</div>
 <script src="../../asset/js/basic.js"></script>
 <script src="../../asset/js/basic_admin.js"></script>
 </body>

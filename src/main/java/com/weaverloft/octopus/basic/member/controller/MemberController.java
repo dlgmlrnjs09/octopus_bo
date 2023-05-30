@@ -1,13 +1,13 @@
-package com.weaverloft.octopus.basic.main.controller;
+package com.weaverloft.octopus.basic.member.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weaverloft.octopus.basic.common.util.CommonUtil;
 import com.weaverloft.octopus.basic.common.util.PagingModel;
 import com.weaverloft.octopus.basic.main.service.ExcelService;
 import com.weaverloft.octopus.basic.main.service.FileService;
-import com.weaverloft.octopus.basic.main.service.MemberService;
-import com.weaverloft.octopus.basic.main.vo.FileVO;
-import com.weaverloft.octopus.basic.main.vo.MemberVo;
+import com.weaverloft.octopus.basic.member.service.MemberService;
+import com.weaverloft.octopus.basic.main.vo.FileVo;
+import com.weaverloft.octopus.basic.member.vo.MemberVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +20,8 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -49,7 +47,7 @@ public class MemberController {
     ExcelService excelService;
 
     @GetMapping("/main")
-    public String showMainPage(Model model) {
+    public String showMemberMainPage(Model model) {
         return "/member/member-main.admin";
     }
 
@@ -165,7 +163,7 @@ public class MemberController {
 
         CommonsMultipartFile fileExcel = (CommonsMultipartFile) multipartRequest.getFile("fileExcel");
 
-        FileVO fileExcelVO = new FileVO();
+        FileVo fileExcelVO = new FileVo();
         String excelFile = "";
         model.addAttribute("result",true);
 
@@ -300,19 +298,21 @@ public class MemberController {
         setting.put("사용자 권한", "MemberRole");
         setting.put("등록일", "RegDt");
 
-        // TODO 개인정보 다운로드 로그 남기기
-//        memberVo.setMemberId("다운로드 사용자 아이디");
-//        memberVo.setUserIp(request.getRemoteAddr());
-//        memberVo.setDtlDesc("회원 정보 다운로드");
-//        memberService.insertMemberDownloadLog(memberVo);
+        // 개인정보 다운로드 로그 저장
+        Map<String, Object> logMap = new HashMap<>();
+        logMap.put("downloadRegId", "다운로드 사용자 아이디");
+        logMap.put("downloadLogIp", request.getRemoteAddr());
+        logMap.put("downloadLogReason", "[회원 관리] 회원 정보 다운로드");
+        // TODO 다운로드 로그 저장 공통으로 빼기
+        memberService.insertMemberDownloadLog(logMap);
 
         excelService.down(setting, excelMemberList, response , request, fileSetting);
     }
 
+    // 전화번호 형식 체크
     public boolean isValidPhone(String phone) {
         String phoneRegex = "^\\d{3}-\\d{3,4}-\\d{4}$";
 
-        // 전화번호 형식 체크
         if(Pattern.matches(phoneRegex, phone)) {
             return true;
         } else {
@@ -320,10 +320,10 @@ public class MemberController {
         }
     }
 
+    // 이메일 형식 체크
     public boolean isValidEmail(String email) {
         String emailRegex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
 
-        // 이메일 형식 체크
         if(Pattern.matches(emailRegex, email)) {
             return true;
         } else {

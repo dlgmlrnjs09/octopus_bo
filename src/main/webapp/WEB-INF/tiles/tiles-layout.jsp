@@ -7,12 +7,12 @@
     <title>Octopus</title>
 </head>
 <body>
-    <div id="container">
+    <div id="container-wrap">
         <div class="head-area">
             <tiles:insertAttribute name="header"/>
         </div>
         <main id="main">
-            <div class="admin">
+            <div id="container" class="admin">
                 <tiles:insertAttribute name="body"/>
                 <div class="blank" style="height: 10vh;"></div>
             </div>

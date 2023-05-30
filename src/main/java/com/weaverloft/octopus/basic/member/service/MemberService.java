@@ -1,7 +1,6 @@
-package com.weaverloft.octopus.basic.main.dao;
+package com.weaverloft.octopus.basic.member.service;
 
-import com.weaverloft.octopus.basic.main.vo.MemberVo;
-import org.apache.ibatis.annotations.Mapper;
+import com.weaverloft.octopus.basic.member.vo.MemberVo;
 
 import java.util.List;
 import java.util.Map;
@@ -13,8 +12,7 @@ import java.util.Map;
  * @details 상세
  * @date 2023-05-16
  */
-@Mapper
-public interface MemberDao {
+public interface MemberService {
     int selectMemberCount(MemberVo memberVo);
 
     List<MemberVo> selectMemberList(MemberVo memberVo);
@@ -30,4 +28,6 @@ public interface MemberDao {
     List<String> selectMemberIdList();
 
     List<?> selectExcelMemberList(MemberVo memberVo);
+
+    int insertMemberDownloadLog(Map<String, Object> map);
 }

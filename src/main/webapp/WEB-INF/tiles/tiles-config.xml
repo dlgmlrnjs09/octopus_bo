@@ -13,7 +13,7 @@
         <put-attribute name="body" value="/WEB-INF/view/popup/{1}.jsp"/>
     </definition>
 
-    <definition name="layout-tiles" template="/WEB-INF/tiles/tiles-layout.jsp">
+    <definition name="layout-tiles" template="/WEB-INF/tiles/tiles-layout.jsp" preparer="com.weaverloft.octopus.configuration.MenuPreparer">
         <put-attribute name="include" value="/WEB-INF/tiles/tiles-include.jsp"/>
         <put-attribute name="header" value="/WEB-INF/tiles/tiles-header.jsp"/>
         <put-attribute name="body" value=""/>

@@ -13,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.web.servlet.view.tiles3.SimpleSpringPreparerFactory;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
@@ -147,6 +149,13 @@ public class WebContextConfiguration implements WebMvcConfigurer {
 //       return commonMultipartResolver;
 //    }
 
+	@Bean
+	public UrlBasedViewResolver viewResolver() {
+		UrlBasedViewResolver tilesViewResolver = new UrlBasedViewResolver();
+		tilesViewResolver.setViewClass(TilesView.class);
+		return tilesViewResolver;
+	}
+
 	/**
 	 * Tiles 설정
 	 */
@@ -156,6 +165,8 @@ public class WebContextConfiguration implements WebMvcConfigurer {
 		configurer.setDefinitions(new String[]{
 				"/WEB-INF/tiles/tiles-config.xml"
 		});
+		//ViewPreparer에서 Autowired가 가능하게 하는 설정
+		configurer.setPreparerFactoryClass(SimpleSpringPreparerFactory.class);
 		configurer.setCheckRefresh(true);
 		return configurer;
 	}

@@ -1,12 +1,20 @@
 package com.weaverloft.octopus.basic.main.service;
 
-import com.weaverloft.octopus.basic.main.vo.FileVO;
+import com.weaverloft.octopus.basic.main.dao.FileDao;
+import com.weaverloft.octopus.basic.main.vo.FileVo;
+import net.coobird.thumbnailator.Thumbnails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -19,9 +27,16 @@ import java.util.UUID;
 @SuppressWarnings("Duplicates")
 @Service("fileService")
 public class FileServiceImpl implements FileService{
-	
+
+	@Autowired
+    private FileDao fileDao;
+
+    public int insertFileInfo(FileVo fileVo) {
+        return fileDao.insertFileInfo(fileVo);
+    }
+
 	@Override
-	public FileVO saveFileProduct(MultipartFile file, String targetPath) throws Exception {
+	public FileVo saveFileProduct(MultipartFile file, String targetPath) throws Exception {
 		String strgeFileNm = UUID.randomUUID().toString();
 		String strgePath = getDatePath();
 		String ext = "";
@@ -32,14 +47,50 @@ public class FileServiceImpl implements FileService{
 				strgeFileNm = strgeFileNm + ext;
 			}
 		}
-		File targetFile = new File(targetPath + strgePath +strgeFileNm);
+		File targetFile = new File(targetPath + strgePath + strgeFileNm);
 		if (!targetFile.exists() || targetFile.isFile()) {
 			targetFile.mkdirs();
 		}
 		file.transferTo(targetFile);
-		FileVO vo = new FileVO(file, strgeFileNm, strgePath);
+		strgePath = strgePath + strgeFileNm;
+		FileVo vo = new FileVo(file, strgeFileNm, strgePath);
 		return vo;
 	}
+
+	public Map<String, Object> selectFileInfo(FileVo fileVo) {
+    	return fileDao.selectFileInfo(fileVo);
+	}
+
+	public int updateFileInfo(FileVo fileVo) {
+    	return fileDao.updateFileInfo(fileVo);
+	}
+
+	public List<Map<String, Object>> selectFileInfoList(FileVo fileVo) {
+    	return fileDao.selectFileInfoList(fileVo);
+	}
+
+	public void createThumbnailFile(File saveFile, String saveName) throws IOException {
+
+//        try{
+//            // thumbnailaotor 라이브러리 사용
+//            File thumbnailFile = new File(uploadPath, "s_" + saveName);
+//
+//            BufferedImage bo_image = ImageIO.read(saveFile);
+//
+//            /* 비율 */
+//            double ratio = 3;
+//            /*넓이 높이*/
+//            int width = (int) (bo_image.getWidth() / ratio);
+//            int height = (int) (bo_image.getHeight() / ratio);
+//
+//            Thumbnails.of(saveFile)
+//                    .size(width, height)
+//                    .toFile(thumbnailFile);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
 
 	private String getDatePath() {
 		Calendar calVal = Calendar.getInstance();

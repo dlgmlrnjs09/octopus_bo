@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.weaverloft.octopus.basic.main.dao.MemberDao">
+<mapper namespace="com.weaverloft.octopus.basic.member.dao.MemberDao">
 
     <!-- 기본 where절 -->
     <sql id="defaultWhere">
@@ -42,7 +42,7 @@
         </choose>
     </sql>
 
-    <select id="selectMemberCount" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="int">
+    <select id="selectMemberCount" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="int">
         SELECT
             count(*)
         FROM
@@ -52,7 +52,7 @@
         <include refid="defaultWhere"/>
     </select>
 
-    <select id="selectMemberList" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+    <select id="selectMemberList" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="com.weaverloft.octopus.basic.member.vo.MemberVo">
         SELECT
             A.*
         FROM
@@ -84,7 +84,7 @@
             (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
     </select>
 
-    <select id="selectExcelMemberList" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+    <select id="selectExcelMemberList" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="com.weaverloft.octopus.basic.member.vo.MemberVo">
         SELECT
             member_seq AS memberSeq,
             member_id AS memberId,
@@ -108,7 +108,7 @@
             member_seq DESC
     </select>
 
-    <select id="getMemberDetail" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo" resultType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+    <select id="getMemberDetail" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="com.weaverloft.octopus.basic.member.vo.MemberVo">
         SELECT
                 member_seq AS memberSeq,
                 member_id AS memberId,
@@ -130,7 +130,7 @@
             member_seq = #{memberSeq}
     </select>
 
-    <update id="updateMember" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+    <update id="updateMember" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo">
         UPDATE
             octopus.member_info
         SET
@@ -154,7 +154,7 @@
             member_seq = #{memberSeq}
     </update>
 
-    <update id="updateMemberRole" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+    <update id="updateMemberRole" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo">
         UPDATE
             octopus.member_info
         SET
@@ -166,7 +166,7 @@
             member_seq = #{memberSeq}
     </update>
 
-    <insert id="insertMember" parameterType="com.weaverloft.octopus.basic.main.vo.MemberVo">
+    <insert id="insertMember" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo">
         INSERT INTO octopus.member_info (
             member_seq,
             member_id,
@@ -196,5 +196,17 @@
         FROM
             octopus.member_info
     </select>
+
+    <insert id="insertMemberDownloadLog" parameterType="map">
+        INSERT INTO octopus.download_log (
+            download_reg_id,
+            download_log_ip,
+            download_log_reason
+        ) VALUES (
+            #{downloadRegId},
+            #{downloadLogIp},
+            #{downloadLogReason}
+        )
+    </insert>
 
 </mapper>
