@@ -22,11 +22,11 @@ public class MenuServiceImpl implements MenuService{
 
     public List<Map<String, Object>> getMenuInfo(Map<String, Object> map) { return menuDao.getMenuInfo(map); }
 
-    public Map<String, Object> selectMenuDetail(Integer menuSeq) { return menuDao.selectMenuDetail(menuSeq); }
-
-    public int deleteMenu(Integer menuSeq) { return menuDao.deleteMenu(menuSeq); }
+    public int deleteMenu(List<Integer> menuSeqList) { return menuDao.deleteMenu(menuSeqList); }
 
     public int updateMenu(Map<String, Object> map) { return menuDao.updateMenu(map); }
 
     public int insertMenu(Map<String, Object> map) { return menuDao.insertMenu(map); }
+
+    public List<Integer> getChildMenuSeq(Integer menuSeq) { return menuDao.getChildMenuSeq(menuSeq); }
 }

@@ -56,12 +56,16 @@ public class ExcelServiceImpl implements ExcelService {
 		for (Map.Entry<String, String> entry : setting.entrySet()) {
 			switch (entry.getKey()) {
 				case "주소" :
+				case "수령인 주소" :
+				case "상품명" :
 					mySheet.setColumnView(seq, 60);
 					break;
 				case "이메일" :
+				case "배송 요청사항" :
 					mySheet.setColumnView(seq, 30);
 					break;
 				case "등록일" :
+				case "주문 일시" :
 					mySheet.setColumnView(seq, 20);
 					break;
 				default :
@@ -148,9 +152,9 @@ public class ExcelServiceImpl implements ExcelService {
 				//VO 에서 get 해올 메소드 만듬
 				value = (String) validateMemberList.get(i).get(method1);
 				validateStr = (String)validateList.get(i).get(method1);
-				if(validateStr != null) {
-					validateStr = new String(validateStr.getBytes("ISO-8859-1"), "UTF-8");
-				}
+//				if(validateStr != null) {
+//					validateStr = new String(validateStr.getBytes("ISO-8859-1"), "UTF-8");	// 한글 인코딩 (web.xml 내 encodingFilter 추가 후 주석처리)
+//				}
 				if( validateStr != null && !"".equals(validateStr)){
 					validateValue = true;
 				}else{

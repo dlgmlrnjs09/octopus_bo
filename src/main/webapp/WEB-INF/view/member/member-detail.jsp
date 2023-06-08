@@ -35,6 +35,8 @@
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
                     document.getElementById('memberZipCode').value = data.zonecode;
                     document.getElementById("memberAddr1").value = roadAddr;
+                    document.getElementById("memberAddrDetail").value = '';
+                    document.getElementById("memberAddrDetail").focus();
                     // document.getElementById("memberAddr2").value = data.jibunAddress;
 
                     // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
@@ -49,12 +51,12 @@
                     if(data.autoRoadAddress) {
                         var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
                         guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                        guideTextBox.style.display = 'block';
+                        guideTextBox.style.display = 'inline-block';
 
                     } else if(data.autoJibunAddress) {
                         var expJibunAddr = data.autoJibunAddress;
                         guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                        guideTextBox.style.display = 'block';
+                        guideTextBox.style.display = 'inline-block';
                     } else {
                         guideTextBox.innerHTML = '';
                         guideTextBox.style.display = 'none';
@@ -68,6 +70,11 @@
         });
 
         $(document).ready(function() {
+
+            let memberZipCode = $("#memberZipCode").val();
+            let memberAddr1 = $("#memberAddr1").val();
+            let memberAddr2 = $("#memberAddr2").val();
+            let memberAddrDetail = $("#memberAddrDetail").val();
 
             //수정완료 버튼
             $("#modifyBtn").click(function() {
@@ -96,12 +103,14 @@
             //취소 버튼
             $("#cancelBtn").click(function() {
                 if(confirm("수정을 취소하시겠습니까?")) {
-                    history.back();
+                    //history.back();
+                    window.location.href = '/member/main'
                 }
             });
 
             //주소 변경 버튼
             $("#addrModifyBtn").click(function() {
+                var guideTextBox = document.getElementById("guide");
                 let toggleText = $("#addrModifyBtn").text();
 
                 if(toggleText == '변경') {
@@ -109,10 +118,13 @@
                     $("#addrDiv2").css('display', 'inline-block');
                     $("#addrModifyBtn").text('취소');
                 } else {
-                    $("#memberZipCode").val('');
-                    $("#memberAddr1").val('');
-                    $("#memberAddr2").val('');
-                    $("#memberAddrDetail").val('');
+                    $("#memberZipCode").val(memberZipCode);
+                    $("#memberAddr1").val(memberAddr1);
+                    $("#memberAddr2").val(memberAddr2);
+                    $("#memberAddrDetail").val(memberAddrDetail);
+
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
 
                     $("#addrDiv1").css('display', 'inline-block');
                     $("#addrDiv2").hide();
@@ -217,15 +229,16 @@
                             <th scope="row" style="border-bottom-left-radius: 6px;"><em>주소</em></th>
                             <td style="cursor: default;" colspan="4">
                                 <div id="addrDiv1" style="display: inline-block;">
-                                    <span>${member.memberAddrDetail}</span>
+                                    <span>${member.memberAddrFull}</span>
                                 </div>
                                 <div id="addrDiv2" style="display: none;">
-                                    <input type="text" id="memberZipCode" name="memberZipCode" placeholder="우편번호" readonly>
-                                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-                                    <input type="text" id="memberAddr1" name="memberAddr1" placeholder="도로명주소" readonly>
-                                    <input type="text" id="memberAddr2" name="memberAddr2" placeholder="참고항목" readonly>
+                                    <input type="text" id="memberZipCode" name="memberZipCode" placeholder="우편번호" value="${member.memberZipCode}" readonly>
+                                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
                                     <span id="guide" style="color:#999;display:none"></span>
-                                    <input type="text" id="memberAddrDetail" name="memberAddrDetail" placeholder="상세주소">
+                                    <br>
+                                    <input type="text" id="memberAddr1" name="memberAddr1" placeholder="도로명주소" value="${member.memberAddr1}" readonly>
+                                    <input type="text" id="memberAddr2" name="memberAddr2" placeholder="참고항목" value="${member.memberAddr2}" readonly>
+                                    <input type="text" id="memberAddrDetail" name="memberAddrDetail" placeholder="상세주소" value="${member.memberAddrDetail}">
                                 </div>
                                 <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="addrModifyBtn"><span>변경</span></button>
 

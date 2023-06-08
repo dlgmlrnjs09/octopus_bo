@@ -118,7 +118,7 @@
                     <c:set var="menuIconUrl" value=""/>
                     <c:forEach varStatus="status" items="${menuList}" var="menu">
                         <c:if test="${menu.level == 1}">
-                            <li class="menu icon${menu.menu_seq} <c:if test="${menuIcon == 1}">home</c:if>"><a href="<c:choose><c:when test="${menuIcon == 1}">${menu.menu_url}</c:when><c:otherwise>#none</c:otherwise></c:choose>"><span>${menu.menu_nm}</span></a></li>
+                            <li class="menu icon${menu.menu_seq} <c:if test="${menuIcon == 1}">home</c:if>"><a href="<c:choose><c:when test="${menuIcon == 1}">${menu.menu_url}</c:when><c:otherwise>#none</c:otherwise></c:choose>"><span><c:out value="${menu.menu_nm}"/></span></a></li>
                             <c:set var="menuIcon" value="${menuIcon + 1}"/>
                             <c:set var="menuIconUrl" value="${menuIconUrl += menu.menu_seq += '|' += menu.file_path += ','}"/>
                         </c:if>
@@ -148,34 +148,36 @@
                     <c:choose>
                         <c:when test="${menu.level == 1}">
                             <div class="sub-menu-title">
-                                <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>${menu.menu_nm}</span></a>
+                                <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span><c:out value="${menu.menu_nm}"/></span></a>
                             </div>
                             <ul class="menu-list">
                         </c:when>
                         <c:otherwise>
-                            <c:if test="${isEnd and menu.level == 2}">
-                                <li class="menu menu01"><a href="${menu.menu_url}"><span>${menu.menu_nm}</span></a></li>
-                            </c:if>
-                            <c:if test="${hasChild and menu.level == 2}">
-                                <li class="menu menu01">
-                                    <a href="#none"><span>${menu.menu_nm}</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                                    <ul class="menu-3depth">
-                            </c:if>
-                            <c:if test="${menu.level == 3}">
-                                    <li><a href="${menu.menu_url}"><span>${menu.menu_nm}</span></a></li>
-                            </c:if>
-                            <c:if test="${isEnd and menu.level == 3}">
-                                    </ul>
-                                </li>
-                            </c:if>
+                            <c:choose>
+                                <c:when test="${menu.level == 2}">
+                                    <c:choose>
+                                        <c:when test="${hasChild}">
+                                            <li class="menu menu01">
+                                                <a href="#none"><span><c:out value="${menu.menu_nm}"/></span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                                                <ul class="menu-3depth">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="menu menu01"><a href="${menu.menu_url}"><span><c:out value="${menu.menu_nm}"/></span></a></li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="${menu.menu_url}"><span><c:out value="${menu.menu_nm}"/></span></a></li>
+                                    <c:if test="${isEnd}">
+                                        </ul>
+                                    </li>
+                                    </c:if>
+                                </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                     </c:choose>
-                    <c:if test="${isEnd and menuList[status.count].level == 1}">
+                    <c:if test="${!hasChild and menuList[status.count].level == 1}">
                             </ul>
-                        </nav>
-                        <nav class="sub-menu">
-                    </c:if>
-                    <c:if test="${!isEnd and !hasChild and status.count != fn:length(menuList)}">
                         </nav>
                         <nav class="sub-menu">
                     </c:if>

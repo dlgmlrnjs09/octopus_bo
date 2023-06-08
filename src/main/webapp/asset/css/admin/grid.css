@@ -16,6 +16,18 @@
     border-top-right-radius: 6px;
 }
 
+.common-table tr:last-child th:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+.common-table, .rowspan tr:last-child {
+    border-bottom-left-radius: 6px;
+}
+
+.common-table, .rowspan tr:last-child th:first-child {
+    border-bottom-left-radius: 0px;
+}
+
 .cursor-default {
     cursor: default !important;
 }

@@ -24,7 +24,7 @@
             #{strgeFileNm},
             #{fileExtsnmn},
             #{fileSize}::numeric,
-            #{strgePath}
+            #{filePath}
         )
     </insert>
 
@@ -89,7 +89,8 @@
             file_saved_name = #{strgeFileNm},
             file_extension = #{fileExtsnmn},
             file_size = #{fileSize}::numeric,
-            file_path = #{strgePath}
+            file_path = #{filePath},
+            mod_dt = now()
         WHERE
             1=1
         AND

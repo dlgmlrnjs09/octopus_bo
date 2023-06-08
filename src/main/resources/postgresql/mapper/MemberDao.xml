@@ -117,7 +117,10 @@
                 member_phone2 AS memberPhone2,
                 member_phone3 AS memberPhone3,
                 TO_CHAR(TO_DATE(member_birth, 'YYYYMMDD'), 'YYYY/MM/DD') AS memberBirth,
-                member_addr1 || ' ' || member_addr2 || ' ' || member_addr_detail AS memberAddrDetail,
+                member_addr1 AS memberAddr1,
+                member_addr2 AS memberAddr2,
+                member_addr_detail AS memberAddrDetail,
+                member_addr1 || ' ' || member_addr2 || ' ' || member_addr_detail AS memberAddrFull,
                 member_zip_code AS memberZipCode,
                 member_email_id AS memberEmailId,
                 member_email_domain AS memberEmailDomain,
@@ -149,7 +152,8 @@
             </if>
             member_email_id = #{memberEmailId},
             member_email_domain = #{memberEmailDomain},
-            member_email_full = #{memberEmailFull}
+            member_email_full = #{memberEmailFull},
+            udt_dt = now()
         WHERE
             member_seq = #{memberSeq}
     </update>

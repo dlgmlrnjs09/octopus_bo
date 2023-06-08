@@ -71,10 +71,6 @@
                 search_menu_info
             WHERE
                 is_delete = false
-            <if test='mode != null and !"".equals(mode) and "SELECT".equals(mode)'>
-            AND
-                is_use = true
-            </if>
             <if test='menuSeq != null'>
             AND
                 menu_seq = #{menuSeq}
@@ -83,33 +79,54 @@
                 PATH
     </select>
 
-    <select id="selectMenuDetail" parameterType="Integer" resultType="map">
-        SELECT
-            menu_seq,
-            parent_menu_seq,
-            menu_nm,
-            menu_url,
-            is_use,
-            has_authority,
-            reg_dt,
-            udt_dt,
-            del_dt,
-            menu_order_seq,
-            (select file_path from octopus.file_info where foreign_seq = menu_seq and type_depth1 = 'menu') AS file_path
-        FROM
-            octopus.menu_info
-        WHERE
-            menu_seq = #{menuSeq}
+    <select id="getChildMenuSeq" parameterType="Integer" resultType="Integer">
+        WITH RECURSIVE
+            search_menu_info(menu_seq, LEVEL, PATH, CYCLE) AS
+            (
+                SELECT
+                    m.menu_seq,
+                    0,
+                    ARRAY[m.menu_seq],
+                    false
+                FROM
+                    octopus.menu_info m
+                WHERE
+                    m.parent_menu_seq IS null
+                UNION ALL
+                SELECT
+                    m.menu_seq,
+                    LEVEL + 1,
+                    PATH || m.menu_seq,
+                    m.menu_seq = ANY(PATH)
+                FROM
+                    octopus.menu_info m,
+                    search_menu_info sm
+                WHERE
+                    m.parent_menu_seq = sm.menu_seq
+                AND
+                    NOT cycle
+            )
+            SELECT
+                menu_seq
+            FROM
+                search_menu_info
+            WHERE
+                #{menuSeq} = any(path)
+            ORDER BY
+                path
     </select>
 
-    <update id="deleteMenu" parameterType="Integer">
+    <update id="deleteMenu" parameterType="list">
         UPDATE
             octopus.menu_info
         SET
             is_delete = true,
             del_dt = now()
         WHERE
-            menu_seq = #{menuSeq}
+            menu_seq IN
+            <foreach collection="list" item="arr" open="(" close=")" separator=",">
+                #{arr}
+            </foreach>
     </update>
 
     <update id="updateMenu" parameterType="map">

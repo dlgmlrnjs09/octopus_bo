@@ -54,6 +54,7 @@ public class FileVo {
     private String typeDepth1;
     private String typeDepth2;
     private String typeDepth3;
+    private String filePath;
     private Integer foreignSeq;
     private String isUse;
     private String redDt;
@@ -249,7 +250,8 @@ public class FileVo {
     	this.fileExtsnmn = getFileExt(this.orginFileNm);	// file_extension
     	this.fileSize = Long.toString(file.getSize());	// file_size
     	this.strgeFileNm = strgeFileNm;	// file_saved_name
-    	this.strgePath = strgePath;	// file_path
+    	this.strgePath = strgePath;
+		this.filePath = strgePath + strgeFileNm; // file_path
     }
     
 	public String getAtchFileId() {

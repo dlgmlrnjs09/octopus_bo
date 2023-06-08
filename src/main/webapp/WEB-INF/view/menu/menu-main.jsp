@@ -2,6 +2,7 @@
 <%@ include file="/WEB-INF/include/common_taglib.jsp" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/asset/css/admin/menu-tree.css">
     <title>메뉴 관리</title>
 </head>
 <body>
@@ -26,6 +27,9 @@
                 dataType:"json",
                 data : { 'menuSeq' : menuSeq },
                 success : function(data){
+                    $("#insertBtn").show();
+                    $("#modifyBtn").show();
+                    $("#deleteBtn").show();
                     $("#menuIconTr").hide();
 
                     $("#menuNm").val(data[0].menu_nm);
@@ -45,9 +49,18 @@
                         $("input:radio[name='isUse']:radio[value='false']").prop('checked', true);
                     }
 
+                    if(data[0].level == 0) {
+                        $("#modifyBtn").hide();
+                        $("#deleteBtn").hide();
+                    }
+
                     if(data[0].level == 1) {
                         $("#menuIconTr").show();
                         $("#menuIcon").show();
+                    }
+
+                    if(data[0].level == 3) {
+                        $("#insertBtn").hide();
                     }
                 }
             });
@@ -121,7 +134,7 @@
 
             //삭제 버튼
             $("#deleteBtn").click(function() {
-                if(!confirm("삭제 하시겠습니까?")) {
+                if(!confirm("삭제 하시겠습니까? \n*해당 메뉴의 하위 메뉴까지 전부 삭제됩니다.")) {
                     return false;
                 }
 
@@ -136,7 +149,7 @@
                     dataType:"text",
                     data : $("#menuForm").serialize(),
                     success : function(result){
-                        if(result == '1') {
+                        if(parseInt(result) >= 1) {
                             alert("삭제가 완료되었습니다.");
                            window.location.reload();
                         } else {
@@ -217,26 +230,31 @@
                     $("#menuNm").focus();
                     return false;
                 }
-                if("" == $("#fileIcon").val() || null == $("#fileIcon").val()){
-                    alert("이미지를 선택해 주세요!");
-                    $("#fileIcon").focus();
-                    return false;
-                }
 
-                var checkExt = true;
-                $("input:file[name^='fileIcon']:visible").each(function(){
-                    if("" != $(this).val() && null != $(this).val()){
-                        var ext = $(this).val().split('.').pop().toLowerCase();
-                        if($.inArray(ext, ['jpg', 'png', 'jpeg']) == -1) {
-                            alert('메뉴 아이콘에는 이미지 파일만 등록가능합니다.');
-                            checkExt = false;
-                        }
+                // 1 depth 메뉴의 경우 아이콘 이미지 필수 처리
+                if($('a[value='+$("#menuSeq").val()+']').data("level") == 0) {
+                    if("" == $("#fileIcon").val() || null == $("#fileIcon").val()){
+                        alert("이미지를 선택해 주세요!");
+                        $("#fileIcon").focus();
+                        return false;
                     }
-                });
 
-                if(!checkExt){
-                    return false;
+                    var checkExt = true;
+                    $("input:file[name^='fileIcon']:visible").each(function(){
+                        if("" != $(this).val() && null != $(this).val()){
+                            var ext = $(this).val().split('.').pop().toLowerCase();
+                            if($.inArray(ext, ['jpg', 'png', 'jpeg']) == -1) {
+                                alert('메뉴 아이콘에는 이미지 파일만 등록가능합니다.');
+                                checkExt = false;
+                            }
+                        }
+                    });
+
+                    if(!checkExt){
+                        return false;
+                    }
                 }
+
 
                 var formData = new FormData($('#menuForm')[0]);
                 $.ajax({
@@ -259,94 +277,6 @@
 
         });
     </script>
-    <style>
-    /* 컨텐츠 다단 레이아웃 */
-    .workingbox {position:relative; clear:both; overflow:hidden; width:100%; margin:20px 0 0; *zoom:1; z-index:1; padding-top: 50px; padding-left: 50px; padding-right: 50px;}
-    .workingbox:after {content:''; display:block; clear:both;}
-    .workingbox .working_box_l {float:left; width:25%; margin:0; padding:0; *zoom:1; z-index:1;}
-    .workingbox .working_box_l:after {content:''; display:block; clear:both;}
-    .workingbox .working_box_r {float:right; width:73%; margin:0; padding:0; *zoom:1; z-index:1;}
-    .workingbox .working_box_r:after {content:''; display:block; clear:both;}
-
-    .workingboxp {clear:both; overflow:hidden; width:100%; padding:10px 0 0; *zoom:1; z-index:1; }
-    .workingboxp:after {content:''; display:block; clear:both;}
-    .workingboxp .working_box_l {float:left; width:22%; margin:0; padding:0; *zoom:1; z-index:1;}
-    .workingboxp .working_box_l:after {content:''; display:block; clear:both;}
-    .workingboxp .working_box_r {float:right; width:75%; margin:0; padding:0; *zoom:1; z-index:1;}
-    .workingboxp .working_box_r:after {content:''; display:block; clear:both;}
-
-    .clfix:after {content:"."; display:block; height:0;	clear:both;	visibility:hidden;}
-    .clfix {display: inline-block;}
-    /* Hides from IE-mac \*/
-    * html .clfix {height: 1%;}
-    .clfix   {display: block;}
-
-    /* 콘텐츠 트리메뉴 */
-    .left_area {*zoom:1; border:1px solid #d2d2d2; height:674px; overflow:hidden; position:relative;}
-    .left_area:after {content:''; display:block; clear:both;}
-    .left_area .title_area{background:#69649c; padding:13px 0; border-bottom:1px solid #d2d2d2; clear:both; overflow:hidden;}
-    .left_area .title_area .tit_h2{font-size:14px; font-weight:bold; color:white; padding-left:12px; padding-top:4px; float:left;}
-    .left_area .title_area .btn_area{float:right; padding-right:12px;}
-    .left_area .title_area .btn_area button{margin-left:2px; *margin-left:0px;}
-    .left_area .btn_area2 {padding:10px 10px 0 0; text-align:right;}
-    .left_area .btn_area2 button{margin-left:5px; *margin-left:3px;}
-
-    .right_area {margin-top:20px; *zoom:1; border:1px solid #d2d2d2; height:674px; overflow:hidden; position:relative;}
-    .right_area:after {content:''; display:block; clear:both;}
-    .right_area .title_area{background:#f0f0f0; padding:13px 0; border-bottom:1px solid #d2d2d2; clear:both; overflow:hidden;}
-    .right_area .title_area .tit_h2{font-size:14px; font-weight:bold; color:#333; padding-left:12px !important; padding-top:4px; float:left;}
-    .right_area .title_area .btn_area{float:right; padding-right:12px;}
-    .right_area .title_area .btn_area button{margin-left:2px; *margin-left:0px;}
-
-    .left_area2 {margin-top:20px; *zoom:1; border:1px solid #d2d2d2; height:674px; overflow:hidden; position:relative;}
-    .left_area2:after {content:''; display:block; clear:both;}
-    .left_area2 .title_area {position:relative; height:40px; background:#f0f0f0; padding:13px 0; border-bottom:1px solid #d2d2d2; clear:both; overflow:hidden;}
-    .left_area2 .title_area:after {content:"";display:block;clear:both;}
-    .left_area2 .title_area .tit_h2{margin:0; font-size:15px; font-weight:bold; color:#333; padding-left:12px !important; padding-top:4px;}
-    .left_area2 .title_area .btn_area {position:absolute; right:0; bottom:10px; padding-right:12px;}
-    .left_area2 .title_area .btn_area button{margin-left:2px; *margin-left:0px;}
-    .left_area2 .btn_area2 {padding:10px 10px 0 0; text-align:right;}
-    .left_area2 .btn_area2 button{margin-left:5px; *margin-left:3px;}
-
-    .right_area2 {margin-top:20px; *zoom:1; border:1px solid #d2d2d2; height:674px; overflow:hidden; position:relative;}
-    .right_area2:after {content:''; display:block; clear:both;}
-    .right_area2 .title_area{background:#f0f0f0; padding:13px 0; height:40px; border-bottom:1px solid #d2d2d2; clear:both; overflow:hidden;}
-    .right_area2 .title_area .tit_h2{margin:0; font-size:14px; font-weight:bold; color:#333; padding-left:12px !important; padding-top:4px;}
-    .right_area2 .title_area .btn_area{float:right; padding-right:12px;}
-    .right_area2 .title_area .btn_area button{margin-left:2px; *margin-left:0px;}
-
-
-    /* tree 메뉴 */
-    ul.tree_area{ width:auto; margin:0px 0 0 20px; padding:16px 16px 0 0; clear:both; *zoom:1; overflow:auto; height:610px; position:relative;}
-    ul.tree_area:after {content:''; display:block; clear:both;}
-    ul.tree_area li{ display:block; margin:0 !important; padding:0; line-height:18px; color:#333; position:relative; clear:both;}
-    ul.tree_area li a{color:#333; padding-left:16px;}
-    ul.tree_area li a.on{ font-weight:bold; color:#826bcc;}
-    ul.tree_area li .f_file{position:absolute; left:0px; top:2px; *top:0px; width:10px; height:11px; cursor:pointer;}
-    ul.tree_area li .f_up{position:absolute; left:0px; top:2px; *top:0px; width:11px; height:11px; cursor:pointer;}
-    ul.tree_area li .f_dn{position:absolute; left:0px; top:2px; *top:0px; width:11px; height:11px; cursor:pointer;}
-    ul.tree_area li .f_up em, ul.tree_area li .f_dn em, ul.tree_area li .f_file em{ display:none; font-size:0; line-height:none;}
-
-    ul.tree_area ul{display:none; margin:0 0 0 17px; padding-top:5px; padding-bottom:9px !important;}
-    ul.tree_area ul li{display:block; color:#666; padding:0; line-height:18px; font-weight:normal; position:relative; clear:both;}
-    ul.tree_area ul li a{display:inline-block; padding-left:16px; line-height:25px;}
-    ul.tree_area ul li a.on{font-weight:bold !important;}
-    ul.tree_area ul li a.selected{color:#d82e6f !important; font-weight:normal !important;}
-    ul.tree_area ul li .f_up{position:absolute; left:0px; top:2px; *top:0px; width:11px; height:11px; *margin-top:2px; cursor:pointer;}
-    ul.tree_area ul li .f_dn{position:absolute; left:0px; top:2px; *top:0px; width:11px; height:11px; *margin-top:2px; cursor:pointer;}
-    ul.tree_area ul li .f_up em, ul.tree_area ul li .f_dn em{ display:none; font-size:0; line-height:none;}
-
-    ul.tree_area ul li ul{margin:0 0 0 17px; padding:0px 0 9px;}
-    ul.tree_area ul li ul li{display:block; color:#333; line-height:16px; padding:3px 0 1px; font-weight:normal;}
-    ul.tree_area ul li ul li a{color:#333; padding-left:16px;}
-    ul.tree_area ul li ul li a.selected{color:#d82d6f !important;}
-    ul.tree_area ul li ul li .f_file{position:absolute; left:0px; top:5px; *top:3px; width:10px; height:11px; cursor:pointer;}
-    ul.tree_area ul li ul li .f_up{position:absolute; left:0px; top:4px; *top:3px; width:11px; height:11px; cursor:pointer;}
-    ul.tree_area ul li ul li .f_dn{position:absolute; left:0px; top:4px; *top:3px; width:11px; height:11px; cursor:pointer;}
-    ul.tree_area ul li ul li .f_file em, ul.tree_area ul li ul li .f_up em, ul.tree_area ul li ul li .f_dn em{ display:none; font-size:0; line-height:none;}
-
-    .btnR{clear:both;margin:10px 0 0 0;text-align:right;}
-    </style>
 
     <!--========== CONTENTS ==========-->
     <div class="workingbox clfix">
@@ -362,7 +292,7 @@
                         <c:set var="hasChild" value="${menu.level < menuList[status.count].level}"/>
                         <c:set var="isEnd" value="${menu.level > menuList[status.count].level}"/>
                         <li>
-                        <a class="treeItem" href="#" value="${menu.menu_seq}" data-level="${menu.level}">${menuList[status.index].menu_nm }</a>
+                        <a class="treeItem" href="#" value="${menu.menu_seq}" data-level="${menu.level}"><c:out value="${menuList[status.index].menu_nm }"/></a>
 
                         <c:choose>
                             <c:when test="${hasChild }">

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.order.dao.OrderDao">
+
+    <!-- 기본 where절 -->
+    <sql id="defaultWhere">
+        <choose>
+            <when test="!@org.springframework.util.CollectionUtils@isEmpty(orderSeqList)">
+                AND o.order_seq IN
+                <foreach collection="orderSeqList" item="arr" open="(" close=")" separator=",">
+                    #{arr}::int4
+                </foreach>
+            </when>
+            <otherwise>
+                <if test="searchKeyword != null and searchKeyword !=''">
+                    <if test="searchType == 'memberId' ">
+                        AND UPPER(m.member_id) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                    <if test="searchType == 'memberNm' ">
+                        AND UPPER(m.member_nm) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                    <if test="searchType == 'orderNo' ">
+                        AND UPPER(o.order_no) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                    <if test="searchType == 'productName' ">
+                        AND UPPER(p.product_name) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                </if>
+
+                <if test="!@org.springframework.util.CollectionUtils@isEmpty(orderStatusList)">
+                    AND o.order_status IN
+                    <foreach collection="orderStatusList" item="status" open="(" close=")" separator=",">
+                        #{status}
+                    </foreach>
+                </if>
+
+                <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
+                    AND o.reg_dt <![CDATA[>=]]> #{startDate}::timestamp
+                </if>
+
+                <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
+                    AND o.reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
+                </if>
+
+                <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
+                    AND o.reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND o.reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+                </if>
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="selectOrderCount" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            octopus.order_info o
+--           LEFT OUTER JOIN octopus.order_product_info op ON o.order_seq = op.order_seq
+--           LEFT OUTER JOIN octopus.product_info p ON op.product_seq = p.product_seq
+            INNER JOIN octopus.member_info m ON o.member_seq = m.member_seq
+        WHERE
+            1=1
+        <include refid="defaultWhere"/>
+    </select>
+
+    <select id="selectOrderList" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="com.weaverloft.octopus.basic.order.vo.OrderVo">
+        SELECT
+            A.*
+        FROM
+            (SELECT
+                o.order_seq AS orderSeq,
+                m.member_seq AS memberSeq,
+--              op.order_product_seq as orderProductSeq,
+                o.order_no AS orderNo,
+                (CASE
+					WHEN o.order_status = 'PP' THEN '상품준비중'
+					WHEN o.order_status = 'OC' THEN '주문취소'
+					WHEN o.order_status = 'RR' THEN '반품요청'
+					WHEN o.order_status = 'RP' THEN '반품처리'
+					WHEN o.order_status = 'RD' THEN '반품완료'
+					WHEN o.order_status = 'FR' THEN '환불요청'
+					WHEN o.order_status = 'FD' THEN '환불완료'
+					WHEN o.order_status = 'DP' THEN '배송준비중'
+					WHEN o.order_status = 'DS' THEN '배송중'
+					WHEN o.order_status = 'DD' THEN '배송완료'
+					ELSE '-'  END ) AS orderStatus,
+--				p.product_name AS productName,
+                m.member_nm AS memberNm,
+                m.member_id AS memberId,
+                m.member_phone1 || '-' || m.member_phone2 || '-' || m.member_phone3 AS memberPhoneFull,
+--              p.product_price AS productPrice,
+--              op.order_product_stock AS orderProductStock,
+                o.order_total_price AS orderTotalPrice,
+                TO_CHAR(o.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+            FROM
+                octopus.order_info o
+--              LEFT OUTER JOIN octopus.order_product_info op ON o.order_seq = op.order_seq
+--              LEFT OUTER JOIN octopus.product_info p ON op.product_seq = p.product_seq
+                INNER JOIN octopus.member_info m ON o.member_seq = m.member_seq
+            WHERE
+            	1=1
+            <include refid="defaultWhere"/>
+            ORDER BY
+                o.order_seq DESC) A
+        LIMIT
+            #{pagingModel.pageSize}
+        OFFSET
+            (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+    <select id="selectOrderProductList" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="map">
+        SELECT
+            op.product_seq,
+            p.product_name,
+            p.product_price,
+            op.order_product_stock,
+            pc.product_category_nm
+        FROM
+            octopus.order_product_info op,
+            octopus.product_info p,
+            octopus.product_category_info pc
+        WHERE
+            op.product_seq = p.product_seq
+        AND
+            op.order_product_category_seq = pc.product_category_seq
+        AND
+            op.order_seq = #{orderSeq}
+    </select>
+
+    <select id="selectOrderProductOne" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="map">
+        SELECT
+            op.order_product_seq,
+            op.product_seq,
+            p.product_name,
+            p.product_price,
+            op.order_product_stock,
+            pc.product_category_nm,
+            op.order_product_delivery_no,
+            op.order_product_delivery_cd,
+            (CASE
+					WHEN op.order_product_status = 'PP' THEN '상품준비중'
+					WHEN op.order_product_status = 'OC' THEN '주문취소'
+					WHEN op.order_product_status = 'RR' THEN '반품요청'
+					WHEN op.order_product_status = 'RP' THEN '반품처리'
+					WHEN op.order_product_status = 'RD' THEN '반품완료'
+					WHEN op.order_product_status = 'FR' THEN '환불요청'
+					WHEN op.order_product_status = 'FD' THEN '환불완료'
+					WHEN op.order_product_status = 'DP' THEN '배송준비중'
+					WHEN op.order_product_status = 'DS' THEN '배송중'
+					WHEN op.order_product_status = 'DD' THEN '배송완료'
+					ELSE '-'  END ) AS order_product_status
+        FROM
+            octopus.order_product_info op,
+            octopus.product_info p,
+            octopus.product_category_info pc
+        WHERE
+            op.product_seq = p.product_seq
+        AND
+            op.order_product_category_seq = pc.product_category_seq
+        AND
+            op.order_product_seq = #{orderProductSeq}
+    </select>
+
+    <select id="getOrderDetail" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="com.weaverloft.octopus.basic.order.vo.OrderVo">
+        SELECT
+            o.order_seq AS orderSeq,
+            m.member_seq AS memberSeq,
+            o.order_no AS orderNo,
+            (CASE
+					WHEN o.order_status = 'PP' THEN '상품준비중'
+					WHEN o.order_status = 'OC' THEN '주문취소'
+					WHEN o.order_status = 'RR' THEN '반품요청'
+					WHEN o.order_status = 'RP' THEN '반품처리'
+					WHEN o.order_status = 'RD' THEN '반품완료'
+					WHEN o.order_status = 'FR' THEN '환불요청'
+					WHEN o.order_status = 'FD' THEN '환불완료'
+					WHEN o.order_status = 'DP' THEN '배송준비중'
+					WHEN o.order_status = 'DS' THEN '배송중'
+					WHEN o.order_status = 'DD' THEN '배송완료'
+					ELSE '-'  END ) AS orderStatus,
+            m.member_nm AS memberNm,
+            m.member_id AS memberId,
+            m.member_phone1 || '-' || m.member_phone2 || '-' || m.member_phone3 AS memberPhoneFull,
+            o.order_to_name AS orderToName,
+            o.order_to_phone1 || '-' || o.order_to_phone2 || '-' || o.order_to_phone3 AS orderToPhoneFull,
+            o.order_to_addr1 AS orderToAddr1,
+            o.order_to_addr2 AS orderToAddr2,
+            o.order_to_addr_detail AS orderToAddrDetail,
+            o.order_to_addr1 || ' ' || o.order_to_addr2 || ' ' || o.order_to_addr_detail AS orderToAddrFull,
+            o.order_to_zip_code AS orderToZipCode,
+            o.order_total_price AS orderTotalPrice,
+            o.order_delivery_no AS orderDeliveryNo,
+            o.order_delivery_comment AS orderDeliveryComment,
+            o.order_delivery_cd AS orderDeliveryCd,
+            o.return_delivery_no AS returnDeliveryNo,
+            o.return_delivery_cd AS returnDeliveryCd,
+            TO_CHAR(o.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+        FROM
+            octopus.order_info o,
+            octopus.member_info m
+        WHERE
+            o.member_seq = m.member_seq
+        AND
+            o.order_seq = #{orderSeq}
+    </select>
+
+    <update id="updateOrderDelivery" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo">
+        UPDATE
+            octopus.order_info
+        SET
+            <if test="orderDeliveryNo != null and orderDeliveryNo != ''">
+                order_delivery_no = #{orderDeliveryNo},
+            </if>
+            <if test="orderDeliveryCd != null and orderDeliveryCd != ''">
+                order_delivery_cd = #{orderDeliveryCd},
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                order_status = #{orderStatus},
+            </if>
+            udt_dt = now()
+        WHERE
+            order_seq = #{orderSeq}
+    </update>
+
+    <update id="updateReturnDelivery" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo">
+        UPDATE
+            octopus.order_info
+        SET
+            <if test="returnDeliveryNo != null and returnDeliveryNo != ''">
+                return_delivery_no = #{returnDeliveryNo},
+            </if>
+            <if test="returnDeliveryCd != null and returnDeliveryCd != ''">
+                return_delivery_cd = #{returnDeliveryCd},
+            </if>
+            udt_dt = now()
+        WHERE
+            order_seq = #{orderSeq}
+    </update>
+
+    <update id="updateOrderStatus" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo">
+        UPDATE
+            octopus.order_info
+        SET
+        <if test="orderStatus != null and orderStatus != ''">
+            order_status = #{orderStatus},
+        </if>
+            udt_dt = now()
+        WHERE
+            order_seq IN
+            <foreach collection="orderSeqList" item="arr" open="(" close=")" separator=",">
+                #{arr}::int4
+            </foreach>
+    </update>
+
+    <insert id="insertOrderDownloadLog" parameterType="map">
+        INSERT INTO octopus.download_log (
+            download_reg_id,
+            download_log_ip,
+            download_log_reason
+        ) VALUES (
+            #{downloadRegId},
+            #{downloadLogIp},
+            #{downloadLogReason}
+        )
+    </insert>
+
+    <select id="selectExcelOrderList" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="com.weaverloft.octopus.basic.order.vo.OrderVo">
+        SELECT
+            o.order_seq AS orderSeq,
+            m.member_seq AS memberSeq,
+            o.order_no AS orderNo,
+            (CASE
+                WHEN o.order_status = 'PP' THEN '상품준비중'
+                WHEN o.order_status = 'OC' THEN '주문취소'
+                WHEN o.order_status = 'RR' THEN '반품요청'
+                WHEN o.order_status = 'RP' THEN '반품처리'
+                WHEN o.order_status = 'RD' THEN '반품완료'
+                WHEN o.order_status = 'FR' THEN '환불요청'
+                WHEN o.order_status = 'FD' THEN '환불완료'
+                WHEN o.order_status = 'DP' THEN '배송준비중'
+                WHEN o.order_status = 'DS' THEN '배송중'
+                WHEN o.order_status = 'DD' THEN '배송완료'
+                ELSE '-'  END ) AS orderStatus,
+            p.product_name AS productName,
+            m.member_nm AS memberNm,
+            m.member_id AS memberId,
+            o.order_to_name AS orderToName,
+            o.order_to_phone1 || '-' || o.order_to_phone2 || '-' || o.order_to_phone3 AS orderToPhoneFull,
+            o.order_to_zip_code AS orderToZipCode,
+            o.order_to_addr1 || ' ' || o.order_to_addr2 || ' ' || o.order_to_addr_detail AS orderToAddrFull,
+            p.product_price AS productPrice,
+            op.order_product_stock AS orderProductStock,
+            o.order_delivery_no AS orderDeliveryNo,
+            o.order_delivery_comment AS orderDeliveryComment,
+            o.order_delivery_cd AS orderDeliveryCd,
+            o.return_delivery_no AS returnDeliveryNo,
+            o.return_delivery_cd AS returnDeliveryCd,
+            TO_CHAR(o.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+        FROM
+            octopus.order_info o
+            LEFT OUTER JOIN octopus.order_product_info op ON o.order_seq = op.order_seq
+            LEFT OUTER JOIN octopus.product_info p ON op.product_seq = p.product_seq
+            INNER JOIN octopus.member_info m ON o.member_seq = m.member_seq
+        WHERE
+            1=1
+        <include refid="defaultWhere"/>
+        ORDER BY
+            o.order_seq DESC
+    </select>
+
+</mapper>

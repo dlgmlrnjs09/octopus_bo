@@ -160,7 +160,7 @@
     function logExcelDownlaod () {
 
         // 엑셀 다운로드시 로딩바 생성함.
-        var DOWNLOAD_URL = "insert-member-excel-log";
+        var DOWNLOAD_URL = "excel/insert-member-excel-log";
         var HIDDEN_FRAME_ID = '__hidden_frame_for_file_download__';
         // Validate IFrame.
         var iframe = document.getElementById(HIDDEN_FRAME_ID);

@@ -264,7 +264,7 @@ public class MemberController {
         return mv;
     }
 
-    @RequestMapping(value = "/insert-member-excel-log", produces = "application/text; charset=utf-8")
+    @RequestMapping(value = "/excel/insert-member-excel-log", produces = "application/text; charset=utf-8")
     public void insertMemberExcelLog(@RequestParam("dataJson") String dataJson, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LocalDate nowDate = LocalDate.now();
         String fileSetting = nowDate+".xls";
@@ -277,7 +277,7 @@ public class MemberController {
         excelService.memberExcelLogDown(setting, dataJson,  response , request, fileSetting);
     }
 
-    @RequestMapping("/download-member-excel")
+    @RequestMapping("/excel/download-member-excel")
     public void downloadMemberExcel(@RequestParam("dataJson") String dataJson, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LocalDate nowDate = LocalDate.now();
         String fileSetting = nowDate+".xls";

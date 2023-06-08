@@ -52,7 +52,6 @@ public class FileServiceImpl implements FileService{
 			targetFile.mkdirs();
 		}
 		file.transferTo(targetFile);
-		strgePath = strgePath + strgeFileNm;
 		FileVo vo = new FileVo(file, strgeFileNm, strgePath);
 		return vo;
 	}

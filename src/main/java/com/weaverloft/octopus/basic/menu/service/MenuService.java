@@ -13,11 +13,11 @@ import java.util.Map;
 public interface MenuService {
     List<Map<String, Object>> getMenuInfo(Map<String, Object> map);
 
-    Map<String, Object> selectMenuDetail(Integer menuSeq);
-
-    int deleteMenu(Integer menuSeq);
+    int deleteMenu(List<Integer> menuSeqList);
 
     int updateMenu(Map<String, Object> map);
 
     int insertMenu(Map<String, Object> map);
+
+    List<Integer> getChildMenuSeq(Integer menuSeq);
 }

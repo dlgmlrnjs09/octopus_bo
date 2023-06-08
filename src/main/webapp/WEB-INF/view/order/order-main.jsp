@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/include/common_taglib.jsp" %>
 <html>
 <head>
-    <title>회원 관리</title>
+    <title>주문 관리</title>
 </head>
 <body>
     <script>
@@ -23,13 +23,21 @@
             $('.head-area').load("header.html");
         });
 
-        // 회원 리스트 조회
-        function getUserList(page) {
+        // 주문 리스트 조회
+        function getOrderList(page) {
 
             let startDate = $("#startReg").val();
             let endDate = $("#endReg").val();
             let searchType = $("#searchType").val();
             let searchKeyword = $("#searchKeyword").val();
+
+            let orderStatusList = [];
+
+            $("input:checkbox[name='statusSelect']").each(function() {
+               if($(this).is(":checked") == true) {
+                   orderStatusList.push($(this).attr("id").split("_")[1]);
+               }
+            });
 
             let sDate = new Date(startDate);
             let eDate = new Date(endDate);
@@ -45,14 +53,16 @@
                 'startDate' : startDate,
                 'endDate' : endDate,
                 'searchType' : searchType,
-                'searchKeyword' : searchKeyword
+                'searchKeyword' : searchKeyword,
+                'orderStatusList' : orderStatusList
             };
 
             $.ajax({
-                type : "GET",
-                url : "/member/select-member-list",
+                type : "POST",
+                url : "/order/select-order-list",
                 dataType:"html",
-                data : params,
+                contentType : 'application/json; charset=utf-8',
+                data : JSON.stringify(params),
                 success : function(data){
                     // 초기화
                     $("#dataTableDiv").empty();
@@ -62,14 +72,17 @@
             });
         }
 
-        // 회원 정보 상세 페이지
-        $(document).on("click", ".memberData", function() {
-            let seq = $(this).data("seq");
-            window.location.href = "/member/member-detail?memberSeq=" + seq;
+        // 주문 정보 상세 페이지
+        $(document).on("click", ".orderData", function() {
+            let oseq = $(this).data("oseq");
+            window.location.href = "/order/order-detail?orderSeq=" + oseq;
+
+            // let opseq = $(this).data("opseq");
+            // window.location.href = "/order/order-detail?orderSeq=" + oseq + "&orderProductSeq=" + opseq;
         });
 
-        // 회원 정보 엑셀 다운로드
-        $(document).on("click", "#excelMemberDownload", function() {
+        // 주문 정보 엑셀 다운로드
+        $(document).on("click", "#excelOrderDownload", function() {
             let startDate = $("#startReg").val();
             let endDate = $("#endReg").val();
             let searchType = $("#searchType").val();
@@ -77,14 +90,16 @@
 
             let sDate = new Date(startDate);
             let eDate = new Date(endDate);
+            let nowDate = new Date();
 
-            let memberSeqList = [];
+            let orderSeqList = [];
+            let orderStatusList = [];
 
-            $("input:checkbox[name='select']").each(function() {
-               if($(this).is(":checked") == true) {
-                   memberSeqList.push($(this).attr("id").split("_")[1]);
-               }
-            });
+            nowDate.setMonth(nowDate.getMonth() - 3);
+            if(sDate < nowDate) {
+                alert("주문 기간이 3개월 경과된 내역은 다운로드 할 수 없습니다.");
+                return false;
+            }
 
             if(sDate > eDate) {
                 alert("시작 날짜가 종료 날짜보다 클 수 없습니다.");
@@ -92,42 +107,93 @@
                 return false;
             }
 
+            $("input:checkbox[name='select']").each(function() {
+               if($(this).is(":checked") == true) {
+                   orderSeqList.push($(this).attr("id").split("_")[1]);
+               }
+            });
+
+            $("input:checkbox[name='statusSelect']").each(function() {
+               if($(this).is(":checked") == true) {
+                   orderStatusList.push($(this).attr("id").split("_")[1]);
+               }
+            });
+
             let params = {
                 'startDate' : startDate,
                 'endDate' : endDate,
                 'searchType' : searchType,
                 'searchKeyword' : searchKeyword,
-                'memberSeqList' : memberSeqList
+                'orderSeqList' : orderSeqList,
+                'orderStatusList' : orderStatusList
             };
 
             $("#dataJson").val(JSON.stringify(params));
-            $('#frmDefault').attr ('action', '/member/excel/download-member-excel').submit();
+            $('#frmDefault').attr ('action', '/order/excel/download-order-excel').submit();
         });
 
-        // 회원 일괄 등록 팝업
-        $(document).on("click", "#excelMemberUpload", function() {
-            var w = 650;    //팝업창의 너비
-            var h = 350;    //팝업창의 높이
-            //중앙위치 구해오기
-            LeftPosition=(screen.width-w)/2;
-            TopPosition=(screen.height-h)/2;
-            window.open(
-                "insert-member-list-popup",
-                "popup",
-                "width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=yes");
-            return false;
+        // 주문 상태 변경 버튼
+        $(document).on("click", "button[name='orderStatusBtn']", function() {
+
+            let btnText = $(this).text();
+            let orderStatus = $(this).data("status");
+
+            let orderSeqList = [];
+
+            if(!confirm(btnText + " 하시겠습니까?")) {
+                return false;
+            }
+
+            $("input:checkbox[name='select']").each(function() {
+               if($(this).is(":checked") == true) {
+                   orderSeqList.push($(this).attr("id").split("_")[1]);
+               }
+            });
+
+            if(orderSeqList.length <= 0) {
+                alert('선택된 데이터가 없습니다.');
+                return false;
+            }
+
+            let params = {
+                'orderStatus' : orderStatus,
+                'orderSeqList' : orderSeqList
+            };
+
+            $.ajax({
+                    type : "POST",
+                    url : "/order/order-status-update",
+                    dataType:"text",
+                    contentType : 'application/json; charset=utf-8',
+                    data : JSON.stringify(params),
+                    success : function(result){
+                        if(result == 'success') {
+                            alert(btnText + "가 완료되었습니다.");
+                            window.location.reload();
+                        } else if(result == '404') {
+                            alert(btnText + "에 문제가 생겼습니다.");
+                        } else {
+                            alert(result);
+                        }
+                    }
+                });
         });
 
         $(document).ready(function() {
             //검색 버튼
             $("#searchBtn").click(function() {
-                getUserList(1);
+                getOrderList(1);
             });
 
             $("#searchKeyword").on("keyup",function(key){
                 if(key.keyCode==13) {
-                    getUserList(1);
+                    getOrderList(1);
                 }
+            });
+
+            //주문 상태 체크박스
+            $("input[name='orderStatusSelectAll'], input[name='statusSelect']").change(function() {
+                getOrderList(1);
             });
 
             $('#startReg').datepicker({
@@ -170,17 +236,24 @@
                     && date1.getDate() === date2.getDate();
             };
 
-            getUserList();
+            getOrderList();
         });
 
     </script>
+
+    <style>
+        .order-status-chk {
+            display:inline-block;
+            margin-right:5px;
+        }
+    </style>
 
     <!--========== CONTENTS ==========-->
     <main id="main" class="page-home">
         <div class="home-section-wrap">
             <div>
-                <h2 class="sec-title">회원 관리</h2>
-                <p class="txt">회원 리스트 조회</p>
+                <h2 class="sec-title">주문 관리</h2>
+                <p class="txt">주문 리스트 조회</p>
             </div>
         </div>
         <div class="home-section-wrap">
@@ -199,13 +272,14 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" style="border-bottom-left-radius: 6px;"><em>검색어</em></th>
+                            <th scope="row"><em>검색어</em></th>
                             <td style="cursor: default;">
                                 <div class="basic-select-box" style="width: 10%; display: inline-block;">
                                     <select id="searchType" name="searchType" style="">
+                                        <option value="orderNo">주문번호</option>
+<%--                                        <option value="productName">상품명</option>--%>
                                         <option value="memberId">아이디</option>
                                         <option value="memberNm">이름</option>
-                                        <option value="memberEmail">이메일</option>
                                     </select>
                                     <span class="border-focus"><i></i></span>
                                 </div>
@@ -214,6 +288,28 @@
                                 <button type="button" class="search-btn" id="searchBtn">
                                     <img src="../../asset/img/admin/icon-search.svg" alt="검색하기">
                                 </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><em>주문 상태</em></th>
+                            <td style="cursor: default;">
+                                <div>
+                                    <div class="basic-check-box all-check-box order-status-chk">
+                                        <input type="checkbox" name="orderStatusSelectAll" id="orderStatusSelectAll" tabindex="-1">
+                                        <label for="orderStatusSelectAll" tabindex="0">전체</label>
+                                    </div>
+                                    <ul class="chkgroup-list" style="display:inline-block;">
+                                        <!-- 코드 불러오는 방식으로 변경 필요 -->
+                                        <c:forEach var="map" items="${statusMap}">
+                                            <li class="order-status-chk">
+                                                <div class="basic-check-box">
+                                                    <input type="checkbox" name="statusSelect" id="chk_${map.key}" tabindex="-1" class="orderchkgroup">
+                                                    <label for="chk_${map.key}" tabindex="0">${map.value}</label>
+                                                </div>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                         </tbody>

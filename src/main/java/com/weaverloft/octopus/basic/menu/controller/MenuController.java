@@ -37,8 +37,6 @@ public class MenuController {
     @GetMapping("/main")
     public String showMenuMainPage(Model model) {
         Map<String, Object> map = new HashMap<>();
-        map.put("mode", "EDIT");
-
         List<Map<String, Object>> menuList = menuService.getMenuInfo(map);
 
         model.addAttribute("menuList", menuList);
@@ -59,7 +57,10 @@ public class MenuController {
     @GetMapping("/delete-menu")
     @ResponseBody
     public int deleteMenu(@RequestParam("menuSeq") Integer menuSeq) {
-        int result = menuService.deleteMenu(menuSeq);
+        List<Integer> deleteSeqList = menuService.getChildMenuSeq(menuSeq);
+
+        // TODO 메뉴 아이콘 파일도 삭제 처리
+        int result = menuService.deleteMenu(deleteSeqList);
 
         return result;
     }
@@ -113,6 +114,8 @@ public class MenuController {
 
         FileVo fileIconVO = new FileVo();
 
+        int result = menuService.insertMenu(menuMap);
+
         if(fileIcon.getSize()!=0){
             fileIconVO = fileService.saveFileProduct(fileIcon, filePath);
 
@@ -122,8 +125,6 @@ public class MenuController {
             // TODO 이미지 썸네일 등록
             fileService.insertFileInfo(fileIconVO);
         }
-
-        int result = menuService.insertMenu(menuMap);
 
         return result;
     }
