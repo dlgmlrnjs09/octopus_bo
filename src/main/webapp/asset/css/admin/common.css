@@ -60,11 +60,11 @@
 	padding: 8px 14px;
 	border: 1px solid #ddd;
 	border-radius: 4px;
-	font-size: var(--main-text-size);
+	font-size: 14px;
 	color: #777;
 }
 .input-box input::placeholder{
-	font-size: var(--main-text-size);
+	font-size: 14px;
 	color: #aaa;
 }
 
@@ -322,10 +322,12 @@ input[type="checkbox"] + label{
 	padding: 11px;
 	border: 1px solid #ddd;
 	border-radius: 4px;
-	font-size: var(--main-text-size);
+	font-size: 14px;
 	color: #777;
 }
-
+.textarea-box textarea::placeholder{
+	font-size: 14px;
+}
 /* textarea - Animation */
 .textarea-box textarea~.border-focus:before,
 .textarea-box textarea~.border-focus:after {
@@ -532,7 +534,7 @@ input[type="checkbox"] + label{
 .tab-menu li.tab-link a{
 	display: block;
 	padding: 12px 0;
-	font-size: var(--main-text-size);
+	font-size: 14px;
 	font-weight: 600;
 	line-height: 1;
 	text-align: center;
@@ -563,8 +565,8 @@ input[type="checkbox"] + label{
 	padding: 8px 16px;
 	background-color: var(--point-color01);
 	border: 1px solid transparent;
-	border-radius: 2px;
-	font-size: 16px;
+	border-radius: 4px;
+	font-size: 14px;
 	color: #fff;
 	text-align: center;
 	line-height: 1;

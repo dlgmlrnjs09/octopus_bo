@@ -129,7 +129,7 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 }
 
 /*========== Common ==========*/
-#container.admin {position: relative; background: var(--bg-color); padding-top: 56px; padding-left: 256px; }
+#container.admin {position: relative; min-height: 100vh; padding-top: 56px; padding-left: 256px; background: var(--bg-color); }
 /* #container.navHidden {padding-left: 56px; } */
 .inner {max-width: 1240px; margin: 0 auto;}
 .mo {display: none;}
