@@ -9,16 +9,7 @@
  */
 
 /*========== Common ==========*/
-/* .home-section-wrap {display: flex; flex-flow: row wrap; justify-content: space-between; align-items: flex-start;}
-.home-section-wrap .left { width: 920px; }
-.home-section-wrap .right { width: 390px; }
-.home-sec { width: 100%; margin-bottom: 20px; padding: 16px 20px 20px; border-radius: 6px; border: 1px solid var(--sub-color01); background-color: #fff; }
-.half-sec-wrap{ display: flex; flex-flow: row nowrap; align-items: stretch; justify-content: space-between; gap: 20px; }
-.home-sec div, .home-sec a, .home-sec p{color: #555;}
-@media screen and (max-width: 1614px){
-   .home-section-wrap .left{ width: 68%; }
-   .home-section-wrap .right{ width: 31%; }
-} */
+
 
 /*========== Menu list ==========*/
 .set-menu-list {

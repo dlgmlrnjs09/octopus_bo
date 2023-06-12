@@ -148,9 +148,10 @@
 .calendar ul.days li { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; height: 45px; cursor: pointer; }
 .calendar ul.days li.inactive { opacity: 0.4; }
 .calendar ul.days li.active { color: #fff; }
-.calendar ul.days li::before { position: absolute; content: ""; left: 50%; top: 50%; height: 25px; width: 25px; z-index: -1; border-radius: 50%; transform: translate(-50%, -50%); }
+.calendar ul.days li::before { position: absolute; z-index: -1; content: ""; left: 50%; top: 50%; width: 25px; height: 25px; border-radius: 50%; transform: translate(-50%, -50%); }
 .calendar ul.days li.active::before { background: var(--point-color02); }
 .calendar ul.days li:not(.active):hover::before { background: #f2f2f2; }
+.calendar ul.days li.mark::after{ position: absolute; z-index: 1; content: ""; left: 0; right: 0; bottom: 18%; width: 5px; height: 5px; margin: 0 auto; border-radius: 50%; background-color: #FF1A1A;}
 /* schedule */
 .schedule-wrap {margin-top: 16px; padding-top: 18px; border-top: 1px solid var(--sub-color01);}
 .schedule-head { display: flex; flex-flow: row nowrap; align-items: center; justify-content: space-between; }
