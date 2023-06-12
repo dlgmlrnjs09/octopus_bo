@@ -18,21 +18,12 @@
 :root {
 	/* color */
 	--bg-color: #F3F3F9;
-	--grayscale-color01: #000;
-	--grayscale-color02: #333;
-	--grayscale-color03: #555;
-	--grayscale-color04: #777;
-	--grayscale-color05: #999;
-	--grayscale-color06: #aaa;
-	--grayscale-color07: #ddd;
-	--grayscale-color08: #E5E5E5;
-	--grayscale-color09: #fff;
-	--purple-color01: #E5E8FB;
-	--purple-color02: #6A5CF1;
-	--purple-color03: #7446F6;
-	--purple-color04: #483682;
-	--purple-color05: #826BCC;
+	--sub-color01: #E8E8F1;
+	--point-color01: #826BCC;
+	--point-color02: #7446F6;
+	--point-color03: #A699F8;
 	--red-color: #FF1A1A;
+	--red-text-color: #E82929;
 	/* font-size */
 	--title-size: 28px;
 	--main-text-size: 16px;
@@ -52,6 +43,12 @@
 	flex-flow: row nowrap;
 	align-items: center;
 }
+.select-box-wrap {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	gap: 8px;
+}
 .input-box{
 	position: relative;
 	width: 100%;
@@ -61,14 +58,14 @@
 	width: 100%;
 	height: 40px;
 	padding: 8px 14px;
-	border: 1px solid var(--grayscale-color07);
+	border: 1px solid #ddd;
 	border-radius: 4px;
 	font-size: var(--main-text-size);
-	color: var(--grayscale-color04);
+	color: #777;
 }
 .input-box input::placeholder{
 	font-size: var(--main-text-size);
-	color:  var(--grayscale-color06);
+	color: #aaa;
 }
 
 /* Input - Animation */
@@ -80,7 +77,7 @@
 	left: 0;
 	width: 0;
 	height: 1px;
-	background-color: var(--purple-color02);
+	background-color: var(--point-color02);
 	transition: 0.3s;
 }
 .input-box input~.border-focus:after {
@@ -94,7 +91,7 @@
 	left: 0;
 	width: 1px;
 	height: 0;
-	background-color: var(--purple-color02);
+	background-color: var(--point-color02);
 	transition: 0.4s;
 }
 .input-box input~.border-focus i:after {
@@ -119,7 +116,7 @@
 .input-box.line input{
 	background-color: transparent;
 	border: none;
-	border-bottom: 1px solid var(--grayscale-color06);
+	border-bottom: 1px solid #aaa;
 	border-radius: 0;
 }
 .input-box.line .line-focus{
@@ -129,7 +126,7 @@
 	display: inline-block;
     width: 0;
     height: 1px;
-    background-color: var(--purple-color02);
+    background-color: var(--point-color02);
     transition: width 0.4s;
 }
 .input-box.line input:focus ~ .line-focus,
@@ -189,15 +186,15 @@
 .basic-radio-box input[type="radio"]:checked + label::before {
 	width: 16px;
 	height: 16px;
-	border: 1px solid var(--purple-color05);
+	border: 1px solid var(--point-color01);
 	border-radius:50%;
 	vertical-align:middle;
 }
 .basic-radio-box input[type="radio"]:checked + label::after {
 	width: 8px;
 	height: 8px;
-	background-color: var(--purple-color05);
-	border: 1px solid var(--purple-color05);
+	background-color: var(--point-color01);
+	border: 1px solid var(--point-color01);
 	border-radius:50%;
 	vertical-align:middle;
 }
@@ -247,7 +244,7 @@ input[type="checkbox"] + label{
 }
 .basic-check-box input[type="checkbox"]:checked + label::before {
 	border: none;
-	background-color: #826BCC;
+	background-color: var(--point-color01);
 	background-image: url("http://codeloft.kr/apbos/asset/css/../img/icon-chk-on.svg");
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -262,16 +259,17 @@ input[type="checkbox"] + label{
 .basic-select-box select{
 	width: 100%;
 	min-width: 70px;
-	height: 43px;
-	padding: 11px 26px 11px 14px;
-	border: 1px solid var(--grayscale-color07); 
+	height: 34px;
+	padding: 8px 36px 8px 14px;
+	border: 1px solid #ddd; 
 	border-radius: 4px;
 	background-image: url("http://codeloft.kr/apbos/asset/css/../img/select-arrow-g.svg"); 
 	background-repeat: no-repeat;
-	background-position: calc(100% - 26px) center;
-	background-size: 11px 11px; 
-	font-size: var(--main-text-size);
-	color: var(--grayscale-color04);
+	background-position: calc(100% - 14px) 12px;
+	background-size: 10px 10px; 
+	font-size: 14px;
+	font-weight: 500;
+	color: #777;
 	line-height: 1;
 }
 /* Select - Animation */
@@ -283,7 +281,7 @@ input[type="checkbox"] + label{
 	left: 0;
 	width: 0;
 	height: 1px;
-	background-color: var(--purple-color02);
+	background-color: var(--point-color02);
 	transition: 0.3s;
 }
 .basic-select-box select~.border-focus:after {
@@ -297,7 +295,7 @@ input[type="checkbox"] + label{
 	left: 0;
 	width: 1px;
 	height: 0;
-	background-color: var(--purple-color02);
+	background-color: var(--point-color02);
 	transition: 0.4s;
 }
 .basic-select-box select~.border-focus i:after {
@@ -322,10 +320,10 @@ input[type="checkbox"] + label{
 	display: block;
 	width: 100%;
 	padding: 11px;
-	border: 1px solid var(--grayscale-color07);
+	border: 1px solid #ddd;
 	border-radius: 4px;
 	font-size: var(--main-text-size);
-	color: var(--grayscale-color04);
+	color: #777;
 }
 
 /* textarea - Animation */
@@ -337,7 +335,7 @@ input[type="checkbox"] + label{
 	left: 0;
 	width: 0;
 	height: 1px;
-	background-color: var(--purple-color02);
+	background-color: var(--point-color02);
 	transition: 0.3s;
 }
 .textarea-box textarea~.border-focus:after {
@@ -351,7 +349,7 @@ input[type="checkbox"] + label{
 	left: 0;
 	width: 1px;
 	height: 0;
-	background-color: var(--purple-color02);
+	background-color: var(--point-color02);
 	transition: 0.4s;
 }
 .textarea-box textarea~.border-focus i:after {
@@ -525,11 +523,11 @@ input[type="checkbox"] + label{
 	bottom: 0;
 	display: inline-block;
 	height: 2px;
-	background-color: var(--grayscale-color02);
+	background-color: #333;
 	transition: left .3s linear;
 }
 .tab-menu li.tab-link {
-	border-bottom: 2px solid var(--grayscale-color07);;
+	border-bottom: 2px solid #ddd;;
 }
 .tab-menu li.tab-link a{
 	display: block;
@@ -538,16 +536,16 @@ input[type="checkbox"] + label{
 	font-weight: 600;
 	line-height: 1;
 	text-align: center;
-	color: var(--grayscale-color04);
+	color: #777;
 	-webkit-user-drag: none;
 	transition: color 300ms;
 }
 .tab-menu li.tab-link a:hover{
-	color:  var(--grayscale-color02);
+	color:  #333;
 	transition: color 300ms;
 }
 .tab-menu li.tab-link.current a{
-	color:  var(--grayscale-color02);
+	color:  #333;
 	transition: color 300ms;
 }
 .tab-content-wrap .tab-content{
@@ -563,7 +561,7 @@ input[type="checkbox"] + label{
 	min-width: 90px;
 	height: auto;
 	padding: 20px 16px;
-	background-color: var(--purple-color05);
+	background-color: var(--point-color01);
 	border: 1px solid transparent;
 	border-radius: 2px;
 	font-size: 18px;
@@ -649,7 +647,7 @@ input[type="checkbox"] + label{
 }
 .pagination-list li.current button {
 	border-radius: 5px;
-	background-color: #826BCC;
+	background-color: var(--point-color01);
 	font-weight: 700;
 	color: #fff;
 }
@@ -724,4 +722,34 @@ input[type="checkbox"] + label{
 	font-size: 13px;
 	color: #56616d;
 	transform: translateY(-4px);
+}
+
+/*========== Star ==========*/
+.star-wrap{
+	display: flex;
+	flex-direction: column;
+}
+.star-wrap .star{
+	display: inline-block;
+	width: 80px;
+	height: 16px;
+	background-image: url('../../img/admin/star.svg');
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	overflow: hidden;
+}
+.star-wrap .star.one{
+	background-position: 0 -76px;
+}
+.star-wrap .star.two{
+	background-position: 0 -57px;
+}
+.star-wrap .star.three{
+	background-position: 0 -38px;
+}
+.star-wrap .star.four{
+	background-position: 0 -19px;
+}
+.star-wrap .star.five{
+	background-position: 0 0;
 }

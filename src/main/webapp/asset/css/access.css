@@ -38,10 +38,9 @@
 .login-wrap .input-box-wrap .input-box input.pw {background-image: url("../img/icon-login-pw.svg");}
 .login-wrap .middle-wrap {display: flex; flex-flow: row nowrap; justify-content: space-between; margin-top: 18px;}
 .login-wrap .middle-wrap .find-wrap {display: flex; flex-flow: row nowrap; align-items: center;}
-.login-wrap .middle-wrap .find-wrap a {font-size: var(--small-text-size); color: var(--sub-color02);}
+.login-wrap .middle-wrap .find-wrap a {font-size: var(--medium-text-size); color: var(--sub-color02);}
 .login-wrap .middle-wrap .find-wrap .mid-line span{ display: inline-block; width: 1px; height: 8px; margin: 0 8px; background-color: #DDDDDD; transform: translateY(-2px);}
-.login-wrap .basic-check-box input[type="checkbox"] + label {font-size: var(--small-text-size); color: var(--sub-color02);}
-.login-wrap .basic-check-box input[type="checkbox"] + label::before {width: 12px; height: 12px;}
+.login-wrap .basic-check-box input[type="checkbox"] + label {font-size: var(--medium-text-size); color: var(--sub-color02);}
 .login-wrap .basic-check-box input[type="checkbox"]:checked + label::before {background-color: var(--main-color);}
 .login-wrap .input-box.login {margin: 42px auto 36px;}
 

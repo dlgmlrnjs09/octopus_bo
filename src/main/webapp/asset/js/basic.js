@@ -51,25 +51,25 @@ $(function () {
 			$("#" + tab_id).addClass('current').siblings().removeClass('current');
 		});
 		
-		$(".tab-menu li.tab-link a").click(function () {
+		$(".tab-menu:not(.tab-menu02) li.tab-link a").click(function () {
 			var position = $(this).parent().position();
-			$(".tab-menu li.slider").css({
+			$(".tab-menu:not(.tab-menu02) li.slider").css({
 				"left": +position.left,
 			});
 		});
-		var actPosition = $(".tab-menu .current").position();
-		$(".tab-menu li.slider").css({
+		var actPosition = $(".tab-menu:not(.tab-menu02) .current").position();
+		$(".tab-menu:not(.tab-menu02) li.slider").css({
 			"left": +actPosition.left,
 		});
 		$(window).resize(function(){
-			$(".tab-menu li.tab-link a").click(function () {
+			$(".tab-menu:not(.tab-menu02) li.tab-link a").click(function () {
 				var position = $(this).parent().position();
-				$(".tab-menu li.slider").css({
+				$(".tab-menu:not(.tab-menu02) li.slider").css({
 					"left": +position.left,
 				});
 			});
-			var actPosition = $(".tab-menu .current").position();
-			$(".tab-menu li.slider").css({
+			var actPosition = $(".tab-menu:not(.tab-menu02) .current").position();
+			$(".tab-menu:not(.tab-menu02) li.slider").css({
 				"left": +actPosition.left,
 			});
 		});
@@ -104,20 +104,7 @@ $(document).on('click', '.chkgroup', function () {
 	} else {
 		$('input[name="selectAll"]').prop('checked', false);
 	}
-});
-
-// Input checkbox order status All check
-$(document).on('click', 'input[name="orderStatusSelectAll"]', function () {
-	$('.orderchkgroup:not(:disabled)').not(this).prop('checked', this.checked);
-});
-
-$(document).on('click', '.orderchkgroup', function () {
-	if ($('.orderchkgroup:not(:disabled)').length == $('.orderchkgroup:checked').length) {
-		$('input[name="orderStatusSelectAll"]').prop('checked', true);
-	} else {
-		$('input[name="orderStatusSelectAll"]').prop('checked', false);
-	}
-});
+}); 
 
 // Input
 $(function () {
@@ -209,4 +196,39 @@ $(function () {
 		handler.init()
 		handler.removeFile()
 	}
+});
+
+// custom select
+$(".custom-select-box ul").on("click", ".init", function() {
+    $(this).closest(".custom-select-box ul").children('li:not(.init)').toggle();
+    $(this).closest(".custom-select-box ul").toggleClass('open');
+});
+
+$(".custom-select-box ul").each(function() {
+    var selectBox = $(this);
+    var allOptions = selectBox.children('li:not(.init)');
+
+    selectBox.on("click", "li:not(.init)", function() {
+        allOptions.removeClass('selected');
+        $(this).addClass('selected');
+        selectBox.children('.init').html($(this).html());
+        allOptions.toggle();
+        selectBox.removeClass('open').addClass('sel');
+    });
+});
+$(document).on("click", function(event) {
+    var target = $(event.target);
+    var selectBox = $(".custom-select-box ul");
+    
+    if (!target.closest(".custom-select-box").length) {
+        // 클릭된 요소가 셀렉트 박스 외부이면
+        selectBox.children('li:not(.init)').hide();
+        selectBox.removeClass('open');
+    } else {
+        // 클릭된 요소가 셀렉트 박스 내부이면
+        if (!target.hasClass("init")) {
+            selectBox.children('li:not(.init)').hide();
+            selectBox.removeClass('open');
+        }
+    }
 });
