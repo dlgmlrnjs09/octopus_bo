@@ -7,6 +7,52 @@
  */
 
 /*========== Basic ==========*/
+// skeleton
+$(function () {
+	if ($(".skeleton-loading").length > 0) {
+		const skeletonBox = document.querySelectorAll('.skeleton-box');
+		const skeletonImgBox = document.querySelectorAll('.skeleton-img-box');
+		const skeletonItem = document.querySelectorAll('.skeleton-loading');
+
+		const hideSkeleton = () => {
+			skeletonItem.forEach(element => {
+				$(element).fadeOut(() => {
+					element.classList.remove('skeleton-loading');
+					skeletonBox.forEach(boxElement => {
+						boxElement.classList.remove('skeleton-box');
+					});
+					skeletonImgBox.forEach(imgElement => {
+						imgElement.classList.remove('skeleton-img-box');
+					});
+				});
+			});
+		};
+
+		window.onload = setTimeout(hideSkeleton, 2000);
+		// 실제 코드 (실제로 사용될 코드)
+		// window.onload = hideskeleton;
+		
+		// window.addEventListener('scroll', function() {
+		//     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+		//         // 스크롤이 페이지 바닥에 도달하면 스켈레톤 UI를 표시
+		//         document.getElementById('skeleton').style.display = 'block';
+		
+		//         // 이후 새로운 콘텐츠를 로드 (예: AJAX 요청). 콘텐츠 로딩이 끝나면 스켈레톤 UI를 숨김
+		//         loadNewContent().then(() => {
+		//             document.getElementById('skeleton').style.display = 'none';
+		//         });
+		//     }
+		// });
+		
+		// function loadNewContent() {
+		//     // 이 함수는 실제 콘텐츠를 로드하고 Promise를 반환
+		//     return new Promise((resolve, reject) => {
+		//         setTimeout(resolve, 2000); // 예: 2초 후에 콘텐츠 로딩이 끝났다고 가정
+		//     });
+		// }
+	}
+})
+
 // Top Btn
 $(function () {
 	$(window).scroll(function(){

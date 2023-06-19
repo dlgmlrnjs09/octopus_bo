@@ -129,7 +129,7 @@ $(function(){
 });
 
 /*========== Event ==========*/
-$(function(){
+$(function () {
     if ($(".event-swiper").length > 0) {
         var eventSwiper = new Swiper(".event-swiper", {
             loop: true,
@@ -150,5 +150,6 @@ $(function(){
                 }
             },
         });
+        $('.event-slide.swiper-slide-duplicate div').removeClass('skeleton-box').removeClass('skeleton-loading');
     };
 })

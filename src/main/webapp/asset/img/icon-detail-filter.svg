@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="그룹_3961" data-name="그룹 3961" transform="translate(-1286 -4172)">
+    <rect id="사각형_1295" data-name="사각형 1295" width="24" height="24" transform="translate(1286 4172)" fill="none"/>
+    <g id="그룹_3822" data-name="그룹 3822" transform="translate(1288.4 4175.6)">
+      <rect id="사각형_1292" data-name="사각형 1292" width="20" height="1" rx="0.5" transform="translate(-0.4 1.4)" fill="#333"/>
+      <rect id="사각형_1293" data-name="사각형 1293" width="20" height="1" rx="0.5" transform="translate(-0.4 8.4)" fill="#333"/>
+      <rect id="사각형_1294" data-name="사각형 1294" width="20" height="1" rx="0.5" transform="translate(-0.4 15.4)" fill="#333"/>
+      <g id="타원_134" data-name="타원 134" transform="translate(2.6 -0.6)" fill="#fff" stroke="#333" stroke-width="1">
+        <circle cx="2.5" cy="2.5" r="2.5" stroke="none"/>
+        <circle cx="2.5" cy="2.5" r="2" fill="none"/>
+      </g>
+      <g id="타원_139" data-name="타원 139" transform="translate(11.6 6.4)" fill="#fff" stroke="#333" stroke-width="1">
+        <circle cx="2.5" cy="2.5" r="2.5" stroke="none"/>
+        <circle cx="2.5" cy="2.5" r="2" fill="none"/>
+      </g>
+      <g id="타원_140" data-name="타원 140" transform="translate(7.6 13.4)" fill="#fff" stroke="#333" stroke-width="1">
+        <circle cx="2.5" cy="2.5" r="2.5" stroke="none"/>
+        <circle cx="2.5" cy="2.5" r="2" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

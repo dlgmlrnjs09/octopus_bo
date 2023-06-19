@@ -43,7 +43,64 @@
 		--title-size: 22px;
 		--main-text-size: 14px;
 	}
+}
 
+/*========== Skeleton ==========*/
+.skeleton-box{
+	position: relative;
+}
+.skeleton-box .skeleton-loading {
+	position: absolute;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	background-image: url('../../img/skeleton_bg.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	overflow: hidden;
+}
+.skeleton-box .skeleton-loading::after{
+	background: #fff;
+	content: "";
+	height: 520px;
+	left: -100px;
+	opacity: .4;
+	position: absolute;
+	top: -80px;
+	transform: rotate(35deg);
+	transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+	filter: blur(10px);
+	width: 50px;
+	z-index: -10;
+	animation: loading 1s infinite;
+}
+@keyframes loading {
+	100% {
+		left: 100%;
+	}
+}
+
+.skeleton-img-box{
+	position: relative;
+}
+.skeleton-img-box .skeleton-loading{
+	position: absolute;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.skeleton-img-box .skeleton-loading * {
+	background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
+	border-radius: 6px;
+	background-size: 200% 100%;
+	background-position: 100% 0;
+	animation: load 1.5s infinite;
+}
+@keyframes load {
+	100% {
+		background-position: -100% 0;
+	}
 }
 
 /*========== Custom Design ==========*/
@@ -794,50 +851,52 @@ input[type="checkbox"] + label{
 
 /*========== Pagination ==========*/
 .pagination-wrap {
-	text-align: center;
+	display: flex; align-items: center; justify-content: center;
 }
 .pagination-btn {
 	opacity: 1;
-	display: inline-block;
-	width: 33px;
-	height: 33px;
-	text-indent: -9999px;
+	width: 26px;
+	height: 26px;
+	border: 1px solid transparent;
+	border-radius: 100%;
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-size: 10px 10px;
 	transition: all 300ms;
 }
 .pagination-btn:hover {
+	border-color: #aaa;
 	opacity: 0.6;
 	transition: all 300ms;
 }
 .pagination-btn.first, .pagination-btn.last {
-	width: 33px;
-	height: 33px;
-	background-size: 12px 10px;
+	width: 26px;
+	height: 26px;
 }
 .pagination-btn.first {
-	background-image: url("http://codeloft.kr/apbos/asset/css/../img/arrow-double-left-b.svg");
+	margin-right: 2px;
+	background-image: url("../img/icon-pagination-double-arrow.svg");
 }
 .pagination-btn.last {
-	background-image: url("http://codeloft.kr/apbos/asset/css/../img/arrow-double-right-b.svg");
+	margin-left: 2px;
+	background-image: url("../img/icon-pagination-double-arrow.svg");
+	transform: rotate(180deg);
 }
 .pagination-btn.prev {
-	background-image: url("http://codeloft.kr/apbos/asset/css/../img/arrow-left-b.svg");
+	background-image: url("../img/icon-pagination-arrow.svg");
 }
 .pagination-btn.next {
-	background-image: url("http://codeloft.kr/apbos/asset/css/../img/arrow-right-b.svg");
+	background-image: url("../img/icon-pagination-arrow.svg");
+	transform: rotate(180deg);
 }
 .pagination-list {
-	display: inline-block;
 	width: auto;
 	margin: 0 5px;
 }
 .pagination-list li {
 	display: inline-block;
-	width: 33px;
-	height: 33px;
-	line-height: 33px;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
 	margin: 0 4px;
 }
 .pagination-list li button {
@@ -845,14 +904,12 @@ input[type="checkbox"] + label{
 	height: 100%;
 	font-size: 14px;
 	font-weight: 500;
-	color: #666;
+	color: #aaa;
 	transition: all 300ms;
 }
 .pagination-list li.current button {
-	border-radius: 2px;
-	background-color: var(--detault-color);
-	font-weight: 700;
-	color: #fff;
+	color: #333;
+	text-decoration: underline;
 }
 .pagination-list li:hover button {
 	opacity: 0.7;
@@ -939,6 +996,7 @@ input[type="checkbox"] + label{
 	margin-top: 12px;
 }
 .review-graph li:first-child{
+	font-weight: 700;
 	color: var(--main-color);
 }
 .review-graph .review-graph-grade{

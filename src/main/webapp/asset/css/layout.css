@@ -213,7 +213,6 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 @media screen and (max-width: 1280px){
 	.category-menu .category-list .category-link a {width: 6vw; min-width: 52px;}
 }
-
 @media screen and (max-width: 767px){
 	/* top-area */
 	#header {border-bottom: none; box-shadow: 0px 1px 10px 1px var(--sub-color04);}
