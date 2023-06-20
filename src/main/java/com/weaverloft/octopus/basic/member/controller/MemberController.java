@@ -8,7 +8,14 @@ import com.weaverloft.octopus.basic.main.service.FileService;
 import com.weaverloft.octopus.basic.member.service.MemberService;
 import com.weaverloft.octopus.basic.main.vo.FileVo;
 import com.weaverloft.octopus.basic.member.vo.MemberVo;
+import com.weaverloft.octopus.basic.role.service.RoleService;
+import com.weaverloft.octopus.basic.role.vo.RoleVo;
+import com.weaverloft.octopus.basic.security.CustomUserDetails;
+import com.weaverloft.octopus.basic.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +24,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.management.relation.Role;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -38,6 +46,9 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private RoleService roleService;
+
     /** File Service */
     @Autowired
     protected FileService fileService;
@@ -45,6 +56,9 @@ public class MemberController {
     /** ExcelService */
     @Autowired
     ExcelService excelService;
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("/main")
     public String showMemberMainPage(Model model) {
@@ -90,7 +104,10 @@ public class MemberController {
     public String loadMemberDetail(Model model, @ModelAttribute MemberVo memberVo) {
 
         try{
+            List<RoleVo> roleList = roleService.selectRoleList(new RoleVo());
             MemberVo member = memberService.getMemberDetail(memberVo);
+
+            model.addAttribute("roleList", roleList);
             model.addAttribute("member", member);
         }catch (Exception e) {
             System.out.println(e);
@@ -119,6 +136,13 @@ public class MemberController {
             }
 
             memberService.updateMember(memberVo);
+
+            // security 새로운 인증 생성
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+
+            SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication, user.getUsername()));
+
         }catch (Exception e) {
             System.out.println(e);
             return "404";
@@ -133,12 +157,32 @@ public class MemberController {
 
         try{
             memberService.updateMemberRole(memberVo);
+
+            // security 새로운 인증 생성
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+
+            SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication, user.getUsername()));
         }catch (Exception e) {
             System.out.println(e);
             return "404";
         }
 
         return "success";
+    }
+
+    /**
+      * @description 새로운 인증 생성
+      * @param currentAuth 현재 auth 정보
+      * @param username	현재 사용자 Id
+      * @return Authentication
+      * @author Armton
+    */
+    protected Authentication createNewAuthentication(Authentication currentAuth, String username) {
+        CustomUserDetails newPrincipal = (CustomUserDetails) customUserDetailsService.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(newPrincipal, currentAuth.getCredentials(), newPrincipal.getAuthorities());
+        newAuth.setDetails(currentAuth.getDetails());
+        return newAuth;
     }
 
     @GetMapping("/insert-member-list-popup")
@@ -232,10 +276,9 @@ public class MemberController {
                     validateResult = false;
                 }
 
-                // TODO 기본 패스워드 지정
                 //필수 값이 모두 있으면
                 if(validateResult){
-                    excelVo.setMemberPw("기본패스워드");  // pw not null
+                    excelVo.setMemberPw("$2a$10$G/ADAGLU3vKBd62E6GbrgetQpEKu2ukKgiDR5TWHYwrem0cSv6Z8m");  // pw : 1234
 
                     excelVo.setMemberPhone1(excelData[i][1].split("-")[0]);
                     excelVo.setMemberPhone2(excelData[i][1].split("-")[1]);

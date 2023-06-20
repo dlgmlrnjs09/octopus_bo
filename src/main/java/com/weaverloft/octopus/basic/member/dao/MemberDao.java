@@ -21,6 +21,8 @@ public interface MemberDao {
 
     MemberVo getMemberDetail(MemberVo memberVo);
 
+    MemberVo getMemberRole(MemberVo memberVo);
+
     int updateMember(MemberVo memberVo);
 
     int updateMemberRole(MemberVo memberVo);

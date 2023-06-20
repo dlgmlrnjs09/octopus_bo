@@ -30,6 +30,8 @@ public class MemberServiceImpl implements MemberService{
 
     public MemberVo getMemberDetail(MemberVo memberVo) { return memberDao.getMemberDetail(memberVo); }
 
+    public MemberVo getMemberRole(MemberVo memberVo) { return memberDao.getMemberRole(memberVo); }
+
     public int updateMember(MemberVo memberVo) { return memberDao.updateMember(memberVo); }
 
     public int updateMemberRole(MemberVo memberVo) { return memberDao.updateMemberRole(memberVo); }

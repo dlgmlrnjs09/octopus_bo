@@ -10,11 +10,13 @@
 
         let menuNm = '';
         let menuUrl = '';
-        let menuAuthority = '';
         let isUse = '';
         let menuIconUrl = '';
+        let hasAuthority = [];
 
         function selectMenuDetail(menuSeq) {
+            $("input:checkbox[name='select']").prop('checked', false);
+
             $("#fileIcon").val('');
 
             $("#insertMenuBtnDiv").hide();
@@ -34,10 +36,19 @@
 
                     $("#menuNm").val(data[0].menu_nm);
                     $("#menuUrl").val(data[0].menu_url);
-                    $("#menuAuthority").val(data[0].has_authority);
+                    // $("#hasAuthority").val(data[0].has_authority);
+                    let authority = (data[0].has_authority||'').split(",");
 
-                    console.log(data[0].file_path);
+                    // 권한 체크박스
+                    $("input:checkbox[name='select']").each(function() {
+                        for (var i = 0; i < authority.length; i++) {
+                            if(authority[i].toUpperCase() == $(this).data("role")) {
+                                $(this).prop('checked', true);
+                            }
+                        }
+                    });
 
+                    // 아이콘 경로
                     if(data[0].file_path != '' && data[0].file_path != null) {
                         $("#menuIcon").attr("src", "../../asset/upload/img" + data[0].file_path);
                     }
@@ -49,6 +60,7 @@
                         $("input:radio[name='isUse']:radio[value='false']").prop('checked', true);
                     }
 
+                    // 계층별 설정
                     if(data[0].level == 0) {
                         $("#modifyBtn").hide();
                         $("#deleteBtn").hide();
@@ -94,10 +106,6 @@
 
             //수정 버튼
             $("#modifyBtn").click(function() {
-                if(!confirm("수정 하시겠습니까?")) {
-                    return false;
-                }
-
                 if($("#menuSeq").val() == '') {
                     alert("메뉴를 선택해주세요.");
                     return false;
@@ -107,11 +115,24 @@
                     $("#menuNm").focus();
                     return false;
                 }
+
+                if(!confirm("수정 하시겠습니까?")) {
+                    return false;
+                }
                 // if($("#menuUrl").val().trim() == '') {
                 //     alert("메뉴 URL을 작성해주세요.");
                 //     $("#menuUrl").focus();
                 //     return false;
                 // }
+                let authorityList = '';
+                $("input:checkbox[name='select']").each(function() {
+                    if($(this).is(":checked") == true) {
+                        authorityList += $(this).attr("id").split("_")[1] + ','
+                    }
+                });
+                authorityList = authorityList.slice(0, -1);
+
+                $("#hasAuthority").val(authorityList);
 
                 var formData = new FormData($('#menuForm')[0]);
                 $.ajax({
@@ -134,12 +155,12 @@
 
             //삭제 버튼
             $("#deleteBtn").click(function() {
-                if(!confirm("삭제 하시겠습니까? \n*해당 메뉴의 하위 메뉴까지 전부 삭제됩니다.")) {
+                if($("#menuSeq").val() == '') {
+                    alert("메뉴를 선택해주세요.");
                     return false;
                 }
 
-                if($("#menuSeq").val() == '') {
-                    alert("메뉴를 선택해주세요.");
+                if(!confirm("삭제 하시겠습니까? \n*해당 메뉴의 하위 메뉴까지 전부 삭제됩니다.")) {
                     return false;
                 }
 
@@ -165,9 +186,15 @@
 
                 menuNm = $("#menuNm").val();
                 menuUrl = $("#menuUrl").val();
-                menuAuthority = $("#menuAuthority").val();
                 isUse = $("input:radio[name='isUse']:checked").val();
                 menuIconUrl = $("#menuIcon").attr('src');
+                hasAuthority = [];
+
+                $("input:checkbox[name='select']").each(function() {
+                    if($(this).is(":checked") == true) {
+                        hasAuthority.push($(this).attr("id"));
+                    }
+                });
 
                 if($("#menuSeq").val() == '') {
                     alert("상위 메뉴를 선택해주세요.");
@@ -180,8 +207,8 @@
 
                 $("#menuNm").val('');
                 $("#menuUrl").val('');
-                $("#menuAuthority").val('');
                 $("input:radio[name='isUse']:radio[value='true']").prop('checked', true);
+                $("input:checkbox[name='select']").prop('checked', false);
 
                 $("#parentMenuNm").text(menuNm);
 
@@ -197,8 +224,16 @@
 
                 $("#menuNm").val(menuNm);
                 $("#menuUrl").val(menuUrl);
-                $("#menuAuthority").val(menuAuthority);
+                // $("#hasAuthority").val(hasAuthority);
                 $("#menuIcon").attr('src', menuIconUrl);
+
+                $("input:checkbox[name='select']").each(function() {
+                    for (var i = 0; i < hasAuthority.length; i++) {
+                        if(hasAuthority[i] == $(this).attr("id")) {
+                            $(this).prop('checked', true);
+                        }
+                    }
+                });
 
                 if(isUse == 'true') {
                     $("input:radio[name='isUse']:radio[value='true']").prop('checked', true);
@@ -217,10 +252,6 @@
 
             //저장 버튼
             $("#saveBtn").click(function() {
-                if(!confirm("저장 하시겠습니까?")) {
-                    return false;
-                }
-
                 if($("#menuSeq").val() == '') {
                     alert("메뉴를 선택해주세요.");
                     return false;
@@ -230,6 +261,20 @@
                     $("#menuNm").focus();
                     return false;
                 }
+
+                if(!confirm("저장 하시겠습니까?")) {
+                    return false;
+                }
+
+                let authorityList = '';
+                $("input:checkbox[name='select']").each(function() {
+                    if($(this).is(":checked") == true) {
+                        authorityList += $(this).attr("id").split("_")[1] + ','
+                    }
+                });
+                authorityList = authorityList.slice(0, -1);
+
+                $("#hasAuthority").val(authorityList);
 
                 // 1 depth 메뉴의 경우 아이콘 이미지 필수 처리
                 if($('a[value='+$("#menuSeq").val()+']').data("level") == 0) {
@@ -254,7 +299,6 @@
                         return false;
                     }
                 }
-
 
                 var formData = new FormData($('#menuForm')[0]);
                 $.ajax({
@@ -319,6 +363,7 @@
                 <div id="divBasicInfo" class="data_cont marT20">
                     <form id="menuForm" name="menuForm" action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="menuSeq" name="menuSeq" value="">
+                        <input type="hidden" id="hasAuthority" name="hasAuthority" value="">
                         <table summary="메뉴 상세" class="common-table" style="width: 100%;">
                             <caption style="display: none;">메뉴 상세</caption>
                             <colgroup>
@@ -361,9 +406,16 @@
                                 <tr>
                                     <th scope="row"><em>메뉴 권한</em></th>
                                     <td class="cursor-default">
-                                        <div>
-                                            <input class="text_e w98p" value="" type="text" id="menuAuthority" name="menuAuthority"/>
-                                        </div>
+                                        <ul class="chkgroup-list" style="display:inline-block;">
+                                            <c:forEach var="role" items="${roleList}" varStatus="status">
+                                                <li style="display:inline-block; margin-right:5px;">
+                                                    <div class="basic-check-box">
+                                                        <input type="checkbox" name="select" id="chk_${role.roleSeq}" data-role="${role.roleId}" tabindex="-1" class="chkgroup">
+                                                        <label for="chk_${role.roleSeq}" tabindex="0">${role.roleName}</label>
+                                                    </div>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
                                     </td>
                                 </tr>
                                 <tr>

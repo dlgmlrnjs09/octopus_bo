@@ -13,6 +13,11 @@
         <put-attribute name="body" value="/WEB-INF/view/popup/{1}.jsp"/>
     </definition>
 
+    <!-- 권한 제한 페이지 tiles 제외 -->
+    <definition name="/main/denied.admin" extends="popup">
+        <put-attribute name="body" value="/WEB-INF/view/main/denied.jsp"/>
+    </definition>
+
     <definition name="layout-tiles" template="/WEB-INF/tiles/tiles-layout.jsp" preparer="com.weaverloft.octopus.configuration.MenuPreparer">
         <put-attribute name="include" value="/WEB-INF/tiles/tiles-include.jsp"/>
         <put-attribute name="header" value="/WEB-INF/tiles/tiles-header.jsp"/>

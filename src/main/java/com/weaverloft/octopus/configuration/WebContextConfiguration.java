@@ -1,5 +1,6 @@
 package com.weaverloft.octopus.configuration;
 
+import com.weaverloft.octopus.basic.common.interceptor.AuthInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
@@ -228,5 +230,21 @@ public class WebContextConfiguration implements WebMvcConfigurer {
 		multipartResolver.setMaxUploadSizePerFile(5 * 1024 * 1024); // 파일당 업로드 크기 제한 (5MB)
 		return multipartResolver;
 	}
+
+	/**
+	 * 권한 체크 인터셉터 설정
+	 * @return
+	 */
+	@Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authInterceptor())
+                .addPathPatterns("/*/**")
+                .excludePathPatterns("/main/main-page", "/main/login-form", "/main/login-error", "/main/denied");
+    }
+
+    @Bean
+    public AuthInterceptor authInterceptor(){
+    	return new AuthInterceptor();
+    }
     
 }

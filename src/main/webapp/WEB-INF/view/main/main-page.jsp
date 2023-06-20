@@ -6,9 +6,9 @@
 </head>
 <body>
     <script>
-        $(function(){
-            $('.head-area').load("header.html");
-        });
+        // $(function(){
+        //     $('.head-area').load("header.html");
+        // });
     </script>
 
     <!--========== CONTENTS ==========-->

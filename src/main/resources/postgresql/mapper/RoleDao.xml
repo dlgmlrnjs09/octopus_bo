@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.role.dao.RoleDao">
+
+    <select id="selectRoleCount" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+        SELECT
+            count(*)
+        FROM
+            octopus.role_info
+    </select>
+
+    <select id="selectRoleList" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo" resultType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+        SELECT
+            role_seq AS roleSeq,
+            role_name AS roleName,
+            role_id AS roleId,
+            role_desc AS roleDesc
+        FROM
+            octopus.role_info
+        ORDER BY
+            role_seq
+    </select>
+
+    <select id="getRoleDetail" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo" resultType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+        SELECT
+            role_seq AS roleSeq,
+            role_name AS roleName,
+            role_id AS roleId,
+            role_desc AS roleDesc
+        FROM
+            octopus.role_info
+        WHERE
+            role_seq = #{roleSeq}::int4
+    </select>
+
+    <update id="updateRole" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+        UPDATE
+            octopus.role_info
+        SET
+            <if test="roleName != null and roleName != ''">
+                role_name = #{roleName},
+            </if>
+            <if test="roleId != null and roleId != ''">
+                role_id = upper(#{roleId}),
+            </if>
+            role_desc = #{roleDesc},
+            udt_dt = now()
+        WHERE
+            role_seq = #{roleSeq}::int4
+    </update>
+
+    <insert id="insertRole" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+        INSERT INTO octopus.role_info (
+            role_name,
+            role_id,
+            role_desc
+        ) VALUES (
+            #{roleName},
+            upper(#{roleId}),
+            #{roleDesc}
+        )
+    </insert>
+
+</mapper>

@@ -7,7 +7,7 @@
 
     <select id="getMenuInfo" parameterType="map" resultType="map">
         WITH RECURSIVE
-            search_menu_info (menu_seq, parent_menu_seq, menu_nm, menu_url, is_use, has_authority, reg_dt, udt_dt, del_dt, is_delete, menu_order_seq, LEVEL, PATH, CYCLE) AS
+            search_menu_info (menu_seq, parent_menu_seq, menu_nm, menu_url, is_use, reg_dt, udt_dt, del_dt, is_delete, menu_order_seq, LEVEL, PATH, CYCLE) AS
             (
                 SELECT
                     m.menu_seq,
@@ -15,7 +15,6 @@
                     m.menu_nm,
                     m.menu_url,
                     m.is_use,
-                    m.has_authority,
                     m.reg_dt,
                     m.udt_dt,
                     m.del_dt,
@@ -35,7 +34,6 @@
                     m.menu_nm,
                     m.menu_url,
                     m.is_use,
-                    m.has_authority,
                     m.reg_dt,
                     m.udt_dt,
                     m.del_dt,
@@ -58,7 +56,16 @@
                 menu_nm,
                 menu_url,
                 is_use,
-                has_authority,
+                (SELECT
+		         	COALESCE(array_to_string(array_agg(role_id), ','), '')
+		         FROM
+			         (SELECT
+				        role_seq,
+			         	role_id,
+		         		(SELECT string_to_array(has_authority, ',') FROM octopus.menu_info WHERE menu_seq = search_menu_info.menu_seq) AS roleArray
+		     		  FROM
+		     		  	octopus.role_info) A
+		         WHERE role_seq::varchar = any(roleArray)) AS has_authority,
                 reg_dt,
                 udt_dt,
                 del_dt,
@@ -136,13 +143,11 @@
             <if test="menuNm != null and menuNm != ''">
                 menu_nm = #{menuNm},
             </if>
-            <if test="hasAuthority != null and hasAuthority != ''">
-                has_authority = #{hasAuthority},
-            </if>
             <if test="isUse != null and isUse != ''">
                 is_use = #{isUse}::bool,
             </if>
             menu_url = #{menuUrl},
+            has_authority = #{hasAuthority},
             udt_dt = now()
         WHERE
             menu_seq = #{menuSeq}::int4

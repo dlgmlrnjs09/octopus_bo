@@ -69,7 +69,7 @@
                 member_email_id AS memberEmailId,
                 member_email_domain AS memberEmailDomain,
                 member_email_full AS memberEmailFull,
-                member_role AS memberRole,
+                (SELECT role_name FROM octopus.role_info WHERE member_role = role_seq::varchar) AS memberRole,
                 TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
             FROM
                 octopus.member_info
@@ -94,10 +94,11 @@
             member_zip_code AS memberZipCode,
             member_addr1 || ' ' || member_addr2 || ' ' || member_addr_detail AS memberAddrFull,
             member_email_full AS memberEmailFull,
-            CASE WHEN member_role = 'A' THEN '어드민'
-                 WHEN member_role = 'G' THEN '일반 회원'
-                 WHEN member_role = 'M' THEN '매장 관리자'
-                 ELSE '-' END AS memberRole,
+--             CASE WHEN member_role = 'ADMIN' THEN '어드민'
+--                  WHEN member_role = 'USER' THEN '일반 회원'
+--                  WHEN member_role = 'MANAGER' THEN '매장 관리자'
+--                  ELSE '-' END AS memberRole,
+            (SELECT role_name FROM octopus.role_info WHERE member_role = role_seq::varchar) AS memberRole,
             TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
         FROM
             octopus.member_info
@@ -110,27 +111,40 @@
 
     <select id="getMemberDetail" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="com.weaverloft.octopus.basic.member.vo.MemberVo">
         SELECT
-                member_seq AS memberSeq,
-                member_id AS memberId,
-                member_nm AS memberNm,
-                member_phone1 AS memberPhone1,
-                member_phone2 AS memberPhone2,
-                member_phone3 AS memberPhone3,
-                TO_CHAR(TO_DATE(member_birth, 'YYYYMMDD'), 'YYYY/MM/DD') AS memberBirth,
-                member_addr1 AS memberAddr1,
-                member_addr2 AS memberAddr2,
-                member_addr_detail AS memberAddrDetail,
-                member_addr1 || ' ' || member_addr2 || ' ' || member_addr_detail AS memberAddrFull,
-                member_zip_code AS memberZipCode,
-                member_email_id AS memberEmailId,
-                member_email_domain AS memberEmailDomain,
-                member_email_full AS memberEmailFull,
-                member_role AS memberRole,
-                TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+                m.member_seq AS memberSeq,
+                m.member_id AS memberId,
+                m.member_nm AS memberNm,
+                m.member_phone1 AS memberPhone1,
+                m.member_phone2 AS memberPhone2,
+                m.member_phone3 AS memberPhone3,
+                TO_CHAR(TO_DATE(m.member_birth, 'YYYYMMDD'), 'YYYY/MM/DD') AS memberBirth,
+                m.member_addr1 AS memberAddr1,
+                m.member_addr2 AS memberAddr2,
+                m.member_addr_detail AS memberAddrDetail,
+                m.member_addr1 || ' ' || member_addr2 || ' ' || member_addr_detail AS memberAddrFull,
+                m.member_zip_code AS memberZipCode,
+                m.member_email_id AS memberEmailId,
+                m.member_email_domain AS memberEmailDomain,
+                m.member_email_full AS memberEmailFull,
+                r.role_id AS memberRole,
+                TO_CHAR(m.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
         FROM
-            octopus.member_info
+            octopus.member_info m LEFT OUTER JOIN octopus.role_info r ON m.member_role = r.role_seq::varchar
         WHERE
             member_seq = #{memberSeq}
+    </select>
+
+    <select id="getMemberRole" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="com.weaverloft.octopus.basic.member.vo.MemberVo">
+        SELECT
+                m.member_seq AS memberSeq,
+                m.member_id AS memberId,
+                m.member_nm AS memberNm,
+                m.member_pw AS memberPw,
+                r.role_id AS memberRole
+        FROM
+            octopus.member_info m LEFT OUTER JOIN octopus.role_info r ON m.member_role = r.role_seq::varchar
+        WHERE
+            m.member_id = #{memberId}
     </select>
 
     <update id="updateMember" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo">
@@ -147,9 +161,9 @@
                 member_addr2 = #{memberAddr2},
                 member_addr_detail = #{memberAddrDetail},
             </if>
-            <if test="memberRole != null and memberRole != ''">
+<!--            <if test="memberRole != null and memberRole != ''">-->
                 member_role = #{memberRole},
-            </if>
+<!--            </if>-->
             member_email_id = #{memberEmailId},
             member_email_domain = #{memberEmailDomain},
             member_email_full = #{memberEmailFull},

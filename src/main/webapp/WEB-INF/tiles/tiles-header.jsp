@@ -23,6 +23,15 @@
         </div>
         <div class="header-right">
             <ul>
+                <tiles:importAttribute name="user"/>
+                <c:choose>
+                    <c:when test="${user eq 'anonymousUser'}">
+                        <li><a href="/main/login-form">로그인</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="/logout">로그아웃</a></li>
+                    </c:otherwise>
+                </c:choose>
                 <li class="alarm-area">
                     <button type="button" class="bubble-btn alarm" aria-label="알림창 보기">
                         <img src="../../asset/img/admin/icon-alarm.svg" alt="알림">
@@ -76,18 +85,35 @@
                     <a href="javascript:;" class="bubble-btn user" aria-label="내정보 보기">
                         <figure class="profile"><img src="../../asset/img/admin/icon-my.svg" alt="user"></figure>
                         <div class="name-box">
-                            <p class="name">이무너 님</p>
-                            <p class="grading">admin</p>
+                            <c:choose>
+                                <c:when test="${user eq 'anonymousUser'}">
+                                    <p class="name">이무너 님</p>
+                                    <p class="grading">admin</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="name">${user.userRealName} 님</p>
+                                    <p class="grading">${user.userRole}</p>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <figure class="arrow"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></figure>
                     </a>
                     <div class="bubble-box user-bubble-box">
                         <div class="user-head">
                             <div class="user-info">
-                                <p class="name">이무너 님</p>
-                                <p class="grading">admin 대표운영자</p>
+                                <c:choose>
+                                    <c:when test="${user eq 'anonymousUser'}">
+                                        <p class="name">이무너 님</p>
+                                        <p class="grading">admin 대표운영자</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p class="name">${user.userRealName} 님</p>
+                                        <p class="grading">${user.userRole} 대표운영자</p>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
-                            <button type="button" class="logout-btn" aria-label="로그아웃"><img src="../../asset/img/admin/icon-logout.svg" alt="로그아웃"></button>
+                            <button type="button" class="logout-btn" aria-label="로그아웃" onclick="location.href='/logout'"><img src="../../asset/img/admin/icon-logout.svg" alt="로그아웃"></button>
                         </div>
                         <ul class="user-menu">
                             <li><a href="#none">내 쇼핑몰 정보 확인</a></li>

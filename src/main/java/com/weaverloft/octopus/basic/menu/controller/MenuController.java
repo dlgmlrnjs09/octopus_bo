@@ -3,6 +3,8 @@ package com.weaverloft.octopus.basic.menu.controller;
 import com.weaverloft.octopus.basic.main.service.FileService;
 import com.weaverloft.octopus.basic.main.vo.FileVo;
 import com.weaverloft.octopus.basic.menu.service.MenuService;
+import com.weaverloft.octopus.basic.role.service.RoleService;
+import com.weaverloft.octopus.basic.role.vo.RoleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,9 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private RoleService roleService;
+
     /** File Service */
     @Autowired
     protected FileService fileService;
@@ -39,7 +44,13 @@ public class MenuController {
         Map<String, Object> map = new HashMap<>();
         List<Map<String, Object>> menuList = menuService.getMenuInfo(map);
 
+        List<RoleVo> roleList = roleService.selectRoleList(new RoleVo());
+
+//        map.put("ADMIN", "어드민");
+//        map.put("MANAGER", "매장관리자");
+
         model.addAttribute("menuList", menuList);
+        model.addAttribute("roleList", roleList);
         return "/menu/menu-main.admin";
     }
 

@@ -211,9 +211,10 @@
                                 <div id="roleDiv" style="display: inline-block">
                                     <div class="basic-select-box" style="width:150px;">
                                         <select id="memberRole" name="memberRole" style="">
-                                            <option value="A" <c:if test="${member.memberRole eq 'A'}">selected</c:if>>어드민</option>
-                                            <option value="M" <c:if test="${member.memberRole eq 'M'}">selected</c:if>>매장관리자</option>
-                                            <option value="G" <c:if test="${member.memberRole eq 'G'}">selected</c:if>>일반 회원</option>
+                                            <c:forEach var="role" items="${roleList}" varStatus="status">
+                                                <option value="${role.roleSeq}" <c:if test="${member.memberRole eq role.roleId}">selected</c:if>>${role.roleName}</option>
+                                            </c:forEach>
+                                            <option value="" <c:if test="${member.memberRole == null}">selected</c:if>>권한 없음</option>
                                         </select>
                                         <span class="border-focus"><i></i></span>
                                     </div>
