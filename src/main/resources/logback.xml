@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/logs/access.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/data/logs/access/access-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %logger{36} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+         <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>/data/logs/error/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/data/logs/error/error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %logger{36} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="info"/>
+    <logger name="com.amore.apbos" level="debug"/>
+    <logger name="org.apache.http" level="WARN" />
+    <logger name="httpclient" level="WARN" />
+    <logger name="org.mybatis.spring.SqlSessionUtils" level="error" />
+    <logger name="org.mybatis.spring.transaction.SpringManagedTransaction" level="info" />
+    <logger name="org.mybatis.spring.mapper.ClassPathMapperScanner" level="info" />
+    <logger name="org.mybatis.spring.SqlSessionFactoryBean" level="info" />
+    <logger name="com.amazonaws" level="info" />
+
+    <!-- log4jdbc 옵션 설정 -->
+    <logger name="jdbc" level="OFF" />
+    <logger name="jdbc.connection" level="OFF" /> <!-- 커넥션 open close 이벤트 -->
+    <logger name="jdbc.sqlonly" level="OFF" />  <!-- 파라미터 바인딩 된 SQL문-->
+    <logger name="jdbc.sqltiming" level="INFO" /> <!-- 파라미터 바인딩 된 SQL문 및 수행된 시간 정보(milliseconds) -->
+    <logger name="jdbc.audit" level="OFF" /> <!-- ResultSet을 제외한 모든 JDBC 호출 정보 => JDBC 에러 추적 필요 시 외에 사용 권장 x -->
+    <logger name="jdbc.resultset" level="OFF" /> <!-- ResultSet을 포함한 모든 JDBC 호출 정보 => 사용 권장 x -->
+    <logger name="jdbc.resultsettable" level="OFF" /> <!-- 조회 결과 table -->
+
+    <root level="debug">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE_ERROR"/>
+    </root>
+</configuration>

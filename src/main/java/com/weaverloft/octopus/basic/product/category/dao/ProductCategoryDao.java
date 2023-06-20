@@ -14,7 +14,9 @@ import java.util.Map;
  */
 @Mapper
 public interface ProductCategoryDao {
-    List<Map<String, Object>> getProductCategoryInfo(int parentCategorySeq);
+    List<Map<String, Object>> getChildCategoryInfo(int parentCategorySeq);
+    Map<String, Object> getHierarchicalCategoryInfo(int currCategorySeq);
+    List<Map<String, Object>> getSiblingCategoryInfo(int currCategorySeq);
     int insertProductCategoryInfo(Map<String, Object> paramMap);
     int updateProductCategoryInfo(Map<String, Object> paramMap);
     int deleteProductCategoryInfo(Map<String, Object> paramMap);

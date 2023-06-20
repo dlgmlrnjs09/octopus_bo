@@ -5,7 +5,7 @@
 
 <mapper namespace="com.weaverloft.octopus.basic.product.category.dao.ProductCategoryDao">
 
-    <select id="getProductCategoryInfo" parameterType="String" resultType="map">
+    <select id="getChildCategoryInfo" parameterType="String" resultType="map">
         SELECT
             product_category_seq
             , product_category_nm
@@ -25,10 +25,84 @@
             product_category_seq
     </select>
 
+    <select id="getSiblingCategoryInfo" parameterType="int" resultType="map">
+        select
+            *
+        from
+            octopus.product_category_info pci
+        where
+            parent_category_seq in (
+            select
+                parent_category_seq
+            from
+                octopus.product_category_info pci
+            where
+                product_category_seq = #{currCategorySeq}
+        )
+      and is_use = true
+    </select>
+
+    <select id="getHierarchicalCategoryInfo" parameterType="int" resultType="map">
+        WITH RECURSIVE product_category (product_category_seq, parent_category_seq, product_category_nm, is_use, reg_dt, udt_dt, del_dt, LEVEL, PATH, CYCLE) AS
+        (
+            SELECT
+                product_category_seq
+                , parent_category_seq
+                , product_category_nm
+                , is_use
+                , reg_dt
+                , udt_dt
+                , del_dt
+                , 0
+                , ARRAY[pci.product_category_seq]
+                , false
+            FROM
+                octopus.product_category_info pci
+            WHERE
+                pci.parent_category_seq IS NULL
+            UNION ALL
+            SELECT
+                pci.product_category_seq
+                , pci.parent_category_seq
+                , pci.product_category_nm
+                , pci.is_use
+                , pci.reg_dt
+                , pci.udt_dt
+                , pci.del_dt
+                , LEVEL + 1
+                , PATH || pci.product_category_seq
+                , pci.product_category_seq = ANY(PATH)
+            FROM
+                octopus.product_category_info pci,
+                product_category pc
+            WHERE
+                pci.parent_category_seq = pc.product_category_seq
+              AND
+                NOT CYCLE
+        )
+        SELECT
+            product_category_seq
+            , parent_category_seq
+            , product_category_nm
+            , is_use
+            , reg_dt
+            , udt_dt
+            , del_dt
+            , LEVEL
+            , PATH
+        FROM
+            product_category
+        where
+            product_category_seq = #{currCategorySeq}
+            and is_use = true
+        ORDER BY
+            PATH
+    </select>
+
     <insert id="insertProductCategoryInfo" parameterType="map">
         INSERT INTO octopus.product_category_info (
-             parent_category_seq
-             , product_category_nm
+            parent_category_seq
+            , product_category_nm
         ) VALUES (
             #{parent_seq}::int4
             , #{current_name}

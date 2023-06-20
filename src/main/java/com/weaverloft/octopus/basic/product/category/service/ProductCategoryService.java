@@ -14,6 +14,7 @@ import java.util.Map;
  * @date 2023-05-19
  */
 public interface ProductCategoryService {
-    List<Map<String, Object>> getProductCategoryInfo(int parentCategorySeq);
+    List<Map<String, Object>> getChildCategoryInfo(int parentCategorySeq);
+    List<Map<String, Object>> getHierarchicalCategoryList(int currCategorySeq, List<Map<String, Object>> topCategoryList);
     boolean submitProductCategory(Map<String, Object> paramMap);
 }

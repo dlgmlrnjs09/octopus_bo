@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="/asset/css/admin/common.css">
 <link rel="stylesheet" href="/asset/css/admin/main.css">
 <link rel="stylesheet" href="/asset/css/admin/grid.css">
+<link rel="stylesheet" href="/asset/css/admin/product-category.css">
 <%--<script src="/asset/js/jquery-3.6.0.min.js"></script>--%>
 <script src="/asset/js/prefixfree.min.js"></script>
 <script src="/asset/js/swiper.min.js"></script>

@@ -29,8 +29,8 @@ public class ContextDataSource {
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         try {
-            dataSource.setDriverClassName("org.postgresql.Driver");
-            dataSource.setUrl("jdbc:postgresql://103.60.126.203:5432/gps");
+            dataSource.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
+            dataSource.setUrl("jdbc:log4jdbc:postgresql://103.60.126.203:5432/gps?useUnicode=true&characterEncoding=utf8");
             dataSource.setUsername("apgps");
             dataSource.setPassword("wlvldpTm01!@#");
             dataSource.setDefaultAutoCommit(false);

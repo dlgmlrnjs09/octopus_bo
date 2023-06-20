@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,38 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
     private ProductCategoryDao productCategoryDao;
 
     @Override
-    public List<Map<String, Object>> getProductCategoryInfo(int parentCategorySeq) {
+    public List<Map<String, Object>> getChildCategoryInfo(int parentCategorySeq) {
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
-        resultList = productCategoryDao.getProductCategoryInfo(parentCategorySeq);
+        resultList = productCategoryDao.getChildCategoryInfo(parentCategorySeq);
+        return resultList;
+    }
+
+//    @Override
+//    public List<Map<String, Object>> getSiblingCategoryInfo(int currCategorySeq) {
+//        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+//        resultList = productCategoryDao.getSiblingCategoryInfo(currCategorySeq);
+//        return resultList;
+//    }
+
+    @Override
+    public List<Map<String, Object>> getHierarchicalCategoryList(int currCategorySeq, List<Map<String, Object>> topCategoryList) {
+        List<Map<String, Object>> resultList = new ArrayList<>();
+        Map<String, Object> hierarchicalInfo = productCategoryDao.getHierarchicalCategoryInfo(currCategorySeq);
+        Integer[] categorySeqPathArr = (Integer[]) hierarchicalInfo.get("path");
+
+        Map<String, Object> topInnerMap = new HashMap<>();
+        // 최상위 카테고리 정보 SET
+        topInnerMap.put("seq", categorySeqPathArr[0]);
+        topInnerMap.put("list", topCategoryList);
+        resultList.add(topInnerMap);
+        // 등록된 카테고리 별 형제 카테고리 조회
+        for (int i=1; i<categorySeqPathArr.length; i++) {
+            Map<String, Object> innerMap = new HashMap<>();
+            innerMap.put("seq", categorySeqPathArr[i]);
+            innerMap.put("list", productCategoryDao.getSiblingCategoryInfo(categorySeqPathArr[i]));
+            resultList.add(innerMap);
+        }
+
         return resultList;
     }
 

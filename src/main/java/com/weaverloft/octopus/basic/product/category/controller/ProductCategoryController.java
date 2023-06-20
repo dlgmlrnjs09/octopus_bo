@@ -28,7 +28,7 @@ public class ProductCategoryController {
     public String getProductCategoryList(Model model) {
 
         try {
-            List<Map<String, Object>> categoryList = categoryService.getProductCategoryInfo(0);
+            List<Map<String, Object>> categoryList = categoryService.getChildCategoryInfo(0);
 
             model.addAttribute("categoryList", categoryList);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class ProductCategoryController {
         List<Map<String, Object>> categoryList = new ArrayList<>();
 
         try {
-            categoryList = categoryService.getProductCategoryInfo(categorySeq);
+            categoryList = categoryService.getChildCategoryInfo(categorySeq);
         } catch (Exception e) {
             e.printStackTrace();
         }
