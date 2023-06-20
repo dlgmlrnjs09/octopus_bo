@@ -1,40 +1,15 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/include/common_taglib.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="/asset/css/admin/product-category.css">
 
 <style>
-    #div-wrap {
-        padding-top: 100px;
-        width: 90%;
-        margin: 10px auto;
-        display: flex;
-    }
-
-    .basic-select-box {
-        /*width: 250px;*/
-        flex: 1;
-        width: 30%;
-    }
-
-    .basic-select-box select {
-        height: 400px;
-        background-image: none;
-    }
-
-    .select-box-desc {
-        text-align: center;
-    }
-
-    .submit-btn {
-        width: 32.7%;
-    }
-
     .highlight {
         color: red;
         font-weight: bold;
     }
 </style>
 
-<div id="div-wrap">
+<div id="category-div-wrap">
     <div class="basic-select-box">
         <div class="select-box-desc">
             <h2>1차 카테고리</h2>

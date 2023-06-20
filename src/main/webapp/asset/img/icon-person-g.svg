@@ -1,9 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <g id="그룹_2301" data-name="그룹 2301" transform="translate(-1530 -446)">
-    <rect id="사각형_426" data-name="사각형 426" width="32" height="32" transform="translate(1530 446)" fill="#fff"/>
-    <g id="그룹_1193" data-name="그룹 1193" transform="translate(1537.529 453.529)">
-      <path id="패스_400" data-name="패스 400" d="M22.967,28.863V26.742A4.242,4.242,0,0,0,18.725,22.5H10.242A4.242,4.242,0,0,0,6,26.742v2.121" transform="translate(-6 -12.166)" fill="none" stroke="#ccc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <path id="패스_401" data-name="패스 401" d="M19.755,8.378A3.878,3.878,0,1,1,15.878,4.5,3.878,3.878,0,0,1,19.755,8.378Z" transform="translate(-7.394 -4.5)" fill="none" stroke="#ccc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;}
+	.st1{fill:none;stroke:#CCCCCC;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<g id="그룹_2301" transform="translate(-1530 -446)">
+	<rect id="사각형_426" x="1530" y="446" class="st0" width="32" height="32"/>
+	<g id="그룹_1193" transform="translate(1537.529 453.529)">
+		<path id="패스_400" class="st1" d="M17,16.7v-2.1c0-2.3-1.9-4.2-4.2-4.2H4.2c-2.3,0-4.2,1.9-4.2,4.2l0,0v2.1"/>
+		<path id="패스_401" class="st1" d="M12.4,3.9c0,2.1-1.7,3.9-3.9,3.9S4.6,6,4.6,3.9C4.6,1.7,6.3,0,8.5,0l0,0
+			C10.6,0,12.4,1.7,12.4,3.9z"/>
+	</g>
+</g>
 </svg>

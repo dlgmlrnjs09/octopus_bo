@@ -7,6 +7,52 @@
  */
 
 /*========== Basic ==========*/
+// skeleton
+$(function () {
+	if ($(".skeleton-loading").length > 0) {
+		const skeletonBox = document.querySelectorAll('.skeleton-box');
+		const skeletonImgBox = document.querySelectorAll('.skeleton-img-box');
+		const skeletonItem = document.querySelectorAll('.skeleton-loading');
+
+		const hideSkeleton = () => {
+			skeletonItem.forEach(element => {
+				$(element).fadeOut(() => {
+					element.classList.remove('skeleton-loading');
+					skeletonBox.forEach(boxElement => {
+						boxElement.classList.remove('skeleton-box');
+					});
+					skeletonImgBox.forEach(imgElement => {
+						imgElement.classList.remove('skeleton-img-box');
+					});
+				});
+			});
+		};
+
+		window.onload = setTimeout(hideSkeleton, 2000);
+		// 실제 코드 (실제로 사용될 코드)
+		// window.onload = hideskeleton;
+		
+		// window.addEventListener('scroll', function() {
+		//     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+		//         // 스크롤이 페이지 바닥에 도달하면 스켈레톤 UI를 표시
+		//         document.getElementById('skeleton').style.display = 'block';
+		
+		//         // 이후 새로운 콘텐츠를 로드 (예: AJAX 요청). 콘텐츠 로딩이 끝나면 스켈레톤 UI를 숨김
+		//         loadNewContent().then(() => {
+		//             document.getElementById('skeleton').style.display = 'none';
+		//         });
+		//     }
+		// });
+		
+		// function loadNewContent() {
+		//     // 이 함수는 실제 콘텐츠를 로드하고 Promise를 반환
+		//     return new Promise((resolve, reject) => {
+		//         setTimeout(resolve, 2000); // 예: 2초 후에 콘텐츠 로딩이 끝났다고 가정
+		//     });
+		// }
+	}
+})
+
 // Top Btn
 $(function () {
 	$(window).scroll(function(){
@@ -51,25 +97,25 @@ $(function () {
 			$("#" + tab_id).addClass('current').siblings().removeClass('current');
 		});
 		
-		$(".tab-menu li.tab-link a").click(function () {
+		$(".tab-menu:not(.tab-menu02) li.tab-link a").click(function () {
 			var position = $(this).parent().position();
-			$(".tab-menu li.slider").css({
+			$(".tab-menu:not(.tab-menu02) li.slider").css({
 				"left": +position.left,
 			});
 		});
-		var actPosition = $(".tab-menu .current").position();
-		$(".tab-menu li.slider").css({
+		var actPosition = $(".tab-menu:not(.tab-menu02) .current").position();
+		$(".tab-menu:not(.tab-menu02) li.slider").css({
 			"left": +actPosition.left,
 		});
 		$(window).resize(function(){
-			$(".tab-menu li.tab-link a").click(function () {
+			$(".tab-menu:not(.tab-menu02) li.tab-link a").click(function () {
 				var position = $(this).parent().position();
-				$(".tab-menu li.slider").css({
+				$(".tab-menu:not(.tab-menu02) li.slider").css({
 					"left": +position.left,
 				});
 			});
-			var actPosition = $(".tab-menu .current").position();
-			$(".tab-menu li.slider").css({
+			var actPosition = $(".tab-menu:not(.tab-menu02) .current").position();
+			$(".tab-menu:not(.tab-menu02) li.slider").css({
 				"left": +actPosition.left,
 			});
 		});
@@ -104,20 +150,7 @@ $(document).on('click', '.chkgroup', function () {
 	} else {
 		$('input[name="selectAll"]').prop('checked', false);
 	}
-});
-
-// Input checkbox order status All check
-$(document).on('click', 'input[name="orderStatusSelectAll"]', function () {
-	$('.orderchkgroup:not(:disabled)').not(this).prop('checked', this.checked);
-});
-
-$(document).on('click', '.orderchkgroup', function () {
-	if ($('.orderchkgroup:not(:disabled)').length == $('.orderchkgroup:checked').length) {
-		$('input[name="orderStatusSelectAll"]').prop('checked', true);
-	} else {
-		$('input[name="orderStatusSelectAll"]').prop('checked', false);
-	}
-});
+}); 
 
 // Input
 $(function () {
@@ -209,4 +242,39 @@ $(function () {
 		handler.init()
 		handler.removeFile()
 	}
+});
+
+// custom select
+$(".custom-select-box ul").on("click", ".init", function() {
+    $(this).closest(".custom-select-box ul").children('li:not(.init)').toggle();
+    $(this).closest(".custom-select-box ul").toggleClass('open');
+});
+
+$(".custom-select-box ul").each(function() {
+    var selectBox = $(this);
+    var allOptions = selectBox.children('li:not(.init)');
+
+    selectBox.on("click", "li:not(.init)", function() {
+        allOptions.removeClass('selected');
+        $(this).addClass('selected');
+        selectBox.children('.init').html($(this).html());
+        allOptions.toggle();
+        selectBox.removeClass('open').addClass('sel');
+    });
+});
+$(document).on("click", function(event) {
+    var target = $(event.target);
+    var selectBox = $(".custom-select-box ul");
+    
+    if (!target.closest(".custom-select-box").length) {
+        // 클릭된 요소가 셀렉트 박스 외부이면
+        selectBox.children('li:not(.init)').hide();
+        selectBox.removeClass('open');
+    } else {
+        // 클릭된 요소가 셀렉트 박스 내부이면
+        if (!target.hasClass("init")) {
+            selectBox.children('li:not(.init)').hide();
+            selectBox.removeClass('open');
+        }
+    }
 });

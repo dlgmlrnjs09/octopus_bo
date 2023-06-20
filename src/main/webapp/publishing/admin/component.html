@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../asset/css/jquery-ui.css">
     <link rel="stylesheet" href="../../asset/css/admin/common.css">
     <script src="../../asset/js/jquery-3.6.0.min.js"></script>
     <script src="../../asset/js/prefixfree.min.js"></script>
     <script src="../../asset/js/basic.js"></script>
+    <script src="../../asset/js/basic_admin.js"></script>
     <title>Octopus-Component</title>
     <style>
         .component-sec{margin: 30px 0;}
@@ -94,8 +96,6 @@
                         <li class="tab-link" data-tab="tab-3"><a href="javascript:;"><span>Tab Menu</span></a></li>
                         <li class="tab-link" data-tab="tab-4"><a href="javascript:;"><span>Tab Menu</span></a></li>
                     </ul>
-                    <script>
-                    </script>
                     <div class="tab-content-wrap">
                         <div id="tab-1" class="tab-content current">
                             <p>1</p>
@@ -162,6 +162,14 @@
                         <input type="password">
                         <span class="border-focus"><i></i></span>
                         <button type="button" class="eye-btn" aria-label="비밀번호 보이기/숨기기"></button>
+                    </div>
+                </div>
+
+                <h3>datepicker</h3>
+                <div class="datepicker-box-wrap">
+                    <div class="input-box datepicker-box">
+                        <input type="text" class="datepicker">
+                        <span class="border-focus"><i></i></span>
                     </div>
                 </div>
 
@@ -387,5 +395,6 @@
             <a href="javascript:;" tabindex="0"><span class="hidden">페이지 맨 위로</span></a>
         </div>
     </div>
+    <script src="../../asset/js/jquery-ui.min.js"></script>
 </body>
 </html>

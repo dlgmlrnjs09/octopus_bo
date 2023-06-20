@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../asset/css/toastui-chart.min.css">
+    <link rel="stylesheet" href="../../../asset/css/jquery-ui.css">
+    <link rel="stylesheet" href="../../../asset/css/admin/common.css">
+    <link rel="stylesheet" href="../../../asset/css/admin/statistics.css">
+    <script src="../../../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../../../asset/js/prefixfree.min.js"></script>
+    <script src="../../../asset/js/toastui-chart.min.js"></script>
+    <script src="../../../asset/js/jquery-ui.min.js"></script>
+    <title>Octopus</title>
+</head>
+
+<body>
+    <div id="container" class="admin">
+        <div class="head-area"></div>
+        <script>
+            $(function () {
+                $('.head-area').load("../header.html");
+            });
+        </script>
+
+        <!--========== CONTENTS ==========-->
+        <main id="main" class="page-home-admin">
+            <div class="admin-section-wrap">
+                <div class="statistics-section-wrap">
+                    <!-- search-filter-sec -->
+                    <section class="section search-filter-sec">
+                        <h2 class="sec-title">검색 필터 공통</h2>
+                        <!-- 카페24 기준으로 작성된 옵션들이며 해당 마크업 형식에 맞춰 스타일 될 예정입니다.
+                        옵션은 자유로이 바꾸셔서 알맞은 부분 가져다 쓰시면 됩니다!! -->
+                        <ul class="search-filter-list">
+                            <li class="period">
+                                <div class="tit">기간</div>
+                                <div class="filter-box-wrap">
+                                    <a href="#none" class="btnDate selected"><span>오늘</span></a>
+                                    <a href="#none" class="btnDate"><span>어제</span></a>
+                                    <a href="#none" class="btnDate"><span>3일</span></a>
+                                    <a href="#none" class="btnDate"><span>7일</span></a>
+                                    <a href="#none" class="btnDate"><span>1개월</span></a>
+                                    <a href="#none" class="btnDate"><span>3개월</span></a>
+                                    <a href="#none" class="btnDate"><span>6개월</span></a>
+                                    <div class="datepicker-box-wrap">
+                                        <div class="input-box datepicker-box">
+                                            <input type="text" class="datepicker">
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                        <span class="mid">-</span>
+                                        <div class="input-box datepicker-box">
+                                            <input type="text" class="datepicker">
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="category">
+                                <div class="tit">상품분류</div>
+                                <div class="filter-box-wrap select-box-wrap">
+                                    <div class="basic-select-box">
+                                        <select>
+                                            <option value="대분류선택">대분류선택</option>
+                                            <option value="a">a</option>
+                                            <option value="b">b</option>
+                                            <option value="c">c</option>
+                                            <option value="d">d</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <div class="basic-select-box">
+                                        <select>
+                                            <option value="대분류선택">중분류선택</option>
+                                            <option value="a">a</option>
+                                            <option value="b">b</option>
+                                            <option value="c">c</option>
+                                            <option value="d">d</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <div class="basic-select-box">
+                                        <select>
+                                            <option value="대분류선택">소분류선택</option>
+                                            <option value="a">a</option>
+                                            <option value="b">b</option>
+                                            <option value="c">c</option>
+                                            <option value="d">d</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <div class="basic-select-box">
+                                        <select>
+                                            <option value="대분류선택">상세분류선택</option>
+                                            <option value="a">a</option>
+                                            <option value="b">b</option>
+                                            <option value="c">c</option>
+                                            <option value="d">d</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="product">
+                                <div class="tit">상품</div>
+                                <div class="filter-box-wrap select-box-wrap">
+                                    <div class="basic-select-box">
+                                        <select>
+                                            <option value="상품명">상품명</option>
+                                            <option value="상품코드">상품코드</option>
+                                            <option value="자체상품코드">자체상품코드</option>
+                                            <option value="상품태그">상품태그</option>
+                                            <option value="품목코드">품목코드</option>
+                                            <option value="제조사">제조사</option>
+                                            <option value="공급사">공급사</option>
+                                            <option value="브랜드">브랜드</option>
+                                            <option value="트렌드">트렌드</option>
+                                            <option value="자체분류">자체분류</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <div class="input-box text">
+                                        <input type="text" placeholder="">
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <!-- 상품검색 팝업창 오픈 -->
+                                    <button type="button" class="common-btn search-btn" aria-label="상품검색" onclick="location.href='#none'"><span>상품검색</span></button>
+                                </div>
+                            </li>
+                            <li class="price">
+                                <div class="tit">상품 판매가</div>
+                                <div class="filter-box-wrap input-box-wrap">
+                                    <div class="input-box number">
+                                        <input type="text" name="number">
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <span class="mid">~</span>
+                                    <div class="input-box number">
+                                        <input type="text" name="number">
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="mall">
+                                <div class="tit">쇼핑몰 구분</div>
+                                <div class="filter-box-wrap radio-box-wrap">
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="mall-all" name="mall" value="mall-all" checked="">
+                                        <label for="mall-all"><span>전체</span></label>
+                                    </div>
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="mall-pc" name="mall" value="mall-pc">
+                                        <label for="mall-pc"><span>PC 쇼핑몰</span></label>
+                                    </div>
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="mall-mo" name="mall" value="mall-mo">
+                                        <label for="mall-mo"><span>모바일 쇼핑몰</span></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="delivery">
+                                <div class="tit">배송 구분</div>
+                                <div class="filter-box-wrap radio-box-wrap">
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="delivery-all" name="delivery" value="delivery-all" checked="">
+                                        <label for="delivery-all"><span>전체</span></label>
+                                    </div>
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="delivery-domestic" name="delivery" value="delivery-domestic">
+                                        <label for="delivery-domestic"><span>국내배송</span></label>
+                                    </div>
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="delivery-overseas" name="delivery" value="delivery-overseas">
+                                        <label for="delivery-overseas"><span>해외배송</span></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="filter-btn"><button type="button" class="common-btn" aria-label="검색" onclick="location.href='#none'"><span>검색</span></button></li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </main>
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0"><span class="hidden">페이지 맨 위로</span></a>
+        </div>
+    </div>
+    <script src="../../../asset/js/basic.js"></script>
+    <script src="../../../asset/js/basic_admin.js"></script>
+</body>
+
+</html>

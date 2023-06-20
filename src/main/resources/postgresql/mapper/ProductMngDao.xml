@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.product.management.dao.ProductMngDao">
+    <select id="getProductMngListCnt" resultType="int">
+        select
+            count(*)
+        from
+            octopus.product_info
+        where
+            is_use = true
+    </select>
+
+    <select id="getProductMngList" resultType="map">
+        SELECT A.*
+        FROM (
+             select product_seq
+                  , product_name
+                  , product_price
+                  , discount_price
+                  , is_discount
+                  , is_has_option
+                  , reg_dt::date
+             from octopus.product_info
+             where is_use = true
+             order by reg_dt
+         ) A
+        LIMIT
+            #{pagingModel.pageSize}
+        OFFSET
+        (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+    <select id="getProductMngDetail" parameterType="int" resultType="map">
+        SELECT
+            product_seq
+            , product_name
+            , product_description
+            , product_price
+            , product_stock
+            , category_seq
+            , brand_id
+            , is_discount
+            , discount_price
+            , delivery_charge
+            , is_use_conditional_delivery
+            , conditional_delivery_price
+            , is_pay_buy_point
+            , product_buy_point
+            , is_pay_normal_review_point
+            , product_normal_review_point
+            , is_pay_media_review_point
+            , product_media_review_point
+            , is_has_option
+        FROM
+            octopus.product_info
+        WHERE
+            is_use = true
+            and product_seq = #{value}
+    </select>
+
+    <select id="getProductNextSeq" resultType="int">
+        SELECT nextval('octopus.product_info_product_seq_seq')
+    </select>
+
+    <insert id="insertProductMng" parameterType="map">
+        INSERT INTO octopus.product_info (
+            product_seq
+            , product_name
+            , product_price
+            <if test="is_has_option == false">
+                , product_stock
+            </if>
+            , category_seq
+            , is_discount
+            <if test="is_discount == true">
+                , discount_price
+            </if>
+            , delivery_charge
+            , is_use_conditional_delivery
+            <if test="is_use_conditional_delivery == true">
+                , conditional_delivery_price
+            </if>
+            , is_pay_buy_point
+            <if test="is_pay_buy_point == true">
+                , product_buy_point
+            </if>
+            , is_pay_normal_review_point
+            <if test="is_pay_normal_review_point == true">
+                , product_normal_review_point
+            </if>
+            , is_pay_media_review_point
+            <if test="is_pay_media_review_point == true">
+                , product_media_review_point
+            </if>
+            , is_has_option
+        ) VALUES (
+            #{nextProductSeq}
+            , #{product_name}
+            , #{product_price}::int4
+            <if test="is_has_option == false">
+                , #{product_stock}::int4
+            </if>
+            , #{category_seq}::int4
+            , #{is_discount}::bool
+            <if test="is_discount == true">
+                , #{discount_price}::int4
+            </if>
+            , #{delivery_charge}::int4
+            , #{is_use_conditional_delivery}::bool
+            <if test="is_use_conditional_delivery == true">
+                , #{condition_delivery_charge}::int4
+            </if>
+            , #{is_pay_buy_point}::bool
+            <if test="is_pay_buy_point == true">
+                , #{pay_buy_point}::int4
+            </if>
+            , #{is_pay_normal_review_point}::bool
+            <if test="is_pay_normal_review_point == true">
+                , #{pay_normal_review_point}::int4
+            </if>
+            , #{is_pay_media_review_point}::bool
+            <if test="is_pay_media_review_point == true">
+                , #{pay_media_review_point}::int4
+            </if>
+            ,#{is_has_option}::bool
+        )
+    </insert>
+
+    <insert id="updateProductMng" parameterType="map">
+        UPDATE octopus.product_info
+        SET product_name = #{product_name}
+            , product_price = #{product_price}::int4
+            <if test="is_has_option == false">
+                , product_stock = #{product_stock}::int4
+            </if>
+            , category_seq = #{category_seq}::int4
+            , is_discount = #{is_discount}::bool
+            <if test="is_discount == true">
+                , discount_price = #{discount_price}::int4
+            </if>
+            , delivery_charge = #{delivery_charge}::int4
+            , is_use_conditional_delivery = #{is_use_conditional_delivery}::bool
+            <if test="is_use_conditional_delivery == true">
+                , conditional_delivery_price = #{condition_delivery_charge}::int4
+            </if>
+            , is_pay_buy_point = #{is_pay_buy_point}::bool
+            <if test="is_pay_buy_point == true">
+                , product_buy_point = #{pay_buy_point}::int4
+            </if>
+            , is_pay_normal_review_point = #{is_pay_normal_review_point}::bool
+            <if test="is_pay_normal_review_point == true">
+                , product_normal_review_point = #{pay_normal_review_point}::int4
+            </if>
+            , is_pay_media_review_point = #{is_pay_media_review_point}::bool
+            <if test="is_pay_media_review_point == true">
+                , product_media_review_point = #{pay_media_review_point}::int4
+            </if>
+            , is_has_option = #{is_has_option}::bool
+        WHERE
+            product_seq = #{productSeq}::int4
+    </insert>
+
+    <insert id="insertProductOptionInfo" parameterType="map">
+        <foreach collection="optionList" item="option" separator=";">
+            INSERT INTO octopus.product_option_info (
+                product_seq
+                , option_seq
+                , option_name
+            ) VALUES (
+                #{nextProductSeq}
+                , #{option.optionSeq}
+                , #{option.name}
+            );
+        </foreach>
+    </insert>
+
+    <update id="updateProductOptionInfo" parameterType="map">
+        <foreach collection="optionList" item="option" separator=";">
+            UPDATE octopus.product_option_info
+            SET option_seq = #{option.optionSeq}
+                , option_name = #{name}
+        </foreach>
+    </update>
+
+    <update id="deleteProductOptionInfo" parameterType="int">
+        UPDATE octopus.product_option_info
+        SET is_use = false
+            , del_dt = now()
+        WHERE product_seq = #{productSeq}
+    </update>
+
+    <insert id="insertProductOptionDetail" parameterType="map">
+        <foreach collection="optionDetailList" item="optionDetail" separator=";">
+                INSERT INTO octopus.product_option_detail (
+                    product_seq
+                    , option_seq
+                    , option_detail_seq
+                    , option_detail_name
+                ) VALUES (
+                    #{nextProductSeq}
+                    , #{optionSeq}
+                    , #{optionDetail.optionDetailSeq}
+                    , #{optionDetail.name}
+                )
+        </foreach>
+    </insert>
+
+    <update id="deleteProductOptionDetail" parameterType="int">
+        UPDATE octopus.product_option_detail
+        SET is_use = false
+            , del_dt = now()
+        WHERE product_seq = #{productSeq}
+    </update>
+
+    <insert id="insertProductOptionCombination" parameterType="map">
+        <foreach collection="combinationParamList" item="combinationParamMap" separator=";">
+            INSERT INTO octopus.product_option_combine_info (
+                product_seq
+                <foreach collection="combinationParamMap.targetColList" item="targetCol">
+                    , ${targetCol.colName}
+                </foreach>
+                , stock
+                , additional_price
+            ) VALUES (
+                #{nextProductSeq}
+                <foreach collection="combinationParamMap.targetColList" item="targetCol">
+                    , #{targetCol.colValue}
+                </foreach>
+                , #{combinationParamMap.stock}::int4
+                , #{combinationParamMap.price}::int4
+            )
+        </foreach>
+    </insert>
+
+    <update id="deleteProductOptionCombination" parameterType="int">
+        UPDATE octopus.product_option_combine_info
+        SET is_use = false
+            , del_dt = now()
+        WHERE product_seq = #{productSeq}
+    </update>
+
+    <update id="updateProductOptionCombination" parameterType="map">
+        <foreach collection="optionCombinationList" item="combinationMap" separator=";">
+        UPDATE octopus.product_option_combine_info
+        SET additional_price = #{combinationMap.price}::int4
+          , stock = #{combinationMap.stock}::int4
+          , udt_dt = now()
+        WHERE product_seq = #{productSeq}
+            and option_combine_seq = #{combinationMap.option_combine_seq}::int4
+        </foreach>
+    </update>
+
+    <select id="getLastOptionSeq" parameterType="int" resultType="int">
+        select
+            COALESCE(max(option_seq), 0)
+        from
+            octopus.product_option_info
+        where
+            product_seq = #{productSeq}
+    </select>
+
+    <select id="getProductFullOptionInfo" parameterType="int" resultType="map">
+        select
+            poi.product_seq
+            , poi.option_seq
+            , poi.option_name
+            , string_agg(pod.option_detail_name, ',') as option_detail_name_arr
+            , string_agg(pod.option_detail_seq::text, ',') as option_detail_seq_arr
+        from
+            octopus.product_option_info poi
+            inner join octopus.product_option_detail pod on (poi.option_seq = pod.option_seq)
+        where
+            poi.product_seq = #{productSeq}
+            and poi.is_use = true
+            and pod.is_use = true
+        group by
+            poi.product_seq, poi.option_seq, poi.option_name
+        order by
+            option_seq
+    </select>
+
+    <select id="getCombinationOptionList" parameterType="int" resultType="map">
+        <!-- TODO 쿼리 최적화 필요 -->
+        select
+            option_combine_seq
+            , product_seq
+            , option_detail_seq_1
+            , (select option_detail_name from octopus.product_option_detail pod where product_seq = #{productSeq} and option_detail_seq = option_detail_seq_1 and is_use = true) as option_detail_name_1
+            , option_detail_seq_2
+            , (select option_detail_name from octopus.product_option_detail pod where product_seq = #{productSeq} and option_detail_seq = option_detail_seq_2 and is_use = true) as option_detail_name_2
+            , option_detail_seq_3
+            , (select option_detail_name from octopus.product_option_detail pod where product_seq = #{productSeq} and option_detail_seq = option_detail_seq_3 and is_use = true) as option_detail_name_3
+            , stock
+            , additional_price
+        from
+            octopus.product_option_combine_info poci
+        where
+            product_seq = #{productSeq}
+            and is_use = true
+    </select>
+</mapper>

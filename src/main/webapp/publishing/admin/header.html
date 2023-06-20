@@ -1,20 +1,24 @@
 <!--========== HEADER ==========-->
 <header id="header">
     <div class="header-wrap">
-        <div class="header-left">
+        <div class="header-left pc">
             <div class="search-area">
                 <div class="input-box text">
                     <input type="text" placeholder="검색어를 입력하세요.">
                     <span class="border-focus"><i></i></span>
-                    <button type="button" class="search-btn" onclick="" aria-label="검색하기"><img src="../../asset/img/admin/icon-search.svg" alt="검색하기"></button>
+                    <button type="button" class="search-btn" onclick="" aria-label="검색하기"><img src="/webapp/asset/img/admin/icon-search.svg" alt="검색하기"></button>
                 </div>
             </div>
         </div>
         <div class="header-right">
             <ul>
+                <li class="search-area mo">
+                    <a href="javascript:;" onclick="modalPopup('#searchPop')" class="search-btn"><img src="/webapp/asset/img/admin/icon-search.svg" alt="검색하기"></a>
+                </li>
+                <li class="mid-line mo"><span></span></li>
                 <li class="alarm-area">
                     <button type="button" class="bubble-btn alarm" aria-label="알림창 보기">
-                        <img src="../../asset/img/admin/icon-alarm.svg" alt="알림">
+                        <img src="/webapp/asset/img/admin/icon-alarm.svg" alt="알림">
                         <!-- .new 새로운 알림 있을 경우 show 없을 경우 hide -->
                         <span class="new"></span>
                     </button>
@@ -36,7 +40,7 @@
                                         <p class="txt">카페24 페이먼츠 정산 한도 상향이 필요한 경우 카페24 페이먼츠 정산관리 화면에서 요청할 수 있어요.</p>
                                         <span class="date">23.03.29 09:00</span>
                                     </div>
-                                    <button type="button" class="all-read-btn" aria-label="알림 삭제"><img src="../../asset/img/icon-close-g.svg" alt="삭제"></button>
+                                    <button type="button" class="all-read-btn" aria-label="알림 삭제"><img src="/webapp/asset/img/icon-close-g.svg" alt="삭제"></button>
                                 </li>
                                 <li>
                                     <span class="dot"></span>
@@ -45,7 +49,7 @@
                                         <p class="txt">카페24 페이먼츠 정산 한도 상향이 필요한 경우 카페24 페이먼츠 정산관리 화면에서 요청할 수 있어요.</p>
                                         <span class="date">23.03.29 09:00</span>
                                     </div>
-                                    <button type="button" class="all-read-btn" aria-label="알림 삭제"><img src="../../asset/img/icon-close-g.svg" alt="삭제"></button>
+                                    <button type="button" class="all-read-btn" aria-label="알림 삭제"><img src="/webapp/asset/img/icon-close-g.svg" alt="삭제"></button>
                                 </li>
                                 <li class="new">
                                     <span class="dot"></span>
@@ -54,7 +58,7 @@
                                         <p class="txt">카페24 페이먼츠 정산 한도 상향이 필요한 경우 카페24 페이먼츠 정산관리 화면에서 요청할 수 있어요.</p>
                                         <span class="date">23.03.29 09:00</span>
                                     </div>
-                                    <button type="button" class="all-read-btn" aria-label="알림 삭제"><img src="../../asset/img/icon-close-g.svg" alt="삭제"></button>
+                                    <button type="button" class="all-read-btn" aria-label="알림 삭제"><img src="/webapp/asset/img/icon-close-g.svg" alt="삭제"></button>
                                 </li>
                             </ul>
                         </div>
@@ -63,12 +67,12 @@
                 <li class="mid-line"><span></span></li>
                 <li class="user-area">
                     <a href="javascript:;" class="bubble-btn user" aria-label="내정보 보기">
-                        <figure class="profile"><img src="../../asset/img/admin/icon-my.svg" alt="user"></figure>
-                        <div class="name-box">
+                        <figure class="profile"><img src="/webapp/asset/img/admin/icon-my.svg" alt="user"></figure>
+                        <div class="name-box pc">
                             <p class="name">이무너 님</p>
                             <p class="grading">admin</p>
                         </div>
-                        <figure class="arrow"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></figure>
+                        <figure class="arrow pc"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></figure>
                     </a>
                     <div class="bubble-box user-bubble-box">
                         <div class="user-head">
@@ -76,7 +80,7 @@
                                 <p class="name">이무너 님</p>
                                 <p class="grading">admin 대표운영자</p>
                             </div>
-                            <button type="button" class="logout-btn" aria-label="로그아웃"><img src="../../asset/img/admin/icon-logout.svg" alt="로그아웃"></button>
+                            <button type="button" class="logout-btn" aria-label="로그아웃"><img src="/webapp/asset/img/admin/icon-logout.svg" alt="로그아웃"></button>
                         </div>
                         <ul class="user-menu">
                             <li><a href="#none">내 쇼핑몰 정보 확인</a></li>
@@ -88,21 +92,41 @@
         </div>
     </div>
 </header>
+<div class="popup-group">
+    <div id="searchPop" class="modal searchPop">
+        <div class="modal-wrap">
+            <section class="modal-content">
+                <div class="modal-tit-wrap">
+                    <h3 class="modal-tit">팝업 예제</h3>
+                </div>
+                <div class="modal-cont-wrap">
+                    <div class="scroll-wrap">
+                        <p>팝업 예제입니다. <br>팝업 예제입니다. <br>팝업 예제입니다. <br>팝업 예제입니다. <br></p>
+                        
+                    </div>
+                </div>
+                <div class="modal-close-btn">
+                    <a href="javascript:;" onclick="modalPopupClose('#searchPop')" title="팝업창 닫기">팝업창 닫기</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
 <div class="nav">
     <div class="top">
         <div class="logo-wrap">
-            <h1 class="logo"><a href="#"><img src="../../asset/img/admin/logo-admin-w.svg" alt="admin-logo"></a></h1>
+            <h1 class="logo"><a href="#"><img src="/webapp/asset/img/admin/logo-admin-w.svg" alt="admin-logo"></a></h1>
         </div>
         <div class="nav-btn-wrap">
-            <button type="button" class="nav-btn nav-close-btn" aria-label="닫기"><img src="../../asset/img/admin/icon-nav-close-w.svg" alt="admin-logo"></button>
-            <button type="button" class="nav-btn nav-open-btn" aria-label="열기"><img src="../../asset/img/admin/icon-nav-open-w.svg" alt="admin-logo"></button>
+            <button type="button" class="nav-btn nav-close-btn" aria-label="닫기"><img src="/webapp/asset/img/admin/icon-nav-close-w.svg" alt="admin-logo"></button>
+            <button type="button" class="nav-btn nav-open-btn" aria-label="열기"><img src="/webapp/asset/img/admin/icon-nav-open-w.svg" alt="admin-logo"></button>
         </div>
     </div>
     <div class="bottom">
         <div class="main-menu-area">
             <nav class="main-menu">
                 <ul class="menu-list">
-                    <li class="menu menu01 home"><a href="#none"><span>홈</span></a></li>
+                    <li class="menu menu01 home"><a href="/webapp/publishing/admin/main.html"><span>홈</span></a></li>
                     <li class="menu menu02"><a href="#none"><span>기본설정</span></a></li>
                     <li class="menu menu03"><a href="#none"><span>사이트관리</span></a></li>
                     <li class="menu menu04"><a href="#none"><span>상품관리</span></a></li>
@@ -119,495 +143,404 @@
             <nav class="sub-menu sub-menu01"></nav>
             <nav class="sub-menu sub-menu02">
                 <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>기본 설정</span></a>
+                    <a href="#none"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>기본 설정</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>기본 설정01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu01"><a href="#none"><span>기본 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>회사기본정보관리 </span></a></li>
+                            <li><a href="#none"><span>약관/개인정보처리방침 관리</span></a></li>
+                            <li><a href="#none"><span>이용/탈퇴 안내 </span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu02"><a href="#none"><span>기본 설정02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu02"><a href="#none"><span>결제 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>결제 수단 설정</span></a></li>
+                            <li><a href="#none"><span>무통장입금 은행 관리</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu03"><a href="#none"><span>기본 설정03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu03"><a href="#none"><span>배송 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>배송비 조건관리</span></a></li>
+                            <li><a href="#none"><span>지역별 추가배송비 관리</span></a></li>
+                            <li><a href="#none"><span>배송업체 관리 </span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu04"><a href="#none"><span>기본 설정04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu04"><a href="#none"><span>운영자 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>운영자 관리</span></a></li>
+                            <li><a href="#none"><span>운영자 권한 설정</span></a></li>
+                            <li><a href="#none"><span>개인정보 접속 기록 조회</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu05"><a href="#none"><span>기본 설정05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu05"><a href="#none"><span>주문 정책</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>기본 설정06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>주문 기본 설정</span></a></li>
+                            <li><a href="#none"><span>주문 상태 설정</span></a></li>
+                            <li><a href="#none"><span>장바구니/관심상품 설정</span></a></li>
+                            <li><a href="#none"><span>주문서 추가정보 관리</span></a></li>
+                            <li><a href="#none"><span>주문서 인쇄설정</span></a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
             <nav class="sub-menu sub-menu03">
                 <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>사이트 관리</span></a>
+                    <a href="#none"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>사이트 관리</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>사이트 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu02"><a href="set_site/menu.html"><span>사이트 메뉴관리</span></a></li>
+                    <li class="menu menu03"><a href="#none"><span>메인관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>메인 디자인 설정</span></a></li>
+                            <li><a href="#none"><span>배너관리</span></a></li>
+                            <li><a href="#none"><span>로고관리</span></a></li>
+                            <li><a href="#none"><span>프로모션 판매영역</span></a></li>
+                            <li><a href="#none"><span>타임특가</span></a></li>
+                            <li><a href="#none"><span>Best Seller</span></a></li>
+                            <li><a href="#none"><span>추천상품</span></a></li>
+                            <li><a href="#none"><span>신상품</span></a></li>
+                            <li><a href="#none"><span>Best Review</span></a></li>
+                            <li><a href="#none"><span>공지사항</span></a></li>
+                            <li><a href="#none"><span>SNS 연동</span></a></li>
+                            <li><a href="#none"><span>Quick Menu</span></a></li>
+                            <li><a href="#none"><span>PC Web 미리보기</span></a></li>
+                            <li><a href="#none"><span>Mobile Web 미리보기</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu02"><a href="#none"><span>사이트 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu01"><a href="#none"><span>회사소개관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>회사소개</span></a></li>
+                            <li><a href="#none"><span>연혁관리</span></a></li>
+                            <li><a href="#none"><span>보도자료 관리</span></a></li>
+                            <li><a href="#none"><span>CI 소개</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu03"><a href="#none"><span>사이트 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu04"><a href="#none"><span>게시판관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>게시판 리스트</span></a></li>
+                            <li><a href="#none"><span>게시판 등록</span></a></li>
+                            <li><a href="#none"><span>게시글 관리</span></a></li>
+                            <li><a href="#none"><span>게시판 스킨관리</span></a></li>
+                            <li><a href="#none"><span>게시판 금칙어 관리</span></a></li>
+                            <li><a href="#none"><span>게시글 양식 관리</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu04"><a href="#none"><span>사이트 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu05"><a href="#none"><span>고객센터 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>사이트 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>사이트 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>문의처 관리</span></a></li>
+                            <li><a href="#none"><span>FAQ 관리</span></a></li>
+                            <li><a href="#none"><span>1:1 문의 관리</span></a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
             <nav class="sub-menu sub-menu04">
                 <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>상품 관리</span></a>
+                    <a href="#none"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>상품 관리</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>상품 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu01"><a href="#none"><span>상품 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>상품 리스트</span></a></li>
+                            <li><a href="#none"><span>상품 등록</span></a></li>
+                            <li><a href="#none"><span>자주 쓰는 옵션 관리</span></a></li>
+                            <li><a href="#none"><span>상품 혜택 관리</span></a></li>
+                            <li><a href="#none"><span>상품 아이콘 관리</span></a></li>
+                            <li><a href="#none"><span>상품 필수정보 관리</span></a></li>
+                            <li><a href="#none"><span>삭제 상품 관리</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu02"><a href="#none"><span>상품 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu02"><a href="#none"><span>상품 진열 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>메인 페이지 상품 진열</span></a></li>
+                            <li><a href="#none"><span>카테고리 페이지 상품진열</span></a></li>
+                            <li><a href="#none"><span>브랜드 페이지 상품 진열</span></a></li>
+                            <li><a href="#none"><span>검색페이지 상품 진열</span></a></li>
+                            <li><a href="#none"><span>품절상품 상품 진열</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu03"><a href="#none"><span>상품 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu03"><a href="#none"><span>상품 분류 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>분류 설정 관리</span></a></li>
+                            <li><a href="#none"><span>카테고리 관리</span></a></li>
+                            <li><a href="#none"><span>브랜드 관리</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu04"><a href="#none"><span>상품 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu04"><a href="#none"><span>상품 노출형태 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>상품 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>상품 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>테마 관리</span></a></li>
+                            <li><a href="#none"><span>관련상품 노출설정</span></a></li>
+                            <li><a href="#none"><span>상품상세 노출설정</span></a></li>
+                            <li><a href="#none"><span>검색창 관련 설정</span></a></li>
+                            <li><a href="#none"><span>인기상품 노출관리</span></a></li>
+                            <li><a href="#none"><span>추천상품 관리</span></a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
             <nav class="sub-menu sub-menu05">
                 <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>주문/배송 관리</span></a>
+                    <a href="#none"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>주문/배송 관리</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>주문/배송 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu01"><a href="#none"><span>주문 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>주문 통합 리스트</span></a></li>
+                            <li><a href="#none"><span>입금대기 리스트</span></a></li>
+                            <li><a href="#none"><span>결제완료 리스트</span></a></li>
+                            <li><a href="#none"><span>상품 준비중 리스트</span></a></li>
+                            <li><a href="#none"><span>배송중 리스트</span></a></li>
+                            <li><a href="#none"><span>배송완료 리스트</span></a></li>
+                            <li><a href="#none"><span>구매확정 리스트</span></a></li>
+                            <li><a href="#none"><span>결제중단/실패 리스트</span></a></li>
+                            <li><a href="#none"><span>주문내역 삭제</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu02"><a href="#none"><span>주문/배송 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu02"><a href="#none"><span>취소/교환/반품/환불관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>취소 리스트</span></a></li>
+                            <li><a href="#none"><span>교환 리스트</span></a></li>
+                            <li><a href="#none"><span>반품 리스트</span></a></li>
+                            <li><a href="#none"><span>환불 리스트</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu03"><a href="#none"><span>주문/배송 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu03"><a href="#none"><span>수기주문 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>수기주문 등록</span></a></li>
+                            <li><a href="#none"><span>자주쓰는 주소 관리</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu04"><a href="#none"><span>주문/배송 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu04"><a href="#none"><span>자동입금확인 서비스</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>자동입금확인서비스 안내</span></a></li>
+                            <li><a href="#none"><span>자동입금확인서비스 신청</span></a></li>
+                            <li><a href="#none"><span>입금조회/실시간 입금확인</span></a></li>
+                            <li><a href="#none"><span>미확인 입금자 관리</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu05"><a href="#none"><span>주문/배송 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu05"><a href="#none"><span>세금계산서 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>주문/배송 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>세금계산서 설정</span></a></li>
+                            <li><a href="#none"><span>발행 요청 리스트</span></a></li>
+                            <li><a href="#none"><span>발행 내역 리스트</span></a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
             <nav class="sub-menu sub-menu06">
                 <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>회원 관리</span></a>
+                    <a href="#none"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>회원 관리</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>회원 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu01"><a href="#none"><span>회원 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>회원 리스트</span></a></li>
+                            <li><a href="#none"><span>SNS 회원 리스트</span></a></li>
+                            <li><a href="#none"><span>회원가입 정책 관리</span></a></li>
+                            <li><a href="#none"><span>회원등급 관리</span></a></li>
+                            <li><a href="#none"><span>회원등급 평가방법 설정</span></a></li>
+                            <li><a href="#none"><span>가입승인 / 등급변경</span></a></li>
+                            <li><a href="#none"><span>휴면 회원 정책</span></a></li>
+                            <li><a href="#none"><span>휴면 회원 관리</span></a></li>
+                            <li><a href="#none"><span>회원 탈퇴 / 삭제 관리</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu02"><a href="#none"><span>회원 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu02"><a href="#none"><span>마일리지 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>마일리지 기본 설정</span></a></li>
+                            <li><a href="#none"><span>마일리지 사용 설정</span></a></li>
+                            <li><a href="#none"><span>마일리지 지급 설정</span></a></li>
+                            <li><a href="#none"><span>마일리지 지급/차감</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu03"><a href="#none"><span>회원 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu03"><a href="#none"><span>메일 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>대량 메일 설정</span></a></li>
+                            <li><a href="#none"><span>대량 메일 발송</span></a></li>
+                            <li><a href="#none"><span>개별/전체 메일 발송</span></a></li>
+                            <li><a href="#none"><span>자동 메일 설정</span></a></li>
+                            <li><a href="#none"><span>메일 발송 내역 보기</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu04"><a href="#none"><span>회원 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu04"><a href="#none"><span>SMS 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>SMS 설정</span></a></li>
+                            <li><a href="#none"><span>개별전체 SMS 발송</span></a></li>
+                            <li><a href="#none"><span>SMS 포인트 충전</span></a></li>
+                            <li><a href="#none"><span>080 수신거부 설정</span></a></li>
+                            <li><a href="#none"><span>080 수신거부 리스트</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu05"><a href="#none"><span>회원 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu05"><a href="#none"><span>카카오 알림톡</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>회원 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>카카오 알림톡 설정</span></a></li>
+                            <li><a href="#none"><span>카카오 알림톡 템플릿 설정</span></a></li>
+                            <li><a href="#none"><span>카카오 알림톡 발송 내역</span></a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
             <nav class="sub-menu sub-menu07">
                 <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>프로모션 관리</span></a>
+                    <a href="#none"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>프로모션 관리</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>프로모션 관리01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu01"><a href="#none"><span>쿠폰관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>쿠폰 기본설정</span></a></li>
+                            <li><a href="#none"><span>쿠폰 리스트</span></a></li>
+                            <li><a href="#none"><span>쿠폰 등록</span></a></li>
+                            <li><a href="#none"><span>쿠폰 발급 관리</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu02"><a href="#none"><span>프로모션 관리02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu02"><a href="#none"><span>이벤트 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>이벤트 목록</span></a></li>
+                            <li><a href="#none"><span>출석 체크 이벤트</span></a></li>
+                            <li><a href="#none"><span>룰렛 이벤트</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu03"><a href="#none"><span>프로모션 관리03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu03"><a href="#none"><span>리뷰 관리</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>프로모션 관리04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>프로모션 관리05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>프로모션 관리06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>리뷰 목록</span></a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
             <nav class="sub-menu sub-menu07">
                 <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>부가서비스</span></a>
+                    <a href="#none"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>부가서비스</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>부가서비스01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu01"><a href="#none"><span>결제/간편결제</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>전자결제(PG) 설정</span></a></li>
+                            <li><a href="#none"><span>휴대폰 결제 설정</span></a></li>
+                            <li><a href="#none"><span>페이코 결제 설정</span></a></li>
+                            <li><a href="#none"><span>네이버페이 설정</span></a></li>
+                            <li><a href="#none"><span>카카오페이 설정</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu02"><a href="#none"><span>부가서비스02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu02"><a href="#none"><span>간편 로그인</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu03"><a href="#none"><span>부가서비스03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu04"><a href="#none"><span>부가서비스04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu05"><a href="#none"><span>부가서비스05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu menu06"><a href="#none"><span>부가서비스06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
-                        <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>페이코 간편 로그인</span></a></li>
+                            <li><a href="#none"><span>카카오 간편 로그인</span></a></li>
+                            <li><a href="#none"><span>네이버 간편 로그인</span></a></li>
+                            <li><a href="#none"><span>페이스북 간편 로그인</span></a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
             <nav class="sub-menu sub-menu07">
                 <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>마케팅</span></a>
+                    <a href="#none"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>마케팅</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>마케팅01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu01"><a href="#none"><span>네이버 쇼핑</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>네이버 쇼핑 안내/입점</span></a></li>
+                            <li><a href="#none"><span>네이버 쇼핑 설정</span></a></li>
+                            <li><a href="#none"><span>네이버 쇼핑 상품 설정</span></a></li>
+                            <li><a href="#none"><span>공통유입 스크립트 설정</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu02"><a href="#none"><span>마케팅02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu02"><a href="#none"><span>다음 쇼핑하우</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>쇼핑하우 안내/입점</span></a></li>
+                            <li><a href="#none"><span>쇼핑하우 설정하기</span></a></li>
+                            <li><a href="#none"><span>쇼핑하우 상품 설정</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu03"><a href="#none"><span>마케팅03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu03"><a href="#none"><span>위메프 원더쇼핑</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>위메프 원더쇼핑 안내/입점</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu04"><a href="#none"><span>마케팅04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu04"><a href="#none"><span>검색 광고</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>키워드 광고</span></a></li>
+                            <li><a href="#none"><span>브랜드 검색</span></a></li>
+                            <li><a href="#none"><span>네이버 쇼핑 검색광고</span></a></li>
+                            <li><a href="#none"><span>네이버 신제품 광고</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu05"><a href="#none"><span>마케팅05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu05"><a href="#none"><span>SNS/바이럴 광고</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>바이럴 마케팅</span></a></li>
+                            <li><a href="#none"><span>페이스북 광고/운영</span></a></li>
+                            <li><a href="#none"><span>페이스북 광고 설정</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu06"><a href="#none"><span>마케팅06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu06"><a href="#none"><span>리타게팅 광고</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>리타게팅 광고 안내</span></a></li>
+                            <li><a href="#none"><span>타게팅게이츠 설정/관리</span></a></li>
+                            <li><a href="#none"><span>크리테오 설정/관리</span></a></li>
+                            <li><a href="#none"><span>모비온 설정/관리</span></a></li>
+                            <li><a href="#none"><span>카카오모먼트 설정/관리</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu menu06"><a href="#none"><span>구글 광고</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                        <ul class="menu-3depth">
+                            <li><a href="#none"><span>구글 광고 설정/관리</span></a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
             <nav class="sub-menu sub-menu07">
                 <div class="sub-menu-title">
-                    <a href="#none"><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>통계</span></a>
+                    <a href="#none"><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"><span>통계</span></a>
                 </div>
                 <ul class="menu-list">
-                    <li class="menu menu01"><a href="#none"><span>통계01</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu01"><a href="#none"><span>방문자 분석</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>방문자 분석</span></a></li>
+                            <li><a href="#none"><span>방분자 경로 분석</span></a></li>
+                            <li><a href="#none"><span>방문자 환경 분석</span></a></li>
+                            <li><a href="#none"><span>방문자 IP 분석</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu02"><a href="#none"><span>통계02</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu02"><a href="#none"><span>회원 분석</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>신규 회원분석</span></a></li>
+                            <li><a href="#none"><span>전체 회원분석</span></a></li>
+                            <li><a href="#none"><span>회원 마일리지 분석</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu03"><a href="#none"><span>통계03</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu03"><a href="#none"><span>상품 분석</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>카테고리 분석</span></a></li>
+                            <li><a href="#none"><span>판매순위 분석</span></a></li>
+                            <li><a href="#none"><span>메인분류 분석</span></a></li>
+                            <li><a href="#none"><span>검색어순위 분석</span></a></li>
+                            <li><a href="#none"><span>장바구니 분석</span></a></li>
+                            <li><a href="#none"><span>페이지뷰 분석</span></a></li>
+                            <li><a href="#none"><span>관심상품 분석</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu04"><a href="#none"><span>통계04</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu04"><a href="#none"><span>매출 분석</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>매출통계</span></a></li>
+                            <li><a href="#none"><span>연령별 매출통계</span></a></li>
+                            <li><a href="#none"><span>결제수단별 매출통계</span></a></li>
+                            <li><a href="#none"><span>지역별 매출통계</span></a></li>
+                            <li><a href="#none"><span>상품별 매출통계</span></a></li>
+                            <li><a href="#none"><span>성별 매출통계</span></a></li>
+                            <li><a href="#none"><span>기간별 매출통계</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu05"><a href="#none"><span>통계05</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu05"><a href="#none"><span>주문 분석</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>주문통계</span></a></li>
+                            <li><a href="#none"><span>연령별 주문통계</span></a></li>
+                            <li><a href="#none"><span>지역별 주문통계</span></a></li>
+                            <li><a href="#none"><span>성별 주문통계</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu menu06"><a href="#none"><span>통계06</span><img src="../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                    <li class="menu menu06"><a href="#none"><span>Google Analytics</span><img src="/webapp/asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                         <ul class="menu-3depth">
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
-                            <li><a href="#none"><span>sub-menu</span></a></li>
+                            <li><a href="#none"><span>Google Analytics 설정/관리</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -627,42 +560,64 @@
             $(".bubble-box").removeClass('on');
         }
     });
-
-    // Nav slide
-    $(".nav .top .nav-btn-wrap .nav-close-btn").click(function () {
-        $('#container').addClass('navHidden');
-        $('.sub-menu-area').fadeOut(200);
-        $('#container').animate({paddingLeft: "56px"}, 400 );
-    });
-    $(".nav .top .nav-btn-wrap .nav-open-btn").click(function () {
-        $('#container').removeClass('navHidden');
-        $('.sub-menu-area').fadeIn(300);
-        $('#container').animate({paddingLeft: "256px"}, 400 );
-    });
+    $(window).resize(function(){ 
+        if (window.innerWidth > 767) {
+            $('#container.admin').removeClass('navHidden').css({paddingLeft: "256px"});
+            // Nav slide
+            $(".nav .top .nav-btn-wrap .nav-close-btn").click(function () {
+                $('#container').addClass('navHidden');
+                $('.sub-menu-area').fadeOut(200);
+                $('#container').css({paddingLeft: "56px"});
+            });
+            $(".nav .top .nav-btn-wrap .nav-open-btn").click(function () {
+                $('#container').removeClass('navHidden');
+                $('.sub-menu-area').fadeIn(300);
+                $('#container').css({paddingLeft: "256px"});
+            });
+        } else {
+            $('#container.admin').addClass('navHidden').css({paddingLeft: "0"});
+            // Nav slide
+            $(".nav .top .nav-btn-wrap .nav-close-btn").click(function () {
+                $('#container').addClass('navHidden');
+                $("html").css('overflow-y', 'auto');
+                $('#container').css({paddingLeft: "0"});
+            });
+            $(".nav .top .nav-btn-wrap .nav-open-btn").click(function () {
+                $('#container').removeClass('navHidden');
+                $("html").css('overflow-y', 'hidden');
+                $('#container').css({paddingLeft: "0"});
+            });
+        }
+    }).resize();
 
     // menu
     $('.main-menu .menu:not(.home) a').click(function () {
         $(this).addClass('active').parent().siblings().children().removeClass('active');
         number = $(this).parent().index();
         $('.sub-menu').eq(number).show().animate({marginLeft: "0"}, 300 ).addClass('on').siblings().hide().css({marginLeft: "0"}).removeClass('on');
+        if (window.innerWidth < 767 && !$('#container').hasClass('navHidden')) {
+            $('html').css('overflow-y', 'hidden');
+        } else {
+            $('html').css('overflow-y', 'auto');
+        }
     });
     $('.sub-menu-title > a').click(function () {
         $(this).parent().parent().animate({marginLeft: "200px"}, 300 ).removeClass('on').siblings().css({marginLeft: "200px"});
         $('.main-menu .menu a').removeClass('active');
+        if (window.innerWidth < 767 && !$('#container').hasClass('navHidden')) {
+            $('html').css('overflow-y', 'hidden');
+        } else {
+            $('html').css('overflow-y', 'auto');
+        }
     });
     $('.main-menu .menu.home a').click(function () {
         $('.sub-menu').animate({marginLeft: "200px"}, 300 ).removeClass('on');
+        if (window.innerWidth < 767 && !$('#container').hasClass('navHidden')) {
+            $('html').css('overflow-y', 'hidden');
+        } else {
+            $('html').css('overflow-y', 'auto');
+        }
     });
-    // $(document).on('mouseenter', '.nav .bottom', function(){
-    //     if($('#container').hasClass('navHidden')){
-    //         $('#container').addClass('over');
-    //     };
-    // });
-    // $(document).on('mouseleave', '.nav .bottom', function(){
-    //     if($('#container').hasClass('navHidden')){
-    //         $('#container').removeClass('over');
-    //     }
-    // });
     
     // menu 3depth
     var accordion_nav = $('.sub-menu .menu > a'), accordion_nav_con = $('.menu-3depth');
@@ -672,6 +627,20 @@
         if ($(this).next().is(':hidden') == true) {
             $(this).addClass('active');
             $(this).next().slideDown('normal');
+        }
+        if (window.innerWidth < 767 && !$('#container').hasClass('navHidden')) {
+            $('html').css('overflow-y', 'hidden');
+        } else {
+            $('html').css('overflow-y', 'auto');
+        }
+    });
+
+    $(document).on('mouseup touchend', function(e) {
+        var container = $('#container');
+        var nav = $('.nav');
+
+        if (window.innerWidth < 767 && !container.hasClass('navHidden') && !nav.is(e.target) && nav.has(e.target).length === 0) {
+            container.addClass('navHidden');
         }
     });
 </script>

@@ -23,8 +23,8 @@
 	--sub-color03: #aaa;
 	--sub-color04: #ddd;
 	--sub-color05: #ccc;
-	--btn-color: #333;
-	--point-color:  darkorange;
+	--detault-color: #333;
+	--point-color:  #385CE2;
 	--white-color: #fff;
 	--checked-color: #5C7DFF;
 	--error-color: #FC5050;
@@ -43,7 +43,64 @@
 		--title-size: 22px;
 		--main-text-size: 14px;
 	}
+}
 
+/*========== Skeleton ==========*/
+.skeleton-box{
+	position: relative;
+}
+.skeleton-box .skeleton-loading {
+	position: absolute;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	background-image: url('../../img/skeleton_bg.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	overflow: hidden;
+}
+.skeleton-box .skeleton-loading::after{
+	background: #fff;
+	content: "";
+	height: 520px;
+	left: -100px;
+	opacity: .4;
+	position: absolute;
+	top: -80px;
+	transform: rotate(35deg);
+	transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+	filter: blur(10px);
+	width: 50px;
+	z-index: -10;
+	animation: loading 1s infinite;
+}
+@keyframes loading {
+	100% {
+		left: 100%;
+	}
+}
+
+.skeleton-img-box{
+	position: relative;
+}
+.skeleton-img-box .skeleton-loading{
+	position: absolute;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.skeleton-img-box .skeleton-loading * {
+	background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
+	border-radius: 6px;
+	background-size: 200% 100%;
+	background-position: 100% 0;
+	animation: load 1.5s infinite;
+}
+@keyframes load {
+	100% {
+		background-position: -100% 0;
+	}
 }
 
 /*========== Custom Design ==========*/
@@ -213,10 +270,13 @@
 .basic-radio-box input[type="radio"]:checked + label::after {
 	width: 8px;
 	height: 8px;
-	background-color: var(--btn-color);
-	border: 1px solid var(--btn-color);
+	background-color: var(--detault-color);
+	border: 1px solid var(--detault-color);
 	border-radius:50%;
 	vertical-align:middle;
+}
+.basic-radio-box.disabled input[type="radio"] + label {
+	cursor: default;
 }
 .basic-radio-box.disabled input[type="radio"] + label::before {
 	background-color: #f2f2f2;
@@ -263,13 +323,71 @@ input[type="checkbox"] + label{
 	cursor: pointer;
 }
 .basic-check-box input[type="checkbox"]:checked + label::before {
-	border: 1px solid var(--btn-color);
-	background-color: var(--btn-color);
+	border: 1px solid var(--detault-color);
+	background-color: var(--detault-color);
 	background-image: url("../img/icon-chk-on.svg");
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
 	cursor: pointer;
+}
+.basic-check-box.disabled input[type="checkbox"] + label{
+	cursor: default;
+}
+.basic-check-box.disabled input[type="checkbox"] + label::before{
+	border: 1px solid #ccc;
+	background-color: #ccc;
+	cursor: default;
+}
+.basic-check-box.disabled input[type="checkbox"] + label:hover{
+	opacity: 1;
+}
+
+/* input Switch */
+.basic-switch .checkbox-switch{
+	position: relative;
+	width: 32px;
+	height: 16px;
+	margin: 0;
+	border-radius: 8px;
+	background-color: var(--sub-color04);
+	cursor: pointer;
+}
+.basic-switch .checkbox-switch::after{
+    transition: all 100ms ease-out;
+}
+.basic-switch .checkbox-switch::after{
+	content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 16px;
+    height: 16px;
+	border: 2px solid var(--sub-color04);
+    border-radius: 50%;
+    background-color: #fff;
+}
+.basic-switch .checkbox-switch:checked{
+    background-color: var(--main-color);
+}
+.basic-switch .checkbox-switch:checked::after{
+	left: 16px;
+	border: 2px solid var(--main-color);
+}
+.basic-switch.disabled .checkbox-switch{
+	cursor: default;
+}
+.basic-switch .checkbox-switch:hover{
+	opacity: 0.8;
+}
+.basic-switch .checkbox-switch:hover::after{
+	border: 2px solid var(--sub-color03);
+}
+.basic-switch.disabled .checkbox-switch:hover{
+	opacity: 1;
+}
+.basic-switch.disabled .checkbox-switch:hover::after{
+	border: 2px solid var(--sub-color04);
 }
 
 /* Select */
@@ -382,6 +500,81 @@ input[type="checkbox"] + label{
 .textarea-box textarea:focus~.border-focus i:after {
 	height: 100%;
 	transition: 0.4s;
+}
+
+/* Select Custom */
+.custom-select-box {
+	position: relative;
+	width: 100%;
+}
+.custom-select-box ul { 
+	position: relative;
+    width: 100%;
+    min-width: 70px;
+    height: 43px;
+    border-radius: 2px;
+    background-image: url('../img/select-arrow-g.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 7px) center;
+    background-size: 30px 30px;
+    font-size: var(--main-text-size);
+    color: var(--sub-color03);
+}
+.custom-select-box ul.open{
+    background-image: url('../img/select-arrow-up-g.svg');
+}
+.custom-select-box ul.sel{
+	color: #333;
+}
+.custom-select-box ul li.init { 
+    border-radius: 2px;
+	border: 1px solid var(--sub-color05); 
+	cursor: pointer; 
+}
+.custom-select-box ul.open li.init { 
+	border: 1px solid #666; 
+	border-bottom: 0;
+	cursor: pointer; 
+}
+.custom-select-box ul li {
+    padding: 11px 36px 11px 14px;
+	z-index: 2;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-use-select: none;
+	user-select: none;
+}
+.custom-select-box ul.open li{
+	border-left: 1px solid #666; 
+	border-right: 1px solid #666; 
+}
+.custom-select-box ul.open li:last-child{
+	border-bottom: 1px solid #666;
+}
+.custom-select-box ul li:not(.init) { 
+    position: relative;
+    /* padding: 10px; */
+    width: 100%;
+    display: none;
+    background: #fff;
+    color: #333;
+	cursor: default;
+}
+.custom-select-box ul li:not(.init)::before{
+	position: absolute;
+	top: 0; left: 0; right: 0;
+	margin: 0 auto;
+	content: '';
+	width: calc(100% - 28px);
+	height: 1px;
+	background-color: #eee;
+}
+.custom-select-box ul li:not(.init):hover, .custom-select-box ul li.selected:not(.init) {
+	color: var(--point-color); 
+}
+.custom-select-box ul li.disabled {
+	color: #ccc;
+	pointer-events: none;
 }
 
 /*========== modalPopup ==========*/
@@ -590,13 +783,45 @@ input[type="checkbox"] + label{
 	display: block;
 }
 
+/* tab-menu02 */
+.tab-menu.tab-menu02 li{
+	width: 400px;
+}
+.tab-menu.tab-menu02 li.tab-link{
+	border-top: 1px solid var(--sub-color05);
+	border-bottom: 2px solid var(--main-color);
+	border-left: 1px solid var(--sub-color05);
+}
+.tab-menu.tab-menu02 li.tab-link:last-child{border-right: 1px solid var(--sub-color05);}
+.tab-menu.tab-menu02 li.tab-link.current{
+	border: 2px solid var(--main-color);
+	border-bottom: 1px solid transparent;
+}
+.tab-menu.tab-menu02 li.tab-link.current + li{border-left: none;}
+.tab-menu.tab-menu02 li.tab-link a{
+	padding: 18px 0;
+	font-size: 20px;
+}
+.tab-menu.tab-menu02 li.tab-link a .tab-bubble{
+	display: inline-block;
+	height: 24px;
+	margin-left: 12px;
+	padding: 5px 8px;
+	border-radius: 12px;
+	background-color: #E9EEFF;
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--point-color);
+	transform: translateY(-1px);
+}
+
 /*========== Common Btn ==========*/
 .common-btn, .input-box input.common-btn{
 	display: inline-block;
 	min-width: 90px;
 	height: auto;
-	padding: 14px 16px;
-	background-color: var(--btn-color);
+	padding: 13px 16px;
+	background-color: var(--detault-color);
 	border: 1px solid transparent;
 	border-radius: 2px;
 	font-size: var(--sub-text-size);
@@ -626,50 +851,52 @@ input[type="checkbox"] + label{
 
 /*========== Pagination ==========*/
 .pagination-wrap {
-	text-align: center;
+	display: flex; align-items: center; justify-content: center;
 }
 .pagination-btn {
 	opacity: 1;
-	display: inline-block;
-	width: 33px;
-	height: 33px;
-	text-indent: -9999px;
+	width: 26px;
+	height: 26px;
+	border: 1px solid transparent;
+	border-radius: 100%;
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-size: 10px 10px;
 	transition: all 300ms;
 }
 .pagination-btn:hover {
+	border-color: #aaa;
 	opacity: 0.6;
 	transition: all 300ms;
 }
 .pagination-btn.first, .pagination-btn.last {
-	width: 33px;
-	height: 33px;
-	background-size: 12px 10px;
+	width: 26px;
+	height: 26px;
 }
 .pagination-btn.first {
-	background-image: url("http://codeloft.kr/apbos/asset/css/../img/arrow-double-left-b.svg");
+	margin-right: 2px;
+	background-image: url("../img/icon-pagination-double-arrow.svg");
 }
 .pagination-btn.last {
-	background-image: url("http://codeloft.kr/apbos/asset/css/../img/arrow-double-right-b.svg");
+	margin-left: 2px;
+	background-image: url("../img/icon-pagination-double-arrow.svg");
+	transform: rotate(180deg);
 }
 .pagination-btn.prev {
-	background-image: url("http://codeloft.kr/apbos/asset/css/../img/arrow-left-b.svg");
+	background-image: url("../img/icon-pagination-arrow.svg");
 }
 .pagination-btn.next {
-	background-image: url("http://codeloft.kr/apbos/asset/css/../img/arrow-right-b.svg");
+	background-image: url("../img/icon-pagination-arrow.svg");
+	transform: rotate(180deg);
 }
 .pagination-list {
-	display: inline-block;
 	width: auto;
 	margin: 0 5px;
 }
 .pagination-list li {
 	display: inline-block;
-	width: 33px;
-	height: 33px;
-	line-height: 33px;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
 	margin: 0 4px;
 }
 .pagination-list li button {
@@ -677,14 +904,12 @@ input[type="checkbox"] + label{
 	height: 100%;
 	font-size: 14px;
 	font-weight: 500;
-	color: #666;
+	color: #aaa;
 	transition: all 300ms;
 }
 .pagination-list li.current button {
-	border-radius: 2px;
-	background-color: var(--btn-color);
-	font-weight: 700;
-	color: #fff;
+	color: #333;
+	text-decoration: underline;
 }
 .pagination-list li:hover button {
 	opacity: 0.7;
@@ -727,4 +952,79 @@ input[type="checkbox"] + label{
 	font-size: 13px;
 	color: #56616d;
 	transform: translateY(-4px);
+}
+
+/*========== Star ==========*/
+.star-wrap{
+	display: flex;
+	flex-direction: column;
+}
+.star-wrap .star{
+	display: inline-block;
+	width: 80px;
+	height: 16px;
+	background-image: url('../img/star.svg');
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	overflow: hidden;
+}
+.star-wrap .star.one{
+	background-position: 0 -76px;
+}
+.star-wrap .star.two{
+	background-position: 0 -57px;
+}
+.star-wrap .star.three{
+	background-position: 0 -38px;
+}
+.star-wrap .star.four{
+	background-position: 0 -19px;
+}
+.star-wrap .star.five{
+	background-position: 0 0;
+}
+
+/*========== Review-graph ==========*/
+/* .review-graph{} */
+.review-graph li{
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	color: var(--sub-color03);
+}
+.review-graph li + li{
+	margin-top: 12px;
+}
+.review-graph li:first-child{
+	font-weight: 700;
+	color: var(--main-color);
+}
+.review-graph .review-graph-grade{
+	width: 55px;
+}
+.review-graph .review-graph-bar{
+	position: relative;
+	width: 270px;
+	height: 8px;
+	margin-right: 22px;
+	border-radius: 4px;
+	background-color: #eee;
+}
+.review-graph .review-graph-bar::after{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 8px;
+	border-radius: 4px;
+	background-color: var(--point-color);
+}
+.review-graph li:nth-child(1) .review-graph-bar::after{
+	width: 72%;
+}
+.review-graph li:nth-child(2) .review-graph-bar::after{
+	width: 20%;
+}
+.review-graph li:nth-child(3) .review-graph-bar::after{
+	width: 8%;
 }

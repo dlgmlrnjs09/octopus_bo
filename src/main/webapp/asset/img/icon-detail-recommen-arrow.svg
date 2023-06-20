@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24">
+  <g id="그룹_4551" data-name="그룹 4551" transform="translate(-1520 -1107)">
+    <g id="그룹_2428" data-name="그룹 2428" transform="translate(1257 228)">
+      <path id="Icon_ionic-ios-arrow-down" data-name="Icon ionic-ios-arrow-down" d="M6,4.374,10.54.23a.913.913,0,0,1,1.211,0,.741.741,0,0,1,0,1.109L6.61,6.034a.916.916,0,0,1-1.183.023L.25,1.342A.749.749,0,0,1,0,.787.749.749,0,0,1,.25.233a.913.913,0,0,1,1.211,0Z" transform="translate(278.13 885) rotate(90)" fill="#aaa"/>
+      <rect id="사각형_457" data-name="사각형 457" width="24" height="24" transform="translate(287 879) rotate(90)" fill="none"/>
+    </g>
+    <g id="그룹_2427" data-name="그룹 2427" transform="translate(1544 1107)">
+      <path id="Icon_ionic-ios-arrow-down-2" data-name="Icon ionic-ios-arrow-down" d="M6,1.888,10.54,6.032a.913.913,0,0,0,1.211,0,.741.741,0,0,0,0-1.109L6.61.228A.916.916,0,0,0,5.427.205L.25,4.92a.739.739,0,0,0,0,1.109.913.913,0,0,0,1.211,0Z" transform="translate(15.131 6) rotate(90)" fill="#aaa"/>
+      <rect id="사각형_457-2" data-name="사각형 457" width="24" height="24" rx="12" transform="translate(24) rotate(90)" fill="none"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+/* Info
+   ========================================================================== */
+/**
+ * 1. Writer: Hyerin Lim. (Weaverloft Corp.)
+ * 2. Production Date: 2023-06-12
+ * 3. Client: Weaverloft UX
+ */
+
+/*========== Common ==========*/
+.search-filter-sec { width: 100%; margin-bottom: 20px; padding: 16px 20px 20px; border-radius: 6px; border: 1px solid var(--sub-color01); background-color: #fff; }
+
+/*========== Search Filter ==========*/
+.search-filter-list li{ display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: center; min-height: 44px; padding: 6px 0;}
+.search-filter-list li .tit{ width: 130px; font-size: 15px;}
+.search-filter-list li .filter-box-wrap{ display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: center; gap: 6px; width: calc(100% - 130px); font-size: 14px;}
+.search-filter-list li .filter-box-wrap input, .search-filter-list li .filter-box-wrap select{ height: 32px;}
+.search-filter-list li .filter-box-wrap .btnDate{ display: block; min-width: 45px; padding: 6.5px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; line-height: 1; text-align: center;}
+.search-filter-list li .filter-box-wrap .btnDate.selected{ border: 1px solid var(--point-color01); color: var(--point-color02);}
+.search-filter-list li.filter-btn{justify-content: center;}
