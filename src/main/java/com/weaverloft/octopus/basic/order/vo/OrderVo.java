@@ -31,6 +31,7 @@ public class OrderVo extends PagingVo {
     private String orderToAddrFull;
     private String orderToZipCode;
     private int orderTotalPrice;
+    private String orderOption;
     private String orderDeliveryNo;
     private String orderDeliveryComment;
     private String orderDeliveryCd;
@@ -41,6 +42,14 @@ public class OrderVo extends PagingVo {
     private List<Integer> orderSeqList;
     private List<String> orderStatusList;
     private List<Map<String, Object>> productList;
+
+    public String getOrderOption() {
+        return orderOption;
+    }
+
+    public void setOrderOption(String orderOption) {
+        this.orderOption = orderOption;
+    }
 
     public List<String> getOrderStatusList() {
         return orderStatusList;

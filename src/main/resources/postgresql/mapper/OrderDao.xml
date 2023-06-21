@@ -92,7 +92,15 @@
                 m.member_phone1 || '-' || m.member_phone2 || '-' || m.member_phone3 AS memberPhoneFull,
 --              p.product_price AS productPrice,
 --              op.order_product_stock AS orderProductStock,
-                o.order_total_price AS orderTotalPrice,
+                (SELECT
+					COALESCE (SUM(p.product_price * op.order_product_stock), 0)
+				FROM
+					octopus.product_info p,
+					octopus.order_product_info op
+				WHERE
+					op.product_seq = p.product_seq
+				AND
+					op.order_seq = o.order_seq) AS orderTotalPrice,
                 TO_CHAR(o.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
             FROM
                 octopus.order_info o
@@ -114,6 +122,19 @@
         SELECT
             op.product_seq,
             p.product_name,
+            (SELECT
+                COALESCE(array_to_string(array_agg(info.option_name || ' : ' || detail.option_detail_name), ' / '), '')
+             FROM
+                octopus.product_option_combine_info combine
+                LEFT OUTER JOIN octopus.product_option_info info ON combine.product_seq = info.product_seq
+                LEFT OUTER JOIN octopus.product_option_detail detail ON detail.option_seq = info.option_seq
+             WHERE 1=1
+             AND (combine.option_detail_seq_1 = detail.option_detail_seq
+                    OR combine.option_detail_seq_2 = detail.option_detail_seq
+                    OR combine.option_detail_seq_3 = detail.option_detail_seq)
+             AND info.is_use = true
+             AND detail.is_use = true
+             AND combine.option_combine_seq = op.option_seq) AS order_option,
             p.product_price,
             op.order_product_stock,
             pc.product_category_nm
@@ -284,6 +305,19 @@
                 WHEN o.order_status = 'DD' THEN '배송완료'
                 ELSE '-'  END ) AS orderStatus,
             p.product_name AS productName,
+            (SELECT
+                COALESCE(array_to_string(array_agg(info.option_name || ' : ' || detail.option_detail_name), ' / '), '')
+             FROM
+                octopus.product_option_combine_info combine
+                LEFT OUTER JOIN octopus.product_option_info info ON combine.product_seq = info.product_seq
+                LEFT OUTER JOIN octopus.product_option_detail detail ON detail.option_seq = info.option_seq
+             WHERE 1=1
+             AND (combine.option_detail_seq_1 = detail.option_detail_seq
+                    OR combine.option_detail_seq_2 = detail.option_detail_seq
+                    OR combine.option_detail_seq_3 = detail.option_detail_seq)
+             AND info.is_use = true
+             AND detail.is_use = true
+             AND combine.option_combine_seq = op.option_seq) AS orderOption,
             m.member_nm AS memberNm,
             m.member_id AS memberId,
             o.order_to_name AS orderToName,

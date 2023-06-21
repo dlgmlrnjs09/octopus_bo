@@ -104,6 +104,13 @@ public class MemberController {
     public String loadMemberDetail(Model model, @ModelAttribute MemberVo memberVo) {
 
         try{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+
+            if(!user.getUserRole().equals("ADMIN")) {
+                return "redirect:/main/denied";
+            }
+
             List<RoleVo> roleList = roleService.selectRoleList(new RoleVo());
             MemberVo member = memberService.getMemberDetail(memberVo);
 
@@ -142,7 +149,6 @@ public class MemberController {
             CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
 
             SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication, user.getUsername()));
-
         }catch (Exception e) {
             System.out.println(e);
             return "404";

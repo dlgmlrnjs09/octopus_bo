@@ -62,6 +62,7 @@ public class ExcelServiceImpl implements ExcelService {
 					break;
 				case "이메일" :
 				case "배송 요청사항" :
+				case "상품 옵션" :
 					mySheet.setColumnView(seq, 30);
 					break;
 				case "등록일" :
