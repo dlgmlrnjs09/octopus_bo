@@ -14,7 +14,7 @@
 /*========== Menu list ==========*/
 .set-menu-list {
 	background: #fff;
-	width: 250px;
+	/*width: 250px;*/
 	padding: 10px;
 	overflow-x: hidden;
 }

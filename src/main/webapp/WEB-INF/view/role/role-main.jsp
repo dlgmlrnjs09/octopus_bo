@@ -133,8 +133,8 @@
 
     <!--========== CONTENTS ==========-->
     <div class="workingbox clfix">
-		<div class="working_box_l clfix">
-            <section class="section home-sec notice-sec">
+        <div class="working_box_l clfix">
+            <section class="section home-sec">
                 <div class="left_area">
                     <div class="title_area">
                         <h2 class="tit_h2">권한 관리</h2>
@@ -150,7 +150,7 @@
             </section>
         </div>
         <div id="divContent" class="working_box_r clfix">
-            <section class="section home-sec notice-sec">
+            <section class="section home-sec">
                 <div id="divBasicInfo" class="data_cont marT20">
                     <form id="roleForm" name="roleForm" action="" method="post">
                         <input type="hidden" id="roleSeq" name="roleSeq" value="">
@@ -204,8 +204,8 @@
                     </form>
                     <div class="btnR">
                         <div id="defaultBtnDiv">
-                            <button id="modifyBtn" class="custom-btn" type="button" value="modify" style="display: none;"><span><span class="size01">수정</span></span></button>
-                            <button id="insertBtn" class="custom-btn" type="button" value="insert"><span><span class="size01">추가</span></span></button>
+                            <button id="modifyBtn" class="common-btn" type="button" value="modify" style="display: none;"><span><span class="size01">수정</span></span></button>
+                            <button id="insertBtn" class="common-btn" type="button" value="insert"><span><span class="size01">추가</span></span></button>
                         </div>
                     </div>
                 </div>

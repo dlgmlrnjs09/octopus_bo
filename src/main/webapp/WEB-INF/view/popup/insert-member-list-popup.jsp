@@ -132,7 +132,7 @@
                         }else {
                             resultMsg = "총 " + result.totalCnt + "개의 데이터 중 " + (result.succesCnt) + "개 성공 <span style='color: red;'>("+result.failCnt+"개 실패)</span>";
                             $("#resultMsg").html(resultMsg);
-                            $("#resultLog").html("<button type='button' class='custom-btn'><a href='javascript:;' style='color:white;'>오류 다운로드</a></button>");
+                            $("#resultLog").html("<button type='button' class='common-btn'><a href='javascript:;' style='color:white;'>오류 다운로드</a></button>");
                             $("#resultLog").find("a").on("click", function(e) { logExcelDownlaod(); });
                             alert("회원 일괄 등록 중 오류가 발생하였습니다. \n등록결과 확인 후 실패한 항목 재 등록 바랍니다.");
                         }
@@ -202,9 +202,9 @@
             <form id="frmDefault" name="default" action="" method="post" enctype="multipart/form-data">
                 <p>
                     <span class="txt_red"> * 샘플 양식 다운로드 후 등록하세요. (임의 수정 시 오류 발생)</span>
-                    <button class="custom-btn" type="button" id="btn_excelDownload"><span>샘플 양식 다운로드</span></button>
+                    <button class="common-btn" type="button" id="btn_excelDownload" style="margin-left: 10px;"><span>샘플 양식 다운로드</span></button>
                 </p>
-                <table summary="입력" class="common-table">
+                <table summary="입력" class="common-table" style="width: 100%;">
                     <caption style="visibility: hidden;">입력</caption>
                     <colgroup>
                         <col width="20%" />
@@ -227,10 +227,10 @@
         </div>
         <div class="btnArea">
             <div class="btnC">
-                <button id="btn_submit" class="custom-btn" type="button">
+                <button id="btn_submit" class="common-btn" type="button">
                     <span><span class="size01">등록</span></span>
                 </button>
-                <button id="btn_cancel" class="custom-btn" type="button" onclick="window.open('about:blank','_self').close();return false;">
+                <button id="btn_cancel" class="common-btn" type="button" onclick="window.open('about:blank','_self').close();return false;">
                     <span><span class="size01">취소</span></span>
                 </button>
             </div>
