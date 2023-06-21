@@ -57,10 +57,9 @@
 .common-table input {
     height: 30px;
     padding: 8px 14px;
-    border: 1px solid var(--grayscale-color07) !important;
+    border: 1px solid #ddd;
     border-radius: 4px !important;
     font-size: var(--main-text-size);
-    color: var(--grayscale-color04);
 }
 
 .btnArea {position:relative; width:100%; margin-top:20px; height:26px; text-align:center; *zoom:1; z-index:1;}

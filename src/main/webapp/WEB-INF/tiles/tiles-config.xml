@@ -4,7 +4,7 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
     <!-- 팝업은 tiles 제외 -->
-    <definition name="popup" template="/WEB-INF/tiles/tiles-popup.jsp">
+    <definition name="popup" template="/WEB-INF/tiles/tiles-layout-popup.jsp">
         <put-attribute name="include" value="/WEB-INF/tiles/tiles-include.jsp"/>
         <put-attribute name="body" value=""/>
     </definition>

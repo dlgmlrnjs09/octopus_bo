@@ -157,103 +157,105 @@
 
     <!--========== CONTENTS ==========-->
     <main id="main" class="page-home">
-        <div class="home-section-wrap">
-            <div>
-                <h2 class="sec-title">회원 관리</h2>
-                <p class="txt">회원 정보 상세조회</p>
-            </div>
-        </div>
-        <form id="memberForm" name="memberForm">
+        <div class="admin-section-wrap">
             <div class="home-section-wrap">
-                <section class="section home-sec notice-sec">
-                    <input type="hidden" id="memberSeq" name="memberSeq" value="${member.memberSeq}">
-                    <table class="common-table" summary="회원상세정보" style="width:100%;">
-                        <colgroup>
-                            <col width="10%">
-                            <col width="40%">
-                            <col width="10%">
-                            <col width="40%">
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <th scope="row"><em>회원 아이디</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                ${member.memberId}
-                            </td>
-                            <th scope="row"><em>회원 이름</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <input type="text" style="width: 45%;" id="memberNm" name="memberNm" value="${member.memberNm}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><em>휴대전화번호</em></th>
-                            <td style="cursor: default;">
-                                <input type="text" style="width: 45%;" id="memberPhoneFull" name="memberPhoneFull" value="${member.memberPhone1}-${member.memberPhone2}-${member.memberPhone3}">
-                            </td>
-                            <th scope="row"><em>생년월일</em></th>
-                            <td style="cursor: default;">
-                                ${member.memberBirth}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><em>이메일</em></th>
-                            <td style="cursor: default;">
-                                <input type="text" id="memberEmailId" name="memberEmailId" style="width: 45%;" value="${member.memberEmailId}"> @ <input type="text" id="memberEmailDomain" name="memberEmailDomain" style="width: 45%;" value="${member.memberEmailDomain}">
-                            </td>
-                            <th scope="row"><em>등록일</em></th>
-                            <td style="cursor: default;">
-                                ${member.regDt}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><em>권한</em></th>
-                            <td style="cursor: default;">
-                                <div id="roleDiv" style="display: inline-block">
-                                    <div class="basic-select-box" style="width:150px;">
-                                        <select id="memberRole" name="memberRole" style="">
-                                            <c:forEach var="role" items="${roleList}" varStatus="status">
-                                                <option value="${role.roleSeq}" <c:if test="${member.memberRole eq role.roleId}">selected</c:if>>${role.roleName}</option>
-                                            </c:forEach>
-                                            <option value="" <c:if test="${member.memberRole == null}">selected</c:if>>권한 없음</option>
-                                        </select>
-                                        <span class="border-focus"><i></i></span>
-                                    </div>
-                                </div>
-                                <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="roleModifyBtn"><span>변경</span></button>
-                            </td>
-                            <th scope="row"><em>상태</em></th>
-                            <td style="cursor: default;">
-                                활성화
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" style="border-bottom-left-radius: 6px;"><em>주소</em></th>
-                            <td style="cursor: default;" colspan="4">
-                                <div id="addrDiv1" style="display: inline-block;">
-                                    <span>${member.memberAddrFull}</span>
-                                </div>
-                                <div id="addrDiv2" style="display: none;">
-                                    <input type="text" id="memberZipCode" name="memberZipCode" placeholder="우편번호" value="${member.memberZipCode}" readonly>
-                                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
-                                    <span id="guide" style="color:#999;display:none"></span>
-                                    <br>
-                                    <input type="text" id="memberAddr1" name="memberAddr1" placeholder="도로명주소" value="${member.memberAddr1}" readonly>
-                                    <input type="text" id="memberAddr2" name="memberAddr2" placeholder="참고항목" value="${member.memberAddr2}" readonly>
-                                    <input type="text" id="memberAddrDetail" name="memberAddrDetail" placeholder="상세주소" value="${member.memberAddrDetail}">
-                                </div>
-                                <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="addrModifyBtn"><span>변경</span></button>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div style="margin-top: 20px; float: right;">
-                        <button type="button" id="cancelBtn" style="padding: 10px; font-size: 15px; margin-right: 10px;" class="common-btn" aria-label="title"><span>취소</span></button>
-                        <button type="button" id="modifyBtn" style="padding: 10px; font-size: 15px;" class="common-btn" aria-label="title"><span>수정</span></button>
-                    </div>
-                </section>
+                <div>
+                    <h2 class="sec-title">회원 관리</h2>
+                    <p class="txt">회원 정보 상세조회</p>
+                </div>
             </div>
-        </form>
+            <form id="memberForm" name="memberForm">
+                <div class="home-section-wrap">
+                    <section class="section home-sec">
+                        <input type="hidden" id="memberSeq" name="memberSeq" value="${member.memberSeq}">
+                        <table class="common-table" summary="회원상세정보" style="width:100%;">
+                            <colgroup>
+                                <col width="10%">
+                                <col width="40%">
+                                <col width="10%">
+                                <col width="40%">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <th scope="row"><em>회원 아이디</em></th>
+                                <td style="border-top: 1px solid #c6c9cc; cursor: default;">
+                                    ${member.memberId}
+                                </td>
+                                <th scope="row"><em>회원 이름</em></th>
+                                <td style="border-top: 1px solid #c6c9cc; cursor: default;">
+                                    <input type="text" style="width: 45%;" id="memberNm" name="memberNm" value="${member.memberNm}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><em>휴대전화번호</em></th>
+                                <td style="cursor: default;">
+                                    <input type="text" style="width: 45%;" id="memberPhoneFull" name="memberPhoneFull" value="${member.memberPhone1}-${member.memberPhone2}-${member.memberPhone3}">
+                                </td>
+                                <th scope="row"><em>생년월일</em></th>
+                                <td style="cursor: default;">
+                                    ${member.memberBirth}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><em>이메일</em></th>
+                                <td style="cursor: default;">
+                                    <input type="text" id="memberEmailId" name="memberEmailId" style="width: 45%;" value="${member.memberEmailId}"> @ <input type="text" id="memberEmailDomain" name="memberEmailDomain" style="width: 45%;" value="${member.memberEmailDomain}">
+                                </td>
+                                <th scope="row"><em>등록일</em></th>
+                                <td style="cursor: default;">
+                                    ${member.regDt}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><em>권한</em></th>
+                                <td style="cursor: default;">
+                                    <div id="roleDiv" style="display: inline-block">
+                                        <div class="basic-select-box" style="width:150px;">
+                                            <select id="memberRole" name="memberRole" style="">
+                                                <c:forEach var="role" items="${roleList}" varStatus="status">
+                                                    <option value="${role.roleSeq}" <c:if test="${member.memberRole eq role.roleId}">selected</c:if>>${role.roleName}</option>
+                                                </c:forEach>
+                                                <option value="" <c:if test="${member.memberRole == null}">selected</c:if>>권한 없음</option>
+                                            </select>
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                    </div>
+                                    <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="roleModifyBtn"><span>변경</span></button>
+                                </td>
+                                <th scope="row"><em>상태</em></th>
+                                <td style="cursor: default;">
+                                    활성화
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="border-bottom-left-radius: 6px;"><em>주소</em></th>
+                                <td style="cursor: default;" colspan="4">
+                                    <div id="addrDiv1" style="display: inline-block;">
+                                        <span>${member.memberAddrFull}</span>
+                                    </div>
+                                    <div id="addrDiv2" style="display: none;">
+                                        <input type="text" id="memberZipCode" name="memberZipCode" placeholder="우편번호" value="${member.memberZipCode}" readonly>
+                                        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+                                        <span id="guide" style="color:#999;display:none"></span>
+                                        <br>
+                                        <input type="text" id="memberAddr1" name="memberAddr1" placeholder="도로명주소" value="${member.memberAddr1}" readonly>
+                                        <input type="text" id="memberAddr2" name="memberAddr2" placeholder="참고항목" value="${member.memberAddr2}" readonly>
+                                        <input type="text" id="memberAddrDetail" name="memberAddrDetail" placeholder="상세주소" value="${member.memberAddrDetail}">
+                                    </div>
+                                    <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="addrModifyBtn"><span>변경</span></button>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div style="margin-top: 20px; float: right;">
+                            <button type="button" id="cancelBtn" style="padding: 10px; font-size: 15px; margin-right: 10px;" class="common-btn" aria-label="title"><span>취소</span></button>
+                            <button type="button" id="modifyBtn" style="padding: 10px; font-size: 15px;" class="common-btn" aria-label="title"><span>수정</span></button>
+                        </div>
+                    </section>
+                </div>
+            </form>
+        </div>
     </main>
     <div id="top-btn">
         <a href="javascript:;" tabindex="0"><span class="hidden">페이지 맨 위로</span></a>

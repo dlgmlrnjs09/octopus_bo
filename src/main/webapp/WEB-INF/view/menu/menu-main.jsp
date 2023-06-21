@@ -3,6 +3,8 @@
 <html>
 <head>
     <link rel="stylesheet" href="/asset/css/admin/menu-tree.css">
+    <link rel="stylesheet" href="../../../asset/css/admin/common.css">
+    <link rel="stylesheet" href="../../../asset/css/admin/set_site.css">
     <title>메뉴 관리</title>
 </head>
 <body>
@@ -78,16 +80,16 @@
             });
         }
 
-        $(document).on("click", ".treeItem", function() {
-            let menuSeq = $(this).attr('value');
-
-            $("#menuSeq").val(menuSeq);
-
-            $("a").removeClass("on");
-            $(this).addClass("on");
-
-            selectMenuDetail(menuSeq);
-        });
+        // $(document).on("click", ".treeItem", function() {
+        //     let menuSeq = $(this).attr('value');
+        //
+        //     $("#menuSeq").val(menuSeq);
+        //
+        //     $("a").removeClass("on");
+        //     $(this).addClass("on");
+        //
+        //     selectMenuDetail(menuSeq);
+        // });
 
         function imageView(input) {
             if (input.files && input.files[0]) {
@@ -103,6 +105,35 @@
         }
 
         $(document).ready(function() {
+
+            $(".set-menu-list a").click(function () {
+                let menuSeq = $(this).attr('value');
+                let menuLevel = $(this).data('level');
+
+                $("#menuSeq").val(menuSeq);
+
+                var link = $(this);
+                var closest_ul = link.closest("ul");
+                var parallel_active_links = closest_ul.find(".active")
+                var closest_li = link.closest("li");
+                var link_status = closest_li.hasClass("active");
+                var count = 0;
+
+                closest_ul.find("ul").slideUp(function () {
+                    if (++count == closest_ul.find("ul").length) {
+                        parallel_active_links.removeClass("active");
+                        parallel_active_links.children("ul").removeClass("show-dropdown");
+                    }
+                });
+
+                if (!link_status) {
+                    closest_li.children("ul").slideDown().addClass("show-dropdown");
+                    closest_li.parent().parent("li.active").find('ul').find("li.active").removeClass("active");
+                    link.parent().addClass("active");
+                }
+
+                selectMenuDetail(menuSeq);
+            })
 
             //수정 버튼
             $("#modifyBtn").click(function() {
@@ -324,42 +355,44 @@
 
     <!--========== CONTENTS ==========-->
     <div class="workingbox clfix">
+        <div class="home-section-wrap">
+            <div>
+                <h2 class="sec-title">기본 설정</h2>
+                <p class="txt">메뉴 리스트 조회 및 수정</p>
+            </div>
+        </div>
 		<div class="working_box_l clfix">
-            <section class="section home-sec notice-sec">
-                <div class="left_area">
-                    <div class="title_area">
-                        <h2 class="tit_h2">메뉴 관리</h2>
-                    </div>
-                    <ul id="treeBasic" class="tree_area">
-                    <c:forEach varStatus="status" items="${menuList}" var="menu">
-
-                        <c:set var="hasChild" value="${menu.level < menuList[status.count].level}"/>
-                        <c:set var="isEnd" value="${menu.level > menuList[status.count].level}"/>
-                        <li>
-                        <a class="treeItem" href="#" value="${menu.menu_seq}" data-level="${menu.level}"><c:out value="${menuList[status.index].menu_nm }"/></a>
-
-                        <c:choose>
-                            <c:when test="${hasChild }">
-                            <ul style="display: block;">
-                            </c:when>
-                            <c:otherwise>
-                            </li>
-                            </c:otherwise>
-                        </c:choose>
-                        <c:if test="${isEnd }">
-                            <c:forEach begin="1" end="${menu.level - menuList[status.count].level }" step="1">
-                            </ul>
-                            </li>
-                            </c:forEach>
-                        </c:if>
-
-                    </c:forEach>
+            <section class="section set-menu-sec">
+                <div class="set-menu-list">
+                    <ul class="depth1 show-dropdown">
+                        <c:forEach varStatus="status" items="${menuList}" var="menu">
+                            <c:set var="hasChild" value="${menu.level < menuList[status.count].level}"/>
+                            <c:set var="isEnd" value="${menu.level > menuList[status.count].level}"/>
+                                <li>
+                                    <a href="javascript:;" value="${menu.menu_seq}" data-level="${menu.level}"><span><c:out value="${menuList[status.index].menu_nm }"/></span>
+                                <c:choose>
+                                    <c:when test="${hasChild && menu.level ne 0}">
+                                        <img src="../../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                                        <ul class="depth${menu.level + 1}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        </a>
+                                    </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:if test="${isEnd }">
+                                    <c:forEach begin="1" end="${menu.level - menuList[status.count].level }" step="1">
+                                        </ul>
+                                    </li>
+                                    </c:forEach>
+                                </c:if>
+                        </c:forEach>
                     </ul>
                 </div>
             </section>
         </div>
         <div id="divContent" class="working_box_r clfix">
-            <section class="section home-sec notice-sec">
+            <section class="section home-sec">
                 <div id="divBasicInfo" class="data_cont marT20">
                     <form id="menuForm" name="menuForm" action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="menuSeq" name="menuSeq" value="">
@@ -438,13 +471,13 @@
                     </form>
                     <div class="btnR">
                         <div id="defaultBtnDiv">
-                            <button id="modifyBtn" class="custom-btn" type="button" value="modify"><span><span class="size01">수정</span></span></button>
-                            <button id="insertBtn" class="custom-btn" type="button" value="insert"><span><span class="size01">하위추가</span></span></button>
-                            <button id="deleteBtn" class="custom-btn" type="button" value="delete"><span><span class="size01">삭제</span></span></button>
+                            <button id="modifyBtn" class="common-btn" type="button" value="modify"><span><span class="size01">수정</span></span></button>
+                            <button id="insertBtn" class="common-btn" type="button" value="insert"><span><span class="size01">하위추가</span></span></button>
+                            <button id="deleteBtn" class="common-btn" type="button" value="delete"><span><span class="size01">삭제</span></span></button>
                         </div>
                         <div id="insertMenuBtnDiv" style="display: none;">
-                            <button id="saveBtn" class="custom-btn" type="button" value="save"><span><span class="size01">저장</span></span></button>
-    					    <button id="cancelBtn" class="custom-btn" type="button" value="cancel"><span><span class="size01">취소</span></span></button>
+                            <button id="saveBtn" class="common-btn" type="button" value="save"><span><span class="size01">저장</span></span></button>
+    					    <button id="cancelBtn" class="common-btn" type="button" value="cancel"><span><span class="size01">취소</span></span></button>
                         </div>
                     </div>
                 </div>
