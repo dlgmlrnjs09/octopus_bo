@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/asset/css/admin/jquery-ui.css">
 <link rel="stylesheet" href="/asset/css/toastui-chart.min.css">
 <%--<script src="/asset/js/jquery-3.6.0.min.js"></script>--%>
+<script src="/asset/js/popup-dev.js"></script>
 <script src="/asset/js/prefixfree.min.js"></script>
 <script src="/asset/js/swiper.min.js"></script>
 <script src="/asset/js/basic.js"></script>

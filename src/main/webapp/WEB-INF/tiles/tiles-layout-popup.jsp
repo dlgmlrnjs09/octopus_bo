@@ -7,18 +7,12 @@
     <title>Octopus</title>
 </head>
 <body>
-    <div id="container-wrap">
-        <div class="head-area">
-            <tiles:insertAttribute name="header"/>
-        </div>
+    <div id="container">
         <main id="main">
-            <div id="container" class="admin">
+            <div class="admin">
                 <tiles:insertAttribute name="body"/>
-                <div class="blank" style="height: 10vh;"></div>
             </div>
         </main>
-        <tiles:insertAttribute name="popup"/>
-        <tiles:insertAttribute name="footer"/>
     </div>
 </body>
 </html>

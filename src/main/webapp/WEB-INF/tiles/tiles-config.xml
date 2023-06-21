@@ -4,17 +4,17 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
     <!-- 팝업은 tiles 제외 -->
-    <definition name="popup" template="/WEB-INF/tiles/tiles-popup.jsp">
+    <definition name="layout-popup" template="/WEB-INF/tiles/tiles-layout-popup.jsp">
         <put-attribute name="include" value="/WEB-INF/tiles/tiles-include.jsp"/>
         <put-attribute name="body" value=""/>
     </definition>
 
-    <definition name="/popup/*.admin" extends="popup">
+    <definition name="/popup/*.admin" extends="layout-popup">
         <put-attribute name="body" value="/WEB-INF/view/popup/{1}.jsp"/>
     </definition>
 
     <!-- 권한 제한 페이지 tiles 제외 -->
-    <definition name="/main/denied.admin" extends="popup">
+    <definition name="/main/denied.admin" extends="layout-popup">
         <put-attribute name="body" value="/WEB-INF/view/main/denied.jsp"/>
     </definition>
 
@@ -22,6 +22,7 @@
         <put-attribute name="include" value="/WEB-INF/tiles/tiles-include.jsp"/>
         <put-attribute name="header" value="/WEB-INF/tiles/tiles-header.jsp"/>
         <put-attribute name="body" value=""/>
+        <put-attribute name="popup" value="/WEB-INF/tiles/tiles-popup.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/tiles/tiles-footer.jsp"/>
     </definition>
 

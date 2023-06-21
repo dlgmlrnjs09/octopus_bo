@@ -48,41 +48,6 @@
     </div>
 </div>
 
-<div id="exPopMsg01" class="modal msg exPopMsg01">
-    <div class="modal-wrap">
-        <section class="modal-content">
-            <h3 class="hidden">~ 되었습니다.</h3>
-            <div class="modal-msg-wrap">
-                <p id="doneMsg" class="msg-tit"></p>
-            </div>
-            <div class="modal-msg-btn-wrap">
-                <a href="javascript:;" onclick="modalPopupClose('#exPopMsg01');" class="common-btn white">확인</a>
-            </div>
-        </section>
-    </div>
-</div>
-
-<div id="exPopMsg02" class="modal msg exPopMsg02">
-    <div class="modal-wrap">
-        <section class="modal-content">
-            <h3 class="hidden">~ 하시겠습니까?</h3>
-            <div class="modal-msg-wrap">
-                <div id="popupMsgDiv" class="msg-tit"></div>
-                <div id="category-input-wrap" class="input-box-wrap" style="padding-top: 10px">
-                    <div class="input-box text">
-                        <input type="text" id="appendCategoryNmInput">
-                        <span class="border-focus"><i></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-msg-btn-wrap select">
-                <a href="javascript:;" onclick="modalPopupClose('#exPopMsg02');" class="common-btn white">취소</a>
-                <a id="okBtn" href="javascript:;" onclick=";" class="common-btn blue">확인</a>
-            </div>
-        </section>
-    </div>
-</div>
-
 <script>
     let selectedCategoryDepth;
     let selectedCategorySeq;
@@ -123,6 +88,7 @@
     let clickedBtnCategoryDepth;
     let clickedBtnWrap;
     $('.submit-btn').on('click', function () {
+        let isShowPopupInput = true;
         clickedBtnCategoryDepth = $(this).siblings('.category-select-box').data('depth');
         clickedBtnWrap = $(this).parent();
         let taskType = $(this).data('tasktype');
@@ -130,7 +96,6 @@
         let popupMsg = '';
         sendingCategoryObj.task_type = taskType;
         sendingCategoryObj.task_type_nm = taskTypeNm;
-        $('#appendCategoryNmInput').css('display', 'inline-block');
 
         // Insert = 부모 카테고리 기준
         if (taskType === 'insert') {
@@ -143,12 +108,14 @@
                 sendingCategoryObj.parent_depth = $(prevSelectBox).data('depth');
                 sendingCategoryObj.parent_name = $(prevSelectBox).find('option:selected').text();
                 sendingCategoryObj.parent_seq = $(prevSelectBox).find('option:selected').val();
-                popupMsg = '<p class="msg-tit"><span class="highlight">' + sendingCategoryObj.parent_depth + '차</span> 카테고리 <span class="highlight"> [' + sendingCategoryObj.parent_name + '] </span> 하위 카테고리를 추가합니다. </p>';
+                // popupMsg = '<p class="msg-tit"><span class="highlight">' + sendingCategoryObj.parent_depth + '차</span> 카테고리 <span class="highlight"> [' + sendingCategoryObj.parent_name + '] </span> 하위 카테고리를 추가합니다. </p>';
+                popupMsg = sendingCategoryObj.parent_depth + '차 카테고리 [' + sendingCategoryObj.parent_name + '] 하위 카테고리를 추가합니다.';
             } else {
                 sendingCategoryObj.parent_depth = 0;
                 sendingCategoryObj.parent_name = null;
                 sendingCategoryObj.parent_seq = null;
-                popupMsg = '<p class="msg-tit"><span class="highlight"> 최상위 </span> 카테고리를 추가합니다.';
+                // popupMsg = '<p class="msg-tit"><span class="highlight"> 최상위 </span> 카테고리를 추가합니다.';
+                popupMsg = '최상위 카테고리를 추가합니다.';
             }
         } else {
             let currentSelectBox = $(this).siblings('.category-select-box');
@@ -157,73 +124,62 @@
             sendingCategoryObj.current_name = $(currentSelectBox).find('option:selected').text();
             sendingCategoryObj.depth = $(currentSelectBox).data('depth');
 
-            popupMsg = '<p class="msg-tit"><span class="highlight">' + sendingCategoryObj.depth + '차</span> 카테고리 <span class="highlight"> [' + sendingCategoryObj.current_name + '] </span> 를 <span class="highlight"> ' + taskTypeNm + ' </span> 하시겠습니까? </p>';
+            // popupMsg = '<p class="msg-tit"><span class="highlight">' + sendingCategoryObj.depth + '차</span> 카테고리 <span class="highlight"> [' + sendingCategoryObj.current_name + '] </span> 를 <span class="highlight"> ' + taskTypeNm + ' </span> 하시겠습니까? </p>';
+            popupMsg = sendingCategoryObj.depth + '차 카테고리 [' + sendingCategoryObj.current_name + '] 를 ' + taskTypeNm + '하시겠습니까?';
             if (taskType === 'delete') {
-                $('#appendCategoryNmInput').css('display', 'none');
+                isShowPopupInput = false;
             }
         }
 
-        $('#popupMsgDiv').empty();
-        $('#popupMsgDiv').append(popupMsg);
-        if (taskType === 'update') {
-            $('#appendCategoryNmInput').val(sendingCategoryObj.current_name);
-        } else {
-            $('#appendCategoryNmInput').val('');
-        }
-        $('#appendCategoryNmInput').attr('placeholder', taskTypeNm + "할 카테고리 이름을 입력해주세요.");
+        action_popup.confirm(popupMsg, isShowPopupInput, function (res) {
+            if (res) {
+                let clickedBtnPrevWrap = $(clickedBtnWrap).prev();
+                let clickedBtnNextWrapArr = $(clickedBtnWrap).nextAll('.basic-select-box');
+                sendingCategoryObj.current_name = $('#confirm-popup-input').val();
 
-        modalPopup('#exPopMsg02')
-    });
-
-    // Insert
-    $("#okBtn").on('click', function () {
-        let clickedBtnPrevWrap = $(clickedBtnWrap).prev();
-        let clickedBtnNextWrapArr = $(clickedBtnWrap).nextAll('.basic-select-box');
-        sendingCategoryObj.current_name = $('#appendCategoryNmInput').val();
-
-        $.ajax({
-            url: "/product/category/submit"
-            , type : "POST"
-            , contentType : 'application/json; charset=utf-8'
-            , data : JSON.stringify(sendingCategoryObj)
-            , success: function (data) {
-                if (data === true) {
-                    let searchCategorySeq;
-                    if (clickedBtnCategoryDepth === 1) {
-                        searchCategorySeq = 0;
-                    } else {
-                        searchCategorySeq = $(clickedBtnPrevWrap).find('.category-select-box').find('option:selected').val();
-                    }
-
-                    $.ajax({
-                        url: "/product/category/get-child-category-ajax?categorySeq=" + searchCategorySeq
-                        , type: "GET"
-                        , success: function (data) {
-                            modalPopupClose('#exPopMsg02');
-
-                            $("select[data-depth=" + clickedBtnCategoryDepth + "]").empty();
-                            for (let i = 0; i < data.length; i++) {
-                                $("select[data-depth=" + clickedBtnCategoryDepth + "]").append("<option value='" + data[i].product_category_seq + "'>" + data[i].product_category_nm + "</option>");
+                $.ajax({
+                    url: "/product/category/submit"
+                    , type: "POST"
+                    , contentType: 'application/json; charset=utf-8'
+                    , data: JSON.stringify(sendingCategoryObj)
+                    , success: function (data) {
+                        if (data === true) {
+                            let searchCategorySeq;
+                            if (clickedBtnCategoryDepth === 1) {
+                                searchCategorySeq = 0;
+                            } else {
+                                searchCategorySeq = $(clickedBtnPrevWrap).find('.category-select-box').find('option:selected').val();
                             }
 
-                            // 삭제일때는 하위카테고리 셀렉트박스까지 비우기
-                            if (sendingCategoryObj.task_type === 'delete') {
-                                console.log(clickedBtnNextWrapArr);
-                                for (let i = 0; i < clickedBtnNextWrapArr.length; i++) {
-                                    $(clickedBtnNextWrapArr[i]).find('.category-select-box').empty();
-                                    $(clickedBtnNextWrapArr[i]).find('.submit-btn').addClass('disabled');
+                            $.ajax({
+                                url: "/product/category/get-child-category-ajax?categorySeq=" + searchCategorySeq
+                                , type: "GET"
+                                , success: function (data) {
+                                    // modalPopupClose('#exPopMsg02');
+
+                                    $("select[data-depth=" + clickedBtnCategoryDepth + "]").empty();
+                                    for (let i = 0; i < data.length; i++) {
+                                        $("select[data-depth=" + clickedBtnCategoryDepth + "]").append("<option value='" + data[i].product_category_seq + "'>" + data[i].product_category_nm + "</option>");
+                                    }
+
+                                    // 삭제일때는 하위카테고리 셀렉트박스까지 비우기
+                                    if (sendingCategoryObj.task_type === 'delete') {
+                                        console.log(clickedBtnNextWrapArr);
+                                        for (let i = 0; i < clickedBtnNextWrapArr.length; i++) {
+                                            $(clickedBtnNextWrapArr[i]).find('.category-select-box').empty();
+                                            $(clickedBtnNextWrapArr[i]).find('.submit-btn').addClass('disabled');
+                                        }
+                                    }
+
+                                    action_popup.alert(sendingCategoryObj.task_type_nm + ' 되었습니다.')
                                 }
-                            }
-
-                            $("#doneMsg").text(sendingCategoryObj.task_type_nm + ' 되었습니다.');
-                            modalPopup('#exPopMsg01')
+                            })
+                        } else {
+                            action_popup.alert(sendingCategoryObj.task_type_nm + ' 실패하였습니다. 다시 시도해주세요.');
                         }
-                    })
-                } else {
-                    $("#doneMsg").text(sendingCategoryObj.task_type_nm + ' 실패하였습니다. 다시 시도해주세요.');
-                    modalPopup('#exPopMsg01')
-                }
+                    }
+                });
             }
-        })
+        });
     })
 </script>
