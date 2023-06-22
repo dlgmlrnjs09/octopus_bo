@@ -53,7 +53,7 @@
                     <td class="orderData" data-oseq="${order.orderSeq}">${order.memberNm}</td>
                     <td class="orderData" data-oseq="${order.orderSeq}">${order.memberId}</td>
                     <td class="orderData" data-oseq="${order.orderSeq}">${order.memberPhoneFull}</td>
-                    <td class="orderData" data-oseq="${order.orderSeq}"><fmt:formatNumber value="${order.orderTotalPrice}" pattern="#,###"/></td>
+                    <td class="orderData" data-oseq="${order.orderSeq}"><fmt:formatNumber value="${order.orderTotalPrice}" pattern="#,###"/> 원</td>
                     <td class="orderData" data-oseq="${order.orderSeq}">${order.regDt}</td>
                 </tr>
             </c:forEach>

@@ -106,7 +106,7 @@
             1=1
         <include refid="defaultWhere"/>
         ORDER BY
-            member_seq DESC
+            member_id DESC
     </select>
 
     <select id="getMemberDetail" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="com.weaverloft.octopus.basic.member.vo.MemberVo">

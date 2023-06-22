@@ -199,8 +199,8 @@ public class OrderController {
         setting.put("주문 상태", "OrderStatus");
         setting.put("운송장번호", "OrderDeliveryNo");
         setting.put("택배사 코드", "OrderDeliveryCd");
-//        setting.put("상품 카테고리", "ProductCategory");
         setting.put("상품명", "ProductName");
+        setting.put("상품 옵션", "OrderOption");
         setting.put("주문자 아이디", "MemberId");
         setting.put("주문자 이름", "MemberNm");
         setting.put("수령인", "OrderToName");

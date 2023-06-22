@@ -106,16 +106,18 @@
 
         // 회원 일괄 등록 팝업
         $(document).on("click", "#excelMemberUpload", function() {
-            var w = 650;    //팝업창의 너비
-            var h = 400;    //팝업창의 높이
-            //중앙위치 구해오기
-            LeftPosition=(screen.width-w)/2;
-            TopPosition=(screen.height-h)/2;
-            window.open(
-                "insert-member-list-popup",
-                "popup",
-                "width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=yes");
-            return false;
+            PopupReg1("insert-member-list-popup", 650, 400, "popup");
+
+            // var w = 650;    //팝업창의 너비
+            // var h = 400;    //팝업창의 높이
+            // //중앙위치 구해오기
+            // LeftPosition=(screen.width-w)/2;
+            // TopPosition=(screen.height-h)/2;
+            // window.open(
+            //     "insert-member-list-popup",
+            //     "popup",
+            //     "width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=yes");
+            // return false;
         });
 
         $(document).ready(function() {
