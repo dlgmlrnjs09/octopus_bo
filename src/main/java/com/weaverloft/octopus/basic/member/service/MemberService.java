@@ -30,6 +30,4 @@ public interface MemberService {
     List<String> selectMemberIdList();
 
     List<?> selectExcelMemberList(MemberVo memberVo);
-
-    int insertMemberDownloadLog(Map<String, Object> map);
 }

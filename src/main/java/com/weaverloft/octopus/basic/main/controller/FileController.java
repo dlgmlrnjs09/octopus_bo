@@ -3,6 +3,7 @@ package com.weaverloft.octopus.basic.main.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,14 +18,25 @@ import java.net.URLEncoder;
 public class FileController {
 
     /**
-     *  @brief 회원 일괄 등록 샘플 엑셀 다운로드
-     *  @date 2023-05-22
+     *  @brief 샘플 엑셀 다운로드
+     *  @date 2023-06-21
      *  @return void
      *  @param Request, Response
      */
-    @RequestMapping("/insertMemberSampleDown")
-    public void memberSampleDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String fileName = "memberExcelSample.xls";
+    @RequestMapping("/sampleExcelDown/{target}")
+    public void sampleExcelDown(HttpServletRequest request, HttpServletResponse response, @PathVariable String target) throws Exception {
+
+        String fileName = "";
+
+        switch (target) {
+            case "member":
+                fileName = "memberExcelSample.xls";
+                break;
+            case "delivery":
+                fileName = "deliveryExcelSample.xls";
+                break;
+        }
+
         String uploadDir = request.getServletContext().getRealPath("/asset/excel");
         String path = uploadDir + File.separator + fileName;
 
@@ -44,21 +56,20 @@ public class FileController {
                 FileCopyUtils.copy(in, out);
                 out.flush();
             } catch (Exception e) {
-//                logger.debug(e.toString());
-                System.out.println(e.toString());
+                e.printStackTrace();
             } finally {
                 if (in != null) {
                     try {
                         in.close ();
                     } catch (Exception e) {
-                        System.out.println(e.toString());
+                        e.printStackTrace();
                     }
                 }
                 if (out != null) {
                     try {
                         in.close ();
                     } catch (Exception e) {
-                        System.out.println(e.toString());
+                        e.printStackTrace();
                     }
                 }
             }

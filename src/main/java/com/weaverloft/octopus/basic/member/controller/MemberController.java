@@ -1,6 +1,7 @@
 package com.weaverloft.octopus.basic.member.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.weaverloft.octopus.basic.common.service.CommonService;
 import com.weaverloft.octopus.basic.common.util.CommonUtil;
 import com.weaverloft.octopus.basic.common.util.PagingModel;
 import com.weaverloft.octopus.basic.main.service.ExcelService;
@@ -45,6 +46,9 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private CommonService commonService;
 
     @Autowired
     private RoleService roleService;
@@ -132,7 +136,7 @@ public class MemberController {
             memberVo.setMemberEmailFull(memberVo.getMemberEmailId() + "@" + memberVo.getMemberEmailDomain());
 
             // 전화번호 & 이메일 형식 체크
-            if(isValidPhone(memberVo.getMemberPhoneFull()) && isValidEmail(memberVo.getMemberEmailFull())) {
+            if(CommonUtil.isValidPhone(memberVo.getMemberPhoneFull()) && CommonUtil.isValidEmail(memberVo.getMemberEmailFull())) {
                 String[] phone = memberVo.getMemberPhoneFull().split("-");
 
                 memberVo.setMemberPhone1(phone[0]);
@@ -230,7 +234,7 @@ public class MemberController {
 
         // 벨리데이션 check result
         List<Map<String, Object>> validateList = new ArrayList<Map<String, Object>>();
-        List<Map<String, Object>> validateMemberList = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> validateDataList = new ArrayList<Map<String, Object>>();
 
         if(!"".equals(excelFile)){
 
@@ -241,7 +245,7 @@ public class MemberController {
             for(int i = 1; i < excelData.length; i++) {
                 MemberVo excelVo = new MemberVo();
                 Map<String, Object> validate = new HashMap<String, Object>();
-                Map<String, Object> validateMember = new HashMap<String, Object>();
+                Map<String, Object> validateData = new HashMap<String, Object>();
 
                 boolean validateResult = true;
 
@@ -249,36 +253,36 @@ public class MemberController {
                 excelVo.setMemberPhoneFull((excelData[i][1] == null || "".equals(excelData[i][1])) ? "" : excelData[i][1]); // 휴대전화번호
                 excelVo.setMemberEmailFull((excelData[i][2] == null || "".equals(excelData[i][2])) ? "" : excelData[i][2]); // 회원 이메일
 
-                validateMember.put("memberId", excelVo.getMemberId());
+                validateData.put("memberId", excelVo.getMemberId());
                 if("".equals(excelVo.getMemberId())){
                     validate.put("memberId", "회원 아이디를 입력해 주세요.");
-                    validateMember.put("memberId", excelVo.getMemberId());
+                    validateData.put("memberId", excelVo.getMemberId());
                     validateResult = false;
                 } else if(idList.contains(excelVo.getMemberId())) {
                     validate.put("memberId", "회원 아이디가 중복입니다.");
-                    validateMember.put("memberId", excelVo.getMemberId());
+                    validateData.put("memberId", excelVo.getMemberId());
                     validateResult = false;
                 }
 
-                validateMember.put("memberPhoneFull", excelVo.getMemberPhoneFull());
+                validateData.put("memberPhoneFull", excelVo.getMemberPhoneFull());
                 if("".equals(excelVo.getMemberPhoneFull())){
                     validate.put("memberPhoneFull", "전화번호를 입력해 주세요.");
-                    validateMember.put("memberPhoneFull", excelVo.getMemberPhoneFull());
+                    validateData.put("memberPhoneFull", excelVo.getMemberPhoneFull());
                     validateResult = false;
-                } else if(!isValidPhone(excelVo.getMemberPhoneFull())) {
+                } else if(!CommonUtil.isValidPhone(excelVo.getMemberPhoneFull())) {
                     validate.put("memberPhoneFull", "전화번호를 형식에 맞게 입력해 주세요.");
-                    validateMember.put("memberPhoneFull", excelVo.getMemberPhoneFull());
+                    validateData.put("memberPhoneFull", excelVo.getMemberPhoneFull());
                     validateResult = false;
                 }
 
-                validateMember.put("memberEmailFull", excelVo.getMemberEmailFull());
+                validateData.put("memberEmailFull", excelVo.getMemberEmailFull());
                 if("".equals(excelVo.getMemberEmailFull())){
                     validate.put("memberEmailFull", "이메일을 입력해 주세요.");
-                    validateMember.put("memberEmailFull", excelVo.getMemberEmailFull());
+                    validateData.put("memberEmailFull", excelVo.getMemberEmailFull());
                     validateResult = false;
-                } else if(!isValidEmail(excelVo.getMemberEmailFull())) {
+                } else if(!CommonUtil.isValidEmail(excelVo.getMemberEmailFull())) {
                     validate.put("memberEmailFull", "이메일을 형식에 맞게 입력해 주세요.");
-                    validateMember.put("memberEmailFull", excelVo.getMemberEmailFull());
+                    validateData.put("memberEmailFull", excelVo.getMemberEmailFull());
                     validateResult = false;
                 }
 
@@ -297,7 +301,7 @@ public class MemberController {
                     succesCnt++;
                 }else{
                     model.addAttribute("result",false);
-                    validateMemberList.add(validateMember);
+                    validateDataList.add(validateData);
                     validateList.add(validate);
                     failCnt++;
                 }
@@ -309,7 +313,7 @@ public class MemberController {
         model.addAttribute("succesCnt", succesCnt);
         model.addAttribute("failCnt", failCnt);
         model.addAttribute("validateList",validateList);
-        model.addAttribute("validateMemberList",validateMemberList);
+        model.addAttribute("validateDataList",validateDataList);
         return mv;
     }
 
@@ -323,7 +327,7 @@ public class MemberController {
         setting.put("휴대전화번호", "memberPhoneFull");
         setting.put("이메일", "memberEmailFull");
 
-        excelService.memberExcelLogDown(setting, dataJson,  response , request, fileSetting);
+        excelService.excelLogDown(setting, dataJson,  response , request, fileSetting);
     }
 
     @RequestMapping("/excel/download-member-excel")
@@ -348,36 +352,8 @@ public class MemberController {
         setting.put("등록일", "RegDt");
 
         // 개인정보 다운로드 로그 저장
-        Map<String, Object> logMap = new HashMap<>();
-        logMap.put("downloadRegId", "다운로드 사용자 아이디");
-        logMap.put("downloadLogIp", request.getRemoteAddr());
-        logMap.put("downloadLogReason", "[회원 관리] 회원 정보 다운로드");
-        // TODO 다운로드 로그 저장 공통으로 빼기
-        memberService.insertMemberDownloadLog(logMap);
+        commonService.insertDownloadLog("[회원 관리] 회원 정보 다운로드");
 
         excelService.down(setting, excelMemberList, response , request, fileSetting);
     }
-
-    // 전화번호 형식 체크
-    public boolean isValidPhone(String phone) {
-        String phoneRegex = "^\\d{3}-\\d{3,4}-\\d{4}$";
-
-        if(Pattern.matches(phoneRegex, phone)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // 이메일 형식 체크
-    public boolean isValidEmail(String email) {
-        String emailRegex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
-
-        if(Pattern.matches(emailRegex, email)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }

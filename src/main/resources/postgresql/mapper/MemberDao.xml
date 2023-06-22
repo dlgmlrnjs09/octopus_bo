@@ -215,16 +215,4 @@
             octopus.member_info
     </select>
 
-    <insert id="insertMemberDownloadLog" parameterType="map">
-        INSERT INTO octopus.download_log (
-            download_reg_id,
-            download_log_ip,
-            download_log_reason
-        ) VALUES (
-            #{downloadRegId},
-            #{downloadLogIp},
-            #{downloadLogReason}
-        )
-    </insert>
-
 </mapper>

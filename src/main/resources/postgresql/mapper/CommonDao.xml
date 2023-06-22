@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.common.dao.CommonDao">
+
+    <insert id="insertDownloadLog" parameterType="map">
+        INSERT INTO octopus.download_log (
+            download_reg_id,
+            download_log_ip,
+            download_log_reason
+        ) VALUES (
+            #{downloadRegId},
+            #{downloadLogIp},
+            #{downloadLogReason}
+        )
+    </insert>
+
+    <insert id="insertAdminLoginLog" parameterType="map">
+        INSERT INTO octopus.admin_login_log (
+            admin_login_id,
+            admin_login_ip,
+            is_success
+        ) VALUES (
+            #{adminLoginId},
+            #{adminLoginIp},
+            #{isSuccess}::bool
+        )
+    </insert>
+
+</mapper>

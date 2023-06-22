@@ -36,14 +36,6 @@ public class MainController {
     @Autowired
     private MainService mainService;
 
-//    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
-//
-//    @Bean
-//	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
-
     @GetMapping("/main-page")
     public String showMainPage(HttpServletRequest request, HttpServletResponse response) {
         List<String> roleList = Arrays.asList("ADMIN", "MANAGER");

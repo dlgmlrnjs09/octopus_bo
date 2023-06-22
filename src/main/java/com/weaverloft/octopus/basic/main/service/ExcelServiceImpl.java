@@ -110,7 +110,7 @@ public class ExcelServiceImpl implements ExcelService {
 	 *  @param setting, data, response
 	 */
 	@Override
-	public boolean memberExcelLogDown(Map<String, String> setting, String dataJson, HttpServletResponse response, HttpServletRequest request, String file_name ) throws Exception {
+	public boolean excelLogDown(Map<String, String> setting, String dataJson, HttpServletResponse response, HttpServletRequest request, String file_name ) throws Exception {
 
 		Map<String, Object> jsonObj = new ObjectMapper().readValue(dataJson, HashMap.class);
 		String userAgent = request.getHeader("User-Agent");
@@ -137,11 +137,11 @@ public class ExcelServiceImpl implements ExcelService {
 		}
 
 		// 엑셀 데이터 목록
-		List<Map<String, Object>> validateMemberList = (List<Map<String, Object>>) jsonObj.get("validateMemberList");
+		List<Map<String, Object>> validateDataList = (List<Map<String, Object>>) jsonObj.get("validateDataList");
 		// 엑셀 벨리데이트 목록
 		List<Map<String, Object>> validateList = (List<Map<String, Object>>) jsonObj.get("validateList");
 
-		for (int i=0; i<validateMemberList.size();i++) {
+		for (int i=0; i<validateDataList.size();i++) {
 			int k = 0;
 			String value = "";
 			String validateStr = "";
@@ -151,7 +151,7 @@ public class ExcelServiceImpl implements ExcelService {
 				// Map 객체에서 필요한 컬럼만 가지고 온다.
 				String method1 = entry.getValue();
 				//VO 에서 get 해올 메소드 만듬
-				value = (String) validateMemberList.get(i).get(method1);
+				value = (String) validateDataList.get(i).get(method1);
 				validateStr = (String)validateList.get(i).get(method1);
 //				if(validateStr != null) {
 //					validateStr = new String(validateStr.getBytes("ISO-8859-1"), "UTF-8");	// 한글 인코딩 (web.xml 내 encodingFilter 추가 후 주석처리)

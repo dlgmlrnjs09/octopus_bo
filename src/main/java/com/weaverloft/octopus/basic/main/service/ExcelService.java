@@ -14,5 +14,5 @@ public interface ExcelService {
 	public String[][] uploadProd(String strgFile) throws Exception;
 
 	/** 엑셀 파일중 에러파일을 다운로드 */
-	public boolean memberExcelLogDown(Map<String, String> setting, String dataJson, HttpServletResponse response, HttpServletRequest request, String file_name) throws Exception;
+	public boolean excelLogDown(Map<String, String> setting, String dataJson, HttpServletResponse response, HttpServletRequest request, String file_name) throws Exception;
 }

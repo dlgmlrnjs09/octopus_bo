@@ -182,4 +182,28 @@ public class CommonUtil {
 
         return userPhone;
     }
+
+    /**
+     *  @brief 전화번호 형식 체크
+     *  @date 2023-05-19
+     *  @return boolean
+     *  @param
+     */
+    public static boolean isValidPhone(String phone) {
+        String phoneRegex = "^\\d{3}-\\d{3,4}-\\d{4}$";
+
+        return Pattern.matches(phoneRegex, phone);
+    }
+
+    /**
+     *  @brief 이메일 형식 체크
+     *  @date 2023-05-19
+     *  @return boolean
+     *  @param
+     */
+    public static boolean isValidEmail(String email) {
+        String emailRegex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
+
+        return Pattern.matches(emailRegex, email);
+    }
 }

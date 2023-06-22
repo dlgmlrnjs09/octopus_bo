@@ -13,7 +13,7 @@
 
         //엑셀다운로드 버튼
         $('#btn_excelDownload').click (function () {
-            $('#frmDefault').attr ('action', '/file/insertMemberSampleDown').submit();
+            $('#frmDefault').attr ('action', '/file/sampleExcelDown/member').submit();
         });
 
         var dimmLayerPop3 = function(id, posy, posx){
@@ -181,7 +181,7 @@
         form.acceptCharset = 'UTF-8';
 
         var data = {
-            validateMemberList : excelResult.validateMemberList,
+            validateDataList : excelResult.validateDataList,
             validateList : excelResult.validateList
         }
 

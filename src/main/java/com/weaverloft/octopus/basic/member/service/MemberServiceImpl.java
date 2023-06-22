@@ -41,6 +41,4 @@ public class MemberServiceImpl implements MemberService{
     public List<String> selectMemberIdList() { return memberDao.selectMemberIdList(); }
 
     public List<?> selectExcelMemberList(MemberVo memberVo) { return memberDao.selectExcelMemberList(memberVo); }
-
-    public int insertMemberDownloadLog(Map<String, Object> map) { return memberDao.insertMemberDownloadLog(map); }
 }
