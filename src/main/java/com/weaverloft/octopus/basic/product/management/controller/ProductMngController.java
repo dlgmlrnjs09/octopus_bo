@@ -85,19 +85,25 @@ public class ProductMngController {
 
     @PostMapping("/submit-ajax/{regType}")
     @ResponseBody
-    public String submitProductMngDetail(@RequestParam Map<String, Object> paramMap, Model model, @PathVariable String regType) {
-        System.out.println(paramMap);
+    public Map<String, Object> submitProductMngDetail(@RequestParam Map<String, Object> paramMap, Model model, @PathVariable String regType) {
+        Map<String, Object> validateMap = new HashMap<>();
+        boolean isHasOption = Boolean.parseBoolean((String) paramMap.get("is_has_option"));
+
         try {
             if ("insert".equals(regType)) {
                 paramMap.put("nextProductSeq", productMngService.getProductNextSeq());
             }
-            productMngService.checkSubmitValidation(paramMap);
-            productMngService.submitProductMng(paramMap, regType);
-            productMngService.submitOptionMng(paramMap, regType);
+            validateMap = productMngService.checkSubmitValidation(paramMap);
+            if ("pass".equals(validateMap.get("name"))) {
+                boolean isSuccessSubmit = productMngService.submitProductMng(paramMap, regType);
+                if (isSuccessSubmit && isHasOption) {
+                    productMngService.submitOptionMng(paramMap, regType);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return validateMap;
     }
 
 //    @GetMapping("/select-category-popup")
