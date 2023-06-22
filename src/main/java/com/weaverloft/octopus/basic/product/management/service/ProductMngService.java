@@ -18,10 +18,10 @@ public interface ProductMngService {
     List<Map<String, Object>> getProductMngList(Map<String, Object> paramMap);
     int getProductMngListCnt(Map<String, Object> paramMap);
     Map<String, Object> getProductMngDetail(int productSeq);
-    Map<String, Object> checkSubmitValidation(Map<String, Object> paramMap);
+    Map<String, Object> checkSubmitValidation(Map<String, Object> paramMap) throws Exception;
     List<Map<String, Object>> getProductOptionList(int productSeq);
     List<Map<String, Object>> getCombinationOptionList(int productSeq);
     int getProductNextSeq();
     boolean submitProductMng(Map<String, Object> paramMap, String regType) throws Exception;
-    boolean submitOptionMng(Map<String, Object> paramMap, String regType) throws Exception;
+    void submitOptionMng(Map<String, Object> paramMap, String regType) throws Exception;
 }

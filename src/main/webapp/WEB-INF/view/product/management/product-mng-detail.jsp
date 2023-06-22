@@ -154,13 +154,13 @@
                                         <label for="has_option"><span>설정함</span></label>
                                     </div>
                                     <div class="basic-radio-box">
-                                        <input type="radio" id="has_not_option" name="is_has_option" value="false" <c:if test="${productDetailInfo.is_has_option == false}">checked</c:if>>
+                                        <input type="radio" id="has_not_option" name="is_has_option" value="false" <c:if test="${productDetailInfo.is_has_option == false or regType == 'insert'}">checked</c:if>>
                                         <label for="has_not_option"><span>설정안함</span></label>
                                     </div>
                                 </div>
-                                <div id="option-table-div" <c:if test="${regType == 'insert' or is_has_option == 'false'}">class="hidden"</c:if>>
+                                <div id="option-table-div" <c:if test="${regType == 'insert' or productDetailInfo.is_has_option == 'false'}">class="hidden"</c:if>>
                                     <hr/>
-                                    <table width="100%">
+                                        <table width="100%">
                                         <colgroup>
                                             <col width="15%">
                                             <col width="85%">
@@ -276,7 +276,7 @@
                             <td style="border-top: 1px solid #c6c9cc; cursor: default;">
                                 <div class="input-box-wrap">
                                     <div class="input-box text">
-                                        <input type="text" id="stock" name="product_stock" <c:if test="${regType == 'insert' or productDetailInfo.is_has_option == true}"> disabled</c:if> <c:if test="${productDetailInfo.is_has_option == false}">value="${productDetailInfo.product_stock}"</c:if> >
+                                        <input type="text" id="stock" name="product_stock" <c:if test="${productDetailInfo.is_has_option == true}"> disabled</c:if> <c:if test="${productDetailInfo.is_has_option == false}">value="${productDetailInfo.product_stock}"</c:if> >
                                         <span class="border-focus"><i></i></span>
                                     </div>
                                 </div>
@@ -302,10 +302,10 @@
                                         <label for="is_discount"><span>설정함</span></label>
                                     </div>
                                     <div class="basic-radio-box">
-                                        <input type="radio" id="is_not_discount" name="is_discount" value="false" <c:if test="${productDetailInfo.is_discount == false}">checked</c:if>>
+                                        <input type="radio" id="is_not_discount" name="is_discount" value="false" <c:if test="${productDetailInfo.is_discount == false or regType == 'insert'}">checked</c:if>>
                                         <label for="is_not_discount"><span>설정안함</span></label>
                                     </div>
-                                    <div id="discount-price-wrap" <c:if test="${productDetailInfo.is_discount == false}">class="hidden"</c:if> >
+                                    <div id="discount-price-wrap" <c:if test="${productDetailInfo.is_discount == false or regType == 'insert'}">class="hidden"</c:if> >
                                         <hr/>
                                         <span>할인된 금액 : </span>
                                         <div class="input-box text" style="width: 20%; display: inline-block;">
@@ -322,7 +322,7 @@
                             <td style="border-top: 1px solid #c6c9cc; cursor: default;">
                                 <div class="radio-box-wrap">
                                     <div class="basic-radio-box">
-                                        <input type="radio" id="free" name="delivery_condition" value="free" <c:if test="${productDetailInfo.delivery_charge == 0}">checked</c:if> >
+                                        <input type="radio" id="free" name="delivery_condition" value="free" <c:if test="${productDetailInfo.delivery_charge == 0 or regType == 'insert'}">checked</c:if> >
                                         <label for="free"><span>무료</span></label>
                                     </div>
                                     <div class="basic-radio-box">
@@ -333,7 +333,7 @@
                                         <input type="radio" id="charge" name="delivery_condition" value="charge" <c:if test="${productDetailInfo.is_use_conditional_delivery == false and productDetail.delivery_charge > 0}">checked</c:if> >
                                         <label for="charge"><span>유료</span></label>
                                     </div>
-                                    <div id="delivery_condition_wrap" <c:if test="${productDetailInfo.delivery_charge == 0 or productDetailInfo.is_use_conditional_delivery == false}"> class="hidden" </c:if> >
+                                    <div id="delivery_condition_wrap" <c:if test="${productDetailInfo.delivery_charge == 0 or productDetailInfo.is_use_conditional_delivery == false or regType == 'insert'}"> class="hidden" </c:if> >
                                         <hr/>
                                         기본 배송비 :
                                         <div class="input-box text" style="width: 20%; display: inline-block;">
@@ -349,7 +349,7 @@
                                         </div>
                                         원 이상 주문시 무료
                                     </div>
-                                    <div id="delivery_charge_wrap" <c:if test="${productDetailInfo.delivery_charge == 0 or productDetailInfo.is_use_conditional_delivery == true}"> class="hidden" </c:if> >
+                                    <div id="delivery_charge_wrap" <c:if test="${productDetailInfo.delivery_charge == 0 or productDetailInfo.is_use_conditional_delivery == true or regType == 'insert'}"> class="hidden" </c:if> >
                                         <hr/>
                                         기본 배송비 :
                                         <div class="input-box text" style="width: 20%; display: inline-block;">
@@ -370,11 +370,11 @@
                                         <label for="is_pay_but_point"><span>설정함</span></label>
                                     </div>
                                     <div class="basic-radio-box">
-                                        <input type="radio" id="is_not_pay_buy_point" name="is_pay_buy_point" value="false" <c:if test="${productDetailInfo.is_pay_buy_point == false}">checked</c:if>>
+                                        <input type="radio" id="is_not_pay_buy_point" name="is_pay_buy_point" value="false" <c:if test="${productDetailInfo.is_pay_buy_point == false or regType == 'insert'}">checked</c:if>>
                                         <label for="is_not_pay_buy_point"><span>설정안함</span></label>
                                     </div>
                                 </div>
-                                <div id="pay-buy-point-wrap" <c:if test="${productDetailInfo.is_pay_buy_point == false}">class="hidden"</c:if> >
+                                <div id="pay-buy-point-wrap" <c:if test="${productDetailInfo.is_pay_buy_point == false or regType == 'insert'}">class="hidden"</c:if> >
                                     <hr/>
                                     지급 포인트 :
                                     <div class="input-box text" style="width: 20%; display: inline-block;">
@@ -394,11 +394,11 @@
                                         <label for="is_pay_normal_review_point"><span>설정함</span></label>
                                     </div>
                                     <div class="basic-radio-box">
-                                        <input type="radio" id="is_not_pay_normal_review_point" name="is_pay_normal_review_point" value="false" <c:if test="${productDetailInfo.is_pay_normal_review_point == false}">checked</c:if> >
+                                        <input type="radio" id="is_not_pay_normal_review_point" name="is_pay_normal_review_point" value="false" <c:if test="${productDetailInfo.is_pay_normal_review_point == false or regType == 'insert'}">checked</c:if> >
                                         <label for="is_not_pay_normal_review_point"><span>설정안함</span></label>
                                     </div>
                                 </div>
-                                <div id="pay-normal-review-point-wrap" <c:if test="${productDetailInfo.is_pay_normal_review_point == false}">class="hidden"</c:if> >
+                                <div id="pay-normal-review-point-wrap" <c:if test="${productDetailInfo.is_pay_normal_review_point == false or regType == 'insert'}">class="hidden"</c:if> >
                                     <hr/>
                                     지급 포인트 :
                                     <div class="input-box text" style="width: 20%; display: inline-block;">
@@ -418,11 +418,11 @@
                                         <label for="is_pay_media_review_point"><span>설정함</span></label>
                                     </div>
                                     <div class="basic-radio-box">
-                                        <input type="radio" id="is_not_pay_media_review_point" name="is_pay_media_review_point" value="false" <c:if test="${productDetailInfo.is_pay_media_review_point == false}">checked</c:if> >
+                                        <input type="radio" id="is_not_pay_media_review_point" name="is_pay_media_review_point" value="false" <c:if test="${productDetailInfo.is_pay_media_review_point == false or regType == 'insert'}">checked</c:if> >
                                         <label for="is_not_pay_media_review_point"><span>설정안함</span></label>
                                     </div>
                                 </div>
-                                <div id="pay-media-review-point-wrap" <c:if test="${productDetailInfo.is_pay_normal_review_point == false}">class="hidden"</c:if>>
+                                <div id="pay-media-review-point-wrap" <c:if test="${productDetailInfo.is_pay_normal_review_point == false or regType == 'insert'}">class="hidden"</c:if>>
                                     <hr/>
                                     지급 포인트 :
                                     <div class="input-box text" style="width: 20%; display: inline-block;">
@@ -452,6 +452,7 @@
 
 <script>
     var regType = '${regType}';
+    var regTypeNm = regType === 'insert' ? '등록' : '수정';
 
     $(".category-select-box").on('change', function () {
         let selectedCategoryDepth;
@@ -580,8 +581,6 @@
         });
 
         let combinationValues = getAllCombinations(optionValueArr);
-        console.log(combinationValues);
-
         // 옵션명 컬럼 하나당 부여될 col width
         let colWidth = 54 / optionNameArr.length;
         // 옵션 목록 테이블 Colgroup에 들어갈 Html
@@ -649,6 +648,9 @@
         return result;
     }
 
+    $('#cancelBtn').on('click', function () {
+        location.href = '/product/management/list';
+    });
 
     // 상품 등록
     $('#submitBtn').on('click', function () {
@@ -701,7 +703,13 @@
             , type: "POST"
             , data: $("#frm").serialize() + "&optionList=" + JSON.stringify(optionList) + "&optionCombinationList=" + JSON.stringify(optionByCombinationList)
             , success: function (data) {
-                console.log(' ')
+                if (data.name === 'pass') {
+                    action_popup.alert2(regTypeNm + ' 되었습니다.', function () {
+                        location.href = '/product/management/list';
+                    })
+                } else {
+                    action_popup.alert(data.popupMsg);
+                }
             }
         })
     })

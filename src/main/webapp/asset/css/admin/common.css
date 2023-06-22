@@ -1015,3 +1015,8 @@ input[type="checkbox"] + label{
 	0% { background-position: -100px; }
 	40%, 100% { background-position: 270px; }
 }
+
+/*========== Grid 테이블 공통 스타일 ==========*/
+/* 필수항목표시 */
+.required { position: relative; }
+.required::before { position: absolute; content: ''; width: 6px; height: 6px; background-image: url("../../img/admin/icon-required.svg"); background-repeat: no-repeat; background-size: 6px auto; transform: translate(-7px, 0px); }

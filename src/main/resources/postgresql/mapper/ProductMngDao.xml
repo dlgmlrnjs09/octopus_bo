@@ -271,7 +271,10 @@
             , string_agg(pod.option_detail_seq::text, ',') as option_detail_seq_arr
         from
             octopus.product_option_info poi
-            inner join octopus.product_option_detail pod on (poi.option_seq = pod.option_seq)
+            inner join octopus.product_option_detail pod on (
+                poi.option_seq = pod.option_seq
+                and poi.product_seq = pod.product_seq
+            )
         where
             poi.product_seq = #{productSeq}
             and poi.is_use = true
