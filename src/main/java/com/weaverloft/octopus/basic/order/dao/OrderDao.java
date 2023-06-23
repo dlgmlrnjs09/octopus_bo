@@ -2,6 +2,7 @@ package com.weaverloft.octopus.basic.order.dao;
 
 import com.weaverloft.octopus.basic.order.vo.OrderVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.mvel2.ast.Or;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ import java.util.Map;
 public interface OrderDao {
     int selectOrderCount(OrderVo orderVo);
 
+    Map<String, Object> selectOrderCountForMainPage(OrderVo orderVo);
+
     List<OrderVo> selectOrderList(OrderVo orderVo);
 
     OrderVo getOrderDetail(OrderVo orderVo);
@@ -29,9 +32,11 @@ public interface OrderDao {
 
     List<?> selectExcelOrderList(OrderVo orderVo);
 
-    int insertOrderDownloadLog(Map<String, Object> map);
-
     List<Map<String, Object>> selectOrderProductList(OrderVo orderVo);
 
     Map<String, Object> selectOrderProductOne(OrderVo orderVo);
+
+    List<String> selectOrderNoList(OrderVo orderVo);
+
+    int updateOrderDeliveryByDeliveryNo(OrderVo orderVo);
 }

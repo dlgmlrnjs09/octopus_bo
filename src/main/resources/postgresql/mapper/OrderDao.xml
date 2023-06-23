@@ -52,6 +52,47 @@
         </choose>
     </sql>
 
+    <select id="selectOrderCountForMainPage" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="map">
+        SELECT
+        *
+        FROM
+        (
+            SELECT
+                count(*) AS curr_count
+            FROM
+                octopus.order_info o INNER JOIN octopus.member_info m ON o.member_seq = m.member_seq
+            WHERE
+                1=1
+            <if test="searchType != null and searchType !=''">
+                <if test="searchType == 'week' || searchType == 'day'">
+                    AND o.reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND o.reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+                </if>
+                <if test="searchType == 'month'">
+                    AND to_char(o.reg_dt, 'YYYY-MM') = to_char(#{startDate}::timestamp, 'YYYY-MM')
+                </if>
+            </if>
+        ) A,
+        (
+            SELECT
+                count(*) AS prev_count
+            FROM
+                octopus.order_info o INNER JOIN octopus.member_info m ON o.member_seq = m.member_seq
+            WHERE
+                1=1
+            <if test="searchType != null and searchType !=''">
+                <if test="searchType == 'week' ">
+                    AND o.reg_dt <![CDATA[>=]]> #{startDate}::timestamp - interval '7 day' AND o.reg_dt <![CDATA[<]]> #{endDate}::timestamp - interval '6 day'
+                </if>
+                <if test="searchType == 'day' ">
+                    AND o.reg_dt <![CDATA[>=]]> #{startDate}::timestamp - interval '1 day' AND o.reg_dt <![CDATA[<]]> #{endDate}::timestamp
+                </if>
+                <if test="searchType == 'month'">
+                    AND to_char(o.reg_dt, 'YYYY-MM') = to_char(#{startDate}::timestamp - interval '1 month', 'YYYY-MM')
+                </if>
+            </if>
+        ) B
+    </select>
+
     <select id="selectOrderCount" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="int">
         SELECT
             count(*)
@@ -245,6 +286,24 @@
             order_seq = #{orderSeq}
     </update>
 
+    <update id="updateOrderDeliveryByDeliveryNo" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo">
+        UPDATE
+            octopus.order_info
+        SET
+            <if test="orderDeliveryNo != null and orderDeliveryNo != ''">
+                order_delivery_no = #{orderDeliveryNo},
+            </if>
+            <if test="orderDeliveryCd != null and orderDeliveryCd != ''">
+                order_delivery_cd = #{orderDeliveryCd},
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                order_status = #{orderStatus},
+            </if>
+            udt_dt = now()
+        WHERE
+            order_no = #{orderNo}
+    </update>
+
     <update id="updateReturnDelivery" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo">
         UPDATE
             octopus.order_info
@@ -274,18 +333,6 @@
                 #{arr}::int4
             </foreach>
     </update>
-
-    <insert id="insertOrderDownloadLog" parameterType="map">
-        INSERT INTO octopus.download_log (
-            download_reg_id,
-            download_log_ip,
-            download_log_reason
-        ) VALUES (
-            #{downloadRegId},
-            #{downloadLogIp},
-            #{downloadLogReason}
-        )
-    </insert>
 
     <select id="selectExcelOrderList" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="com.weaverloft.octopus.basic.order.vo.OrderVo">
         SELECT
@@ -342,6 +389,13 @@
         <include refid="defaultWhere"/>
         ORDER BY
             o.order_seq DESC
+    </select>
+
+    <select id="selectOrderNoList" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="String">
+        SELECT
+            order_no AS orderNo
+        FROM
+            octopus.order_info
     </select>
 
 </mapper>

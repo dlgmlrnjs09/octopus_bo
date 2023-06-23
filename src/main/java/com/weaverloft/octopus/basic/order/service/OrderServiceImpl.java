@@ -22,6 +22,8 @@ public class OrderServiceImpl implements OrderService{
 
     public int selectOrderCount(OrderVo orderVo) { return orderDao.selectOrderCount(orderVo); }
 
+    public Map<String, Object> selectOrderCountForMainPage(OrderVo orderVo) { return orderDao.selectOrderCountForMainPage(orderVo); }
+
     public List<OrderVo> selectOrderList(OrderVo orderVo) { return orderDao.selectOrderList(orderVo); }
 
     public OrderVo getOrderDetail(OrderVo orderVo) { return orderDao.getOrderDetail(orderVo); }
@@ -34,9 +36,11 @@ public class OrderServiceImpl implements OrderService{
 
     public List<?> selectExcelOrderList(OrderVo orderVo) { return orderDao.selectExcelOrderList(orderVo); }
 
-    public int insertOrderDownloadLog(Map<String, Object> map) { return orderDao.insertOrderDownloadLog(map); }
-
     public List<Map<String, Object>> selectOrderProductList(OrderVo orderVo) { return orderDao.selectOrderProductList(orderVo); }
 
     public Map<String, Object> selectOrderProductOne(OrderVo orderVo) { return orderDao.selectOrderProductOne(orderVo); }
+
+    public List<String> selectOrderNoList(OrderVo orderVo) { return orderDao.selectOrderNoList(orderVo); }
+
+    public int updateOrderDeliveryByDeliveryNo(OrderVo orderVo) { return orderDao.updateOrderDeliveryByDeliveryNo(orderVo); }
 }

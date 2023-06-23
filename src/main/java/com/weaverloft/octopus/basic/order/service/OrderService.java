@@ -15,6 +15,8 @@ import java.util.Map;
 public interface OrderService {
     int selectOrderCount(OrderVo orderVo);
 
+    Map<String, Object> selectOrderCountForMainPage(OrderVo orderVo);
+
     List<OrderVo> selectOrderList(OrderVo orderVo);
 
     OrderVo getOrderDetail(OrderVo orderVo);
@@ -27,9 +29,11 @@ public interface OrderService {
 
     List<?> selectExcelOrderList(OrderVo orderVo);
 
-    int insertOrderDownloadLog(Map<String, Object> map);
-
     List<Map<String, Object>> selectOrderProductList(OrderVo orderVo);
 
     Map<String, Object> selectOrderProductOne(OrderVo orderVo);
+
+    List<String> selectOrderNoList(OrderVo orderVo);
+
+    int updateOrderDeliveryByDeliveryNo(OrderVo orderVo);
 }

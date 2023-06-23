@@ -72,6 +72,22 @@
             });
         }
 
+        // 운송장 일괄 등록 팝업
+        $(document).on("click", "#excelDeliveryNoUpload", function() {
+            PopupReg1("insert-delivery-list-popup", 650, 400, "popup");
+
+            // var w = 650;    //팝업창의 너비
+            // var h = 400;    //팝업창의 높이
+            // //중앙위치 구해오기
+            // LeftPosition=(screen.width-w)/2;
+            // TopPosition=(screen.height-h)/2;
+            // window.open(
+            //     "insert-member-list-popup",
+            //     "popup",
+            //     "width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=yes");
+            // return false;
+        });
+
         // 주문 정보 상세 페이지
         $(document).on("click", ".orderData", function() {
             let oseq = $(this).data("oseq");
