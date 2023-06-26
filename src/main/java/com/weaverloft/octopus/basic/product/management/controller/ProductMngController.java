@@ -2,6 +2,8 @@ package com.weaverloft.octopus.basic.product.management.controller;
 
 import com.weaverloft.octopus.basic.common.util.CommonUtil;
 import com.weaverloft.octopus.basic.common.util.PagingModel;
+import com.weaverloft.octopus.basic.main.service.FileService;
+import com.weaverloft.octopus.basic.main.vo.FileVo;
 import com.weaverloft.octopus.basic.product.category.service.ProductCategoryService;
 import com.weaverloft.octopus.basic.product.management.service.ProductMngService;
 import org.springframework.beans.factory.HierarchicalBeanFactory;
@@ -9,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +35,9 @@ public class ProductMngController {
     private ProductMngService productMngService;
     @Autowired
     private ProductCategoryService productCategoryService;
+
+    @Autowired
+    private FileService fileService;
 
     @GetMapping("/list")
     public String getProductMngList(@RequestParam Map<String, Object> paramMap, Model model) {
@@ -104,6 +112,30 @@ public class ProductMngController {
             e.printStackTrace();
         }
         return validateMap;
+    }
+
+    @PostMapping(value = "/image-upload")
+    @ResponseBody
+    public Map<String, Object> image(MultipartHttpServletRequest request) throws Exception {
+        Map<String, Object> resultMap = new HashMap<>();
+        int isSuccessUpload = 1;
+        String realPath = "/asset/upload/img";
+
+        try {
+            MultipartFile uploadFile = request.getFile("upload");
+            FileVo fileVo = fileService.saveFileProduct(uploadFile, request.getServletContext().getRealPath(realPath));
+            fileVo.setIsUse(false);
+            fileService.insertFileInfo(fileVo);
+
+            String url = "http://localhost:8999" + realPath + fileVo.getFilePath();
+            resultMap.put("url", url);
+            resultMap.put("fileName", fileVo.getOrginFileNm());
+        } catch (Exception e) {
+            isSuccessUpload = 0;
+        }
+
+        resultMap.put("uploaded", isSuccessUpload);
+        return resultMap;
     }
 
 //    @GetMapping("/select-category-popup")

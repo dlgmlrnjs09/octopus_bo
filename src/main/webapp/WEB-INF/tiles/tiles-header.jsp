@@ -128,7 +128,7 @@
 <div class="nav">
     <div class="top">
         <div class="logo-wrap">
-            <h1 class="logo"><a href="#"><img src="../../asset/img/admin/logo-admin-w.svg" alt="admin-logo"></a></h1>
+            <h1 class="logo"><a href="/"><img src="../../asset/img/admin/logo-admin-w.svg" alt="admin-logo"></a></h1>
         </div>
         <div class="nav-btn-wrap">
             <button type="button" class="nav-btn nav-close-btn" aria-label="닫기"><img src="../../asset/img/admin/icon-nav-close-w.svg" alt="admin-logo"></button>

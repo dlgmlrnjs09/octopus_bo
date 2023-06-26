@@ -14,7 +14,8 @@
             file_saved_name,
             file_extension,
             file_size,
-            file_path
+            file_path,
+            is_use
         ) VALUES (
             #{typeDepth1},
             #{typeDepth2},
@@ -24,7 +25,8 @@
             #{strgeFileNm},
             #{fileExtsnmn},
             #{fileSize}::numeric,
-            #{filePath}
+            #{filePath},
+            #{isUse}
         )
     </insert>
 

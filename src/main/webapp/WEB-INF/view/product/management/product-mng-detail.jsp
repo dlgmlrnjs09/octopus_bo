@@ -41,11 +41,14 @@
         overflow: auto;
     }
 
-    /*#option-list-table th{*/
-    /*    background-color: #f3f3f9;*/
-    /*    text-align: center;*/
-    /*    vertical-align: middle;*/
-    /*}*/
+     .ck.ck-editor {
+         width: 100%;
+         margin: 0 auto;
+     }
+
+    .ck-editor__editable {
+        height: 30vh;
+    }
 </style>
 <main id="main" class="page-home">
     <div class="admin-section-wrap">
@@ -362,6 +365,17 @@
                             </td>
                         </tr>
                         <tr>
+                            <th scope="row"><em>대표 이미지</em></th>
+                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="border-bottom-left-radius: 6px;"><em>상품 상세설명</em></th>
+                            <td style="cursor: default;">
+                                <label for="editor"></label><textarea id="editor" <%--name="editorContent"--%>>${productDetailInfo.product_description}</textarea>
+                            </td>
+                        </tr>
+                        <tr>
                             <th scope="row"><em>구매 포인트</em></th>
                             <td style="border-top: 1px solid #c6c9cc; cursor: default;">
                                 <div class="radio-box-wrap">
@@ -433,11 +447,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row" style="border-bottom-left-radius: 6px;"><em>상세설명</em></th>
-                            <td style="cursor: default;">
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                     <div style="margin-top: 20px; float: right;">
@@ -451,6 +460,9 @@
 </main>
 
 <script>
+
+    var editor = createCkEditor('/product/management/image-upload');
+
     var regType = '${regType}';
     var regTypeNm = regType === 'insert' ? '등록' : '수정';
 
@@ -698,10 +710,12 @@
             optionByCombinationList.push(combinationMap);
         });
 
+        console.log($('#editor').text());
+
         $.ajax({
             url: "/product/management/submit-ajax/" + regType
             , type: "POST"
-            , data: $("#frm").serialize() + "&optionList=" + JSON.stringify(optionList) + "&optionCombinationList=" + JSON.stringify(optionByCombinationList)
+            , data: $("#frm").serialize() + "&optionList=" + JSON.stringify(optionList) + "&optionCombinationList=" + JSON.stringify(optionByCombinationList) + '&product_description=' + editor.getData()
             , success: function (data) {
                 if (data.name === 'pass') {
                     action_popup.alert2(regTypeNm + ' 되었습니다.', function () {

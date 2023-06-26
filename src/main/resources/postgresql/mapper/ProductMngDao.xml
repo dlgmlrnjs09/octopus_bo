@@ -69,6 +69,7 @@
         INSERT INTO octopus.product_info (
             product_seq
             , product_name
+            , product_description
             , product_price
             <if test="is_has_option == false">
                 , product_stock
@@ -99,6 +100,7 @@
         ) VALUES (
             #{nextProductSeq}
             , #{product_name}
+            , #{product_description}
             , #{product_price}::int4
             <if test="is_has_option == false">
                 , #{product_stock}::int4
@@ -132,6 +134,7 @@
     <insert id="updateProductMng" parameterType="map">
         UPDATE octopus.product_info
         SET product_name = #{product_name}
+            , product_description = #{product_description}
             , product_price = #{product_price}::int4
             <if test="is_has_option == false">
                 , product_stock = #{product_stock}::int4

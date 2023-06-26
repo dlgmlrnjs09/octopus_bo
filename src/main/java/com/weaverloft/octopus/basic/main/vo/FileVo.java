@@ -56,7 +56,7 @@ public class FileVo {
     private String typeDepth3;
     private String filePath;
     private Integer foreignSeq;
-    private String isUse;
+    private boolean isUse;
     private String redDt;
     private String modDt;
     private String delDt;
@@ -132,12 +132,12 @@ public class FileVo {
 		this.foreignSeq = foreignSeq;
 	}
 
-	public String getIsUse() {
+	public boolean getIsUse() {
 		return isUse;
 	}
 
-	public void setIsUse(String isUse) {
-		this.isUse = isUse;
+	public void setIsUse(boolean use) {
+		isUse = use;
 	}
 
 	public String getRedDt() {
@@ -360,6 +360,12 @@ public class FileVo {
 	public void setImgH(Integer imgH) {
 		this.imgH = imgH;
 	}
-	
-	
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 }
