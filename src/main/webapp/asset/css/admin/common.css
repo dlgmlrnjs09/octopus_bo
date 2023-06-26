@@ -972,6 +972,11 @@ input[type="checkbox"] + label{
 }
 
 /*========== Star ==========*/
+.star-box{
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: stretch;
+}
 .star-wrap{
 	display: flex;
 	flex-direction: column;
@@ -1000,6 +1005,27 @@ input[type="checkbox"] + label{
 .star-wrap .star.five{
 	background-position: 0 0;
 }
+@media screen and (max-width: 767px){
+	.star-wrap .star{
+		width: 70px;
+		height: 14px;
+	}
+	.star-wrap .star.one{
+		background-position: 0 -67px;
+	}
+	.star-wrap .star.two{
+		background-position: 0 -51px;
+	}
+	.star-wrap .star.three{
+		background-position: 0 -34px;
+	}
+	.star-wrap .star.four{
+		background-position: 0 -18px;
+	}
+	.star-wrap .star.five{
+		background-position: 0 -1px;
+	}
+}
 
 /*========== Skeleton ==========*/
 .skeleton-placeholder {
@@ -1015,7 +1041,6 @@ input[type="checkbox"] + label{
 	0% { background-position: -100px; }
 	40%, 100% { background-position: 270px; }
 }
-
 /*========== Grid 테이블 공통 스타일 ==========*/
 /* 필수항목표시 */
 .required { position: relative; }

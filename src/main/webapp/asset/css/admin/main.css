@@ -22,7 +22,7 @@
 .home-section-wrap { display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: flex-start;}
 .home-section-wrap .left-sec-wrap{ width: 920px; }
 .home-section-wrap .right-sec-wrap{ width: 390px; }
-.home-sec { width: 100%; margin-bottom: 20px; padding: 16px 20px 20px; border-radius: 6px; border: 1px solid var(--sub-color01); background-color: #fff; }
+.home-sec { position: relative; width: 100%; margin-bottom: 20px; padding: 16px 20px 20px; border-radius: 6px; border: 1px solid var(--sub-color01); background-color: #fff; }
 .half-sec-wrap{ display: flex; flex-flow: row nowrap; align-items: stretch; justify-content: space-between; gap: 20px; }
 .sec-title-wrap { display: flex; flex-flow: row nowrap; align-items: center; justify-content: space-between; }
 .sec-title {font-size: 19px; font-weight: 700; color: #555; line-height: 1;}
@@ -36,6 +36,11 @@
    .home-section-wrap{ flex-flow: column wrap;}
    .home-section-wrap .left-sec-wrap{ width: 100%; }
    .home-section-wrap .right-sec-wrap{ width: 100%; }
+   .home-sec{ margin-bottom: 16px; padding: 16px; }
+   .half-sec-wrap{ gap: 14px; width: 100%; overflow-x: auto;}
+   .half-sec-wrap::-webkit-scrollbar{ display: none;}
+   .half-sec-wrap > .home-sec{ min-width: 307px; }
+   .sec-title {font-size: 18px; }
 }
 
 /*========== 공지사항 Notice Section ==========*/
@@ -50,6 +55,17 @@
 .notice-sec .btn-wrap .btn {width: 27px; height: 27px; padding: 3px; transition: opacity 300ms;}
 .notice-sec .btn-wrap .btn:hover{ opacity: 0.7; transition: opacity 300ms;}
 .notice-sec .btn-wrap .mid-line {display: inline-block; width: 0; height: 18px; border-right: 1px dashed #ccc;}
+@media screen and (max-width: 767px){
+   .notice-sec { flex-flow: column wrap; justify-content: flex-start; align-items: flex-start; padding: 16px;}
+   .notice-sec .sec-title {width: 100%; font-size: 14px; }
+   .notice-sec .notice-list {margin-top: 16px; width: calc(100% - 75px); height: 40px;}
+   .notice-sec .notice-list li a {flex-flow: column wrap; justify-content: flex-start; align-items: flex-start; font-size: 14px;}
+   .notice-sec .notice-list li a p{ display: flex; flex-flow: row nowrap; justify-content: flex-start; width: auto; max-width: 100%;}
+   .notice-sec .notice-list li a p .text{width: calc(100% - 40px); text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+   .notice-sec .notice-list li a .new { width: 34px; height: 18px; margin-left: 6px; font-size: 12px; line-height: 18px;}
+   .notice-sec .notice-list li a .date{ margin-top: 8px; font-size: 12px; }
+   .notice-sec .btn-wrap{position: absolute; top: 16px; right: 16px;}
+}
 
 /*========== 상품 Go to Product Section ==========*/
 .goto-product-sec{  padding: 17px 20px;}
@@ -87,13 +103,21 @@
 .situation-info > div .num{font-size: 24px; font-weight: 700;}
 .situation-info > div .num span{display: inline-block; margin-left: 2px; font-size: 14px; font-weight: 500;}
 .situation-info .mid-line{display: inline-block; width: 0; height: 50px; border-right: 1px dashed #ccc;}
+@media screen and (max-width: 767px){
+   .situation-sec {padding: 16px 0;}
+   .situation-sec .sec-title-wrap {padding: 0 16px;}
+   .view-tab-menu {gap: 8px;}
+   .view-tab-menu li.tab-link a{ padding: 3px 7px; font-size: 12px;}
+   .situation-content{ padding: 20px 16px 0; }
+   .situation-con .compared{font-size: 12px;}
+}
 
 /*========== 매출 Sales Section ==========*/
 .col-sec-wrap {order: 4;}
 .sales-sec{ padding: 30px 24px; border: none; background-color: var(--point-color03); }
 .sales-sec div, .sales-sec p{color: #fff;}
 .sales-sec .today {display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: center;}
-.sales-sec .today .today-sales-img{width: 45px; height: 45px; margin-right: 14px; border-radius: 6px; background-color: #7568C5;}
+.sales-sec .today .today-sales-img{width: 45px; height: 45px; margin-right: 14px; padding: 5px; border-radius: 6px; background-color: #7568C5;}
 .sales-sec .today .title .tit{margin-bottom: 6px; font-size: 18px; font-weight: 700;}
 .sales-sec .today .title .date{font-size: 14px;}
 .sales-sec .sales{margin: 40px 0 10px; font-size: 36px; font-weight: 700;}
@@ -104,6 +128,15 @@
 .sales-sec .total-sales .compared.up span{ background-image: url('../../img/admin/icon-compared-up-w.svg'); background-repeat: no-repeat; background-position: calc(100% - 6px) 5px; }
 .sales-sec .total-sales .compared.down span{ background-image: url('../../img/admin/icon-compared-down-w.svg'); }
 .sales-sec .total-sales p{ font-size: 13px;}
+@media screen and (max-width: 767px){
+   .sales-sec{ padding: 20px 16px; }
+   .sales-sec .today .today-sales-img {width: 40px; height: 40px;}
+   .sales-sec .today .title .tit {font-size: 16px;}
+   .sales-sec .today .title .date {font-size: 12px;}
+   .sales-sec .sales{font-size: 30px;}
+   .sales-sec .total-sales .compared{ font-size: 12px;}
+   .sales-sec .total-sales p{ font-size: 12px;}
+}
 
 /*========== 재고 Inventory Section ==========*/
 .inventory-contents > div { padding: 20px; border-radius: 6px; border: 1px solid var(--sub-color01);}
@@ -118,7 +151,7 @@
 .inventory-con .inventory-detail li .sub-tit ~ p{width: calc(100% - 44px); font-size: 15px; font-weight: 600; color: #777; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 
 /*========== 세금계산서, 문의 건수 Case Num Section ==========*/
-.case-num-sec{order: 5; display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center; padding: 28px 0;}
+.case-num-sec{ display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center; padding: 28px 0;}
 .case-num-sec > div{display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center; width: 33%; padding: 0 30px;}
 .case-num-sec > div > div:not(.case-num){display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center;}
 .case-num-sec .case-num-img {width: 45px; height: 45px; margin-right: 10px; padding: 7.5px; border-radius: 9px; background-color: #F3F3F9;}
@@ -126,6 +159,12 @@
 .case-num-sec .case-num{font-size: 24px; font-weight: 700;}
 .case-num-sec .case-num span{display: inline-block; margin-left: 2px; font-size: 14px; font-weight: 500;}
 .case-num-sec .mid-line{display: inline-block; width: 0; height: 50px; border-right: 1px dashed #ccc;}
+@media screen and (max-width: 767px){
+   .case-num-sec { flex-flow: column wrap; justify-content: center; padding: 2px 16px;}
+   .case-num-sec > div {width: 100%; padding: 14px 36px 14px 0;}
+
+   .case-num-sec .mid-line{width: 100%; height: 1px; border-bottom: 1px dashed #ccc;}
+}
 
 /*========== 상품 리뷰 Review Section ==========*/
 .review-sec{ padding: 16px 0 20px;}
@@ -145,7 +184,7 @@
 .review-list .review-content .review-prd-con p{ font-size: 14px;}
 .review-list .review-content .review-prd-con .prd-tit{ font-weight: 500;}
 .review-list .review-content .review-prd-con .review-txt{ height: 54px; overflow: hidden;white-space: normal; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-.review-list .review-content .review-prd-con .rating{ margin-left: 6px; font-weight: 600; vertical-align: text-bottom;}
+.review-list .review-content .review-prd-con .rating{ margin-left: 6px; font-weight: 600; }
 .review-list-wrap .review-list .review-pagination {bottom: -6px;}
 .review-list-wrap .review-list .review-pagination .swiper-pagination-bullet{background-color: #E8E8F1; opacity: 1; transition: all 300ms;}
 .review-list-wrap .review-list .review-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{ width: 20px; border-radius: 50px; background-color: #826BCC;}
@@ -154,6 +193,25 @@
 	background-image: url('../../img/admin/skeleton-admin-main.jpg');
    background-position: 0 0;
 }
+@media screen and (max-width: 767px){
+   .review-sec{ padding: 12px 0 16px;}
+   .review-sec .sec-title-wrap{padding: 0 16px;}
+   .review-sec .basic-select-box select{ height: 28px; padding: 6px 30px 6px 10px; background-position: calc(100% - 8px) 8px;}
+   .review-content-wrap{ padding: 10px 16px 0;}
+   .review-content-wrap .review-info {width: 100%; justify-content: center; gap: 10px;margin-bottom: 16px; padding: 15px 10px;}
+   .review-content-wrap .review-info > div {width: 50%; justify-content: space-around; font-size: 14px; }
+   .review-list .review-content{ width: 126px; flex-flow: column;}
+   .review-list .review-content .review-prd-img{width: 100%; min-width: 126px; height: auto; aspect-ratio: 1/1}
+   .review-list .review-content .review-prd-con{ gap: 6px; width: 100%; margin-top: 10px;}
+   .review-list .review-content .review-prd-con .review-txt { height: 30px; font-size: 12px; -webkit-line-clamp: 2;}
+   .review-list .review-content .review-prd-con .review-star{ margin-top: 6px;}
+   .review-list .review-content .review-prd-con .rating{ font-size: 14px; line-height: 1;}
+   .review-content.skeleton-box .skeleton-loading { background-image: url('../../img/admin/skeleton-reivew-mo.jpg'); }
+}
+@media screen and (max-width: 460px){
+   .review-content-wrap .review-info > div {justify-content: space-between; }
+}
+
 /*========== 일정 Calendar Section ==========*/
 /* calendar */
 .calendar-sec{order: 7;}
@@ -187,6 +245,14 @@
 .schedule li .date{display: inline-block; width: 42px; font-weight: 600; text-align: left;}
 .schedule li .detail{ width: calc(100% - 64px);}
 .option-view-btn {width: 18px; height: 18px; margin-left: 4px;}
+@media screen and (max-width: 767px){
+   .calendar ul li {font-size: 12px;}
+   .schedule-head .schedule-add-btn{ width: 46px; height: 21px;  background-position: 7px center; background-size: 7px 7px; font-size: 11px;}
+   .schedule-head .title{ font-size: 14px;}
+   .schedule li{ margin-top: 14px; padding-left: 10px; font-size: 12px; }
+   .schedule li .date{ width: 38px;}
+   .schedule li::before{ left: 2px; }
+}
 
 /*========== 통계 Main Chart Section ==========*/
 .main-chart-sec { padding: 16px 0 0;}
@@ -244,4 +310,12 @@
    border-radius: 6px;
 	background-image: url('../../img/admin/skeleton-admin-main.jpg');
    background-position: 0 -156px;
+}
+@media screen and (max-width: 767px){
+   .event-sec .swiper-pagination{ font-size: 12px; padding: 4px 9px;}
+   .event-sec .swiper-button-next, .event-sec .swiper-button-prev {width: 20px; height: 20px;}
+   .event-sec .event-slide{ width: 258px;}
+   .event-content-wrap .event-img .state{ font-size: 10px;}
+   .event-content-wrap .event-tit{ margin: 16px 0 12px; font-size: 16px;}
+   .event-content-wrap .event-content li{ margin-bottom: 8px; font-size: 12px;}
 }
