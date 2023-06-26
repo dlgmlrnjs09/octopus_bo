@@ -39,10 +39,11 @@ public class ProductMngController {
     @Autowired
     private FileService fileService;
 
-    @GetMapping("/list")
+    @RequestMapping("/list")
     public String getProductMngList(@RequestParam Map<String, Object> paramMap, Model model) {
         int currPage = CommonUtil.isEmpty((String) paramMap.get("curPage")) ? 1 : Integer.parseInt(paramMap.get("curPage").toString());
         int pageSize = CommonUtil.isEmpty((String) paramMap.get("pageSize")) ? 10 : Integer.parseInt(paramMap.get("pageSize").toString());
+
         int totalCnt = productMngService.getProductMngListCnt(paramMap);
         PagingModel pagingModel = PagingModel.getPagingModel(Integer.toString(currPage), Integer.toString(pageSize), totalCnt);
         pagingModel.setListCnt(totalCnt);
@@ -53,8 +54,10 @@ public class ProductMngController {
         }
 
         model.addAttribute("pagingModel", pagingModel);
-        model.addAttribute("searchKeyword", paramMap.get("searchKeyword"));
-        model.addAttribute("searchType", paramMap.get("searchType"));
+        model.addAttribute("startDate", paramMap.get("startDate"));
+        model.addAttribute("endDate", paramMap.get("endDate"));
+        model.addAttribute("search_keyword", paramMap.get("search_keyword"));
+        model.addAttribute("search_type", paramMap.get("search_type"));
 
         return "/product/management/product-mng-list.admin";
     }

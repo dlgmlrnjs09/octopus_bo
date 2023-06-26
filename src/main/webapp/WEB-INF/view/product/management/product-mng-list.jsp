@@ -16,8 +16,7 @@
         </div>
         <div class="home-section-wrap">
             <section class="section home-sec">
-                <form id="frmDefault" name="default" action="" method="post">
-                    <input type="hidden" id="dataJson" name="dataJson" value="">
+                <form id="search-frm" name="search_frm" action="" method="post">
                     <table class="common-table" summary="검색" style="width:100%;">
                         <tbody>
                         <tr>
@@ -26,19 +25,17 @@
                                 <div class="field">
                                     <div class="datepicker-box-wrap" style="display: inline-block">
                                         <div class="input-box datepicker-box">
-                                            <input type="text" class="" name="startDate" id="startReg" title="등록일자 시작일 입력" value="" autocomplete='off'>
+                                            <input type="text" class="" name="startDate" id="startDate" title="등록일자 시작일 입력" value="${startDate}" autocomplete='off'>
                                             <span class="border-focus"><i></i></span>
                                         </div>
                                     </div>
                                     ~
                                     <div class="datepicker-box-wrap" style="display: inline-block">
                                         <div class="input-box datepicker-box">
-                                            <input type="text" class="" name="endDate" id="endReg" title="등록일자 만료일 입력" value="" autocomplete='off'>
+                                            <input type="text" class="" name="endDate" id="endDate" title="등록일자 만료일 입력" value="${endDate}" autocomplete='off'>
                                             <span class="border-focus"><i></i></span>
                                         </div>
                                     </div>
-<%--                                    <input type="text" name="startDate" id="startReg" title="등록일자 시작일 입력" value="" autocomplete='off'> ~--%>
-<%--                                    <span id="endD"> <input type="text" name="endDate" id="endReg" title="등록일자 만료일 입력" value="" autocomplete='off'></span>--%>
                                 </div>
                             </td>
                         </tr>
@@ -46,16 +43,14 @@
                             <th scope="row" style="border-bottom-left-radius: 6px;"><em>검색어</em></th>
                             <td style="cursor: default;">
                                 <div class="basic-select-box" style="width: 10%; display: inline-block;">
-                                    <select id="searchType" name="searchType" style="">
-                                        <option value="memberId">아이디</option>
-                                        <option value="memberNm">이름</option>
-                                        <option value="memberEmail">이메일</option>
+                                    <select id="searchType" name="search_type" style="">
+                                        <option value="product_name" <c:if test="search_type == 'product_name'">selected</c:if> >상품명</option>
                                     </select>
                                     <span class="border-focus"><i></i></span>
                                 </div>
-                                <input type="text" id="searchKeyword" placeholder="검색어를 입력하세요." style="height: 34px;">
+                                <input type="text" id="search-keyword" name="search_keyword" placeholder="검색어를 입력하세요." value="${search_keyword}" onkeypress="if( event.keyCode === 13 ){goSearch(1);}" style="height: 34px;">
                                 <span class="border-focus"><i></i></span>
-                                <button type="button" class="search-btn" id="searchBtn">
+                                <button type="button" class="search-btn" id="search-btn" onclick="goSearch(1);">
                                     <img src="../../asset/img/admin/icon-search.svg" alt="검색하기">
                                 </button>
                             </td>
@@ -165,10 +160,23 @@
 </main>
 
 <script>
+
+    $(function () {
+        initDatePicker($("#startDate"), $("#endDate"))
+    });
+
     function pageChange(num) {
         $("input[name='curPage']").val(num);
         $("input[name='pageSize']").val($("select[name='pageSize']").val());
         let frm = $("#frm");
+        frm.attr("action", "<c:url value="/product/management/list"/>");
+        frm.submit();
+    }
+
+    function goSearch(num) {
+        $("input[name='curPage']").val(num);
+        $("input[name='pageSize']").val($("select[name='pageSize']").val());
+        let frm = $("#search-frm");
         frm.attr("action", "<c:url value="/product/management/list"/>");
         frm.submit();
     }

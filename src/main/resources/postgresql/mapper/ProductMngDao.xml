@@ -4,6 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.weaverloft.octopus.basic.product.management.dao.ProductMngDao">
+    <sql id="defaultWhere">
+        <if test="search_keyword != null and search_keyword !=''">
+            <if test="search_type == 'product_name'">
+                AND UPPER(product_name) LIKE '%'||UPPER(#{search_keyword})||'%'
+            </if>
+        </if>
+
+        <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp
+        </if>
+
+        <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
+            AND reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
+        </if>
+
+        <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+        </if>
+    </sql>
+
     <select id="getProductMngListCnt" resultType="int">
         select
             count(*)
@@ -11,6 +31,7 @@
             octopus.product_info
         where
             is_use = true
+            <include refid="defaultWhere"/>
     </select>
 
     <select id="getProductMngList" resultType="map">
@@ -25,7 +46,8 @@
                   , reg_dt::date
              from octopus.product_info
              where is_use = true
-             order by reg_dt
+                    <include refid="defaultWhere"/>
+             order by product_seq desc
          ) A
         LIMIT
             #{pagingModel.pageSize}

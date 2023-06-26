@@ -372,7 +372,7 @@
                         <tr>
                             <th scope="row" style="border-bottom-left-radius: 6px;"><em>상품 상세설명</em></th>
                             <td style="cursor: default;">
-                                <label for="editor"></label><textarea id="editor" <%--name="editorContent"--%>>${productDetailInfo.product_description}</textarea>
+                                <label for="editor"></label><textarea id="editor" name="product_description">${productDetailInfo.product_description}</textarea>
                             </td>
                         </tr>
                         <tr>
@@ -712,10 +712,12 @@
 
         console.log($('#editor').text());
 
+        let editorContent = editor.getData();
+        $("#editor").text(editorContent);
         $.ajax({
             url: "/product/management/submit-ajax/" + regType
             , type: "POST"
-            , data: $("#frm").serialize() + "&optionList=" + JSON.stringify(optionList) + "&optionCombinationList=" + JSON.stringify(optionByCombinationList) + '&product_description=' + editor.getData()
+            , data: $("#frm").serialize() + "&optionList=" + JSON.stringify(optionList) + "&optionCombinationList=" + JSON.stringify(optionByCombinationList)
             , success: function (data) {
                 if (data.name === 'pass') {
                     action_popup.alert2(regTypeNm + ' 되었습니다.', function () {
