@@ -366,7 +366,7 @@
                                                 <span class="border-focus"><i></i></span>
                                             </div>
                                         </div>
-                                    <input type="text" style="height: 43px; margin-left: 5px;" title="운송장번호" placeholder="운송장 번호를 입력하세요." id="orderDeliveryNo" name="orderDeliveryNo" value="${order.orderDeliveryNo}"/>
+                                    <input type="text" style="height: 34px; margin-left: 5px;" title="운송장번호" placeholder="운송장 번호를 입력하세요." id="orderDeliveryNo" name="orderDeliveryNo" value="${order.orderDeliveryNo}"/>
                                     <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="saveDelivery"><span>저장</span></button>
                                     </span>
                                 </td>
@@ -457,7 +457,7 @@
                                                     <span class="border-focus"><i></i></span>
                                                 </div>
                                             </div>
-                                        <input type="text" style="height: 43px; margin-left: 5px;" title="운송장번호" placeholder="운송장 번호를 입력하세요." id="returnDeliveryNo" name="returnDeliveryNo" value="${order.returnDeliveryNo}"/>
+                                        <input type="text" style="height: 34px; margin-left: 5px;" title="운송장번호" placeholder="운송장 번호를 입력하세요." id="returnDeliveryNo" name="returnDeliveryNo" value="${order.returnDeliveryNo}"/>
                                         <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="returnSaveDelivery"><span>저장</span></button>
                                         </span>
                                     </td>
@@ -493,7 +493,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><em>가격</em></th>
+                                    <th scope="row"><em>금액</em></th>
                                     <td style="cursor: default;">
                                         <fmt:formatNumber value="${product.product_price * product.order_product_stock}" pattern="#,###"/> 원
                                     </td>

@@ -84,6 +84,7 @@
 </div>
 <div id="btnDiv">
     <div style="margin-top: 20px; float: right;">
+        <button type="button" id="excelDeliveryNoUpload" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" aria-label="title"><span>운송장 일괄 등록</span></button>
         <button type="button" id="excelOrderDownload" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>엑셀 다운로드</span></button>
     </div>
     <div style="margin-top: 20px; float: left;">
