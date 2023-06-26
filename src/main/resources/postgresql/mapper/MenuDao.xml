@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.weaverloft.octopus.basic.menu.dao.MenuDao">
+<mapper namespace="com.weaverloft.octopus.basic.option.menu.dao.MenuDao">
 
     <select id="getMenuInfo" parameterType="map" resultType="map">
         WITH RECURSIVE

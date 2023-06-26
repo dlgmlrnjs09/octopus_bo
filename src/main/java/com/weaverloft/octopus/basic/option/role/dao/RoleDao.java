@@ -1,11 +1,9 @@
-package com.weaverloft.octopus.basic.role.dao;
+package com.weaverloft.octopus.basic.option.role.dao;
 
-import com.weaverloft.octopus.basic.member.vo.MemberVo;
-import com.weaverloft.octopus.basic.role.vo.RoleVo;
+import com.weaverloft.octopus.basic.option.role.vo.RoleVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author note-gram-015

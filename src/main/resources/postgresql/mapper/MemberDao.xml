@@ -140,7 +140,8 @@
                 m.member_id AS memberId,
                 m.member_nm AS memberNm,
                 m.member_pw AS memberPw,
-                r.role_id AS memberRole
+                r.role_id AS memberRole,
+                m.is_use AS isUse
         FROM
             octopus.member_info m LEFT OUTER JOIN octopus.role_info r ON m.member_role = r.role_seq::varchar
         WHERE

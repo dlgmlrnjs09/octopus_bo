@@ -1,6 +1,8 @@
 package com.weaverloft.octopus.configuration;
 
 import com.weaverloft.octopus.basic.security.CustomUserDetailsService;
+import com.weaverloft.octopus.basic.security.LoginFailureHandler;
+import com.weaverloft.octopus.basic.security.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -27,6 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	CustomUserDetailsService customUserDetailsService;
+
+	@Autowired
+	LoginSuccessHandler authenticationSuccessHandler;
+
+	@Autowired
+	LoginFailureHandler authenticationFailureHandler;
 
 	/*
 	* 스프링 시큐리티 룰을 무시할 URL 규칙 설정
@@ -66,8 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("userId")
                     .passwordParameter("password")
                     .loginProcessingUrl("/authenticate")
-                    .failureForwardUrl("/main/login-error?login_error=1")
-                    .defaultSuccessUrl("/main/main-page",true)
+					.successHandler(authenticationSuccessHandler)
+                	.failureHandler(authenticationFailureHandler)
                     .permitAll()
                 .and()
                     .logout()

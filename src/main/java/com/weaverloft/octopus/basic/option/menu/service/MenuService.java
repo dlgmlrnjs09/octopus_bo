@@ -1,4 +1,4 @@
-package com.weaverloft.octopus.basic.menu.service;
+package com.weaverloft.octopus.basic.option.menu.service;
 
 import java.util.List;
 import java.util.Map;

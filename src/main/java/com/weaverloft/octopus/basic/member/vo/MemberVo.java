@@ -25,7 +25,16 @@ public class MemberVo extends PagingVo {
     private String memberRole;
     private String memberRoleName;
     private String regDt;
+    private boolean isUse;
     private List<Integer> memberSeqList;
+
+    public boolean getIsUse() {
+        return isUse;
+    }
+
+    public void setIsUse(boolean isUse) {
+        this.isUse = isUse;
+    }
 
     public List<Integer> getMemberSeqList() {
         return memberSeqList;

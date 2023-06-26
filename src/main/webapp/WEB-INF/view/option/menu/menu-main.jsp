@@ -3,8 +3,8 @@
 <html>
 <head>
     <link rel="stylesheet" href="/asset/css/admin/menu-tree.css">
-    <link rel="stylesheet" href="../../../asset/css/admin/common.css">
-    <link rel="stylesheet" href="../../../asset/css/admin/set_site.css">
+    <link rel="stylesheet" href="../../../../asset/css/admin/common.css">
+    <link rel="stylesheet" href="../../../../asset/css/admin/set_site.css">
     <title>메뉴 관리</title>
 </head>
 <body>
@@ -372,7 +372,7 @@
                                     <a href="javascript:;" value="${menu.menu_seq}" data-level="${menu.level}"><span><c:out value="${menuList[status.index].menu_nm }"/></span>
                                 <c:choose>
                                     <c:when test="${hasChild && menu.level ne 0}">
-                                        <img src="../../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
+                                        <img src="../../../../asset/img/admin/icon-arrow-down.svg" alt="down-arrow"></a>
                                         <ul class="depth${menu.level + 1}">
                                     </c:when>
                                     <c:otherwise>

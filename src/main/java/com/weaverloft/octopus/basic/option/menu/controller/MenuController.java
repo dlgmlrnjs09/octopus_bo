@@ -1,10 +1,10 @@
-package com.weaverloft.octopus.basic.menu.controller;
+package com.weaverloft.octopus.basic.option.menu.controller;
 
 import com.weaverloft.octopus.basic.main.service.FileService;
 import com.weaverloft.octopus.basic.main.vo.FileVo;
-import com.weaverloft.octopus.basic.menu.service.MenuService;
-import com.weaverloft.octopus.basic.role.service.RoleService;
-import com.weaverloft.octopus.basic.role.vo.RoleVo;
+import com.weaverloft.octopus.basic.option.menu.service.MenuService;
+import com.weaverloft.octopus.basic.option.role.service.RoleService;
+import com.weaverloft.octopus.basic.option.role.vo.RoleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +51,7 @@ public class MenuController {
 
         model.addAttribute("menuList", menuList);
         model.addAttribute("roleList", roleList);
-        return "/menu/menu-main.admin";
+        return "/option/menu/menu-main.admin";
     }
 
     @GetMapping("/select-menu-detail")

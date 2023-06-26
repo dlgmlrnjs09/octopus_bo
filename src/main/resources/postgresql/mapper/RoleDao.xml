@@ -3,16 +3,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.weaverloft.octopus.basic.role.dao.RoleDao">
+<mapper namespace="com.weaverloft.octopus.basic.option.role.dao.RoleDao">
 
-    <select id="selectRoleCount" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+    <select id="selectRoleCount" parameterType="com.weaverloft.octopus.basic.option.role.vo.RoleVo">
         SELECT
             count(*)
         FROM
             octopus.role_info
     </select>
 
-    <select id="selectRoleList" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo" resultType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+    <select id="selectRoleList" parameterType="com.weaverloft.octopus.basic.option.role.vo.RoleVo" resultType="com.weaverloft.octopus.basic.option.role.vo.RoleVo">
         SELECT
             role_seq AS roleSeq,
             role_name AS roleName,
@@ -24,7 +24,7 @@
             role_seq
     </select>
 
-    <select id="getRoleDetail" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo" resultType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+    <select id="getRoleDetail" parameterType="com.weaverloft.octopus.basic.option.role.vo.RoleVo" resultType="com.weaverloft.octopus.basic.option.role.vo.RoleVo">
         SELECT
             role_seq AS roleSeq,
             role_name AS roleName,
@@ -36,7 +36,7 @@
             role_seq = #{roleSeq}::int4
     </select>
 
-    <update id="updateRole" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+    <update id="updateRole" parameterType="com.weaverloft.octopus.basic.option.role.vo.RoleVo">
         UPDATE
             octopus.role_info
         SET
@@ -52,7 +52,7 @@
             role_seq = #{roleSeq}::int4
     </update>
 
-    <insert id="insertRole" parameterType="com.weaverloft.octopus.basic.role.vo.RoleVo">
+    <insert id="insertRole" parameterType="com.weaverloft.octopus.basic.option.role.vo.RoleVo">
         INSERT INTO octopus.role_info (
             role_name,
             role_id,
