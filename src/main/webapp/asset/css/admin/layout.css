@@ -210,7 +210,7 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 	.bubble-box { top: 52px;}
 	/* alarm-bubble */
 	.alarm-bubble-box.bubble-box::after { right: 74px; }
-	.alarm-bubble-box { right: -8px; width: 320px; }
+	.alarm-bubble-box { right: 0; width: 320px; }
 	.alarm-bubble-box .alarm-head { padding: 12px 16px 14px; }
 	.alarm-bubble-box .alarm-contents{ padding: 0 16px 12px; }
 	.alarm-bubble-box .alarm-contents li { padding: 12px 0 10px; }
@@ -218,7 +218,7 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 	.alarm-bubble-box .alarm-contents li .alarm-content{ width: calc(100% - 50px);}
 	.alarm-bubble-box .alarm-contents li .all-read-btn{ width: 24px; height: 24px; margin-left: 12px;}
 	/* user-bubble */
-	.user-bubble-box { right: -8px};
+	.user-bubble-box { right: 0};
 }
 
 /*========== Nav ==========*/
@@ -313,5 +313,5 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 .sec-title-wrap { display: flex; flex-flow: row nowrap; align-items: center; justify-content: space-between; }
 .sec-title {font-size: 19px; font-weight: 700; color: #555; line-height: 1;}
 @media screen and (max-width: 1614px){
-	.admin-section-wrap {width: 100%; margin: 20px auto 0;  padding: 0 10px; }
+	.admin-section-wrap {width: 100%; margin: 20px auto 0;  padding: 0 14px; }
 }

@@ -19,15 +19,29 @@ $(function () {
         var reviewSwiper = new Swiper(".review-list", {
             slidesPerView: 2,
             slidesPerColumn: 2,
-            //slidesPerColumnFill: "row",
             slidesPerGroup: 1,
             spaceBetween: 30,
-            // grabCursor: true,
             keyboard: true,
             pagination: {
                 el: '.review-pagination',
                 clickable: true,
             },
+            breakpoints: {
+                768: {
+                    slidesPerView: 'auto',
+                    slidesPerColumn: 1,
+                    spaceBetween: 16,
+                },
+                1024: {
+                    slidesPerView: 2,
+                    slidesPerColumn: 2,
+                    spaceBetween: 30,
+                },
+            },
+            updateOnWindowResize: true
+        });
+        window.addEventListener('resize', function() {
+            reviewSwiper.update();
         });
     };
 })
@@ -149,6 +163,18 @@ $(function () {
                     return '<span class="active">' + current + '</span><span class="mid-line">/</span><span class="total">' + (total) + '</span>';
                 }
             },
+            breakpoints: {
+                768: {
+                    spaceBetween: 10,
+                },
+                1024: {
+                    spaceBetween: 12,
+                },
+            },
+            updateOnWindowResize: true
+        });
+        window.addEventListener('resize', function() {
+            eventSwiper.update();
         });
         $('.event-slide.swiper-slide-duplicate div').removeClass('skeleton-box').removeClass('skeleton-loading');
     };
