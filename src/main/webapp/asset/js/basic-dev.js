@@ -16,6 +16,7 @@ function createCkEditor(uploadUrl, callback) {
     .then( newEditor => {
         console.log( 'Editor was initialized', newEditor );
         editor = newEditor;
+        return newEditor;
     } )
     .then( editor => {
         window.editor = editor;

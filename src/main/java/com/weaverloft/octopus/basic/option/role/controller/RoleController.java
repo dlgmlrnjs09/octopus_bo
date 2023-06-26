@@ -1,22 +1,13 @@
-package com.weaverloft.octopus.basic.role.controller;
+package com.weaverloft.octopus.basic.option.role.controller;
 
-import com.weaverloft.octopus.basic.main.service.FileService;
-import com.weaverloft.octopus.basic.main.vo.FileVo;
-import com.weaverloft.octopus.basic.menu.service.MenuService;
-import com.weaverloft.octopus.basic.role.service.RoleService;
-import com.weaverloft.octopus.basic.role.vo.RoleVo;
+import com.weaverloft.octopus.basic.option.role.service.RoleService;
+import com.weaverloft.octopus.basic.option.role.vo.RoleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author note-gram-015
@@ -37,7 +28,7 @@ public class RoleController {
         List<RoleVo> roleList = roleService.selectRoleList(new RoleVo());
 
         model.addAttribute("roleList", roleList);
-        return "/role/role-main.admin";
+        return "/option/role/role-main.admin";
     }
 
     @GetMapping("/select-role-detail")

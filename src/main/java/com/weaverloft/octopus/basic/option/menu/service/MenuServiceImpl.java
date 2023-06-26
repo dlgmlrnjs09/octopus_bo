@@ -1,8 +1,7 @@
-package com.weaverloft.octopus.basic.menu.service;
+package com.weaverloft.octopus.basic.option.menu.service;
 
-import com.weaverloft.octopus.basic.menu.dao.MenuDao;
+import com.weaverloft.octopus.basic.option.menu.dao.MenuDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -5,6 +5,6 @@
     <title>loginError!</title>
 </head>
 <body>
-로그인 Error!
+${msg != null ? msg : '로그인 ERROR!'}
 </body>
 </html>

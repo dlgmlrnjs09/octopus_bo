@@ -3,6 +3,7 @@ package com.weaverloft.octopus.basic.security;
 import com.weaverloft.octopus.basic.member.service.MemberService;
 import com.weaverloft.octopus.basic.member.vo.MemberVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +30,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         MemberVo customUser = memberService.getMemberRole(loginUser);
         if(customUser == null)
             throw new UsernameNotFoundException("사용자가 입력한 아이디에 해당하는 사용자를 찾을 수 없습니다.");
+        if(!customUser.getIsUse())
+            throw new AuthenticationCredentialsNotFoundException("계정이 비활성화 되어있습니다. 관리자에게 문의하세요.");
 
         CustomUserDetails customUserDetails = new CustomUserDetails();
         customUserDetails.setUsername(customUser.getMemberId());

@@ -1,6 +1,6 @@
 package com.weaverloft.octopus.configuration;
 
-import com.weaverloft.octopus.basic.menu.service.MenuService;
+import com.weaverloft.octopus.basic.option.menu.service.MenuService;
 import com.weaverloft.octopus.basic.security.CustomUserDetails;
 import org.apache.tiles.Attribute;
 import org.apache.tiles.AttributeContext;

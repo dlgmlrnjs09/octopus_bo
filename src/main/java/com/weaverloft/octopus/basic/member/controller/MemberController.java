@@ -9,8 +9,8 @@ import com.weaverloft.octopus.basic.main.service.FileService;
 import com.weaverloft.octopus.basic.member.service.MemberService;
 import com.weaverloft.octopus.basic.main.vo.FileVo;
 import com.weaverloft.octopus.basic.member.vo.MemberVo;
-import com.weaverloft.octopus.basic.role.service.RoleService;
-import com.weaverloft.octopus.basic.role.vo.RoleVo;
+import com.weaverloft.octopus.basic.option.role.service.RoleService;
+import com.weaverloft.octopus.basic.option.role.vo.RoleVo;
 import com.weaverloft.octopus.basic.security.CustomUserDetails;
 import com.weaverloft.octopus.basic.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,11 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import javax.management.relation.Role;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * @author hyojeong kim

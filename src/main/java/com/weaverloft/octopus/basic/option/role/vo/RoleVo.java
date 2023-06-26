@@ -1,4 +1,4 @@
-package com.weaverloft.octopus.basic.role.vo;
+package com.weaverloft.octopus.basic.option.role.vo;
 
 public class RoleVo {
     private String roleSeq;

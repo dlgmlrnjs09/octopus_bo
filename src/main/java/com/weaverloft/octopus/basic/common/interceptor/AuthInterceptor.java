@@ -1,6 +1,6 @@
 package com.weaverloft.octopus.basic.common.interceptor;
 
-import com.weaverloft.octopus.basic.menu.service.MenuService;
+import com.weaverloft.octopus.basic.option.menu.service.MenuService;
 import com.weaverloft.octopus.basic.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

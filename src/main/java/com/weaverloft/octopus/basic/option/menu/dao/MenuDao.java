@@ -1,4 +1,4 @@
-package com.weaverloft.octopus.basic.menu.dao;
+package com.weaverloft.octopus.basic.option.menu.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 

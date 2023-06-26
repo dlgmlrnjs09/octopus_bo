@@ -4,21 +4,17 @@ import com.weaverloft.octopus.basic.main.service.MainService;
 import com.weaverloft.octopus.basic.member.vo.MemberVo;
 import com.weaverloft.octopus.basic.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,12 +54,15 @@ public class MainController {
     }
 
     @RequestMapping("/login-form")
-    public String loginform(HttpServletRequest request, MemberVo memberVo) {
+    public String loginForm(HttpServletRequest request, MemberVo memberVo) {
         return "/main/login-form.admin";
     }
 
     @RequestMapping("/login-error")
-    public String loginerror(@RequestParam("login_error")String loginError){
+    public String loginError(HttpServletRequest request, Model model){
+        HttpSession session = request.getSession();
+
+        model.addAttribute("msg", session.getAttribute("msg"));
         return "/main/login-error.admin";
     }
 
