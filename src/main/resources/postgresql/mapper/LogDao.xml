@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.option.log.dao.LogDao">
+
+    <!-- 기본 where절 -->
+    <sql id="defaultWhere">
+        <if test="searchKeyword != null and searchKeyword !=''">
+            <if test="type == 'download'">
+                <if test="searchType == 'logId' ">
+                    AND UPPER(download_reg_id) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                </if>
+                <if test="searchType == 'logIp' ">
+                    AND download_log_ip LIKE '%'||UPPER(#{searchKeyword})||'%'
+                </if>
+            </if>
+            <if test="type == 'login'">
+                <if test="searchType == 'logId' ">
+                    AND UPPER(admin_login_id) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                </if>
+                <if test="searchType == 'logIp' ">
+                    AND admin_login_ip LIKE '%'||UPPER(#{searchKeyword})||'%'
+                </if>
+            </if>
+        </if>
+
+        <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp
+        </if>
+
+        <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
+            AND reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
+        </if>
+
+        <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+        </if>
+    </sql>
+
+    <select id="selectLogCount" parameterType="map" resultType="int">
+        SELECT
+            count(*)
+        FROM
+        <if test="type != null and type != ''">
+            <if test="type == 'download'">
+                octopus.download_log
+            </if>
+            <if test="type == 'login'">
+                octopus.admin_login_log
+            </if>
+        </if>
+        WHERE
+            1=1
+        <include refid="defaultWhere"/>
+    </select>
+
+    <select id="selectDownloadList" parameterType="map" resultType="map">
+        SELECT
+            A.*
+        FROM
+            (SELECT
+                download_log_seq AS log_seq,
+                download_reg_id AS log_id,
+                download_log_ip AS log_ip,
+                download_log_reason AS log_reason,
+                TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS reg_dt
+            FROM
+                octopus.download_log
+            WHERE
+                1=1
+            <include refid="defaultWhere"/>
+            ORDER BY
+                reg_dt DESC) A
+        LIMIT
+            #{pagingModel.pageSize}
+        OFFSET
+            (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+    <select id="selectAdminLoginList" parameterType="map" resultType="map">
+        SELECT
+            A.*
+        FROM
+            (SELECT
+                admin_login_log_seq AS log_seq,
+                admin_login_id AS log_id,
+                admin_login_ip AS log_ip,
+                is_success AS is_success,
+                TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS reg_dt
+            FROM
+                octopus.admin_login_log
+            WHERE
+                1=1
+            <include refid="defaultWhere"/>
+            ORDER BY
+                reg_dt DESC) A
+        LIMIT
+            #{pagingModel.pageSize}
+        OFFSET
+            (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+</mapper>
