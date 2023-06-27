@@ -32,6 +32,8 @@ public class OrderServiceImpl implements OrderService{
 
     public int updateReturnDelivery(OrderVo orderVo) { return orderDao.updateReturnDelivery(orderVo); }
 
+    public int updateOrderAddress(OrderVo orderVo) { return orderDao.updateOrderAddress(orderVo); }
+
     public int updateOrderStatus(OrderVo orderVo) { return orderDao.updateOrderStatus(orderVo); }
 
     public List<?> selectExcelOrderList(OrderVo orderVo) { return orderDao.selectExcelOrderList(orderVo); }

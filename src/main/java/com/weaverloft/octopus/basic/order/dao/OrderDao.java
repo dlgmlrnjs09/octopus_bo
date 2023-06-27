@@ -28,6 +28,8 @@ public interface OrderDao {
 
     int updateReturnDelivery(OrderVo orderVo);
 
+    int updateOrderAddress(OrderVo orderVo);
+
     int updateOrderStatus(OrderVo orderVo);
 
     List<?> selectExcelOrderList(OrderVo orderVo);

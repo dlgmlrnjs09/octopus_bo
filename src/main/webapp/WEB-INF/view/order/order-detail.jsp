@@ -7,98 +7,15 @@
 </head>
 <body>
     <script>
-        //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-        function execDaumPostcode() {
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                    // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                    var roadAddr = data.roadAddress; // 도로명 주소 변수
-                    var extraRoadAddr = ''; // 참고 항목 변수
-
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraRoadAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraRoadAddr !== ''){
-                        extraRoadAddr = ' (' + extraRoadAddr + ')';
-                    }
-
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('orderToZipCode').value = data.zonecode;
-                    document.getElementById("orderToAddr1").value = roadAddr;
-                    document.getElementById("orderToAddrDetail").value = '';
-                    document.getElementById("orderToAddrDetail").focus();
-                    // document.getElementById("memberAddr2").value = data.jibunAddress;
-
-                    // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                    if(roadAddr !== ''){
-                        document.getElementById("orderToAddr2").value = extraRoadAddr.trim();
-                    } else {
-                        document.getElementById("orderToAddr2").value = '';
-                    }
-
-                    var guideTextBox = document.getElementById("guide");
-                    // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                    if(data.autoRoadAddress) {
-                        var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                        guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                        guideTextBox.style.display = 'inline-block';
-
-                    } else if(data.autoJibunAddress) {
-                        var expJibunAddr = data.autoJibunAddress;
-                        guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                        guideTextBox.style.display = 'inline-block';
-                    } else {
-                        guideTextBox.innerHTML = '';
-                        guideTextBox.style.display = 'none';
-                    }
-                }
-            }).open();
-        }
-
         $(document).ready(function() {
-
-            let orderToZipCode = $("#orderToZipCode").val();
-            let orderToAddr1 = $("#orderToAddr1").val();
-            let orderToAddr2 = $("#orderToAddr2").val();
-            let orderToAddrDetail = $("#orderToAddrDetail").val();
+            let zipCode = $("#zipCode").val();
+            let addr1 = $("#addr1").val();
+            let addr2 = $("#addr2").val();
+            let addrDetail = $("#addrDetail").val();
 
             if('${returnYn}' == 'Y') {
                 $("#returnDiv").show();
             }
-
-            //수정완료 버튼
-            $("#modifyBtn").click(function() {
-                if(!confirm("수정 하시겠습니까?")) {
-                    return false;
-                }
-
-                $.ajax({
-                    type : "GET",
-                    url : "/order/order-update",
-                    dataType:"text",
-                    data : $("#orderForm").serialize(),
-                    success : function(result){
-                        if(result == 'success') {
-                            alert("수정이 완료되었습니다.");
-                            window.location.reload();
-                        } else if(result == 'fail') {
-                            alert("전화번호 또는 이메일 형식을 다시 확인해주세요.");
-                        } else {
-                            alert("수정에 문제가 생겼습니다.");
-                        }
-                    }
-                });
-            });
 
             //운송장번호 저장 버튼
             $("#saveDelivery").click(function() {
@@ -234,11 +151,12 @@
                     $("#addrDiv1").hide();
                     $("#addrDiv2").css('display', 'inline-block');
                     $("#addrModifyBtn").text('취소');
+                    $("#addrModifySubmitBtn").show();
                 } else {
-                    $("#orderToZipCode").val(orderToZipCode);
-                    $("#orderToAddr1").val(orderToAddr1);
-                    $("#orderToAddr2").val(orderToAddr2);
-                    $("#orderToAddrDetail").val(orderToAddrDetail);
+                    $("#zipCode").val(zipCode);
+                    $("#addr1").val(addr1);
+                    $("#addr2").val(addr2);
+                    $("#addrDetail").val(addrDetail);
 
                     guideTextBox.innerHTML = '';
                     guideTextBox.style.display = 'none';
@@ -246,7 +164,29 @@
                     $("#addrDiv1").css('display', 'inline-block');
                     $("#addrDiv2").hide();
                     $("#addrModifyBtn").text('변경');
+                    $("#addrModifySubmitBtn").hide();
                 }
+            });
+
+            $("#addrModifySubmitBtn").click(function() {
+                if(!confirm("수정 하시겠습니까?")) {
+                    return false;
+                }
+
+                $.ajax({
+                    type : "GET",
+                    url : "/order/order-address-update",
+                    dataType:"text",
+                    data : $("#orderForm").serialize(),
+                    success : function(result){
+                        if(result == 'success') {
+                            alert("수정이 완료되었습니다.");
+                            window.location.reload();
+                        } else {
+                            alert("수정에 문제가 생겼습니다.");
+                        }
+                    }
+                });
             });
 
         });
@@ -382,17 +322,18 @@
                                         <span>${order.orderToAddrFull}</span>
                                     </div>
                                     <div id="addrDiv2" style="display: none;">
-                                        <input type="text" id="orderToZipCode" name="orderToZipCode" placeholder="우편번호" value="${order.orderToZipCode}" readonly>
+                                        <input type="text" id="zipCode" name="orderToZipCode" placeholder="우편번호" value="${order.orderToZipCode}" readonly>
                                         <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
                                         <span id="guide" style="color:#999;display:none"></span>
                                         <br>
-                                        <input type="text" id="orderToAddr1" name="orderToAddr1" placeholder="도로명주소" value="${order.orderToAddr1}" readonly>
-                                        <input type="text" id="orderToAddr2" name="orderToAddr2" placeholder="참고항목" value="${order.orderToAddr2}" readonly>
-                                        <input type="text" id="orderToAddrDetail" name="orderToAddrDetail" placeholder="상세주소" value="${order.orderToAddrDetail}">
+                                        <input type="text" id="addr1" name="orderToAddr1" placeholder="도로명주소" value="${order.orderToAddr1}" readonly>
+                                        <input type="text" id="addr2" name="orderToAddr2" placeholder="참고항목" value="${order.orderToAddr2}" readonly>
+                                        <input type="text" id="addrDetail" name="orderToAddrDetail" placeholder="상세주소" value="${order.orderToAddrDetail}">
                                     </div>
                                     <c:if test="${order.orderStatus eq '상품준비중' || order.orderStatus eq '배송준비중'}">
                                         <!-- 상품준비중 또는 배송준비중 상태가 아닐 경우 수정 불가 -->
                                         <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="addrModifyBtn"><span>변경</span></button>
+                                        <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px; display: none;" class="common-btn" aria-label="title" id="addrModifySubmitBtn"><span>변경</span></button>
                                     </c:if>
                                 </td>
                             </tr>
@@ -505,7 +446,6 @@
 
                         <div style="margin-top: 20px; float: right;">
                             <button type="button" id="toListBtn" style="padding: 10px; font-size: 15px; margin-right: 10px;" class="common-btn" aria-label="title"><span>목록</span></button>
-    <%--                        <button type="button" id="modifyBtn" style="padding: 10px; font-size: 15px;" class="common-btn" aria-label="title"><span>수정</span></button>--%>
                         </div>
                     </section>
                 </div>

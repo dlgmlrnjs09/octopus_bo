@@ -186,6 +186,20 @@ public class OrderController {
         return "success";
     }
 
+    @GetMapping("/order-address-update")
+    @ResponseBody
+    public String updateOrderAddress(Model model, @ModelAttribute OrderVo orderVo) {
+
+        try{
+            orderService.updateOrderAddress(orderVo);
+        }catch (Exception e) {
+            System.out.println(e);
+            return "404";
+        }
+
+        return "success";
+    }
+
     @PostMapping(value = "/order-status-update", produces = "application/text; charset=UTF-8")
     @ResponseBody
     public String updateOrderStatus(Model model, @RequestBody OrderVo orderVo, HttpServletRequest request) {

@@ -319,6 +319,21 @@
             order_seq = #{orderSeq}
     </update>
 
+    <update id="updateOrderAddress" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo">
+        UPDATE
+            octopus.order_info
+        SET
+            <if test="orderToZipCode != null and orderToZipCode != '' and orderToAddr1 != null and orderToAddr1 != ''">
+                order_to_zip_code = #{orderToZipCode},
+                order_to_addr1 = #{orderToAddr1},
+                order_to_addr2 = #{orderToAddr2},
+                order_to_addr_detail = #{orderToAddrDetail},
+            </if>
+            udt_dt = now()
+        WHERE
+            order_seq = #{orderSeq}
+    </update>
+
     <update id="updateOrderStatus" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo">
         UPDATE
             octopus.order_info

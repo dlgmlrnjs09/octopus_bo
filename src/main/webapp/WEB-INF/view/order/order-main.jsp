@@ -6,26 +6,14 @@
 </head>
 <body>
     <script>
-        $.datepicker.setDefaults({
-            dateFormat: 'yy-mm-dd',
-            prevText: '이전 달',
-            nextText: '다음 달',
-            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-            showMonthAfterYear: true,
-            yearSuffix: '년'
-        });
 
-        $(function(){
-            $('.head-area').load("header.html");
+        // datepicker init
+        $(function () {
+            initPrivacyDatePicker($("#startReg"), $("#endReg"));
         });
 
         // 주문 리스트 조회
         function getOrderList(page) {
-
             let startDate = $("#startReg").val();
             let endDate = $("#endReg").val();
             let searchType = $("#searchType").val();
@@ -38,15 +26,6 @@
                    orderStatusList.push($(this).attr("id").split("_")[1]);
                }
             });
-
-            let sDate = new Date(startDate);
-            let eDate = new Date(endDate);
-
-            if(sDate > eDate) {
-                alert("시작 날짜가 종료 날짜보다 클 수 없습니다.");
-                $("#startReg").val(endDate);
-                return false;
-            }
 
             let params = {
                 'curPage' : (page) ? page : '1',
@@ -75,17 +54,6 @@
         // 운송장 일괄 등록 팝업
         $(document).on("click", "#excelDeliveryNoUpload", function() {
             PopupReg1("insert-delivery-list-popup", 650, 400, "popup");
-
-            // var w = 650;    //팝업창의 너비
-            // var h = 400;    //팝업창의 높이
-            // //중앙위치 구해오기
-            // LeftPosition=(screen.width-w)/2;
-            // TopPosition=(screen.height-h)/2;
-            // window.open(
-            //     "insert-member-list-popup",
-            //     "popup",
-            //     "width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=yes");
-            // return false;
         });
 
         // 주문 정보 상세 페이지
@@ -105,7 +73,6 @@
             let searchKeyword = $("#searchKeyword").val();
 
             let sDate = new Date(startDate);
-            let eDate = new Date(endDate);
             let nowDate = new Date();
 
             let orderSeqList = [];
@@ -114,12 +81,6 @@
             nowDate.setMonth(nowDate.getMonth() - 3);
             if(sDate < nowDate) {
                 alert("주문 기간이 3개월 경과된 내역은 다운로드 할 수 없습니다.");
-                return false;
-            }
-
-            if(sDate > eDate) {
-                alert("시작 날짜가 종료 날짜보다 클 수 없습니다.");
-                $("#startReg").val(endDate);
                 return false;
             }
 
@@ -150,7 +111,6 @@
 
         // 주문 상태 변경 버튼
         $(document).on("click", "button[name='orderStatusBtn']", function() {
-
             let btnText = $(this).text();
             let orderStatus = $(this).data("status");
 
@@ -196,7 +156,6 @@
         });
 
         $(document).ready(function() {
-
             //검색 버튼
             $("#searchBtn").click(function() {
                 getOrderList(1);
@@ -212,46 +171,6 @@
             $("input[name='orderStatusSelectAll'], input[name='statusSelect']").change(function() {
                 getOrderList(1);
             });
-
-            $('#startReg').datepicker({
-                onSelect: function (selectDate) {
-                    let orgEndDate = $('#endReg').val();
-                    if (orgEndDate !== '' && orgEndDate != null) {
-                        let endDate = new Date($('#endReg').val());
-                        endDate.setMonth(endDate.getMonth() - 3);
-                        if (!isSameDate(new Date(selectDate), endDate)) {
-                            if (!(new Date(selectDate) >= endDate)) {
-                                alert('날짜의 범위는 3개월을 초과할 수 없습니다.');
-                                $('#startReg').datepicker('setDate', endDate).datepicker('fill');
-                                return false;
-                            }
-                        }
-                    }
-                }
-            });
-
-            $("#endReg").datepicker({
-                onSelect : function (selectDate) {
-                    let orgStartDate = $('#startReg').val();
-                    if (orgStartDate !== '' && orgStartDate != null) {
-                        let startDate = new Date($('#startReg').val());
-                        startDate.setMonth(startDate.getMonth() + 3);
-                        if (!isSameDate(new Date(selectDate), startDate)) {
-                            if (!(new Date(selectDate) < startDate)) {
-                                alert('날짜의 범위는 3개월을 초과할 수 없습니다.');
-                                $('#endReg').datepicker('setDate', startDate);
-                                return false;
-                            }
-                        }
-                    }
-                }
-            });
-
-            const isSameDate = (date1, date2) => {
-                return date1.getFullYear() === date2.getFullYear()
-                    && date1.getMonth() === date2.getMonth()
-                    && date1.getDate() === date2.getDate();
-            };
 
             getOrderList();
         });
@@ -297,8 +216,6 @@
                                                 <span class="border-focus"><i></i></span>
                                             </div>
                                         </div>
-<%--                                        <input type="text" name="startDate" id="startReg" title="등록일자 시작일 입력" value="" autocomplete='off'> ~--%>
-<%--                                        <span id="endD"> <input type="text" name="endDate" id="endReg" title="등록일자 만료일 입력" value="" autocomplete='off'></span>--%>
                                     </div>
                                 </td>
                             </tr>
@@ -314,7 +231,7 @@
                                         </select>
                                         <span class="border-focus"><i></i></span>
                                     </div>
-                                    <input type="text" id="searchKeyword" placeholder="검색어를 입력하세요." style="height: 34px;">
+                                    <input type="text" id="searchKeyword" placeholder="검색어를 입력하세요." style="height: 34px;" value="${searchKeyword}">
                                     <span class="border-focus"><i></i></span>
                                     <button type="button" class="search-btn" id="searchBtn">
                                         <img src="../../asset/img/admin/icon-search.svg" alt="검색하기">
