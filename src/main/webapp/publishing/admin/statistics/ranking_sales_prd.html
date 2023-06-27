@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../asset/css/toastui-chart.min.css">
+    <link rel="stylesheet" href="../../../asset/css/jquery-ui.css">
+    <link rel="stylesheet" href="../../../asset/css/admin/common.css">
+    <link rel="stylesheet" href="../../../asset/css/admin/statistics.css">
+    <script src="../../../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../../../asset/js/prefixfree.min.js"></script>
+    <script src="../../../asset/js/toastui-chart.min.js"></script>
+    <script src="../../../asset/js/jquery-ui.min.js"></script>
+    <title>Octopus</title>
+</head>
+
+<body>
+    <div id="container" class="admin">
+        <div class="head-area"></div>
+        <script>
+            $(function () {
+                $('.head-area').load("../header.html");
+            });
+        </script>
+
+        <!--========== CONTENTS ==========-->
+        <main id="main" class="page-sub page-statistics page-ranking-sales-prd">
+            <div class="admin-section-wrap">
+                <div class="statistics-section-wrap">
+                    <h2 class="page-title">판매상품 순위</h2>
+                    <section class="section search-filter-sec rank-sales-prd-sec">
+                        <h3 class="hidden">검색 조건</h3>
+                        <ul class="search-filter-list">
+                            <li class="period">
+                                <div class="tit">기간</div>
+                                <div class="filter-box-wrap">
+                                    <a href="#none" class="btnDate selected"><span>오늘</span></a>
+                                    <a href="#none" class="btnDate"><span>어제</span></a>
+                                    <a href="#none" class="btnDate"><span>3일</span></a>
+                                    <a href="#none" class="btnDate"><span>7일</span></a>
+                                    <a href="#none" class="btnDate"><span>1개월</span></a>
+                                    <a href="#none" class="btnDate"><span>3개월</span></a>
+                                    <a href="#none" class="btnDate"><span>6개월</span></a>
+                                    <div class="datepicker-box-wrap">
+                                        <div class="input-box datepicker-box">
+                                            <input type="text" class="datepicker">
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                        <span class="mid">-</span>
+                                        <div class="input-box datepicker-box">
+                                            <input type="text" class="datepicker">
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="category">
+                                <div class="tit">상품분류</div>
+                                <div class="filter-box-wrap select-box-wrap">
+                                    <div class="basic-select-box">
+                                        <select>
+                                            <option value="대분류선택">- 대분류선택 -</option>
+                                            <option value="a">a</option>
+                                            <option value="b">b</option>
+                                            <option value="c">c</option>
+                                            <option value="d">d</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <div class="basic-select-box disabled">
+                                        <select disabled>
+                                            <option value="대분류선택">- 중분류선택 -</option>
+                                            <option value="a">a</option>
+                                            <option value="b">b</option>
+                                            <option value="c">c</option>
+                                            <option value="d">d</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <div class="basic-select-box disabled">
+                                        <select disabled>
+                                            <option value="대분류선택">- 소분류선택 -</option>
+                                            <option value="a">a</option>
+                                            <option value="b">b</option>
+                                            <option value="c">c</option>
+                                            <option value="d">d</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <div class="basic-select-box disabled">
+                                        <select disabled>
+                                            <option value="대분류선택">- 상세분류선택 -</option>
+                                            <option value="a">a</option>
+                                            <option value="b">b</option>
+                                            <option value="c">c</option>
+                                            <option value="d">d</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <div class="basic-check-box">
+                                        <input type="checkbox" id="with-sub-sch" tabindex="-1">
+                                        <label for="with-sub-sch" tabindex="0">하위분류 포함검색</label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="product">
+                                <div class="tit">상품</div>
+                                <div class="filter-box-wrap select-box-wrap">
+                                    <div class="basic-select-box">
+                                        <select>
+                                            <option value="상품명">상품명</option>
+                                            <option value="상품코드">상품코드</option>
+                                            <option value="자체상품코드">자체상품코드</option>
+                                            <option value="상품태그">상품태그</option>
+                                            <option value="품목코드">품목코드</option>
+                                            <option value="제조사">제조사</option>
+                                            <option value="공급사">공급사</option>
+                                            <option value="브랜드">브랜드</option>
+                                            <option value="트렌드">트렌드</option>
+                                            <option value="자체분류">자체분류</option>
+                                        </select>
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <div class="input-box text">
+                                        <input type="text" placeholder="">
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <!-- 상품검색 팝업창 오픈 -->
+                                    <button type="button" class="common-btn white search-btn" aria-label="상품검색" onclick="location.href='#none'"><span>상품검색</span></button>
+                                </div>
+                            </li>
+                            <li class="price">
+                                <div class="tit">상품 판매가</div>
+                                <div class="filter-box-wrap input-box-wrap">
+                                    <div class="input-box number">
+                                        <input type="text" name="number" value="0">
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                    <span class="mid">-</span>
+                                    <div class="input-box number">
+                                        <input type="text" name="number" value="0">
+                                        <span class="border-focus"><i></i></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="mall">
+                                <div class="tit">쇼핑몰 구분</div>
+                                <div class="filter-box-wrap radio-box-wrap">
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="mall-all" name="mall" value="mall-all" checked="">
+                                        <label for="mall-all"><span>전체</span></label>
+                                    </div>
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="mall-pc" name="mall" value="mall-pc">
+                                        <label for="mall-pc"><span>PC 쇼핑몰</span></label>
+                                    </div>
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="mall-mo" name="mall" value="mall-mo">
+                                        <label for="mall-mo"><span>모바일 쇼핑몰</span></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="delivery">
+                                <div class="tit">배송 구분</div>
+                                <div class="filter-box-wrap radio-box-wrap">
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="delivery-all" name="delivery" value="delivery-all" checked="">
+                                        <label for="delivery-all"><span>전체</span></label>
+                                    </div>
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="delivery-domestic" name="delivery" value="delivery-domestic">
+                                        <label for="delivery-domestic"><span>국내배송</span></label>
+                                    </div>
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="delivery-overseas" name="delivery" value="delivery-overseas">
+                                        <label for="delivery-overseas"><span>해외배송</span></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="filter-btn"><button type="button" class="common-btn" aria-label="검색" onclick="location.href='#none'"><span>검색</span></button></li>
+                        </ul>
+                    </section>
+                    
+                    <section class="section rank-sales-prd-sec">
+                        <h3 class="hidden">판매상품 순위 테이블</h3>
+                        <div class="sec-title-wrap">
+                            <ul class="tab-menu rank-tab-menu">
+                                <li class="slider"></li>
+                                <li class="tab-link current" data-tab="tab-by-item"><a href="javascript:;"><span>품목별</span></a></li>
+                                <li class="tab-link" data-tab="tab-by-prd"><a href="javascript:;"><span>상품별</span></a></li>
+                        </div>
+                        <div class="tab-container rank-tab-container">
+                            <div class="tab-content-wrap">
+                                <div id="tab-by-item" class="tab-content rank-sales-content current">
+                                    <div class="table-contents-wrap rank-sales-table-wrap">
+                                        <div class="common-table-top">
+                                            <div class="left-wrap">
+                                                <p class="update">업데이트 : 2023.06.14 16:00</p>
+                                            </div>
+                                            <div class="right-wrap">
+                                                <button type="button" class="common-btn excel-download" aria-label="title" onclick="location.href='#none'"><span>엑셀 다운로드</span></button>
+                                                <div class="basic-select-box">
+                                                    <select>
+                                                        <option value="판매수량순">판매수량순</option>
+                                                        <option value="판매가순">판매가순</option>
+                                                        <option value="c">c</option>
+                                                        <option value="d">d</option>
+                                                    </select>
+                                                    <span class="border-focus"><i></i></span>
+                                                </div>
+                                                <div class="basic-select-box">
+                                                    <select>
+                                                        <option value="10개씩 보기">10개씩 보기</option>
+                                                        <option value="30개씩 보기">30개씩 보기</option>
+                                                        <option value="c">c</option>
+                                                        <option value="d">d</option>
+                                                    </select>
+                                                    <span class="border-focus"><i></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="common-table-wrap">
+                                            <table class="common-table rank-sales-by-item">
+                                                <caption class="hidden">품목별 판매상품 순위 테이블</caption>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="cell-th check-th">
+                                                            <div class="basic-check-box all-check-box">
+                                                                <input type="checkbox" name="selectAll" id="selectAll" tabindex="-1">
+                                                                <label for="selectAll" tabindex="0"></label>
+                                                            </div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">순위</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">상품코드</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">상품명 / 옵션</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">판매가</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">재고</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">결제수량</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">환불수량</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">판매수량</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">판매합계</div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="empty">
+                                                        <td colspan="10" class="empty"><p>검색결과가 없습니다.</p></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="cell-td check-td">
+                                                            <div class="basic-check-box">
+                                                                <input type="checkbox" name="select" id="chk01" tabindex="-1" class="chkgroup">
+                                                                <label for="chk01" tabindex="0"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">1</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">AB123CD</div>
+                                                        </td>
+                                                        <td class="cell-td dt-left">
+                                                            <div class="con-td">리얼베리어</div>
+                                                        </td>
+                                                        <td class="cell-td dt-right">
+                                                            <div class="con-td">23,000</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">125</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">143</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">0</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">208</div>
+                                                        </td>
+                                                        <td class="cell-td dt-right">
+                                                            <div class="con-td">4,784,000</div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="common-table-bottom center">
+                                            <div class="pagination-wrap">
+                                                <button class="pagination-btn first" title="첫 페이지">첫 페이지</button>
+                                                <button class="pagination-btn prev" title="이전 페이지">이전 페이지</button>
+                                                <ul class="pagination-list">
+                                                    <li class="current"><button>1</button></li>
+                                                    <li><button>2</button></li>
+                                                    <li><button>3</button></li>
+                                                    <li><button>4</button></li>
+                                                    <li><button>5</button></li>
+                                                </ul>
+                                                <button class="pagination-btn next" title="다음 페이지">다음 페이지</button>
+                                                <button class="pagination-btn last" title="마지막 페이지">마지막 페이지</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-by-prd" class="tab-content rank-sales-content">
+                                    <div class="table-contents-wrap rank-sales-table-wrap">
+                                        <div class="common-table-top">
+                                            <div class="left-wrap">
+                                                <p class="update">업데이트 : 2023.06.26 14:00</p>
+                                            </div>
+                                            <div class="right-wrap">
+                                                <button type="button" class="common-btn excel-download" aria-label="title" onclick="location.href='#none'"><span>엑셀 다운로드</span></button>
+                                                <div class="basic-select-box">
+                                                    <select>
+                                                        <option value="판매수량순">판매수량순</option>
+                                                        <option value="판매가순">판매가순</option>
+                                                        <option value="c">c</option>
+                                                        <option value="d">d</option>
+                                                    </select>
+                                                    <span class="border-focus"><i></i></span>
+                                                </div>
+                                                <div class="basic-select-box">
+                                                    <select>
+                                                        <option value="10개씩 보기">10개씩 보기</option>
+                                                        <option value="30개씩 보기">30개씩 보기</option>
+                                                        <option value="c">c</option>
+                                                        <option value="d">d</option>
+                                                    </select>
+                                                    <span class="border-focus"><i></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="common-table-wrap">
+                                            <table class="common-table rank-sales-by-item">
+                                                <caption class="hidden">상품별 판매상품 순위 테이블</caption>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="cell-th check-th">
+                                                            <div class="basic-check-box all-check-box">
+                                                                <input type="checkbox" name="selectAll" id="selectAll" tabindex="-1">
+                                                                <label for="selectAll" tabindex="0"></label>
+                                                            </div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">순위</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">상품코드</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">상품명 / 옵션</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">판매가</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">재고</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">결제수량</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">환불수량</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">판매수량</div>
+                                                        </th>
+                                                        <th class="cell-th">
+                                                            <div class="con-th">판매합계</div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="empty">
+                                                        <td colspan="10" class="empty"><p>검색결과가 없습니다.</p></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="cell-td check-td">
+                                                            <div class="basic-check-box">
+                                                                <input type="checkbox" name="select" id="chk01" tabindex="-1" class="chkgroup">
+                                                                <label for="chk01" tabindex="0"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">1</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">AB123CD</div>
+                                                        </td>
+                                                        <td class="cell-td dt-left">
+                                                            <div class="con-td">리얼베리어</div>
+                                                        </td>
+                                                        <td class="cell-td dt-right">
+                                                            <div class="con-td">23,000</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">125</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">143</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">0</div>
+                                                        </td>
+                                                        <td class="cell-td">
+                                                            <div class="con-td">208</div>
+                                                        </td>
+                                                        <td class="cell-td dt-right">
+                                                            <div class="con-td">4,784,000</div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="common-table-bottom center">
+                                            <div class="pagination-wrap">
+                                                <button class="pagination-btn first" title="첫 페이지">첫 페이지</button>
+                                                <button class="pagination-btn prev" title="이전 페이지">이전 페이지</button>
+                                                <ul class="pagination-list">
+                                                    <li class="current"><button>1</button></li>
+                                                    <li><button>2</button></li>
+                                                    <li><button>3</button></li>
+                                                    <li><button>4</button></li>
+                                                    <li><button>5</button></li>
+                                                </ul>
+                                                <button class="pagination-btn next" title="다음 페이지">다음 페이지</button>
+                                                <button class="pagination-btn last" title="마지막 페이지">마지막 페이지</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0"><span class="hidden">페이지 맨 위로</span></a>
+        </div>
+    </div>
+    <script src="../../../asset/js/basic.js"></script>
+    <script src="../../../asset/js/basic_admin.js"></script>
+</body>
+
+</html>

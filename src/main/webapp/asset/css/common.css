@@ -90,9 +90,9 @@
 	height: 100%;
 	overflow: hidden;
 }
-.skeleton-img-box .skeleton-loading * {
+.skeleton-img-box .skeleton-loading {
 	background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
-	border-radius: 6px;
+	border-radius: 5px;
 	background-size: 200% 100%;
 	background-position: 100% 0;
 	animation: load 1.5s infinite;
@@ -530,6 +530,9 @@ input[type="checkbox"] + label{
     border-radius: 2px;
 	border: 1px solid var(--sub-color05); 
 	cursor: pointer; 
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .custom-select-box ul.open li.init { 
 	border: 1px solid #666; 
@@ -812,7 +815,7 @@ input[type="checkbox"] + label{
 	font-weight: 500;
 	font-size: 14px;
 	color: var(--point-color);
-	transform: translateY(-1px);
+	transform: translateY(-2px);
 }
 
 /*========== Common Btn ==========*/
@@ -985,7 +988,7 @@ input[type="checkbox"] + label{
 }
 
 /*========== Review-graph ==========*/
-/* .review-graph{} */
+/* .review-graph */
 .review-graph li{
 	display: flex;
 	align-items: center;
@@ -1028,3 +1031,68 @@ input[type="checkbox"] + label{
 .review-graph li:nth-child(3) .review-graph-bar::after{
 	width: 8%;
 }
+
+/*========== Tooltip ==========*/
+.component-sec11 a{margin: 10px;}
+.tooltip-basic{
+	display: inline-block; 
+	position: relative;
+	padding: 7px 16px; 
+	border-radius: 2px; 
+	background-color: var(--point-color);
+	transition: all 0.3s;
+}
+.tooltip-text{
+	font-size: 14px; 
+	line-height: 16px; 
+	color: #fff;
+}
+.tooltip-basic.arrow{padding-right: 35px;}
+.tooltip-basic.arrow .tooltip-text::after{
+	content: ""; 
+	position: absolute; 
+	top: 50%; 
+	right: 12px; 
+	width: 18px; 
+	height: 18px; 
+	background: var(--point-color) url("../img/icon-detail-arrow-w.svg") no-repeat center center; 
+	transform: translateY(-50%) rotate(-90deg);
+	transition: all 0.3s;
+}
+.tooltip-basic::before{
+	content: "";
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background: url("../img/icon-tooltip.svg") no-repeat center center;
+}
+.tooltip-basic.bottom::before{
+	bottom: -7px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.tooltip-basic.left::before{
+	top: 50%;
+	left: -7px;
+	transform: translateY(-50%) rotate(90deg);
+}
+.tooltip-basic.top::before{
+	top: -7px;
+	left: 50%;
+	transform: translateX(-50%) rotate(180deg);
+}
+.tooltip-basic.right::before{
+	top: 50%;
+	right: -7px;
+	transform: translateY(-50%) rotate(-90deg);
+}
+.tooltip-basic:hover{
+	opacity: 0.8;
+}
+.tooltip-basic.arrow:hover .tooltip-text::after{
+	right: 9px;
+}
+/*========== Grid 테이블 공통 스타일 ==========*/
+/* 필수항목표시 */
+.required { position: relative; }
+.required::before { position: absolute; content: ''; width: 6px; height: 6px; background-image: url("../../img/admin/icon-required.svg"); background-repeat: no-repeat; background-size: 6px auto; transform: translate(-7px, 0px); }
