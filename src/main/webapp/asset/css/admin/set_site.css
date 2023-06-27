@@ -55,7 +55,7 @@
    color: #555;
 }
 .set-menu-list .depth1 > li.active > a{
-	background-color: var(--point-color03);
+	background-color: var(--pupple-color03);
    color: #fff;
 }
 .set-menu-list .depth1 > li.active > a > img{
@@ -64,7 +64,7 @@
 .set-menu-list .depth1 > li > .depth2 > li.active > a,
 .set-menu-list .depth1 > li > .depth2 > li > .depth3 > li.active > a{
    font-weight: 700;
-   color: var(--point-color01);
+   color: var(--pupple-color01);
 }
 .set-menu-list .depth1 > li > .depth2 > li.active > a > img,
 .set-menu-list .depth1 > li > .depth2 > li > .depth3 > li.active > a > img{
@@ -72,12 +72,12 @@
 }
 .set-menu-list .depth1 > li > .depth2 > li.active > a::before,
 .set-menu-list .depth1 > li > .depth2 > li > .depth3 > li.active > a::before{
-   color: var(--point-color01);
+   color: var(--pupple-color01);
 }
 .set-menu-list .depth1 > li > .depth2 > li.active > a,
 .set-menu-list .depth1 > li > .depth2 > li > .depth3 > li.active > a{
    font-weight: 700;
-   color: var(--point-color01);
+   color: var(--pupple-color01);
 }
 .set-menu-list .depth1 > li > .depth2 , 
 .set-menu-list .depth1 > li > .depth2 > li > .depth3 {

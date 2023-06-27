@@ -55,11 +55,10 @@
             </section> 
             <!-- component-sec01 끝 -->
 
-            <section class="component-sec component-sec02">
+            <!-- <section class="component-sec component-sec02">
                 <h3>테이블 태그</h3>
                 <table class="common-table">
                     <caption class="hidden">테이블 제목</caption>
-                    <!-- colgroup 대신 css로 적용 -->
                     <thead>
                         <tr>
                             <th>제목1</th>
@@ -73,7 +72,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </section> 
+            </section>  -->
             <!-- component-sec02 끝 -->
 
             <section class="component-sec component-sec03" style="width: 500px;">
@@ -83,6 +82,8 @@
                 <button type="button" class="common-btn" aria-label="title" onclick="location.href='#none'"><span>button 버튼</span></button>
                 <a href="#none" class="common-btn disabled"><span>disabled a 버튼</span></a>
                 <button type="button" class="common-btn disabled" aria-label="title" onclick="location.href='#none'"><span>disabled button 버튼</span></button>
+                
+                <a href="#none" class="common-btn white"><span>a 버튼</span></a>
             </section>
             <!-- component-sec03 끝 -->
 
@@ -254,6 +255,16 @@
                 <h3>select</h3>
                 <div class="basic-select-box">
                     <select>
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                        <option value="c">c</option>
+                        <option value="d">d</option>
+                    </select>
+                    <span class="border-focus"><i></i></span>
+                </div>
+                <br>
+                <div class="basic-select-box disabled">
+                    <select disabled>
                         <option value="a">a</option>
                         <option value="b">b</option>
                         <option value="c">c</option>

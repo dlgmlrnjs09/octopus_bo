@@ -177,14 +177,14 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 .alarm-bubble-box { right: 150px; width: 400px; }
 .alarm-bubble-box .alarm-head {display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center; width: 100%; padding: 16px 24px 20px; border-bottom: 1px solid #E5E5E5;}
 .alarm-bubble-box .alarm-head .title {font-weight: 700; color: #555;}
-.alarm-bubble-box .alarm-head .title .count { display: inline-block; margin-left: 6px; padding: 2px 6px; border-radius: 10px; background-color: #E5E8FB; font-size: 12px; color: var(--point-color02); vertical-align: bottom;}
+.alarm-bubble-box .alarm-head .title .count { display: inline-block; margin-left: 6px; padding: 2px 6px; border-radius: 10px; background-color: #E5E8FB; font-size: 12px; color: var(--pupple-color02); vertical-align: bottom;}
 .alarm-bubble-box .alarm-head .all-btn-wrap button{font-size: 13px; color: #777; transition: color 300ms;}
 .alarm-bubble-box .alarm-head .all-btn-wrap button:hover{color: #333;}
 .alarm-bubble-box .alarm-head .all-btn-wrap .mid-line{display: inline-block; width: 1px; height: 10px; margin: 0 10px; background-color: #aaa;}
 .alarm-bubble-box .alarm-contents {padding: 0 24px 16px;}
 .alarm-bubble-box .alarm-contents li {display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: flex-start; width: 100%; padding: 20px 0 12px; border-bottom: 1px solid #E5E5E5;}
 .alarm-bubble-box .alarm-contents li .dot{ display: inline-block; width: 6px; height: 6px; margin-right: 10px; border-radius: 50%; background-color: #ddd; transform: translateY(5px);}
-.alarm-bubble-box .alarm-contents li.new .dot{ background-color: var(--point-color02);}
+.alarm-bubble-box .alarm-contents li.new .dot{ background-color: var(--pupple-color02);}
 .alarm-bubble-box .alarm-contents li .alarm-content {width: calc(100% - 62px); font-size: 13px;}
 .alarm-bubble-box .alarm-contents li .alarm-content .tit{ font-weight: 700; color: #555;}
 .alarm-bubble-box .alarm-contents li .alarm-content .txt{margin: 8px 0 14px; color: #999;}
@@ -274,9 +274,9 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 .nav .bottom .sub-menu-title > a{ display: flex; flex-flow: row nowrap; align-items: center; justify-content: flex-start; width: 100%; padding: 14px 12px; font-size: 15px; font-weight: 700; color: #555; white-space: nowrap;}
 .nav .bottom .sub-menu-title > a img{width: 24px; height: 24px; margin-right: 8px; transform: rotate(90deg);}
 .nav .bottom .sub-menu .menu > a {display: flex; flex-flow: row nowrap; align-items: center; justify-content: space-between; padding: 10.65px 8px 10.65px 21px; font-size: 15px; font-weight: 500; color: #777; white-space: nowrap; transition: color 300ms;}
-.nav .bottom .sub-menu .menu > a:hover {color: var(--point-color01); transition: color 300ms;}
+.nav .bottom .sub-menu .menu > a:hover {color: var(--pupple-color01); transition: color 300ms;}
 .nav .bottom .sub-menu .menu > a img{width: 18px; height: 18px; transform: rotate(-90deg);}
-.nav .bottom .sub-menu .menu > a.active{ color: var(--point-color01); }
+.nav .bottom .sub-menu .menu > a.active{ color: var(--pupple-color01); }
 .nav .bottom .sub-menu .menu > a.active img {transform: rotate(0);}
 .nav .bottom .sub-menu .menu-3depth{display: none; background-color: #FBFBFB; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5;}
 .nav .bottom .sub-menu .menu-3depth li a{ display: block; padding: 10.75px 20px; font-size: 14px; color: #777;}
@@ -315,3 +315,4 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 @media screen and (max-width: 1614px){
 	.admin-section-wrap {width: 100%; margin: 20px auto 0;  padding: 0 14px; }
 }
+.page-title { margin-bottom: 16px; font-size: 24px; font-weight: 700; color: #222;}
