@@ -1114,7 +1114,8 @@ input[type="checkbox"] + label{
 /* common-table contents */
 .common-table tr.empty td{ height: 64px; }
 .common-table tr.empty td p{ width: fit-content; margin: 0 auto; padding-left: 30px; background-image: url('../../img/admin/icon-info.svg'); background-repeat: no-repeat; background-size: 24px 24px; background-position: left center;}
-.common-table .basic-check-box input[type="checkbox"] + label::before{ margin: 0;}
+/*.common-table .basic-check-box input[type="checkbox"] + label::before{ margin: 0;}*/
+.common-table .basic-check-box .table-check-box + label::before{ margin: 0;}
 /* 필수항목표시 */
 .required { position: relative; }
 .required::before { position: absolute; content: ''; width: 6px; height: 6px; background-image: url("../../img/admin/icon-required.svg"); background-repeat: no-repeat; background-size: 6px auto; transform: translate(-7px, 0px); }

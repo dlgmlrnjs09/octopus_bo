@@ -49,401 +49,434 @@
     .ck-editor__editable {
         height: 30vh;
     }
+
+    .option-th {
+        background-color: #F6F6FC !important;
+        border: 1px solid #E8E8F1;
+    }
+
+    .option-td {
+        border: 1px solid #E8E8F1;
+    }
 </style>
 <main id="main" class="page-home">
     <div class="admin-section-wrap">
-        <div class="home-section-wrap">
-            <div>
-                <h2 class="sec-title">상품 관리</h2>
-                <p class="txt">상품 정보 상세조회</p>
-            </div>
-        </div>
         <form id="frm" name="frm">
             <input type="hidden" id="product-seq" name="productSeq" value="${productDetailInfo.product_seq}"/>
             <div class="home-section-wrap">
                 <section class="section home-sec">
                     <%--<input type="hidden" id="memberSeq" name="memberSeq" value="${member.memberSeq}">--%>
-                    <table class="common-table" summary="상품상세정보" style="width:100%;">
+                    <table class="common-table" summary="상품상세정보">
                         <colgroup>
                             <col width="15%">
                             <col width="85%">
                         </colgroup>
                         <tbody>
                         <tr>
-                            <th scope="row"><em>상품명</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div class="input-box-wrap">
-                                    <div class="input-box text">
-                                        <input type="text" id="name" name="product_name" value="${productDetailInfo.product_name}">
-                                        <span class="border-focus"><i></i></span>
+                            <th class="row-th" scope="row"><div class="con-th">상품명</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="input-box-wrap">
+                                        <div class="input-box text">
+                                            <input type="text" id="name" name="product_name" value="${productDetailInfo.product_name}">
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><em>카테고리</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div id="category-div-wrap">
-                                    <div class="basic-select-box">
-                                        <div class="select-box-desc">
-                                            <h2>1차 카테고리</h2>
+                            <th class="row-th" scope="row"><div class="con-th">카테고리</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div id="category-div-wrap">
+                                        <div class="basic-select-box">
+                                            <div class="select-box-desc">
+                                                <h2>1차 카테고리</h2>
+                                            </div>
+                                            <select size="10" id="category-select-first" class="category-select-box" data-depth="1">
+                                                <c:choose>
+                                                    <c:when test="${regType == 'insert'}">
+                                                        <c:forEach items="${topCategoryList}" var="category">
+                                                            <option value="${category.product_category_seq}">${category.product_category_nm}</option>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:forEach items="${hierarchicalCategoryList[0].list}" var="category">
+                                                            <option value="${category.product_category_seq}"
+                                                                <c:if test="${hierarchicalCategoryList[0].seq == category.product_category_seq}">
+                                                                    selected
+                                                                </c:if>>
+                                                                ${category.product_category_nm}
+                                                            </option>
+                                                        </c:forEach>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </select>
+                                            <span class="border-focus"><i></i></span>
                                         </div>
-                                        <select size="10" id="category-select-first" class="category-select-box" data-depth="1">
-                                            <c:choose>
-                                                <c:when test="${regType == 'insert'}">
-                                                    <c:forEach items="${topCategoryList}" var="category">
-                                                        <option value="${category.product_category_seq}">${category.product_category_nm}</option>
-                                                    </c:forEach>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:forEach items="${hierarchicalCategoryList[0].list}" var="category">
+                                        <div class="basic-select-box" style="margin: 0 5%">
+                                            <div class="select-box-desc">
+                                                <h2>2차 카테고리</h2>
+                                            </div>
+                                            <select id="category-select-second" size="10" class="category-select-box" data-depth="2">
+                                                <c:if test="${regType == 'update'}">
+                                                    <c:forEach items="${hierarchicalCategoryList[1].list}" var="category">
                                                         <option value="${category.product_category_seq}"
-                                                            <c:if test="${hierarchicalCategoryList[0].seq == category.product_category_seq}">
+                                                            <c:if test="${hierarchicalCategoryList[1].seq == category.product_category_seq}">
                                                                 selected
                                                             </c:if>>
                                                             ${category.product_category_nm}
                                                         </option>
                                                     </c:forEach>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </select>
-                                        <span class="border-focus"><i></i></span>
-                                    </div>
-                                    <div class="basic-select-box" style="margin: 0 5%">
-                                        <div class="select-box-desc">
-                                            <h2>2차 카테고리</h2>
+                                                </c:if>
+                                            </select>
+                                            <span class="border-focus"><i></i></span>
                                         </div>
-                                        <select id="category-select-second" size="10" class="category-select-box" data-depth="2">
-                                            <c:if test="${regType == 'update'}">
-                                                <c:forEach items="${hierarchicalCategoryList[1].list}" var="category">
-                                                    <option value="${category.product_category_seq}"
-                                                        <c:if test="${hierarchicalCategoryList[1].seq == category.product_category_seq}">
-                                                            selected
-                                                        </c:if>>
-                                                        ${category.product_category_nm}
-                                                    </option>
-                                                </c:forEach>
-                                            </c:if>
-                                        </select>
-                                        <span class="border-focus"><i></i></span>
-                                    </div>
-                                    <div class="basic-select-box">
-                                        <div class="select-box-desc">
-                                            <h2>3차 카테고리</h2>
+                                        <div class="basic-select-box">
+                                            <div class="select-box-desc">
+                                                <h2>3차 카테고리</h2>
+                                            </div>
+                                            <select id="category-select-third" size="10" name="category_seq" class="category-select-box" data-depth="3">
+                                                <c:if test="${regType == 'update'}">
+                                                    <c:forEach items="${hierarchicalCategoryList[2].list}" var="category">
+                                                        <option value="${category.product_category_seq}"
+                                                            <c:if test="${hierarchicalCategoryList[2].seq == category.product_category_seq}">
+                                                                selected
+                                                            </c:if>>
+                                                            ${category.product_category_nm}
+                                                        </option>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </select>
+                                            <span class="border-focus"><i></i></span>
                                         </div>
-                                        <select id="category-select-third" size="10" name="category_seq" class="category-select-box" data-depth="3">
-                                            <c:if test="${regType == 'update'}">
-                                                <c:forEach items="${hierarchicalCategoryList[2].list}" var="category">
-                                                    <option value="${category.product_category_seq}"
-                                                        <c:if test="${hierarchicalCategoryList[2].seq == category.product_category_seq}">
-                                                            selected
-                                                        </c:if>>
-                                                        ${category.product_category_nm}
-                                                    </option>
-                                                </c:forEach>
-                                            </c:if>
-                                        </select>
-                                        <span class="border-focus"><i></i></span>
                                     </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><em>옵션</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div class="radio-box-wrap">
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="has_option" name="is_has_option" value="true" <c:if test="${productDetailInfo.is_has_option == true}">checked</c:if>>
-                                        <label for="has_option"><span>설정함</span></label>
+                            <th class="row-th" scope="row"><div class="con-th">옵션</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="radio-box-wrap">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="has_option" name="is_has_option" value="true" <c:if test="${productDetailInfo.is_has_option == true}">checked</c:if>>
+                                            <label for="has_option"><span>설정함</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="has_not_option" name="is_has_option" value="false" <c:if test="${productDetailInfo.is_has_option == false or regType == 'insert'}">checked</c:if>>
+                                            <label for="has_not_option"><span>설정안함</span></label>
+                                        </div>
                                     </div>
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="has_not_option" name="is_has_option" value="false" <c:if test="${productDetailInfo.is_has_option == false or regType == 'insert'}">checked</c:if>>
-                                        <label for="has_not_option"><span>설정안함</span></label>
+                                    <div id="option-table-div" <c:if test="${regType == 'insert' or productDetailInfo.is_has_option == 'false'}">class="hidden"</c:if>>
+                                        <hr/>
+                                            <table class="common-table">
+                                            <colgroup>
+                                                <col width="15%">
+                                                <col width="85%">
+                                            </colgroup>
+                                            <tr>
+                                                <th class="row-th" scope="row"><div class="con-th">옵션 수</div></th>
+                                                <td class="cell-td dt-left">
+                                                    <div class="con-td">
+                                                        <div class="basic-select-box">
+                                                            <select id="option-count-select">
+                                                                <option value="1" <c:if test="${fn:length(productOptionList) == 1}">selected</c:if> >1개</option>
+                                                                <option value="2" <c:if test="${fn:length(productOptionList) == 2}">selected</c:if> >2개</option>
+                                                                <option value="3" <c:if test="${fn:length(productOptionList) == 3}">selected</c:if> >3개</option>
+                                                            </select>
+                                                            <span class="border-focus"><i></i></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-th" scope="row"><div class="con-th">옵션 입력</div></th>
+                                                <td class="cell-td dt-left">
+                                                    <div class="con-td">
+                                                        <div id="option_input_wrap">
+                                                            <div class="input-box-wrap" data-index="1">
+                                                                <input type="hidden" class="option-seq" value="${productOptionList[0].option_seq}">
+                                                                <div class="input-box text option-name-div">
+                                                                    <input type="text" class="option-name-input" name="option_name" placeholder="옵션명 (예시: 컬러)" value="${productOptionList[0].option_name}">
+                                                                    <span class="border-focus"><i></i></span>
+                                                                </div>
+                                                                <div class="input-box text option-value-div">
+                                                                    <input type="text" class="option-value-input" name="option_value" placeholder="옵션값 (예시: 빨강,노랑,초록)" value="${productOptionList[0].option_detail_name_arr}">
+                                                                    <span class="border-focus"><i></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="input-box-wrap <c:if test='${fn:length(productOptionList) < 2}'> hidden </c:if>" data-index="2">
+                                                                <input type="hidden" class="option-seq" value="${productOptionList[1].option_seq}">
+                                                                <div class="input-box text option-name-div">
+                                                                    <input type="text" class="option-name-input" name="option_name" placeholder="옵션명 (예시: 컬러)" value="${productOptionList[1].option_name}">
+                                                                    <span class="border-focus"><i></i></span>
+                                                                </div>
+                                                                <div class="input-box text option-value-div">
+                                                                    <input type="text" class="option-value-input" name="option_value" placeholder="옵션값 (예시: 빨강,노랑,초록)" value="${productOptionList[1].option_detail_name_arr}">
+                                                                    <span class="border-focus"><i></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="input-box-wrap <c:if test='${fn:length(productOptionList) < 3}'> hidden </c:if>" data-index="3">
+                                                                <input type="hidden" class="option-seq" value="${productOptionList[2].option_seq}">
+                                                                <div class="input-box text option-name-div">
+                                                                    <input type="text" class="option-name-input" name="option_name" placeholder="옵션명 (예시: 컬러)" value="${productOptionList[2].option_name}">
+                                                                    <span class="border-focus"><i></i></span>
+                                                                </div>
+                                                                <div class="input-box text option-value-div">
+                                                                    <input type="text" class="option-value-input" name="option_value" placeholder="옵션값 (예시: 빨강,노랑,초록)" value="${productOptionList[2].option_detail_name_arr}">
+                                                                    <span class="border-focus"><i></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <div id="convert-option-list-wrap">
+                                                                <div class="input-box text" style="width:100%">
+                                                                    <button type="button" id="convert-option-list-btn" class="common-btn" aria-label="title" onclick="location.href='#none'" style="width: 100%;"><span style="font-size: 15px;">옵션목록으로 적용 ▼</span></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-th" scope="row"><div class="con-th">옵션 목록</div></th>
+                                                <td class="cell-td dt-left">
+                                                    <div class="con-td">
+                                                        <div id="option-list-table-div">
+                                                            <table id="option-list-table" class="common-table" summary="옵션목록">
+                                                                <colgroup>
+                                                                    <c:choose>
+                                                                        <c:when test="${regType == 'insert'}">
+                                                                            <col width="54%">
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <col width="${54 / fn:length(productOptionList)}%">
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                    <col width="23%">
+                                                                    <col width="23%">
+                                                                </colgroup>
+                                                                <tr style="background-color: #ebebeb">
+                                                                    <td class="option-th" colspan="${fn:length(productOptionList)}">옵션명</td>
+                                                                    <td class="option-th" rowspan="2">옵션가</td>
+                                                                    <td class="option-th" rowspan="2">재고수량</td>
+                                                                </tr>
+                                                                <tr id="option-name-tr">
+                                                                    <c:forEach var="productOptionList" items="${productOptionList}">
+                                                                        <td style="background-color: #ebebeb; border: 1px solid #E8E8F1;">${productOptionList.option_name}</td>
+                                                                    </c:forEach>
+                                                                </tr>
+                                                                <input type="hidden" id="isOptionUpdateYn" name="isOptionUpdateYn" value="<c:choose><c:when test='${empty productCombinationOptionList}'>N</c:when><c:otherwise>Y</c:otherwise></c:choose>">
+                                                                <c:forEach var="combinationOption" items="${productCombinationOptionList}">
+                                                                    <tr class="option-list-tr">
+                                                                        <input type="hidden" class="option_combine_seq" value="${combinationOption.option_combine_seq}">
+                                                                        <c:if test="${not empty combinationOption.option_detail_name_1}"><td class="option-td">${combinationOption.option_detail_name_1}</td></c:if>
+                                                                        <c:if test="${not empty combinationOption.option_detail_name_2}"><td class="option-td">${combinationOption.option_detail_name_2}</td></c:if>
+                                                                        <c:if test="${not empty combinationOption.option_detail_name_3}"><td class="option-td">${combinationOption.option_detail_name_3}</td></c:if>
+                                                                        <td class="option-td"><div class="input-box text"><input type="number" class="option-price" value="${combinationOption.additional_price}"></div></td>
+                                                                        <td class="option-td"><div class="input-box text"><input type="number" class="option-stock" value="${combinationOption.stock}"></div></td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <hr/>
                                     </div>
-                                </div>
-                                <div id="option-table-div" <c:if test="${regType == 'insert' or productDetailInfo.is_has_option == 'false'}">class="hidden"</c:if>>
-                                    <hr/>
-                                        <table width="100%">
-                                        <colgroup>
-                                            <col width="15%">
-                                            <col width="85%">
-                                        </colgroup>
-                                        <tr>
-                                            <th>옵션 수</th>
-                                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                                <div class="basic-select-box" style="width: 20%; height: auto">
-                                                    <select id="option-count-select">
-                                                        <option value="1" <c:if test="${fn:length(productOptionList) == 1}">selected</c:if> >1개</option>
-                                                        <option value="2" <c:if test="${fn:length(productOptionList) == 2}">selected</c:if> >2개</option>
-                                                        <option value="3" <c:if test="${fn:length(productOptionList) == 3}">selected</c:if> >3개</option>
-                                                    </select>
-                                                    <span class="border-focus"><i></i></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>옵션 입력</th>
-                                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                                <div id="option_input_wrap">
-                                                    <div class="input-box-wrap" data-index="1">
-                                                        <input type="hidden" class="option-seq" value="${productOptionList[0].option_seq}">
-                                                        <div class="input-box text option-name-div">
-                                                            <input type="text" class="option-name-input" name="option_name" placeholder="옵션명 (예시: 컬러)" value="${productOptionList[0].option_name}">
-                                                            <span class="border-focus"><i></i></span>
-                                                        </div>
-                                                        <div class="input-box text option-value-div">
-                                                            <input type="text" class="option-value-input" name="option_value" placeholder="옵션값 (예시: 빨강,노랑,초록)" value="${productOptionList[0].option_detail_name_arr}">
-                                                            <span class="border-focus"><i></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="input-box-wrap <c:if test='${fn:length(productOptionList) < 2}'> hidden </c:if>" data-index="2">
-                                                        <input type="hidden" class="option-seq" value="${productOptionList[1].option_seq}">
-                                                        <div class="input-box text option-name-div">
-                                                            <input type="text" class="option-name-input" name="option_name" placeholder="옵션명 (예시: 컬러)" value="${productOptionList[1].option_name}">
-                                                            <span class="border-focus"><i></i></span>
-                                                        </div>
-                                                        <div class="input-box text option-value-div">
-                                                            <input type="text" class="option-value-input" name="option_value" placeholder="옵션값 (예시: 빨강,노랑,초록)" value="${productOptionList[1].option_detail_name_arr}">
-                                                            <span class="border-focus"><i></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="input-box-wrap <c:if test='${fn:length(productOptionList) < 3}'> hidden </c:if>" data-index="3">
-                                                        <input type="hidden" class="option-seq" value="${productOptionList[2].option_seq}">
-                                                        <div class="input-box text option-name-div">
-                                                            <input type="text" class="option-name-input" name="option_name" placeholder="옵션명 (예시: 컬러)" value="${productOptionList[2].option_name}">
-                                                            <span class="border-focus"><i></i></span>
-                                                        </div>
-                                                        <div class="input-box text option-value-div">
-                                                            <input type="text" class="option-value-input" name="option_value" placeholder="옵션값 (예시: 빨강,노랑,초록)" value="${productOptionList[2].option_detail_name_arr}">
-                                                            <span class="border-focus"><i></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div id="convert-option-list-wrap">
-                                                        <div class="input-box text" style="width:100%">
-                                                            <button type="button" id="convert-option-list-btn" class="common-btn" aria-label="title" onclick="location.href='#none'" style="width: 100%;"><span style="font-size: 15px;">옵션목록으로 적용 ▼</span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>옵션 목록</th>
-                                            <td>
-                                                <div id="option-list-table-div">
-                                                    <table id="option-list-table" class="" summary="옵션목록" style="width:100%;">
-                                                        <colgroup>
-                                                            <c:choose>
-                                                                <c:when test="${regType == 'insert'}">
-                                                                    <col width="54%">
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <col width="${54 / fn:length(productOptionList)}%">
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                            <col width="23%">
-                                                            <col width="23%">
-                                                        </colgroup>
-                                                        <tr style="background-color: #ebebeb">
-                                                            <td colspan="${fn:length(productOptionList)}">옵션명</td>
-                                                            <td rowspan="2">옵션가</td>
-                                                            <td rowspan="2">재고수량</td>
-                                                        </tr>
-                                                        <tr id="option-name-tr">
-                                                            <c:forEach var="productOptionList" items="${productOptionList}">
-                                                                <td style="background-color: #ebebeb">${productOptionList.option_name}</td>
-                                                            </c:forEach>
-                                                        </tr>
-                                                        <input type="hidden" id="isOptionUpdateYn" name="isOptionUpdateYn" value="<c:choose><c:when test='${empty productCombinationOptionList}'>N</c:when><c:otherwise>Y</c:otherwise></c:choose>">
-                                                        <c:forEach var="combinationOption" items="${productCombinationOptionList}">
-                                                            <tr class="option-list-tr">
-                                                                <input type="hidden" class="option_combine_seq" value="${combinationOption.option_combine_seq}">
-                                                                <c:if test="${not empty combinationOption.option_detail_name_1}"><td>${combinationOption.option_detail_name_1}</td></c:if>
-                                                                <c:if test="${not empty combinationOption.option_detail_name_2}"><td>${combinationOption.option_detail_name_2}</td></c:if>
-                                                                <c:if test="${not empty combinationOption.option_detail_name_3}"><td>${combinationOption.option_detail_name_3}</td></c:if>
-                                                                <td><input type="number" class="option-price" value="${combinationOption.additional_price}"></td>
-                                                                <td><input type="number" class="option-stock" value="${combinationOption.stock}"></td>
-                                                            </tr>
-                                                        </c:forEach>
-                                                    </table>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <hr/>
                                 </div>
                             </td>
                         </tr>
                         <!-- 옵션 설정 안했을때만 보여주기 -->
                         <tr>
-                            <th scope="row"><em>재고</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div class="input-box-wrap">
-                                    <div class="input-box text">
-                                        <input type="text" id="stock" name="product_stock" <c:if test="${productDetailInfo.is_has_option == true}"> disabled</c:if> <c:if test="${productDetailInfo.is_has_option == false}">value="${productDetailInfo.product_stock}"</c:if> >
-                                        <span class="border-focus"><i></i></span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><em>가격</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div class="input-box-wrap">
-                                    <div class="input-box text">
-                                        <input type="text" id="price" name="product_price" value="${productDetailInfo.product_price}">
-                                        <span class="border-focus"><i></i></span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><em>할인</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div class="radio-box-wrap">
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="is_discount" name="is_discount" value="true" <c:if test="${productDetailInfo.is_discount == true}">checked</c:if> >
-                                        <label for="is_discount"><span>설정함</span></label>
-                                    </div>
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="is_not_discount" name="is_discount" value="false" <c:if test="${productDetailInfo.is_discount == false or regType == 'insert'}">checked</c:if>>
-                                        <label for="is_not_discount"><span>설정안함</span></label>
-                                    </div>
-                                    <div id="discount-price-wrap" <c:if test="${productDetailInfo.is_discount == false or regType == 'insert'}">class="hidden"</c:if> >
-                                        <hr/>
-                                        <span>할인된 금액 : </span>
-                                        <div class="input-box text" style="width: 20%; display: inline-block;">
-                                            <input type="text" id="discount_price" name="discount_price" <c:if test="${productDetailInfo.is_discount == true}">value="${productDetailInfo.discount_price}"</c:if> >
+                            <th class="row-th" scope="row"><div class="con-th">재고</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="input-box-wrap">
+                                        <div class="input-box text">
+                                            <input type="text" id="stock" name="product_stock" <c:if test="${productDetailInfo.is_has_option == true}"> disabled</c:if> <c:if test="${productDetailInfo.is_has_option == false}">value="${productDetailInfo.product_stock}"</c:if> >
                                             <span class="border-focus"><i></i></span>
                                         </div>
-                                        원
                                     </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><em>배송비</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div class="radio-box-wrap">
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="free" name="delivery_condition" value="free" <c:if test="${productDetailInfo.delivery_charge == 0 or regType == 'insert'}">checked</c:if> >
-                                        <label for="free"><span>무료</span></label>
-                                    </div>
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="condition" name="delivery_condition" value="condition" <c:if test="${productDetailInfo.is_use_conditional_delivery == true}">checked</c:if> >
-                                        <label for="condition"><span>조건부 무료</span></label>
-                                    </div>
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="charge" name="delivery_condition" value="charge" <c:if test="${productDetailInfo.is_use_conditional_delivery == false and productDetail.delivery_charge > 0}">checked</c:if> >
-                                        <label for="charge"><span>유료</span></label>
-                                    </div>
-                                    <div id="delivery_condition_wrap" <c:if test="${productDetailInfo.delivery_charge == 0 or productDetailInfo.is_use_conditional_delivery == false or regType == 'insert'}"> class="hidden" </c:if> >
-                                        <hr/>
-                                        기본 배송비 :
-                                        <div class="input-box text" style="width: 20%; display: inline-block;">
-                                            <input type="text" class="default-delivery-charge" name="default_delivery_charge_conditional" value="${productDetailInfo.delivery_charge}">
+                            <th class="row-th" scope="row"><div class="con-th">가격</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="input-box-wrap">
+                                        <div class="input-box text">
+                                            <input type="text" id="price" name="product_price" value="${productDetailInfo.product_price}">
                                             <span class="border-focus"><i></i></span>
                                         </div>
-                                        원
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="row-th" scope="row"><div class="con-th">할인</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="radio-box-wrap">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is_discount" name="is_discount" value="true" <c:if test="${productDetailInfo.is_discount == true}">checked</c:if> >
+                                            <label for="is_discount"><span>설정함</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is_not_discount" name="is_discount" value="false" <c:if test="${productDetailInfo.is_discount == false or regType == 'insert'}">checked</c:if>>
+                                            <label for="is_not_discount"><span>설정안함</span></label>
+                                        </div>
+                                        <div id="discount-price-wrap" <c:if test="${productDetailInfo.is_discount == false or regType == 'insert'}">class="hidden"</c:if> >
+                                            <hr/>
+                                            <span>할인된 금액 : </span>
+                                            <div class="input-box text" style="width: 20%; display: inline-block;">
+                                                <input type="text" id="discount_price" name="discount_price" <c:if test="${productDetailInfo.is_discount == true}">value="${productDetailInfo.discount_price}"</c:if> >
+                                                <span class="border-focus"><i></i></span>
+                                            </div>
+                                            원
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="row-th" scope="row"><div class="con-th">배송비</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="radio-box-wrap">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="free" name="delivery_condition" value="free" <c:if test="${productDetailInfo.delivery_charge == 0 or regType == 'insert'}">checked</c:if> >
+                                            <label for="free"><span>무료</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="condition" name="delivery_condition" value="condition" <c:if test="${productDetailInfo.is_use_conditional_delivery == true}">checked</c:if> >
+                                            <label for="condition"><span>조건부 무료</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="charge" name="delivery_condition" value="charge" <c:if test="${productDetailInfo.is_use_conditional_delivery == false and productDetailInfo.delivery_charge > 0}">checked</c:if> >
+                                            <label for="charge"><span>유료</span></label>
+                                        </div>
+                                        <div id="delivery_condition_wrap" <c:if test="${productDetailInfo.delivery_charge == 0 or productDetailInfo.is_use_conditional_delivery == false or regType == 'insert'}"> class="hidden" </c:if> >
+                                            <hr/>
+                                            기본 배송비 :
+                                            <div class="input-box text" style="width: 20%; display: inline-block;">
+                                                <input type="text" class="default-delivery-charge" name="default_delivery_charge_conditional" value="${productDetailInfo.delivery_charge}">
+                                                <span class="border-focus"><i></i></span>
+                                            </div>
+                                            원
+                                            <hr/>
+                                            배송비 조건 :
+                                            <div class="input-box text" style="width: 20%; display: inline-block;">
+                                                <input type="text" class="condition-delivery-charge" name="condition_delivery_charge" value="${productDetailInfo.conditional_delivery_price}">
+                                                <span class="border-focus"><i></i></span>
+                                            </div>
+                                            원 이상 주문시 무료
+                                        </div>
+                                        <div id="delivery_charge_wrap" <c:if test="${productDetailInfo.delivery_charge == 0 or productDetailInfo.is_use_conditional_delivery == true or regType == 'insert'}"> class="hidden" </c:if> >
+                                            <hr/>
+                                            기본 배송비 :
+                                            <div class="input-box text" style="width: 20%; display: inline-block;">
+                                                <input type="text" class="default-delivery-charge" name="default_delivery_charge" value="${productDetailInfo.delivery_charge}">
+                                                <span class="border-focus"><i></i></span>
+                                            </div>
+                                            원
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="row-th" scope="row"><div class="con-th">대표 이미지</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="row-th" scope="row"><div class="con-th">상품 상세설명</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <label for="editor"></label><textarea id="editor" name="product_description">${productDetailInfo.product_description}</textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="row-th" scope="row"><div class="con-th">구매 포인트</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="radio-box-wrap">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is_pay_but_point" name="is_pay_buy_point" value="true" <c:if test="${productDetailInfo.is_pay_buy_point == true}">checked</c:if> >
+                                            <label for="is_pay_but_point"><span>설정함</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is_not_pay_buy_point" name="is_pay_buy_point" value="false" <c:if test="${productDetailInfo.is_pay_buy_point == false or regType == 'insert'}">checked</c:if>>
+                                            <label for="is_not_pay_buy_point"><span>설정안함</span></label>
+                                        </div>
+                                    </div>
+                                    <div id="pay-buy-point-wrap" <c:if test="${productDetailInfo.is_pay_buy_point == false or regType == 'insert'}">class="hidden"</c:if> >
                                         <hr/>
-                                        배송비 조건 :
+                                        지급 포인트 :
                                         <div class="input-box text" style="width: 20%; display: inline-block;">
-                                            <input type="text" class="condition-delivery-charge" name="condition_delivery_charge" value="${productDetailInfo.conditional_delivery_price}">
+                                            <input type="text" class="pay_buy_point" name="pay_buy_point" value="${productDetailInfo.product_buy_point}">
                                             <span class="border-focus"><i></i></span>
                                         </div>
-                                        원 이상 주문시 무료
+                                        포인트
                                     </div>
-                                    <div id="delivery_charge_wrap" <c:if test="${productDetailInfo.delivery_charge == 0 or productDetailInfo.is_use_conditional_delivery == true or regType == 'insert'}"> class="hidden" </c:if> >
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="row-th" scope="row"><div class="con-th">텍스트리뷰 포인트</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="radio-box-wrap">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is_pay_normal_review_point" name="is_pay_normal_review_point" value="true" <c:if test="${productDetailInfo.is_pay_normal_review_point == true}">checked</c:if> >
+                                            <label for="is_pay_normal_review_point"><span>설정함</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is_not_pay_normal_review_point" name="is_pay_normal_review_point" value="false" <c:if test="${productDetailInfo.is_pay_normal_review_point == false or regType == 'insert'}">checked</c:if> >
+                                            <label for="is_not_pay_normal_review_point"><span>설정안함</span></label>
+                                        </div>
+                                    </div>
+                                    <div id="pay-normal-review-point-wrap" <c:if test="${productDetailInfo.is_pay_normal_review_point == false or regType == 'insert'}">class="hidden"</c:if> >
                                         <hr/>
-                                        기본 배송비 :
+                                        지급 포인트 :
                                         <div class="input-box text" style="width: 20%; display: inline-block;">
-                                            <input type="text" class="default-delivery-charge" name="default_delivery_charge" value="${productDetailInfo.delivery_charge}">
+                                            <input type="text" class="pay_normal_review_point" name="pay_normal_review_point" value="${productDetailInfo.product_normal_review_point}">
                                             <span class="border-focus"><i></i></span>
                                         </div>
-                                        원
+                                        포인트
                                     </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><em>대표 이미지</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" style="border-bottom-left-radius: 6px;"><em>상품 상세설명</em></th>
-                            <td style="cursor: default;">
-                                <label for="editor"></label><textarea id="editor" name="product_description">${productDetailInfo.product_description}</textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><em>구매 포인트</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div class="radio-box-wrap">
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="is_pay_but_point" name="is_pay_buy_point" value="true" <c:if test="${productDetailInfo.is_pay_buy_point == true}">checked</c:if> >
-                                        <label for="is_pay_but_point"><span>설정함</span></label>
+                            <th class="row-th" scope="row"><div class="con-th">미디어리뷰 포인트</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="radio-box-wrap">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is_pay_media_review_point" name="is_pay_media_review_point" value="true" <c:if test="${productDetailInfo.is_pay_media_review_point == true}">checked</c:if> >
+                                            <label for="is_pay_media_review_point"><span>설정함</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is_not_pay_media_review_point" name="is_pay_media_review_point" value="false" <c:if test="${productDetailInfo.is_pay_media_review_point == false or regType == 'insert'}">checked</c:if> >
+                                            <label for="is_not_pay_media_review_point"><span>설정안함</span></label>
+                                        </div>
                                     </div>
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="is_not_pay_buy_point" name="is_pay_buy_point" value="false" <c:if test="${productDetailInfo.is_pay_buy_point == false or regType == 'insert'}">checked</c:if>>
-                                        <label for="is_not_pay_buy_point"><span>설정안함</span></label>
+                                    <div id="pay-media-review-point-wrap" <c:if test="${productDetailInfo.is_pay_normal_review_point == false or regType == 'insert'}">class="hidden"</c:if>>
+                                        <hr/>
+                                        지급 포인트 :
+                                        <div class="input-box text" style="width: 20%; display: inline-block;">
+                                            <input type="text" class="pay_media_review_point" name="pay_media_review_point" value="${productDetailInfo.product_media_review_point}">
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                        포인트
                                     </div>
-                                </div>
-                                <div id="pay-buy-point-wrap" <c:if test="${productDetailInfo.is_pay_buy_point == false or regType == 'insert'}">class="hidden"</c:if> >
-                                    <hr/>
-                                    지급 포인트 :
-                                    <div class="input-box text" style="width: 20%; display: inline-block;">
-                                        <input type="text" class="pay_buy_point" name="pay_buy_point" value="${productDetailInfo.product_buy_point}">
-                                        <span class="border-focus"><i></i></span>
-                                    </div>
-                                    포인트
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><em>텍스트리뷰 포인트</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div class="radio-box-wrap">
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="is_pay_normal_review_point" name="is_pay_normal_review_point" value="true" <c:if test="${productDetailInfo.is_pay_normal_review_point == true}">checked</c:if> >
-                                        <label for="is_pay_normal_review_point"><span>설정함</span></label>
-                                    </div>
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="is_not_pay_normal_review_point" name="is_pay_normal_review_point" value="false" <c:if test="${productDetailInfo.is_pay_normal_review_point == false or regType == 'insert'}">checked</c:if> >
-                                        <label for="is_not_pay_normal_review_point"><span>설정안함</span></label>
-                                    </div>
-                                </div>
-                                <div id="pay-normal-review-point-wrap" <c:if test="${productDetailInfo.is_pay_normal_review_point == false or regType == 'insert'}">class="hidden"</c:if> >
-                                    <hr/>
-                                    지급 포인트 :
-                                    <div class="input-box text" style="width: 20%; display: inline-block;">
-                                        <input type="text" class="pay_normal_review_point" name="pay_normal_review_point" value="${productDetailInfo.product_normal_review_point}">
-                                        <span class="border-focus"><i></i></span>
-                                    </div>
-                                    포인트
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><em>미디어리뷰 포인트</em></th>
-                            <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                <div class="radio-box-wrap">
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="is_pay_media_review_point" name="is_pay_media_review_point" value="true" <c:if test="${productDetailInfo.is_pay_media_review_point == true}">checked</c:if> >
-                                        <label for="is_pay_media_review_point"><span>설정함</span></label>
-                                    </div>
-                                    <div class="basic-radio-box">
-                                        <input type="radio" id="is_not_pay_media_review_point" name="is_pay_media_review_point" value="false" <c:if test="${productDetailInfo.is_pay_media_review_point == false or regType == 'insert'}">checked</c:if> >
-                                        <label for="is_not_pay_media_review_point"><span>설정안함</span></label>
-                                    </div>
-                                </div>
-                                <div id="pay-media-review-point-wrap" <c:if test="${productDetailInfo.is_pay_normal_review_point == false or regType == 'insert'}">class="hidden"</c:if>>
-                                    <hr/>
-                                    지급 포인트 :
-                                    <div class="input-box text" style="width: 20%; display: inline-block;">
-                                        <input type="text" class="pay_media_review_point" name="pay_media_review_point" value="${productDetailInfo.product_media_review_point}">
-                                        <span class="border-focus"><i></i></span>
-                                    </div>
-                                    포인트
                                 </div>
                             </td>
                         </tr>
@@ -605,14 +638,14 @@
         tableHtml += '</colgroup>';
 
         tableHtml += '<tr style="background-color: #ebebeb">';
-        tableHtml += '  <td colspan="' + optionNameArr.length + '">옵션명</td>';
-        tableHtml += '  <td rowspan="2">옵션가</td>';
-        tableHtml += '  <td rowspan="2">재고수량</td>';
+        tableHtml += '  <td class="option-th" colspan="' + optionNameArr.length + '">옵션명</td>';
+        tableHtml += '  <td class="option-th" rowspan="2">옵션가</td>';
+        tableHtml += '  <td class="option-th" rowspan="2">재고수량</td>';
         tableHtml += '</tr>';
 
         tableHtml += '<tr id="option-name-tr">';
         for (let i=0; i<optionNameArr.length; i++) {
-            tableHtml += '  <td style="background-color: #ebebeb">';
+            tableHtml += '  <td style="background-color: #ebebeb; border: 1px solid #E8E8F1;" >';
             tableHtml += optionNameArr[i];
             tableHtml += '  </td>';
         }
@@ -624,13 +657,13 @@
         for (let i=0; i<combinationValues.length; i++) {
             tableHtml += '<tr class="option-list-tr">';
             for (let k=0; k<combinationValues[i].combination.length; k++) {
-                tableHtml += '<td>';
+                tableHtml += '<td class="option-td">';
                 tableHtml += '<input type="hidden" class="combination-index" value="' + combinationValues[i].indices[k] + '">'
                 tableHtml += combinationValues[i].combination[k];
                 tableHtml += '</td>';
             }
-            tableHtml += '  <td><input type="number" class="option-price"></td>';
-            tableHtml += '  <td><input type="number" class="option-stock"></td>';
+            tableHtml += '  <td class="option-td"><div class="input-box text"><input type="number" class="option-price"></div></td>';
+            tableHtml += '  <td class="option-td"><div class="input-box text"><input type="number" class="option-stock"></div></td>';
             tableHtml += '</tr>'
         }
 

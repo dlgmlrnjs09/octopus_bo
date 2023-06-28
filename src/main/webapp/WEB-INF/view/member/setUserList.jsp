@@ -34,7 +34,7 @@
             <tr>
                 <th class="cell-th check-th">
                     <div class="basic-check-box all-check-box">
-                        <input type="checkbox" name="selectAll" id="selectAll" tabindex="-1">
+                        <input type="checkbox" class="table-check-box" name="selectAll" id="selectAll" tabindex="-1">
                         <label for="selectAll" tabindex="0"></label>
                     </div>
                 </th>
@@ -71,7 +71,7 @@
                             <!-- 총 개수 - ( ((현재페이지 - 1) * 화면당 게시글 로우행 수) + 로우인덱스) -->
                             <td class="cell-td check-td">
                                 <div class="basic-check-box">
-                                    <input type="checkbox" name="select" id="chk_${member.memberSeq}" tabindex="-1" class="chkgroup">
+                                    <input type="checkbox" name="select" id="chk_${member.memberSeq}" tabindex="-1" class="chkgroup table-check-box">
                                     <label for="chk_${member.memberSeq}" tabindex="0"></label>
                                 </div>
                             </td>
