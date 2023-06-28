@@ -196,6 +196,33 @@
     }
 
 </script>
+<style>
+    .wrap-loading{ /*화면 전체를 어둡게 합니다.*/
+        position: fixed;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        background: rgba(0,0,0,0.2); /*not in ie */
+        filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000',endColorstr='#20000000');    /* ie */
+        z-index: 999;
+    }
+
+    .wrap-loading div{ /*로딩 이미지*/
+        position: fixed;
+        top:50%;
+        left:50%;
+        margin-left: -21px;
+        margin-top: -21px;
+    }
+
+    .display-none{ /*감추기*/
+        display:none;
+    }
+
+    .btnArea {position:relative; width:100%; margin-top:20px; height:26px; text-align:center; *zoom:1; z-index:1;}
+    .btnC{clear:both; margin:10px 0 0 0; text-align:center;}
+</style>
 <div id="content">
     <div class="search" style="margin-top: 20px;">
         <div class="search_cont">
@@ -204,20 +231,14 @@
                     <span class="txt_red"> * 샘플 양식 다운로드 후 등록하세요. (임의 수정 시 오류 발생)</span>
                     <button class="common-btn" type="button" id="btn_excelDownload" style="margin-left: 10px;"><span>샘플 양식 다운로드</span></button>
                 </p>
-                <table summary="입력" class="common-table" style="width: 100%;">
+                <table summary="입력" class="common-table">
                     <caption style="visibility: hidden;">입력</caption>
-                    <colgroup>
-                        <col width="20%" />
-                        <col width="*" />
-                        <col width="13%" />
-                        <col width="*" />
-                    </colgroup>
                     <tbody>
                     <tr>
-                        <th scope="row" style="border-radius: 0px;"><em>운송장 목록(.xls)</em></th>
-                        <td colspan="3" style="border-top: 1px solid #c6c9cc;">
-                            <div class="field">
-                                <input type="file" name="fileExcel" id="fileExcel" accept=".xls" style="height: 45px;" />
+                        <th class="row-th" scope="row"><div class="con-th">운송장 목록(.xls)</div></th>
+                        <td class="cell-td dt-left">
+                            <div class="con-td">
+                                <input type="file" name="fileExcel" id="fileExcel" accept=".xls" style="height: 25px;" />
                             </div>
                         </td>
                     </tr>
@@ -235,7 +256,6 @@
                 </button>
             </div>
         </div>
-
         <div style="margin-top: 28px; display: none;" id="resultDiv">
             <h2 class="dp2_title">등록 결과</h2>
             <div class="notice_board mt10">

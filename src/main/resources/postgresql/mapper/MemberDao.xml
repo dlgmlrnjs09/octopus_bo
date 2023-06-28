@@ -127,6 +127,7 @@
                 m.member_email_domain AS memberEmailDomain,
                 m.member_email_full AS memberEmailFull,
                 r.role_id AS memberRole,
+                m.is_use AS isUse,
                 TO_CHAR(m.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
         FROM
             octopus.member_info m LEFT OUTER JOIN octopus.role_info r ON m.member_role = r.role_seq::varchar

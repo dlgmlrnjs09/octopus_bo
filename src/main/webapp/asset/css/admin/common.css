@@ -1100,13 +1100,16 @@ input[type="checkbox"] + label{
 .common-table{ width: 100%; border-radius: 4px; border: 1px solid #E8E8F1; border-collapse: separate; border-spacing: 0;}
 .common-table thead { background-color: #F6F6FC; } 
 .common-table thead th { height: 40px; padding: 4px 8px;  border-bottom: 1px solid #E2E2EE; font-size: 15px; font-weight: 500; color: #555; text-align: center; vertical-align: middle; } 
+.common-table th.row-th { background-color: #F6F6FC; height: 40px; padding: 4px 8px;  border-bottom: 1px solid #E2E2EE; font-size: 15px; font-weight: 500; color: #555; text-align: center; vertical-align: middle; }
 .common-table thead th.check-th{width: 40px;}
 
-.common-table tbody tr td { height: 42px; padding: 4px 8px; background-color: #fff; border-bottom: 1px solid #e5eaef; font-size: 15px; line-height: 1.2; color: #555; text-align: center; vertical-align: middle; } 
-.common-table tbody tr:last-child td{ border-bottom: 0;} 
+.common-table tbody tr td { height: 42px; padding: 4px 8px; background-color: #fff; border-bottom: 1px solid #e5eaef; font-size: 15px; line-height: 1.2; color: #555; text-align: center; vertical-align: middle; }
+.common-table tbody.cursor-point tr td { cursor: pointer; }
+.common-table tbody tr:last-child td{ border-bottom: 0;}
 .common-table tbody tr td.dt-right{ text-align: right;}
 .common-table tbody tr td.dt-center{ text-align: center;}
 .common-table tbody tr td.dt-left{ text-align: left;}
+.common-table tbody tr td.check-td{cursor: default;}
 
 /* common-table contents */
 .common-table tr.empty td{ height: 64px; }

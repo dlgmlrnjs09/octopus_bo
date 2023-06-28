@@ -100,21 +100,15 @@
     <main id="main" class="page-home">
         <div class="admin-section-wrap">
             <div class="home-section-wrap">
-                <div>
-                    <h2 class="sec-title">회원 관리</h2>
-                    <p class="txt">회원 리스트 조회</p>
-                </div>
-            </div>
-            <div class="home-section-wrap">
                 <section class="section home-sec">
                     <form id="frmDefault" name="default" action="" method="post">
                         <input type="hidden" id="dataJson" name="dataJson" value="">
                         <table class="common-table" summary="검색" style="width:100%;">
                             <tbody>
                             <tr>
-                                <th scope="row"><em>등록일</em></th>
-                                <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                    <div class="field">
+                                <th class="row-th" scope="row"><div class="con-th">등록일</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
                                         <div class="datepicker-box-wrap" style="display: inline-block">
                                             <div class="input-box datepicker-box">
                                                 <input type="text" class="" name="startDate" id="startReg" title="등록일자 시작일 입력" value="" autocomplete='off'>
@@ -128,27 +122,29 @@
                                                 <span class="border-focus"><i></i></span>
                                             </div>
                                         </div>
-<%--                                        <input type="text" name="startDate" id="startReg" title="등록일자 시작일 입력" value="" autocomplete='off'> ~--%>
-<%--                                        <span id="endD"> <input type="text" name="endDate" id="endReg" title="등록일자 만료일 입력" value="" autocomplete='off'></span>--%>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" style="border-bottom-left-radius: 6px;"><em>검색어</em></th>
-                                <td style="cursor: default;">
-                                    <div class="basic-select-box" style="width: 10%; display: inline-block;">
-                                        <select id="searchType" name="searchType" style="">
-                                            <option value="memberId">아이디</option>
-                                            <option value="memberNm">이름</option>
-                                            <option value="memberEmail">이메일</option>
-                                        </select>
-                                        <span class="border-focus"><i></i></span>
+                                <th class="row-th" scope="row"><div class="con-th">검색어</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="common-sel-sch-wrap">
+                                        <div class="basic-select-box">
+                                            <select id="searchType" name="searchType" style="">
+                                                <option value="memberId">아이디</option>
+                                                <option value="memberNm">이름</option>
+                                                <option value="memberEmail">이메일</option>
+                                            </select>
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                        <div class="common-sch-box" style="width: 314px;">
+                                            <div class="input-box text">
+                                                <input type="text" id="searchKeyword" placeholder="검색어를 입력하세요." style="height: 34px;">
+                                                <span class="border-focus"><i></i></span>
+                                            </div>
+                                            <button title="검색하기" type="button" class="search-btn" id="searchBtn" tabindex="0"><img src="../../asset/img/icon-search.svg" alt="검색하기"></button>
+                                        </div>
                                     </div>
-                                    <input type="text" id="searchKeyword" placeholder="검색어를 입력하세요." style="height: 34px;">
-                                    <span class="border-focus"><i></i></span>
-                                    <button type="button" class="search-btn" id="searchBtn">
-                                        <img src="../../asset/img/admin/icon-search.svg" alt="검색하기">
-                                    </button>
                                 </td>
                             </tr>
                             </tbody>

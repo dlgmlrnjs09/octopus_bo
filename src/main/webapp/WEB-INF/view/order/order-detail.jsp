@@ -195,12 +195,6 @@
     <!--========== CONTENTS ==========-->
     <main id="main" class="page-home">
         <div class="admin-section-wrap">
-            <div class="home-section-wrap">
-                <div>
-                    <h2 class="sec-title">주문 관리</h2>
-                    <p class="txt">주문 정보 상세조회</p>
-                </div>
-            </div>
             <form id="form" name="form" method="post" action="http://info.sweettracker.co.kr/tracking/5">
                 <input type="hidden" id="t_key" name="t_key" value="<c:out value="${key}"/>"/>
                 <input type="hidden" id="t_code" name="t_code" value="<c:out value="${order.orderDeliveryCd}"/>"/>
@@ -211,7 +205,12 @@
                     <section class="section home-sec">
                         <input type="hidden" id="orderSeq" name="orderSeq" value="${order.orderSeq}">
                         <!-- 주문 정보 섹션 start -->
-                        <table class="common-table" summary="주문상세정보" style="width:100%;">
+                        <div class="common-table-top">
+                            <div class="left-wrap">
+                                <h3 class="table-title">주문 정보</h3>
+                            </div>
+                        </div>
+                        <table class="common-table" summary="주문상세정보">
                             <colgroup>
                                 <col width="10%">
                                 <col width="40%">
@@ -219,122 +218,148 @@
                                 <col width="40%">
                             </colgroup>
                             <tbody>
-                            <section class="component-sec component-sec00">
-                                <h3 style="margin-bottom: 10px;">주문 정보</h3>
-                            </section>
                             <tr>
-                                <th scope="row" style="padding : 12px 15px !important;"><em>주문 번호</em></th>
-                                <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                    ${order.orderNo}
+                                <th class="row-th" scope="row"><div class="con-th">주문 번호</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        ${order.orderNo}
+                                    </div>
                                 </td>
-                                <th scope="row"><em>주문 상태</em></th>
-                                <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                    ${order.orderStatus}
+                                <th class="row-th" scope="row"><div class="con-th">주문 상태</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        ${order.orderStatus}
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" style="padding : 12px 15px !important;"><em>주문자명</em></th>
-                                <td style="cursor: default;">
-                                    ${order.memberNm}
+                                <th class="row-th" scope="row"><div class="con-th">주문자명</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        ${order.memberNm}
+                                    </div>
                                 </td>
-                                <th scope="row"><em>주문자 전화번호</em></th>
-                                <td style="cursor: default;">
-                                    ${order.memberPhoneFull}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" style="padding : 12px 15px !important;"><em>주문자 아이디</em></th>
-                                <td style="cursor: default;">
-                                    ${order.memberId}
-                                </td>
-                                <th scope="row"><em>주문 일시</em></th>
-                                <td style="cursor: default;">
-                                    ${order.regDt}
+                                <th class="row-th" scope="row"><div class="con-th">주문자 전화번호</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        ${order.memberPhoneFull}
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" style="padding : 12px 15px !important;"><em>수령인</em></th>
-                                <td style="cursor: default;">
-                                    ${order.orderToName}
+                                <th class="row-th" scope="row"><div class="con-th">주문자 아이디</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        ${order.memberId}
+                                    </div>
                                 </td>
-                                <th scope="row"><em>수령인 전화번호</em></th>
-                                <td style="cursor: default;">
-                                    ${order.orderToPhoneFull}
+                                <th class="row-th" scope="row"><div class="con-th">주문 일시</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        ${order.regDt}
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" style="padding : 12px 15px !important;"><em>운송장번호</em></th>
-                                <td style="cursor: default;">
-                                    <span id="viewArea" style="display: none;">
-                                        <div style="display: inline-block">
-                                            <c:if test="${order.orderDeliveryCd eq '04'}">CJ대한통운</c:if>
-                                            <c:if test="${order.orderDeliveryCd eq '08'}">롯데택배</c:if>
-                                            <c:if test="${order.orderDeliveryCd eq '05'}">한진택배</c:if>
-                                            <c:if test="${order.orderDeliveryCd eq '01'}">우체국택배</c:if>
-                                            <c:if test="${order.orderDeliveryCd eq '23'}">경동택배</c:if>
-                                            <c:if test="${order.orderDeliveryCd eq '06'}">로젠택배</c:if>
-                                            <c:if test="${order.orderDeliveryCd eq '56'}">KGB택배</c:if>
-                                            <c:if test="${order.orderDeliveryCd eq '11'}">일양택배</c:if>
-                                            <c:if test="${order.orderDeliveryCd eq '22'}">대신택배</c:if>
-                                            <c:if test="${order.orderDeliveryCd eq '00'}">기타</c:if>
-                                            &nbsp;
-                                            ${order.orderDeliveryNo}
-                                            &nbsp;
-                                            <c:if test="${order.orderStatus ne '배송완료' && order.orderStatus ne '반품완료' && order.orderStatus ne '반품처리'}">
-                                                <!-- 배송완료 또는 반품 상태일 경우 수정 불가 -->
-                                                <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="editDelivery"><span>수정</span></button>
-                                            </c:if>
-                                            <button class="common-btn" style="padding: 8px 10px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="findDelivery"><span>배송 추적</span></button>
+                                <th class="row-th" scope="row"><div class="con-th">수령인</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        ${order.orderToName}
+                                    </div>
+                                </td>
+                                <th class="row-th" scope="row"><div class="con-th">수령인 전화번호</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        ${order.orderToPhoneFull}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="row-th" scope="row"><div class="con-th">운송장번호</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        <span id="viewArea" style="display: none;">
+                                            <div style="display: inline-block">
+                                                <c:if test="${order.orderDeliveryCd eq '04'}">CJ대한통운</c:if>
+                                                <c:if test="${order.orderDeliveryCd eq '08'}">롯데택배</c:if>
+                                                <c:if test="${order.orderDeliveryCd eq '05'}">한진택배</c:if>
+                                                <c:if test="${order.orderDeliveryCd eq '01'}">우체국택배</c:if>
+                                                <c:if test="${order.orderDeliveryCd eq '23'}">경동택배</c:if>
+                                                <c:if test="${order.orderDeliveryCd eq '06'}">로젠택배</c:if>
+                                                <c:if test="${order.orderDeliveryCd eq '56'}">KGB택배</c:if>
+                                                <c:if test="${order.orderDeliveryCd eq '11'}">일양택배</c:if>
+                                                <c:if test="${order.orderDeliveryCd eq '22'}">대신택배</c:if>
+                                                <c:if test="${order.orderDeliveryCd eq '00'}">기타</c:if>
+                                                &nbsp;
+                                                ${order.orderDeliveryNo}
+                                                &nbsp;
+                                                <c:if test="${order.orderStatus ne '배송완료' && order.orderStatus ne '반품완료' && order.orderStatus ne '반품처리'}">
+                                                    <!-- 배송완료 또는 반품 상태일 경우 수정 불가 -->
+                                                    <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="editDelivery"><span>수정</span></button>
+                                                </c:if>
+                                                <button class="common-btn" style="padding: 8px 10px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="findDelivery"><span>배송 추적</span></button>
+                                            </div>
+                                        </span>
+                                        <span id="editArea" style="display: none;">
+                                            <div class="common-sel-sch-wrap">
+                                                <div class="basic-select-box">
+                                                    <select id="orderDeliveryCd" name="orderDeliveryCd">
+                                                        <option value="">택배사 선택</option>
+                                                        <option value="04" <c:if test="${order.orderDeliveryCd eq '04'}">selected</c:if> >CJ대한통운</option>
+                                                        <option value="08" <c:if test="${order.orderDeliveryCd eq '08'}">selected</c:if> >롯데택배</option>
+                                                        <option value="05" <c:if test="${order.orderDeliveryCd eq '05'}">selected</c:if> >한진택배</option>
+                                                        <option value="01" <c:if test="${order.orderDeliveryCd eq '01'}">selected</c:if> >우체국택배</option>
+                                                        <option value="23" <c:if test="${order.orderDeliveryCd eq '23'}">selected</c:if> >경동택배</option>
+                                                        <option value="06" <c:if test="${order.orderDeliveryCd eq '06'}">selected</c:if> >로젠택배</option>
+                                                        <option value="56" <c:if test="${order.orderDeliveryCd eq '56'}">selected</c:if> >KGB택배</option>
+                                                        <option value="11" <c:if test="${order.orderDeliveryCd eq '11'}">selected</c:if> >일양택배</option>
+                                                        <option value="22" <c:if test="${order.orderDeliveryCd eq '22'}">selected</c:if> >대신택배</option>
+                                                        <option value="00" <c:if test="${order.orderDeliveryCd eq '00'}">selected</c:if> >기타</option>
+                                                    </select>
+                                                    <span class="border-focus"><i></i></span>
+                                                </div>
+                                                <div class="common-sch-box">
+                                                    <div class="input-box text" style="width: auto; display: inline-block;">
+                                                        <input type="text" class="common-search" title="운송장번호" placeholder="운송장 번호를 입력하세요." id="orderDeliveryNo" name="orderDeliveryNo" value="${order.orderDeliveryNo}"/>
+                                                        <span class="border-focus"><i></i></span>
+                                                    </div>
+                                                    <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="saveDelivery"><span>저장</span></button>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </td>
+                                <th class="row-th" scope="row"><div class="con-th">배송 요청사항</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
+                                        ${order.orderDeliveryComment}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="row-th" scope="row"><div class="con-th">수령인 주소</div></th>
+                                <td class="cell-td dt-left" colspan="4">
+                                    <div class="con-td">
+                                        <div id="addrDiv1" style="display: inline-block;">
+                                            <span>${order.orderToAddrFull}</span>
                                         </div>
-                                    </span>
-                                    <span id="editArea" style="display: none;">
-                                        <div style="display: inline-block">
-                                            <div class="basic-select-box" style="width:150px;">
-                                                <select id="orderDeliveryCd" name="orderDeliveryCd">
-                                                    <option value="">택배사 선택</option>
-                                                    <option value="04" <c:if test="${order.orderDeliveryCd eq '04'}">selected</c:if> >CJ대한통운</option>
-                                                    <option value="08" <c:if test="${order.orderDeliveryCd eq '08'}">selected</c:if> >롯데택배</option>
-                                                    <option value="05" <c:if test="${order.orderDeliveryCd eq '05'}">selected</c:if> >한진택배</option>
-                                                    <option value="01" <c:if test="${order.orderDeliveryCd eq '01'}">selected</c:if> >우체국택배</option>
-                                                    <option value="23" <c:if test="${order.orderDeliveryCd eq '23'}">selected</c:if> >경동택배</option>
-                                                    <option value="06" <c:if test="${order.orderDeliveryCd eq '06'}">selected</c:if> >로젠택배</option>
-                                                    <option value="56" <c:if test="${order.orderDeliveryCd eq '56'}">selected</c:if> >KGB택배</option>
-                                                    <option value="11" <c:if test="${order.orderDeliveryCd eq '11'}">selected</c:if> >일양택배</option>
-                                                    <option value="22" <c:if test="${order.orderDeliveryCd eq '22'}">selected</c:if> >대신택배</option>
-                                                    <option value="00" <c:if test="${order.orderDeliveryCd eq '00'}">selected</c:if> >기타</option>
-                                                </select>
-                                                <span class="border-focus"><i></i></span>
+                                        <div id="addrDiv2" style="display: none;">
+                                            <div class="input-box text">
+                                                <input style="width: auto;" type="text" id="zipCode" name="orderToZipCode" placeholder="우편번호" value="${order.orderToZipCode}" readonly>
+                                                <input style="width: auto;" type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+                                                <span id="guide" style="color:#999;display:none"></span>
+                                                <br>
+                                                <input style="width: 313px;" type="text" id="addr1" name="orderToAddr1" placeholder="도로명주소" value="${order.orderToAddr1}" readonly>
+                                                <input style="width: auto;" type="text" id="addr2" name="orderToAddr2" placeholder="참고항목" value="${order.orderToAddr2}" readonly>
+                                                <input style="width: auto;" type="text" id="addrDetail" name="orderToAddrDetail" placeholder="상세주소" value="${order.orderToAddrDetail}">
                                             </div>
                                         </div>
-                                    <input type="text" style="height: 34px; margin-left: 5px;" title="운송장번호" placeholder="운송장 번호를 입력하세요." id="orderDeliveryNo" name="orderDeliveryNo" value="${order.orderDeliveryNo}"/>
-                                    <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="saveDelivery"><span>저장</span></button>
-                                    </span>
-                                </td>
-                                <th scope="row"><em>배송 요청사항</em></th>
-                                <td style="cursor: default;">
-                                    ${order.orderDeliveryComment}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" style="padding : 12px 15px !important;"><em>수령인 주소</em></th>
-                                <td style="cursor: default;" colspan="4">
-                                    <div id="addrDiv1" style="display: inline-block;">
-                                        <span>${order.orderToAddrFull}</span>
+                                        <c:if test="${order.orderStatus eq '상품준비중' || order.orderStatus eq '배송준비중'}">
+                                            <!-- 상품준비중 또는 배송준비중 상태가 아닐 경우 수정 불가 -->
+                                            <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="addrModifyBtn"><span>변경</span></button>
+                                            <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px; display: none;" class="common-btn" aria-label="title" id="addrModifySubmitBtn"><span>변경</span></button>
+                                        </c:if>
                                     </div>
-                                    <div id="addrDiv2" style="display: none;">
-                                        <input type="text" id="zipCode" name="orderToZipCode" placeholder="우편번호" value="${order.orderToZipCode}" readonly>
-                                        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
-                                        <span id="guide" style="color:#999;display:none"></span>
-                                        <br>
-                                        <input type="text" id="addr1" name="orderToAddr1" placeholder="도로명주소" value="${order.orderToAddr1}" readonly>
-                                        <input type="text" id="addr2" name="orderToAddr2" placeholder="참고항목" value="${order.orderToAddr2}" readonly>
-                                        <input type="text" id="addrDetail" name="orderToAddrDetail" placeholder="상세주소" value="${order.orderToAddrDetail}">
-                                    </div>
-                                    <c:if test="${order.orderStatus eq '상품준비중' || order.orderStatus eq '배송준비중'}">
-                                        <!-- 상품준비중 또는 배송준비중 상태가 아닐 경우 수정 불가 -->
-                                        <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="addrModifyBtn"><span>변경</span></button>
-                                        <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px; display: none;" class="common-btn" aria-label="title" id="addrModifySubmitBtn"><span>변경</span></button>
-                                    </c:if>
                                 </td>
                             </tr>
                             </tbody>
@@ -342,8 +367,13 @@
                         <!-- 주문 정보 섹션 end -->
 
                         <!-- 반품 운송장 섹션 start -->
-                        <div id="returnDiv" style="display: none;">
-                            <table class="common-table" summary="반품운송장정보" style="width:100%;">
+                        <div id="returnDiv" style="display: none; margin-top: 50px;">
+                            <div class="common-table-top">
+                                <div class="left-wrap">
+                                    <h3 class="table-title">반품 배송 정보</h3>
+                                </div>
+                            </div>
+                            <table class="common-table" summary="반품운송장정보">
                                 <colgroup>
                                     <col width="10%">
                                     <col width="40%">
@@ -351,56 +381,60 @@
                                     <col width="40%">
                                 </colgroup>
                                 <tbody>
-                                <section class="component-sec component-sec00">
-                                    <h3 style="margin-top: 50px; margin-bottom: 10px;">반품 배송 정보</h3>
-                                </section>
                                 <tr>
-                                    <th scope="row" style="padding : 12px 15px !important;"><em>반품 운송장번호</em></th>
-                                    <td style="cursor: default; border-top: 1px solid #c6c9cc;" colspan="4">
-                                        <span id="returnViewArea" style="display: none;">
-                                            <div style="display: inline-block">
-                                                <c:if test="${order.returnDeliveryCd eq '04'}">CJ대한통운</c:if>
-                                                <c:if test="${order.returnDeliveryCd eq '08'}">롯데택배</c:if>
-                                                <c:if test="${order.returnDeliveryCd eq '05'}">한진택배</c:if>
-                                                <c:if test="${order.returnDeliveryCd eq '01'}">우체국택배</c:if>
-                                                <c:if test="${order.returnDeliveryCd eq '23'}">경동택배</c:if>
-                                                <c:if test="${order.returnDeliveryCd eq '06'}">로젠택배</c:if>
-                                                <c:if test="${order.returnDeliveryCd eq '56'}">KGB택배</c:if>
-                                                <c:if test="${order.returnDeliveryCd eq '11'}">일양택배</c:if>
-                                                <c:if test="${order.returnDeliveryCd eq '22'}">대신택배</c:if>
-                                                <c:if test="${order.returnDeliveryCd eq '00'}">기타</c:if>
-                                                &nbsp;
-                                                ${order.returnDeliveryNo}
-                                                &nbsp;
-                                                <c:if test="${order.orderStatus ne '반품완료'}">
-                                                    <!-- 반품완료 상태일 경우 수정 불가 -->
-                                                    <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="returnEditDelivery"><span>수정</span></button>
-                                                </c:if>
-                                                <button class="common-btn" style="padding: 8px 10px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="returnFindDelivery"><span>배송 추적</span></button>
-                                            </div>
-                                        </span>
-                                        <span id="returnEditArea" style="display: none;">
-                                            <div style="display: inline-block">
-                                                <div class="basic-select-box" style="width:150px;">
-                                                    <select id="returnDeliveryCd" name="returnDeliveryCd">
-                                                        <option value="">택배사 선택</option>
-                                                        <option value="04" <c:if test="${order.returnDeliveryCd eq '04'}">selected</c:if> >CJ대한통운</option>
-                                                        <option value="08" <c:if test="${order.returnDeliveryCd eq '08'}">selected</c:if> >롯데택배</option>
-                                                        <option value="05" <c:if test="${order.returnDeliveryCd eq '05'}">selected</c:if> >한진택배</option>
-                                                        <option value="01" <c:if test="${order.returnDeliveryCd eq '01'}">selected</c:if> >우체국택배</option>
-                                                        <option value="23" <c:if test="${order.returnDeliveryCd eq '23'}">selected</c:if> >경동택배</option>
-                                                        <option value="06" <c:if test="${order.returnDeliveryCd eq '06'}">selected</c:if> >로젠택배</option>
-                                                        <option value="56" <c:if test="${order.returnDeliveryCd eq '56'}">selected</c:if> >KGB택배</option>
-                                                        <option value="11" <c:if test="${order.returnDeliveryCd eq '11'}">selected</c:if> >일양택배</option>
-                                                        <option value="22" <c:if test="${order.returnDeliveryCd eq '22'}">selected</c:if> >대신택배</option>
-                                                        <option value="00" <c:if test="${order.returnDeliveryCd eq '00'}">selected</c:if> >기타</option>
-                                                    </select>
-                                                    <span class="border-focus"><i></i></span>
+                                    <th class="row-th" scope="row"><div class="con-th">반품 운송장번호</div></th>
+                                    <td class="cell-td dt-left" colspan="4">
+                                        <div class="con-td">
+                                            <span id="returnViewArea" style="display: none;">
+                                                <div style="display: inline-block">
+                                                    <c:if test="${order.returnDeliveryCd eq '04'}">CJ대한통운</c:if>
+                                                    <c:if test="${order.returnDeliveryCd eq '08'}">롯데택배</c:if>
+                                                    <c:if test="${order.returnDeliveryCd eq '05'}">한진택배</c:if>
+                                                    <c:if test="${order.returnDeliveryCd eq '01'}">우체국택배</c:if>
+                                                    <c:if test="${order.returnDeliveryCd eq '23'}">경동택배</c:if>
+                                                    <c:if test="${order.returnDeliveryCd eq '06'}">로젠택배</c:if>
+                                                    <c:if test="${order.returnDeliveryCd eq '56'}">KGB택배</c:if>
+                                                    <c:if test="${order.returnDeliveryCd eq '11'}">일양택배</c:if>
+                                                    <c:if test="${order.returnDeliveryCd eq '22'}">대신택배</c:if>
+                                                    <c:if test="${order.returnDeliveryCd eq '00'}">기타</c:if>
+                                                    &nbsp;
+                                                    ${order.returnDeliveryNo}
+                                                    &nbsp;
+                                                    <c:if test="${order.orderStatus ne '반품완료'}">
+                                                        <!-- 반품완료 상태일 경우 수정 불가 -->
+                                                        <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="returnEditDelivery"><span>수정</span></button>
+                                                    </c:if>
+                                                    <button class="common-btn" style="padding: 8px 10px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="returnFindDelivery"><span>배송 추적</span></button>
                                                 </div>
-                                            </div>
-                                        <input type="text" style="height: 34px; margin-left: 5px;" title="운송장번호" placeholder="운송장 번호를 입력하세요." id="returnDeliveryNo" name="returnDeliveryNo" value="${order.returnDeliveryNo}"/>
-                                        <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="returnSaveDelivery"><span>저장</span></button>
-                                        </span>
+                                            </span>
+                                            <span id="returnEditArea" style="display: none;">
+                                                <div class="common-sel-sch-wrap">
+                                                    <div class="basic-select-box">
+                                                        <select id="returnDeliveryCd" name="returnDeliveryCd">
+                                                            <option value="">택배사 선택</option>
+                                                            <option value="04" <c:if test="${order.returnDeliveryCd eq '04'}">selected</c:if> >CJ대한통운</option>
+                                                            <option value="08" <c:if test="${order.returnDeliveryCd eq '08'}">selected</c:if> >롯데택배</option>
+                                                            <option value="05" <c:if test="${order.returnDeliveryCd eq '05'}">selected</c:if> >한진택배</option>
+                                                            <option value="01" <c:if test="${order.returnDeliveryCd eq '01'}">selected</c:if> >우체국택배</option>
+                                                            <option value="23" <c:if test="${order.returnDeliveryCd eq '23'}">selected</c:if> >경동택배</option>
+                                                            <option value="06" <c:if test="${order.returnDeliveryCd eq '06'}">selected</c:if> >로젠택배</option>
+                                                            <option value="56" <c:if test="${order.returnDeliveryCd eq '56'}">selected</c:if> >KGB택배</option>
+                                                            <option value="11" <c:if test="${order.returnDeliveryCd eq '11'}">selected</c:if> >일양택배</option>
+                                                            <option value="22" <c:if test="${order.returnDeliveryCd eq '22'}">selected</c:if> >대신택배</option>
+                                                            <option value="00" <c:if test="${order.returnDeliveryCd eq '00'}">selected</c:if> >기타</option>
+                                                        </select>
+                                                        <span class="border-focus"><i></i></span>
+                                                    </div>
+                                                    <div class="common-sch-box">
+                                                        <div class="input-box text" style="width: auto; display: inline-block;">
+                                                            <input type="text" class="common-search" title="운송장번호" placeholder="운송장 번호를 입력하세요." id="returnDeliveryNo" name="returnDeliveryNo" value="${order.returnDeliveryNo}"/>
+                                                            <span class="border-focus"><i></i></span>
+                                                        </div>
+                                                        <button class="common-btn" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" type="button" id="returnSaveDelivery"><span>저장</span></button>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -409,7 +443,12 @@
                         <!-- 반품 운송장 섹션 end -->
 
                         <!-- 상품 정보 섹션 start -->
-                        <table class="common-table rowspan" summary="상품상세정보" style="width:100%;">
+                        <div class="common-table-top" style="margin-top: 50px;">
+                            <div class="left-wrap">
+                                <h3 class="table-title">상품 정보</h3>
+                            </div>
+                        </div>
+                        <table class="common-table" summary="상품상세정보">
                             <colgroup>
                                 <col width="10%">
                                 <col width="40%">
@@ -417,26 +456,32 @@
                                 <col width="40%">
                             </colgroup>
                             <tbody>
-                            <section class="component-sec component-sec00">
-                                <h3 style="margin-top: 50px; margin-bottom: 10px;">상품 정보</h3>
-                            </section>
                             <c:forEach var="product" items="${order.productList}" varStatus="status">
                                 <tr>
-                                    <th rowspan="2" scope="row" style="padding : 12px 15px !important; <c:if test="${fn:length(order.productList) eq status.count}">border-bottom-left-radius : 6px;</c:if>"><em>상품</em></th>
-                                    <td rowspan="2" style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                        ${product.product_name}
-                                        <br>
-                                        옵션 - ${product.order_option}
+                                    <th class="row-th" scope="row" rowspan="2"><div class="con-th">상품</div></th>
+<%--                                    <th rowspan="2" scope="row" style="padding : 12px 15px !important; <c:if test="${fn:length(order.productList) eq status.count}">border-bottom-left-radius : 6px;</c:if>"><em>상품</em></th>--%>
+                                    <td class="cell-td dt-left" rowspan="2">
+                                        <div class="con-td">
+                                            ${product.product_name}
+                                            <c:if test="${product.order_option ne ''}">
+                                                <br>
+                                                옵션 - ${product.order_option}
+                                            </c:if>
+                                        </div>
                                     </td>
-                                    <th scope="row"><em>수량</em></th>
-                                    <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                        ${product.order_product_stock}개
+                                    <th class="row-th" scope="row"><div class="con-th">수량</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            ${product.order_product_stock}개
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><em>금액</em></th>
-                                    <td style="cursor: default;">
-                                        <fmt:formatNumber value="${product.product_price * product.order_product_stock}" pattern="#,###"/> 원
+                                    <th class="row-th" scope="row"><div class="con-th">금액</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <fmt:formatNumber value="${product.product_price * product.order_product_stock}" pattern="#,###"/> 원
+                                        </div>
                                     </td>
                                 </tr>
                             </c:forEach>

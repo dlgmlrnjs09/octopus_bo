@@ -150,7 +150,20 @@ $(document).on('click', '.chkgroup', function () {
 	} else {
 		$('input[name="selectAll"]').prop('checked', false);
 	}
-}); 
+});
+
+// Input checkbox order status All check
+$(document).on('click', 'input[name="orderStatusSelectAll"]', function () {
+	$('.orderchkgroup:not(:disabled)').not(this).prop('checked', this.checked);
+});
+
+$(document).on('click', '.orderchkgroup', function () {
+	if ($('.orderchkgroup:not(:disabled)').length == $('.orderchkgroup:checked').length) {
+		$('input[name="orderStatusSelectAll"]').prop('checked', true);
+	} else {
+		$('input[name="orderStatusSelectAll"]').prop('checked', false);
+	}
+});
 
 // Input
 $(function () {

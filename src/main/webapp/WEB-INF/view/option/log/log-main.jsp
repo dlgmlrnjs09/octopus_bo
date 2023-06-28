@@ -73,21 +73,15 @@
     <main id="main" class="page-home">
         <div class="admin-section-wrap">
             <div class="home-section-wrap">
-                <div>
-                    <h2 class="sec-title">개인정보 접속기록 조회</h2>
-                    <p class="txt">다운로드 기록</p>
-                </div>
-            </div>
-            <div class="home-section-wrap">
                 <section class="section home-sec">
                     <form id="frmDefault" name="default" action="" method="post">
                         <input type="hidden" id="type" name="type" value="">
                         <table class="common-table" summary="검색" style="width:100%;">
                             <tbody>
                             <tr>
-                                <th scope="row"><em>등록일</em></th>
-                                <td style="border-top: 1px solid #c6c9cc; cursor: default;">
-                                    <div class="field">
+                                <th class="row-th" scope="row"><div class="con-th">등록일</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="con-td">
                                         <div class="datepicker-box-wrap" style="display: inline-block">
                                             <div class="input-box datepicker-box">
                                                 <input type="text" class="" name="startDate" id="startReg" title="등록일자 시작일 입력" value="" autocomplete='off'>
@@ -105,20 +99,24 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" style="border-bottom-left-radius: 6px;"><em>검색어</em></th>
-                                <td style="cursor: default;">
-                                    <div class="basic-select-box" style="width: 10%; display: inline-block;">
-                                        <select id="searchType" name="searchType" style="">
-                                            <option value="logId">아이디</option>
-                                            <option value="logIp">아이피</option>
-                                        </select>
-                                        <span class="border-focus"><i></i></span>
+                                <th class="row-th" scope="row"><div class="con-th">검색어</div></th>
+                                <td class="cell-td dt-left">
+                                    <div class="common-sel-sch-wrap">
+                                        <div class="basic-select-box">
+                                            <select id="searchType" name="searchType" style="">
+                                                <option value="logId">아이디</option>
+                                                <option value="logIp">아이피</option>
+                                            </select>
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                        <div class="common-sch-box" style="width: 314px;">
+                                            <div class="input-box text">
+                                                <input class="common-search" type="text" id="searchKeyword" placeholder="검색어를 입력하세요.">
+                                                <span class="border-focus"><i></i></span>
+                                            </div>
+                                            <button title="검색하기" type="button" class="search-btn" id="searchBtn" tabindex="0"><img src="../../asset/img/icon-search.svg" alt="검색하기"></button>
+                                        </div>
                                     </div>
-                                    <input type="text" id="searchKeyword" placeholder="검색어를 입력하세요." style="height: 34px;">
-                                    <span class="border-focus"><i></i></span>
-                                    <button type="button" class="search-btn" id="searchBtn">
-                                        <img src="../../asset/img/admin/icon-search.svg" alt="검색하기">
-                                    </button>
                                 </td>
                             </tr>
                             </tbody>
@@ -126,14 +124,20 @@
                     </form>
                 </section>
             </div>
+
             <div class="tab-container">
-                <ul class="tab-menu" style="background-color: #fff; border-radius: 6px 6px 0px 0px;">
+<%--                <div class="common-table-top">--%>
+<%--                    <div class="left-wrap">--%>
+<%--                        <h3 class="table-title">주문 내역 리스트</h3>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+                <ul class="tab-menu" style="padding: 20px; padding-bottom: 0px; background-color: #fff; border-radius: 6px 6px 0px 0px;">
                     <li class="slider" style="left: 0px;"></li>
                     <li class="tab-link current" data-tab="tab-1"><a href="javascript:;" onclick="getLogList('download', 1);"><span>다운로드 기록</span></a></li>
                     <li class="tab-link" data-tab="tab-2"><a href="javascript:;" onclick="getLogList('login', 1);"><span>로그인 기록</span></a></li>
                 </ul>
-                <div class="home-section-wrap">
-                    <section class="section home-sec" style="border: 0px solid; border-radius: 0px 0px 6px 6px;">
+<%--                <div class="home-section-wrap">--%>
+<%--                    <section class="section home-sec" style="border: 0px solid; border-radius: 0px 0px 6px 6px;">--%>
                         <div class="tab-content-wrap" style="margin-bottom: 10px;">
                             <div id="tab-1" class="tab-content current">
                                 <div class="dataTableDiv">
@@ -144,8 +148,8 @@
                                 </div>
                             </div>
                         </div>
-                    </section>
-                </div>
+<%--                    </section>--%>
+<%--                </div>--%>
             </div>
         </div>
     </main>

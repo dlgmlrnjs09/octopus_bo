@@ -80,17 +80,6 @@
             });
         }
 
-        // $(document).on("click", ".treeItem", function() {
-        //     let menuSeq = $(this).attr('value');
-        //
-        //     $("#menuSeq").val(menuSeq);
-        //
-        //     $("a").removeClass("on");
-        //     $(this).addClass("on");
-        //
-        //     selectMenuDetail(menuSeq);
-        // });
-
         function imageView(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -108,7 +97,6 @@
 
             $(".set-menu-list a").click(function () {
                 let menuSeq = $(this).attr('value');
-                let menuLevel = $(this).data('level');
 
                 $("#menuSeq").val(menuSeq);
 
@@ -255,7 +243,6 @@
 
                 $("#menuNm").val(menuNm);
                 $("#menuUrl").val(menuUrl);
-                // $("#hasAuthority").val(hasAuthority);
                 $("#menuIcon").attr('src', menuIconUrl);
 
                 $("input:checkbox[name='select']").each(function() {
@@ -355,15 +342,9 @@
 
     <!--========== CONTENTS ==========-->
     <div class="workingbox clfix">
-        <div class="home-section-wrap">
-            <div>
-                <h2 class="sec-title">기본 설정</h2>
-                <p class="txt">메뉴 리스트 조회 및 수정</p>
-            </div>
-        </div>
 		<div class="working_box_l clfix">
             <section class="section set-menu-sec">
-                <div class="set-menu-list">
+                <div class="set-menu-list" style="width: auto;">
                     <ul class="depth1 show-dropdown">
                         <c:forEach varStatus="status" items="${menuList}" var="menu">
                             <c:set var="hasChild" value="${menu.level < menuList[status.count].level}"/>
@@ -397,71 +378,81 @@
                     <form id="menuForm" name="menuForm" action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="menuSeq" name="menuSeq" value="">
                         <input type="hidden" id="hasAuthority" name="hasAuthority" value="">
-                        <table summary="메뉴 상세" class="common-table" style="width: 100%;">
+                        <table summary="메뉴 상세" class="common-table">
                             <caption style="display: none;">메뉴 상세</caption>
                             <colgroup>
                                 <col width="18%" /><col width="*" />
                             </colgroup>
                             <tbody>
                                 <tr>
-                                    <th scope="row"><em>메뉴 이름</em></th>
-                                    <td class="cursor-default" style="border-top: 1px solid #c6c9cc !important;">
-                                        <div>
-                                            <input class="text_e w98p" value="" type="text" id="menuNm" name="menuNm"/>
+                                    <th class="row-th" scope="row"><div class="con-th">메뉴 이름</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <div class="input-box text">
+                                                <input style="width: auto;" class="text_e w98p" value="" type="text" id="menuNm" name="menuNm"/>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr id="parentMenuTr" style="display: none;">
-                                    <th scope="row"><em>상위 메뉴</em></th>
-                                    <td class="cursor-default">
-                                        <div>
-                                                <span id="parentMenuNm"></span>
+                                    <th class="row-th" scope="row"><div class="con-th">상위 메뉴</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <span id="parentMenuNm"></span>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><em>메뉴 URL</em></th>
-                                    <td class="cursor-default">
-                                        <div>
-                                            <input class="text_e w98p" value="" type="text" id="menuUrl" name="menuUrl"/>
+                                    <th class="row-th" scope="row"><div class="con-th">메뉴 URL</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <div class="input-box text">
+                                                <input style="width: auto;" class="text_e w98p" value="" type="text" id="menuUrl" name="menuUrl"/>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr id="menuIconTr" style="display: none;">
-                                    <th scope="row"><em>메뉴 아이콘</em></th>
-                                    <td>
-                                        <div class="field">
-                                            <img id="menuIcon" src="" style="width: 36px; height: 36px; background-color: #69649c82; border-radius:6px;" />
-                                            <input type="file" name="fileIcon" id="fileIcon" accept="image/*" style="height: 45px;" onchange="imageView(this)"/>
+                                    <th class="row-th" scope="row"><div class="con-th">메뉴 아이콘</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <div class="input-box text">
+                                                <img id="menuIcon" src="" style="width: 36px; height: 36px; background-color: #69649c82; border-radius:6px; margin-bottom: 3px;" />
+                                                <input style="width: auto; height: 41px;" type="file" name="fileIcon" id="fileIcon" accept="image/*" style="height: 45px;" onchange="imageView(this)"/>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><em>메뉴 권한</em></th>
-                                    <td class="cursor-default">
-                                        <ul class="chkgroup-list" style="display:inline-block;">
-                                            <c:forEach var="role" items="${roleList}" varStatus="status">
-                                                <li style="display:inline-block; margin-right:5px;">
-                                                    <div class="basic-check-box">
-                                                        <input type="checkbox" name="select" id="chk_${role.roleSeq}" data-role="${role.roleId}" tabindex="-1" class="chkgroup">
-                                                        <label for="chk_${role.roleSeq}" tabindex="0">${role.roleName}</label>
-                                                    </div>
-                                                </li>
-                                            </c:forEach>
-                                        </ul>
+                                    <th class="row-th" scope="row"><div class="con-th">메뉴 권한</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <ul class="chkgroup-list" style="display:inline-block;">
+                                                <c:forEach var="role" items="${roleList}" varStatus="status">
+                                                    <li style="display:inline-block; margin-right:5px;">
+                                                        <div class="basic-check-box">
+                                                            <input type="checkbox" name="select" id="chk_${role.roleSeq}" data-role="${role.roleId}" tabindex="-1" class="chkgroup">
+                                                            <label for="chk_${role.roleSeq}" tabindex="0">${role.roleName}</label>
+                                                        </div>
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="last" scope="row" style="border-bottom-left-radius: 6px;"><em>사용여부</em></th>
-                                    <td class="last cursor-default">
-                                        <div class="radio-box-wrap">
-                                            <div class="basic-radio-box">
-                                                <input type="radio" id="radio01" name="isUse" value="true" checked>
-                                                <label for="radio01"><span>사용</span></label>
-                                            </div>
-                                            <div class="basic-radio-box">
-                                                <input type="radio" id="radio02" name="isUse" value="false">
-                                                <label for="radio02"><span>사용안함</span></label>
+                                    <th class="row-th" scope="row"><div class="con-th">사용여부</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <div class="radio-box-wrap">
+                                                <div class="basic-radio-box">
+                                                    <input type="radio" id="radio01" name="isUse" value="true" checked>
+                                                    <label for="radio01"><span>사용</span></label>
+                                                </div>
+                                                <div class="basic-radio-box">
+                                                    <input type="radio" id="radio02" name="isUse" value="false">
+                                                    <label for="radio02"><span>사용안함</span></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
@@ -477,7 +468,7 @@
                         </div>
                         <div id="insertMenuBtnDiv" style="display: none;">
                             <button id="saveBtn" class="common-btn" type="button" value="save"><span><span class="size01">저장</span></span></button>
-    					    <button id="cancelBtn" class="common-btn" type="button" value="cancel"><span><span class="size01">취소</span></span></button>
+                            <button id="cancelBtn" class="common-btn" type="button" value="cancel"><span><span class="size01">취소</span></span></button>
                         </div>
                     </div>
                 </div>

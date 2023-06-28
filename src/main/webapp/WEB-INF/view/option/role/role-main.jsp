@@ -154,33 +154,39 @@
                 <div id="divBasicInfo" class="data_cont marT20">
                     <form id="roleForm" name="roleForm" action="" method="post">
                         <input type="hidden" id="roleSeq" name="roleSeq" value="">
-                        <table summary="권한 상세" class="common-table" style="width: 100%;">
+                        <table summary="권한 상세" class="common-table">
                             <caption style="display: none;">권한 상세</caption>
                             <colgroup>
                                 <col width="18%" /><col width="*" />
                             </colgroup>
                             <tbody>
                                 <tr>
-                                    <th scope="row"><em>권한 이름</em></th>
-                                    <td class="cursor-default" style="border-top: 1px solid #c6c9cc !important;">
-                                        <div>
-                                            <input class="text_e w98p" value="" type="text" id="roleName" name="roleName"/>
+                                    <th class="row-th" scope="row"><div class="con-th">권한 이름</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <div class="input-box text">
+                                                <input style="width: auto;" class="text_e w98p" value="" type="text" id="roleName" name="roleName"/>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><em>권한 코드</em></th>
-                                    <td class="cursor-default">
-                                        <div>
-                                            <input class="text_e w98p" value="" type="text" id="roleId" name="roleId"/>
+                                    <th class="row-th" scope="row"><div class="con-th">권한 코드</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <div class="input-box text">
+                                                <input style="width: auto;" class="text_e w98p" value="" type="text" id="roleId" name="roleId"/>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><em>권한 설명</em></th>
-                                    <td class="cursor-default">
-                                        <div>
-                                            <input class="text_e w98p" value="" type="text" id="roleDesc" name="roleDesc"/>
+                                    <th class="row-th" scope="row"><div class="con-th">권한 설명</div></th>
+                                    <td class="cell-td dt-left">
+                                        <div class="con-td">
+                                            <div class="input-box text">
+                                                <input style="width: auto;" class="text_e w98p" value="" type="text" id="roleDesc" name="roleDesc"/>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
