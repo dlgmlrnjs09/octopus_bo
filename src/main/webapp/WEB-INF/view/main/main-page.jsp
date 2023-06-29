@@ -1,14 +1,107 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ include file="/WEB-INF/include/common_taglib.jsp" %>--%>
+<%@ include file="/WEB-INF/include/common_taglib.jsp" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
     <script>
-        // $(function(){
-        //     $('.head-area').load("header.html");
-        // });
+        let currDates;
+        let nowDay = new Date();
+        let nowMonth = new Date();
+
+        Date.prototype.getWeek = function(start) {
+            //Calcing the starting point
+            start = start || 0;
+
+            var startDay = new Date(this.setHours(0, 0, 0, 0));
+            var endDay = new Date(this.setHours(0, 0, 0, 0));
+            var day = startDay.getDay() - start;
+            var date = startDay.getDate() - day;
+
+            // Grabbing Start/End Dates
+            var StartDate = new Date(startDay.setDate(date + 1));
+            var EndDate = new Date(endDay.setDate(date + 7));
+
+            return [StartDate, EndDate];
+        }
+
+        // 일간 주문 수
+        function dayOrderBtn(start) {
+            if(start == 0) {
+                nowDay = new Date();
+            } else {
+                nowDay.setDate(nowDay.getDate() + start);
+            }
+            $("#dayOrderText").text(nowDay.toLocaleDateString().substr(2).slice(0, -1));
+            selectOrderCount(nowDay, 'day');
+        }
+
+        // 주간 주문 수
+        function weekOrderBtn(start) {
+            if(start == 0) {
+                currDates = new Date().getWeek();
+            } else {
+                currDates = currDates[0].getWeek(start);
+            }
+            $("#weekOrderText").text(currDates[0].toLocaleDateString().substr(2).slice(0, -1) + '~' + currDates[1].toLocaleDateString().substr(2).slice(0, -1));
+            selectOrderCount(currDates, 'week');
+        }
+
+        // 월간 주문 수
+        function monthOrderBtn(start) {
+            if(start == 0) {
+                nowMonth = new Date();
+            } else {
+                nowMonth.setMonth(nowMonth.getMonth() + start);
+            }
+            $("#monthOrderText").text(nowMonth.toLocaleDateString().slice(0, -5));
+            selectOrderCount(nowMonth, 'month');
+        }
+
+        function selectOrderCount(dates, type) {
+            let params = {};
+
+            if(type == 'week') {
+                params = {
+                    'startDate' : dates[0].getFullYear() + '-' + (dates[0].getMonth()+1) + '-' + dates[0].getDate(),
+                    'endDate' : dates[1].getFullYear() + '-' + (dates[1].getMonth()+1) + '-' + dates[1].getDate(),
+                    'searchType' : type
+                };
+            } else if(type == 'day' || type == 'month') {
+                params = {
+                    'startDate' : dates.getFullYear() + '-' + (dates.getMonth()+1) + '-' + dates.getDate(),
+                    'endDate' : dates.getFullYear() + '-' + (dates.getMonth()+1) + '-' + dates.getDate(),
+                    'searchType' : type
+                };
+            }
+
+            $.ajax({
+                type : "POST",
+                url : "/order/select-order-count",
+                dataType:"json",
+                contentType : 'application/json; charset=utf-8',
+                data : JSON.stringify(params),
+                success : function(data){
+                    let compare = data.curr_count - data.prev_count;
+
+                    $("#" + type + "OrderTotal").html(data.curr_count.toLocaleString('ko-KR') + ' <span>건</span>');
+                    if(compare > 0) {
+                        $("#" + type + "OrderCompared").attr('class', 'compared up');
+                        $("#" + type + "OrderCompared").html('전날 대비 ' + compare.toLocaleString('ko-KR') + '건 많음 <span>3%</span>');
+                    } else {
+                        $("#" + type + "OrderCompared").attr('class', 'compared down');
+                        $("#" + type + "OrderCompared").html('전날 대비 ' + Math.abs(compare).toLocaleString('ko-KR') + '건 적음 <span>3%</span>');
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            weekOrderBtn(0);
+            monthOrderBtn(0);
+        });
     </script>
 
 <!--========== CONTENTS ==========-->
@@ -51,9 +144,9 @@
                         <div class="sec-title-wrap">
                             <h2 class="sec-title">주문</h2>
                             <ul class="tab-menu view-tab-menu">
-                                <li class="tab-link current" data-tab="tab-order-day"><a href="javascript:;"><span>일 D</span></a></li>
-                                <li class="tab-link" data-tab="tab-order-week"><a href="javascript:;"><span>주 W</span></a></li>
-                                <li class="tab-link" data-tab="tab-order-month"><a href="javascript:;"><span>월 M</span></a></li>
+                                <li class="tab-link current" data-tab="tab-order-day"><a href="javascript:void(0);" onclick="dayOrderBtn(0);"><span>일 D</span></a></li>
+                                <li class="tab-link" data-tab="tab-order-week"><a href="javascript:void(0);" onclick="weekOrderBtn(0);"><span>주 W</span></a></li>
+                                <li class="tab-link" data-tab="tab-order-month"><a href="javascript:void(0);" onclick="monthOrderBtn(0);"><span>월 M</span></a></li>
                             </ul>
                         </div>
                         <div class="tab-container">
@@ -62,12 +155,12 @@
                                     <div class="situation-content order">
                                         <div class="situation-con">
                                             <div class="date-wrap">
-                                                <button type="button" aria-label="이전" class="btn prev"><img src="/asset/img/admin/icon-arrow-prev.svg" alt="이전 날"></button>
-                                                <p class="date">23.05.12</p>
-                                                <button type="button" aria-label="다음" class="btn next"><img src="/asset/img/admin/icon-arrow-next.svg" alt="다음 날"></button>
+                                                <button type="button" aria-label="이전" class="btn prev" onclick="dayOrderBtn(-1);"><img src="/asset/img/admin/icon-arrow-prev.svg" alt="이전 날"></button>
+                                                <p class="date" id="dayOrderText">${now}</p>
+                                                <button type="button" aria-label="다음" class="btn next" onclick="dayOrderBtn(1);"><img src="/asset/img/admin/icon-arrow-next.svg" alt="다음 날"></button>
                                             </div>
-                                            <div class="total">1,897 <span>건</span></div>
-                                            <div class="compared up">전날 대비 00건 많음 <span>3%</span></div>
+                                            <div class="total" id="dayOrderTotal">${curr_count} <span>건</span></div>
+                                            <div class="compared <c:choose><c:when test='${compare > 0}'>up</c:when><c:otherwise>down</c:otherwise></c:choose>" id="dayOrderCompared">전날 대비 <fmt:formatNumber value="${compare < 0 ? -compare : compare}" pattern="#,###" />건 <c:choose><c:when test='${compare > 0}'>많음</c:when><c:otherwise>적음</c:otherwise></c:choose> <span>3%</span></div>
                                         </div>
                                         <div class="situation-info">
                                             <div><p class="tit">신규 주문</p><p class="num">400<span>건</span></p></div>
@@ -82,12 +175,12 @@
                                     <div class="situation-content order">
                                         <div class="situation-con">
                                             <div class="date-wrap">
-                                                <button type="button" aria-label="이전" class="btn prev"><img src="/asset/img/admin/icon-arrow-prev.svg" alt="이전 주"></button>
-                                                <p class="date">23.05.12 ~ 23.05.18</p>
-                                                <button type="button" aria-label="다음" class="btn next"><img src="/asset/img/admin/icon-arrow-next.svg" alt="다음 주"></button>
+                                                <button type="button" aria-label="이전" class="btn prev" onclick="weekOrderBtn(-7);"><img src="/asset/img/admin/icon-arrow-prev.svg" alt="이전 주"></button>
+                                                <p class="date" id="weekOrderText">23.05.12 ~ 23.05.18</p>
+                                                <button type="button" aria-label="다음" class="btn next" onclick="weekOrderBtn(7);"><img src="/asset/img/admin/icon-arrow-next.svg" alt="다음 주"></button>
                                             </div>
-                                            <div class="total">2,245 <span>건</span></div>
-                                            <div class="compared up">전날 대비 00건 많음 <span>3%</span></div>
+                                            <div class="total" id="weekOrderTotal">0 <span>건</span></div>
+                                            <div class="compared up" id="weekOrderCompared">전날 대비 00건 많음 <span>3%</span></div>
                                         </div>
                                         <div class="situation-info">
                                             <div><p class="tit">신규 주문</p><p class="num">724<span>건</span></p></div>
@@ -102,12 +195,12 @@
                                     <div class="situation-content order">
                                         <div class="situation-con">
                                             <div class="date-wrap">
-                                                <button type="button" aria-label="이전" class="btn prev"><img src="/asset/img/admin/icon-arrow-prev.svg" alt="이전 월"></button>
-                                                <p class="date">2023.05</p>
-                                                <button type="button" aria-label="다음" class="btn next"><img src="/asset/img/admin/icon-arrow-next.svg" alt="다음 월"></button>
+                                                <button type="button" aria-label="이전" class="btn prev" onclick="monthOrderBtn(-1);"><img src="/asset/img/admin/icon-arrow-prev.svg" alt="이전 월"></button>
+                                                <p class="date" id="monthOrderText">2023.05</p>
+                                                <button type="button" aria-label="다음" class="btn next" onclick="monthOrderBtn(1);"><img src="/asset/img/admin/icon-arrow-next.svg" alt="다음 월"></button>
                                             </div>
-                                            <div class="total">2,950 <span>건</span></div>
-                                            <div class="compared up">전날 대비 00건 많음 <span>3%</span></div>
+                                            <div class="total" id="monthOrderTotal">2,950 <span>건</span></div>
+                                            <div class="compared up" id="monthOrderCompared">전날 대비 00건 많음 <span>3%</span></div>
                                         </div>
                                         <div class="situation-info">
                                             <div><p class="tit">신규 주문</p><p class="num">1050<span>건</span></p></div>
