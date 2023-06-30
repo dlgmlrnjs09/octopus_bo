@@ -99,6 +99,7 @@ public class ProductMngServiceImpl implements ProductMngService{
         boolean isPayBuyPoint = Boolean.parseBoolean((String) paramMap.get("is_pay_buy_point"));
         boolean isPayNormalReviewPoint = Boolean.parseBoolean((String) paramMap.get("is_pay_normal_review_point"));
         boolean isPayMediaReviewPoint = Boolean.parseBoolean((String) paramMap.get("is_pay_media_review_point"));
+        boolean isSetProductOrderCoupon = Boolean.parseBoolean((String) paramMap.get("is_set_product_order_coupon"));
         boolean isValidOption = true;
 
         List<Map<String, Object>> optionList = new ArrayList<>();
@@ -174,6 +175,9 @@ public class ProductMngServiceImpl implements ProductMngService{
         } else if ("charge".equals(paramMap.get("delivery_condition")) && CommonUtil.isEmpty(paramMap.get("default_delivery_charge"))) {
             name = "default_delivery_charge";
             popupMsg = "기본 배송비를 입력해주세요.";
+        } else if (isSetProductOrderCoupon && CommonUtil.isEmpty(paramMap.get("product_order_coupon_seq"))) {
+            name = "product_order_coupon_seq";
+            popupMsg = "상품주문 쿠폰을 선택해주세요.";
         } else if (isPayBuyPoint && CommonUtil.isEmpty(paramMap.get("pay_buy_point"))) {
             name = "pay_buy_point";
             popupMsg = "지급할 구매포인트를 입력해주세요.";
@@ -218,6 +222,7 @@ public class ProductMngServiceImpl implements ProductMngService{
         paramMap.put("is_pay_normal_review_point", Boolean.parseBoolean((String) paramMap.get("is_pay_normal_review_point")));
         paramMap.put("is_pay_media_review_point", Boolean.parseBoolean((String) paramMap.get("is_pay_media_review_point")));
         paramMap.put("is_has_option", Boolean.parseBoolean((String) paramMap.get("is_has_option")));
+        paramMap.put("is_set_product_order_coupon", Boolean.parseBoolean((String) paramMap.get("is_set_product_order_coupon")));
 
         if ("insert".equals(regType)) {
             successCnt = productMngDao.insertProductMng(paramMap);

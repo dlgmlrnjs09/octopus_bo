@@ -76,6 +76,8 @@
             , is_pay_media_review_point
             , product_media_review_point
             , is_has_option
+            , is_set_product_order_coupon
+            , product_order_coupon_seq
         FROM
             octopus.product_info
         WHERE
@@ -119,6 +121,10 @@
                 , product_media_review_point
             </if>
             , is_has_option
+            , is_set_product_order_coupon
+            <if test="is_set_product_order_coupon == true">
+                , product_order_coupon_seq
+            </if>
         ) VALUES (
             #{nextProductSeq}
             , #{product_name}
@@ -150,6 +156,10 @@
                 , #{pay_media_review_point}::int4
             </if>
             ,#{is_has_option}::bool
+            , #{is_set_product_order_coupon}
+            <if test="is_set_product_order_coupon == true">
+                , #{product_order_coupon_seq}::int4
+            </if>
         )
     </insert>
 
@@ -184,6 +194,10 @@
                 , product_media_review_point = #{pay_media_review_point}::int4
             </if>
             , is_has_option = #{is_has_option}::bool
+            , is_set_product_order_coupon = #{is_set_product_order_coupon}
+            <if test="is_set_product_order_coupon == true">
+                , product_order_coupon_seq = #{product_order_coupon_seq}::int4
+            </if>
         WHERE
             product_seq = #{productSeq}::int4
     </insert>

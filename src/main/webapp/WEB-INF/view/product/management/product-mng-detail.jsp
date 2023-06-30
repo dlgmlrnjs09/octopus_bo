@@ -403,6 +403,24 @@
                             </td>
                         </tr>
                         <tr>
+                            <th class="row-th" scope="row"><div class="con-th">상품주문 쿠폰</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <input type="hidden" id="product-order-coupon-seq" name="product_order_coupon_seq" <c:if test="${productDetailInfo.is_set_product_order_coupon == true}}">value="${productDetailInfo.product_order_coupon_seq}"</c:if> >
+                                    <div class="radio-box-wrap">
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is-set-product-order-coupon" name="is_set_product_order_coupon" value="true" <c:if test="${productDetailInfo.is_set_product_order_coupon == true}">checked</c:if> >
+                                            <label for="is-set-product-order-coupon"><span>설정함</span></label>
+                                        </div>
+                                        <div class="basic-radio-box">
+                                            <input type="radio" id="is-not-set-product-order-coupon" name="is_set_product_order_coupon" value="false" <c:if test="${productDetailInfo.is_set_product_order_coupon == false or regType == 'insert'}">checked</c:if>>
+                                            <label for="is-not-set-product-order-coupon"><span>설정안함</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <th class="row-th" scope="row"><div class="con-th">구매 포인트</div></th>
                             <td class="cell-td dt-left">
                                 <div class="con-td">
@@ -573,6 +591,14 @@
             $("#pay-buy-point-wrap").removeClass('hidden');
         } else {
             $("#pay-buy-point-wrap").addClass('hidden');
+        }
+    });
+
+    // 주문 쿠폰
+    $("input[name='is_set_product_order_coupon']").on('change', function () {
+        let value = $(this).val();
+        if (value === 'true') {
+            PopupReg1('/promotion/coupon/select-coupon-popup', 800, 400, '_blank')
         }
     });
 
