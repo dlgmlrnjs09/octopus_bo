@@ -2,6 +2,8 @@ package com.weaverloft.octopus.basic.main.controller;
 
 import com.weaverloft.octopus.basic.main.service.MainService;
 import com.weaverloft.octopus.basic.member.vo.MemberVo;
+import com.weaverloft.octopus.basic.order.service.OrderService;
+import com.weaverloft.octopus.basic.order.vo.OrderVo;
 import com.weaverloft.octopus.basic.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author note-gram-015
@@ -32,8 +37,11 @@ public class MainController {
     @Autowired
     private MainService mainService;
 
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping("/main-page")
-    public String showMainPage(HttpServletRequest request, HttpServletResponse response) {
+    public String showMainPage(HttpServletRequest request, HttpServletResponse response, Model model) {
         List<String> roleList = Arrays.asList("ADMIN", "MANAGER");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -49,6 +57,19 @@ public class MainController {
                 return "/main/denied.admin";
             }
         }
+
+        LocalDate currentDate = LocalDate.now();
+        OrderVo orderVo = new OrderVo();
+        orderVo.setStartDate(currentDate.format(DateTimeFormatter.ISO_DATE));
+        orderVo.setEndDate(currentDate.format(DateTimeFormatter.ISO_DATE));
+        orderVo.setSearchType("day");
+
+        Map<String, Object> countMap =  orderService.selectOrderCountForMainPage(orderVo);
+        int compare = Integer.parseInt(String.valueOf(countMap.get("curr_count"))) - Integer.parseInt(String.valueOf(countMap.get("prev_count")));
+
+        model.addAttribute("now", currentDate.format(DateTimeFormatter.ofPattern("YY. M. dd")));
+        model.addAttribute("curr_count", countMap.get("curr_count"));
+        model.addAttribute("compare", compare);
 
         return "/main/main-page.admin";
     }
