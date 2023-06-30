@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.promotion.coupon.dao.PromotionCouponDao">
+    <sql id="defaultWhere">
+        <if test="search_keyword != null and search_keyword !=''">
+        </if>
+
+        <if test="coupon_issue_type == 'conditional'">
+            and coupon_issue_type = 'conditional'
+            <if test="coupon_issue_condition_type == 'order'">
+                and coupon_issue_condition_type = 'order'
+            </if>
+        </if>
+    </sql>
+
+    <select id="getPromotionCouponList" parameterType="map" resultType="map">
+        SELECT
+            coupon_seq
+             , coupon_name
+             , coupon_benefit_type
+             , cc1.code_name as coupon_benefit_type_nm
+             , coupon_benefit_amount
+             , coupon_benefit_percentage
+             , coupon_issue_type
+             , coupon_issue_condition_type
+             , cc2.code_name as coupon_issue_condition_type_nm
+             , is_coupon_issue_per_limit
+             , coupon_issue_per_limit
+             , is_coupon_issue_limit
+             , coupon_issue_limit
+             , coupon_use_start_date
+             , coupon_use_end_date
+             , coupon_issue_start_date
+             , coupon_issue_end_date
+             , coupon_coverage_type
+             , coupon_description
+             , pci.reg_dt
+             , pci.udt_dt
+             , pci.del_dt
+        FROM
+            octopus.promotion_coupon_info pci
+            left outer join octopus.common_code cc1 on (
+                pci.coupon_benefit_type = cc1.code_value
+                and cc1.code_key = 'coupon_benefit_type'
+                and cc1.is_use = true
+            )
+            left outer join octopus.common_code cc2 on (
+                pci.coupon_issue_condition_type = cc2.code_value
+                and cc2.code_key = 'coupon_issue_condition_type'
+                and cc2.is_use = true
+            )
+        WHERE
+            pci.is_use = true
+            <include refid="defaultWhere"/>
+    </select>
+
+    <select id="getPromotionCouponDetail" parameterType="int" resultType="map">
+        SELECT
+            coupon_seq
+            , coupon_name
+            , coupon_benefit_type
+            , coupon_benefit_amount
+            , coupon_benefit_percentage
+            , coupon_issue_type
+            , coupon_issue_condition_type
+            , is_coupon_issue_per_limit
+            , coupon_issue_per_limit
+            , is_coupon_issue_limit
+            , coupon_issue_limit
+            , coupon_use_start_date
+            , coupon_use_end_date
+            , coupon_issue_start_date
+            , coupon_issue_end_date
+            , coupon_coverage_type
+            , coupon_description
+            , reg_dt
+            , udt_dt
+            , del_dt
+        FROM
+            octopus.promotion_coupon_info
+        WHERE
+            coupon_seq = #{seq}
+            and is_use = true
+    </select>
+
+    <insert id="insertProductCoupon" parameterType="map">
+        INSERT INTO octopus.promotion_coupon_info (
+            coupon_name
+            , coupon_benefit_type
+            <if test="coupon_benefit_type == 'amount'">
+                , coupon_benefit_amount
+            </if>
+            <if test="coupon_benefit_type == 'percentage'">
+                , coupon_benefit_percentage
+            </if>
+            , coupon_issue_type
+            <if test="coupon_issue_type == 'conditional'">
+                , coupon_issue_condition_type
+            </if>
+            , is_coupon_issue_per_limit
+            <if test="is_coupon_issue_per_limit == true">
+                , coupon_issue_per_limit
+            </if>
+            , is_coupon_issue_limit
+            <if test="is_coupon_issue_limit == true">
+                , coupon_issue_limit
+            </if>
+            , coupon_use_start_date
+            , coupon_use_end_date
+            , coupon_issue_start_date
+            , coupon_issue_end_date
+            , coupon_coverage_type
+            , coupon_description
+        ) VALUES (
+            #{coupon_name}
+            , #{coupon_benefit_type}
+            <if test="coupon_benefit_type == 'amount'">
+                , #{coupon_benefit_amount}::int4
+            </if>
+            <if test="coupon_benefit_type == 'percentage'">
+                , #{coupon_benefit_percentage}::int4
+            </if>
+            , #{coupon_issue_type}
+            <if test="coupon_issue_type == 'conditional'">
+                , #{coupon_issue_condition_type}
+            </if>
+            , #{is_coupon_issue_per_limit}
+            <if test="is_coupon_issue_per_limit == true">
+                , #{coupon_issue_per_limit}::int4
+            </if>
+            , #{is_coupon_issue_limit}
+            <if test="is_coupon_issue_limit == true">
+                , #{coupon_issue_limit}::int4
+            </if>
+            , #{coupon_use_start_date}::date
+            , #{coupon_use_end_date}::date
+            , #{coupon_issue_start_date}::date
+            , #{coupon_issue_end_date}::Date
+            , #{coupon_coverage_type}
+            , #{coupon_description}
+        )
+    </insert>
+
+    <insert id="updateProductCoupon" parameterType="map">
+        UPDATE octopus.promotion_coupon_info
+        SET
+            coupon_name = #{coupon_name}
+            ,coupon_benefit_type = #{coupon_benefit_type}
+            <if test="coupon_benefit_type == 'amount'">
+                , coupon_benefit_amount = #{coupon_benefit_amount}::int4
+            </if>
+            <if test="coupon_benefit_type == 'percentage'">
+                , coupon_benefit_percentage = #{coupon_benefit_percentage}::int4
+            </if>
+            , coupon_issue_type = #{coupon_issue_type}
+            <if test="coupon_issue_type == 'conditional'">
+                , coupon_issue_condition_type = #{coupon_issue_condition_type}
+            </if>
+            , is_coupon_issue_per_limit = #{is_coupon_issue_per_limit}
+            <if test="is_coupon_issue_per_limit == true">
+                , coupon_issue_per_limit = #{coupon_issue_per_limit}::int4
+            </if>
+            , is_coupon_issue_limit = #{is_coupon_issue_limit}
+            <if test="is_coupon_issue_limit == true">
+                , coupon_issue_limit = #{coupon_issue_limit}::int4
+            </if>
+            , coupon_use_start_date = #{coupon_use_start_date}::date
+            , coupon_use_end_date = #{coupon_use_end_date}::date
+            , coupon_issue_start_date = #{coupon_issue_start_date}::date
+            , coupon_issue_end_date = #{coupon_issue_end_date}::Date
+            , coupon_coverage_type = #{coupon_coverage_type}
+            , coupon_description = #{coupon_description}
+            , udt_dt = now()
+        WHERE
+            coupon_seq = #{coupon_seq}::int4
+    </insert>
+
+</mapper>
