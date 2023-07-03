@@ -5,7 +5,7 @@
         <title>상품주문쿠폰</title>
     </head>
     <body>
-        <table class="common-table" summary="상품주문쿠폰" style="padding: 20px;">
+        <table class="common-table" summary="상품주문쿠폰" style="padding: 20px; display: block; overflow: auto; height: 320px">
             <colgroup>
                 <col width="8%">
             </colgroup>
@@ -13,6 +13,7 @@
                <th class="row-th" scope="row"><div class="con-th">선택</div></th>
                <th class="row-th" scope="row"><div class="con-th">쿠폰명</div></th>
                <th class="row-th" scope="row"><div class="con-th">혜택</div></th>
+               <th class="row-th" scope="row"><div class="con-th">발급구분</div></th>
                <th class="row-th" scope="row"><div class="con-th">발급기간</div></th>
                <th class="row-th" scope="row"><div class="con-th">사용기간</div></th>
             </tr>
@@ -36,7 +37,6 @@
                     </td>
                     <td class="cell-td dt-left">
                         <div class="con-td">
-                            ${couponList.coupon_issue_condition_type_nm}시
                             <c:if test="${couponList.coupon_benefit_type == 'amount'}">
                                 ${couponList.coupon_benefit_amount}원
                             </c:if>
@@ -44,6 +44,14 @@
                                 ${couponList.coupon_benefit_percentage}%
                             </c:if>
                             할인
+                        </div>
+                    </td>
+                    <td class="cell-td dt-left">
+                        <div class="con-td">
+                            ${couponList.coupon_issue_type_nm}
+                            <c:if test="${couponList.coupon_issue_type == 'conditional'}">
+                                (${couponList.coupon_issue_condition_type_nm})
+                            </c:if>
                         </div>
                     </td>
                     <td class="cell-td dt-left">

@@ -14,19 +14,39 @@
                     <table class="common-table" summary="검색" style="width:100%;">
                         <tbody>
                         <tr>
-                            <th class="row-th" scope="row"><div class="con-th">등록일</div></th>
+                            <th class="row-th" scope="row"><div class="con-th">발급기간</div></th>
                             <td class="cell-td dt-left">
                                 <div class="con-td">
                                     <div class="datepicker-box-wrap" style="display: inline-block">
                                         <div class="input-box datepicker-box">
-                                            <input type="text" class="" name="startDate" id="startDate" title="등록일자 시작일 입력" value="${startDate}" autocomplete='off'>
+                                            <input type="text" class="" name="coupon_issue_start_date" id="coupon-issue-start-date" title="발급 시작일 입력" value="${coupon_issue_start_date}" autocomplete='off'>
                                             <span class="border-focus"><i></i></span>
                                         </div>
                                     </div>
                                     ~
                                     <div class="datepicker-box-wrap" style="display: inline-block">
                                         <div class="input-box datepicker-box">
-                                            <input type="text" class="" name="endDate" id="endDate" title="등록일자 만료일 입력" value="${endDate}" autocomplete='off'>
+                                            <input type="text" class="" name="coupon_issue_end_date" id="coupon-issue-end-date" title="발급 만료일 입력" value="${coupon_issue_end_date}" autocomplete='off'>
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="row-th" scope="row"><div class="con-th">유효기간</div></th>
+                            <td class="cell-td dt-left">
+                                <div class="con-td">
+                                    <div class="datepicker-box-wrap" style="display: inline-block">
+                                        <div class="input-box datepicker-box">
+                                            <input type="text" class="" name="coupon_use_start_date" id="coupon-use-start-date" title="사용 시작일 입력" value="${coupon_use_start_date}" autocomplete='off'>
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                    </div>
+                                    ~
+                                    <div class="datepicker-box-wrap" style="display: inline-block">
+                                        <div class="input-box datepicker-box">
+                                            <input type="text" class="" name="coupon_use_end_date" id="coupon-use-end-date" title="사용 만료일 입력" value="${coupon_use_end_date}" autocomplete='off'>
                                             <span class="border-focus"><i></i></span>
                                         </div>
                                     </div>
@@ -39,8 +59,7 @@
                                 <div class="common-sel-sch-wrap">
                                     <div class="basic-select-box">
                                         <select id="searchType" name="search_type" style="">
-                                            <option value="product_name" <c:if test="${search_type == 'product_name'}">selected</c:if> >상품명</option>
-                                            <option value="product_category_nm" <c:if test="${search_type == 'product_category_nm'}">selected</c:if> >카테고리</option>
+                                            <option value="coupon_name" <c:if test="${search_type == 'coupon_name'}">selected</c:if> >쿠폰명</option>
                                         </select>
                                         <span class="border-focus"><i></i></span>
                                     </div>
@@ -68,7 +87,7 @@
                     <div class="table-contents-wrap"  style="background-color: #fff; padding: 20px;">
                         <div class="common-table-wrap">
                             <table id="dataTable" class="common-table">
-                                <caption class="hidden">상품 목록 테이블</caption>
+                                <caption class="hidden">쿠폰 목록 테이블</caption>
                                 <!-- colgroup 대신 css로 적용 -->
                                 <thead>
                                 <tr>
@@ -82,65 +101,62 @@
                                         <div class="con-th">번호</div>
                                     </th>
                                     <th class="cell-th">
-                                        <div class="con-th">상품명</div>
+                                        <div class="con-th">쿠폰명</div>
                                     </th>
                                     <th class="cell-th">
-                                        <div class="con-th">카테고리</div>
+                                        <div class="con-th">혜택</div>
                                     </th>
                                     <th class="cell-th">
-                                        <div class="con-th">가격</div>
+                                        <div class="con-th">발급구분</div>
                                     </th>
                                     <th class="cell-th">
-                                        <div class="con-th">옵션여부</div>
+                                        <div class="con-th">적용범위</div>
                                     </th>
                                     <th class="cell-th">
-                                        <div class="con-th">등록일</div>
+                                        <div class="con-th">발급기간</div>
+                                    </th>
+                                    <th class="cell-th">
+                                        <div class="con-th">유효기간</div>
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody class="cursor-point">
                                 <c:choose>
-                                    <c:when test="${fn:length(productMngList) == 0}">
+                                    <c:when test="${fn:length(couponList) == 0}">
                                         <tr class="empty">
-                                            <td colspan="7" class="empty"><p>검색결과가 없습니다.</p></td>
+                                            <td colspan="8" class="empty"><p>검색결과가 없습니다.</p></td>
                                         </tr>
                                     </c:when>
                                     <c:otherwise>
-                                        <c:forEach var="productInfo" items="${productMngList}" varStatus="status">
-                                            <tr onclick="goView(${productInfo.product_seq})">
+                                        <c:forEach var="couponInfo" items="${couponList}" varStatus="status">
+                                            <tr onclick="goView(${couponInfo.coupon_seq})">
                                                 <!-- 총 개수 - ( ((현재페이지 - 1) * 화면당 게시글 로우행 수) + 로우인덱스) -->
                                                 <td class="cell-td check-td">
                                                     <div class="basic-check-box">
-                                                        <input type="checkbox" name="select" id="chk_${productInfo.product_seq}" tabindex="-1" class="chkgroup table-check-box">
-                                                        <label for="chk_${productInfo.product_seq}" tabindex="0"></label>
+                                                        <input type="checkbox" name="select" id="chk_${couponInfo.coupon_seq}" tabindex="-1" class="chkgroup table-check-box">
+                                                        <label for="chk_${couponInfo.coupon_seq}" tabindex="0"></label>
                                                     </div>
                                                 </td>
-                                                <td class="cell-td" data-seq="${productInfo.product_seq}"><div class="con-td">${pagingModel.listCnt - (((pagingModel.curPage - 1) * pagingModel.pageSize) + status.index)}</div></td>
-                                                <td class="cell-td" data-seq="${productInfo.product_seq}"><div class="con-td">${productInfo.product_name}</div></td>
-                                                <td class="cell-td" data-seq="${productInfo.product_seq}"><div class="con-td">${productInfo.product_category_nm}</div></td>
-                                                <td class="cell-td" data-seq="${productInfo.product_seq}">
-                                                    <div class="con-td">
-                                                    <c:choose>
-                                                        <c:when test="${productInfo.is_discount}">
-<%--                                                            ${productInfo.discount_price}--%>
-                                                            <fmt:formatNumber value="${productInfo.discount_price}" pattern="#,###"/>
-                                                        </c:when>
-                                                        <c:otherwise>
-<%--                                                            ${productInfo.product_price}--%>
-                                                            <fmt:formatNumber value="${productInfo.product_price}" pattern="#,###"/>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    </div>
-                                                </td>
-                                                <td class="cell-td" data-seq="${productInfo.product_seq}">
-                                                    <div class="con-td">
-                                                        <div class="basic-check-box">
-                                                            <input type="checkbox" class="table-check-box" id="is-has-option-ck" <c:if test="${productInfo.is_has_option == true}">checked</c:if> disabled>
-                                                            <label for="is-has-option-ck" tabindex="0"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="cell-td" data-seq="${productInfo.product_seq}"><div class="con-td">${productInfo.reg_dt}</div></td>
+                                                <td class="cell-td" data-seq="${couponInfo.coupon_seq}"><div class="con-td">${pagingModel.listCnt - (((pagingModel.curPage - 1) * pagingModel.pageSize) + status.index)}</div></td>
+                                                <td class="cell-td" data-seq="${couponInfo.coupon_seq}"><div class="con-td">${couponInfo.coupon_name}</div></td>
+                                                <td class="cell-td" data-seq="${couponInfo.coupon_seq}"><div class="con-td">
+                                                    <c:if test="${couponInfo.coupon_benefit_type == 'amount'}">
+                                                        ${couponInfo.coupon_benefit_amount}원
+                                                    </c:if>
+                                                    <c:if test="${couponInfo.coupon_benefit_type == 'percentage'}">
+                                                        ${couponInfo.coupon_benefit_percentage}%
+                                                    </c:if>
+                                                    할인
+                                                </div></td>
+                                                <td class="cell-td" data-seq="${couponInfo.coupon_seq}"><div class="con-td">
+                                                    ${couponInfo.coupon_issue_type_nm}
+                                                    <c:if test="${couponInfo.coupon_issue_type == 'conditional'}">
+                                                        (${couponInfo.coupon_issue_condition_type_nm})
+                                                    </c:if>
+                                                </div></td>
+                                                <td class="cell-td" data-seq="${couponInfo.coupon_seq}"><div class="con-td">${couponInfo.coupon_coverage_type_nm}</div></td>
+                                                <td class="cell-td" data-seq="${couponInfo.coupon_seq}"><div class="con-td">${couponInfo.coupon_issue_start_date} ~ ${couponInfo.coupon_issue_end_date}</div></td>
+                                                <td class="cell-td" data-seq="${couponInfo.coupon_seq}"><div class="con-td">${couponInfo.coupon_use_start_date} ~ ${couponInfo.coupon_use_end_date}</div></td>
                                             </tr>
                                         </c:forEach>
                                     </c:otherwise>
@@ -173,7 +189,7 @@
                                 </c:if>
                                 <ul class="pagination-list">
                                     <c:choose>
-                                        <c:when test="${fn:length(productMngList) == 0}">
+                                        <c:when test="${fn:length(couponList) == 0}">
                                             <li class="current"><button onclick="pageChange(1)">1</button></li>
                                         </c:when>
                                         <c:otherwise>
@@ -191,9 +207,8 @@
                                 </c:if>
                             </div>
                             <div class="right-wrap">
-                                <button type="button" id="excelMemberUpload" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" onclick="goView(null)" aria-label="title"><span>상품 등록</span></button>
-                                <button type="button" id="excelMemberUpload" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" aria-label="title"><span>상품 일괄 등록</span></button>
-                                <button type="button" id="excelMemberDownload" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>엑셀 다운로드</span></button>
+                                <button type="button" id="coupon-reg-btn" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" onclick="goView(null)" aria-label="title"><span>쿠폰 등록</span></button>
+                                <button type="button" id="coupon-excel-download-btn" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>엑셀 다운로드</span></button>
                             </div>
                         </div>
                     </div>
@@ -206,14 +221,15 @@
 <script>
 
     $(function () {
-        initDatePicker($("#startDate"), $("#endDate"))
+        initDatePicker($("#coupon-issue-start-date"), $("#coupon-issue-end-date"));
+        initDatePicker($("#coupon-use-start-date"), $("#coupon-use-end-date"));
     });
 
     function pageChange(num) {
         $("input[name='curPage']").val(num);
         $("input[name='pageSize']").val($("select[name='pageSize']").val());
         let frm = $("#frm");
-        frm.attr("action", "<c:url value="/product/management/list"/>");
+        frm.attr("action", "<c:url value="/promotion/coupon/list"/>");
         frm.submit();
     }
 
@@ -221,14 +237,14 @@
         $("input[name='curPage']").val(num);
         $("input[name='pageSize']").val($("select[name='pageSize']").val());
         let frm = $("#search-frm");
-        frm.attr("action", "<c:url value="/product/management/list"/>");
+        frm.attr("action", "<c:url value="/promotion/coupon/list"/>");
         frm.submit();
     }
 
     function goView(seq) {
         $("input[name='seq']").val(seq);
         let frm = $("#frm");
-        frm.attr("action", "<c:url value="/product/management/detail"/>");
+        frm.attr("action", "<c:url value="/promotion/coupon/detail"/>");
         frm.submit();
     }
 </script>

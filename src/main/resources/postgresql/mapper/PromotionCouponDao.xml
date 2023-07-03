@@ -6,6 +6,9 @@
 <mapper namespace="com.weaverloft.octopus.basic.promotion.coupon.dao.PromotionCouponDao">
     <sql id="defaultWhere">
         <if test="search_keyword != null and search_keyword !=''">
+            <if test="search_type == 'coupon_name'">
+                AND UPPER(coupon_name) LIKE '%'||UPPER(#{search_keyword})||'%'
+            </if>
         </if>
 
         <if test="coupon_issue_type == 'conditional'">
@@ -14,47 +17,91 @@
                 and coupon_issue_condition_type = 'order'
             </if>
         </if>
+
+        <if test="coupon_use_end_date !=null and coupon_use_end_date != ''">
+            AND pci.coupon_use_start_date <![CDATA[<=]]> #{coupon_use_end_date}::date
+        </if>
+        <if test="coupon_use_start_date !=null and coupon_use_start_date != ''">
+            AND pci.coupon_use_end_date <![CDATA[>=]]> #{coupon_use_start_date}::date
+        </if>
+        <if test="coupon_issue_end_date !=null and coupon_issue_end_date != ''">
+            AND pci.coupon_issue_start_date <![CDATA[<=]]> #{coupon_issue_end_date}::date
+        </if>
+        <if test="coupon_issue_start_date !=null and coupon_issue_start_date != ''">
+            AND pci.coupon_issue_end_date <![CDATA[>=]]> #{coupon_issue_start_date}::date
+        </if>
     </sql>
 
-    <select id="getPromotionCouponList" parameterType="map" resultType="map">
+    <select id="getPromotionCouponListCnt" parameterType="map" resultType="int">
         SELECT
-            coupon_seq
-             , coupon_name
-             , coupon_benefit_type
-             , cc1.code_name as coupon_benefit_type_nm
-             , coupon_benefit_amount
-             , coupon_benefit_percentage
-             , coupon_issue_type
-             , coupon_issue_condition_type
-             , cc2.code_name as coupon_issue_condition_type_nm
-             , is_coupon_issue_per_limit
-             , coupon_issue_per_limit
-             , is_coupon_issue_limit
-             , coupon_issue_limit
-             , coupon_use_start_date
-             , coupon_use_end_date
-             , coupon_issue_start_date
-             , coupon_issue_end_date
-             , coupon_coverage_type
-             , coupon_description
-             , pci.reg_dt
-             , pci.udt_dt
-             , pci.del_dt
+            count(*)
         FROM
             octopus.promotion_coupon_info pci
-            left outer join octopus.common_code cc1 on (
-                pci.coupon_benefit_type = cc1.code_value
-                and cc1.code_key = 'coupon_benefit_type'
-                and cc1.is_use = true
-            )
-            left outer join octopus.common_code cc2 on (
-                pci.coupon_issue_condition_type = cc2.code_value
-                and cc2.code_key = 'coupon_issue_condition_type'
-                and cc2.is_use = true
-            )
         WHERE
             pci.is_use = true
             <include refid="defaultWhere"/>
+    </select>
+
+    <select id="getPromotionCouponList" parameterType="map" resultType="map">
+        SELECT A.*
+        FROM (
+            SELECT
+                coupon_seq
+                 , coupon_name
+                 , coupon_benefit_type
+                 , cc1.code_name as coupon_benefit_type_nm
+                 , coupon_benefit_amount
+                 , coupon_benefit_percentage
+                 , coupon_issue_type
+                 , cc4.code_name as coupon_issue_type_nm
+                 , coupon_issue_condition_type
+                 , cc2.code_name as coupon_issue_condition_type_nm
+                 , is_coupon_issue_per_limit
+                 , coupon_issue_per_limit
+                 , is_coupon_issue_limit
+                 , coupon_issue_limit
+                 , coupon_use_start_date
+                 , coupon_use_end_date
+                 , coupon_issue_start_date
+                 , coupon_issue_end_date
+                 , coupon_coverage_type
+                 , cc3.code_name as coupon_coverage_type_nm
+                 , coupon_description
+                 , pci.reg_dt
+                 , pci.udt_dt
+                 , pci.del_dt
+            FROM
+                octopus.promotion_coupon_info pci
+                left outer join octopus.common_code cc1 on (
+                    pci.coupon_benefit_type = cc1.code_value
+                    and cc1.code_key = 'coupon_benefit_type'
+                    and cc1.is_use = true
+                )
+                left outer join octopus.common_code cc2 on (
+                    pci.coupon_issue_condition_type = cc2.code_value
+                    and cc2.code_key = 'coupon_issue_condition_type'
+                    and cc2.is_use = true
+                )
+                left outer join octopus.common_code cc3 on (
+                    pci.coupon_coverage_type = cc3.code_value
+                    and cc3.code_key = 'coupon_coverage_type'
+                    and cc3.is_use = true
+                )
+                left outer join octopus.common_code cc4 on (
+                    pci.coupon_issue_type = cc4.code_value
+                    and cc4.code_key = 'coupon_issue_type'
+                    and cc4.is_use = true
+                )
+            WHERE
+                pci.is_use = true
+                <include refid="defaultWhere"/>
+            ORDER BY
+                pci.reg_dt desc
+        ) A
+        LIMIT
+        #{pagingModel.pageSize}
+        OFFSET
+        (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
     </select>
 
     <select id="getPromotionCouponDetail" parameterType="int" resultType="map">

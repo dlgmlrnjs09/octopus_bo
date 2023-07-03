@@ -11,6 +11,7 @@ import java.util.Map;
  * @date 2023-06-26
  */
 public interface PromotionCouponService {
+    int getPromotionCouponListCnt(Map<String, Object> paramMap);
     List<Map<String, Object>> getPromotionCouponList(Map<String, Object> paramMap);
     Map<String, Object> getPromotionCouponDetail(int seq);
     Map<String, Object> checkSubmitValidation(Map<String, Object> paramMap);

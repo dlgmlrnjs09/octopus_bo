@@ -9,18 +9,21 @@
             <if test="search_type == 'product_name'">
                 AND UPPER(product_name) LIKE '%'||UPPER(#{search_keyword})||'%'
             </if>
+            <if test="search_type == 'product_category_nm'">
+                AND UPPER(product_category_nm) LIKE '%'||UPPER(#{search_keyword})||'%'
+            </if>
         </if>
 
         <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
-            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp
+            AND pi.reg_dt <![CDATA[>=]]> #{startDate}::timestamp
         </if>
 
         <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
-            AND reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
+            AND pi.reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
         </if>
 
         <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
-            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+            AND pi.reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
         </if>
     </sql>
 
@@ -28,9 +31,13 @@
         select
             count(*)
         from
-            octopus.product_info
+            octopus.product_info pi
+            left outer join octopus.product_category_info pci on (
+                pi.category_seq = pci.product_category_seq
+                and pci.is_use = true
+            )
         where
-            is_use = true
+            pi.is_use = true
             <include refid="defaultWhere"/>
     </select>
 
@@ -43,9 +50,14 @@
                   , discount_price
                   , is_discount
                   , is_has_option
-                  , reg_dt::date
-             from octopus.product_info
-             where is_use = true
+                  , pci.product_category_nm
+                  , pi.reg_dt::date
+             from octopus.product_info pi
+                    left outer join octopus.product_category_info pci on (
+                        pi.category_seq = pci.product_category_seq
+                        and pci.is_use = true
+                    )
+             where pi.is_use = true
                     <include refid="defaultWhere"/>
              order by product_seq desc
          ) A
@@ -79,7 +91,7 @@
             , is_set_product_order_coupon
             , product_order_coupon_seq
         FROM
-            octopus.product_info
+            octopus.product_info pi
         WHERE
             is_use = true
             and product_seq = #{value}

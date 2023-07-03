@@ -14,6 +14,7 @@ import java.util.Map;
  */
 @Mapper
 public interface PromotionCouponDao {
+    int getPromotionCouponListCnt(Map<String, Object> paramMap);
     List<Map<String, Object>> getPromotionCouponList(Map<String, Object> paramMap);
     Map<String, Object> getPromotionCouponDetail(int seq);
     int insertProductCoupon(Map<String, Object> paramMap);

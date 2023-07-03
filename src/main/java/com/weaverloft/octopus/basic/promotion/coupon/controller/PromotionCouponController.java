@@ -1,6 +1,7 @@
 package com.weaverloft.octopus.basic.promotion.coupon.controller;
 
 import com.weaverloft.octopus.basic.common.util.CommonUtil;
+import com.weaverloft.octopus.basic.common.util.PagingModel;
 import com.weaverloft.octopus.basic.promotion.coupon.service.PromotionCouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +25,28 @@ public class PromotionCouponController {
     @Autowired
     private PromotionCouponService couponService;
 
-    @GetMapping("/list")
-    public String getPromotionCouponList() {
+    @RequestMapping("/list")
+    public String getPromotionCouponList(@RequestParam Map<String, Object> paramMap, Model model) {
+        int currPage = CommonUtil.isEmpty((String) paramMap.get("curPage")) ? 1 : Integer.parseInt(paramMap.get("curPage").toString());
+        int pageSize = CommonUtil.isEmpty((String) paramMap.get("pageSize")) ? 10 : Integer.parseInt(paramMap.get("pageSize").toString());
+
+        int totalCnt = couponService.getPromotionCouponListCnt(paramMap);
+        PagingModel pagingModel = PagingModel.getPagingModel(Integer.toString(currPage), Integer.toString(pageSize), totalCnt);
+        pagingModel.setListCnt(totalCnt);
+
+        if (totalCnt > 0) {
+            paramMap.put("pagingModel", pagingModel);
+            model.addAttribute("couponList", couponService.getPromotionCouponList(paramMap));
+        }
+
+        model.addAttribute("pagingModel", pagingModel);
+        model.addAttribute("search_type", paramMap.get("search_type"));
+        model.addAttribute("search_keyword", paramMap.get("search_keyword"));
+        model.addAttribute("coupon_issue_start_date", paramMap.get("coupon_issue_start_date"));
+        model.addAttribute("coupon_issue_end_date", paramMap.get("coupon_issue_end_date"));
+        model.addAttribute("coupon_use_start_date", paramMap.get("coupon_use_start_date"));
+        model.addAttribute("coupon_use_end_date", paramMap.get("coupon_use_end_date"));
+
         return "/promotion/coupon/promotion-coupon-list.admin";
     }
 

@@ -24,10 +24,13 @@ public class PromotionCouponServiceImpl implements PromotionCouponService{
     private PromotionCouponDao couponDao;
 
     @Override
+    public int getPromotionCouponListCnt(Map<String, Object> paramMap) {
+        return couponDao.getPromotionCouponListCnt(paramMap);
+    }
+
+    @Override
     public List<Map<String, Object>> getPromotionCouponList(Map<String, Object> paramMap) {
-        List<Map<String, Object>> resultList = new ArrayList<>();
-        resultList = couponDao.getPromotionCouponList(paramMap);
-        return resultList;
+        return couponDao.getPromotionCouponList(paramMap);
     }
 
     @Override

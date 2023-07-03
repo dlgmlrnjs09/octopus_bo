@@ -277,9 +277,14 @@
         }
     });
 
+    $('#cancelBtn').on('click', function () {
+        location.href = '/promotion/coupon/list';
+    });
+
     $('#submitBtn').on('click', function () {
         let currCouponSeq = $('#coupon-seq').val();
         let regType = (currCouponSeq === null || currCouponSeq === '' ? 'insert' : 'update');
+        let regTypeNm = regType === 'insert' ? '등록' : '수정';
 
         $.ajax({
             url: "/promotion/coupon/submit-ajax/" + regType
@@ -288,7 +293,7 @@
             , success: function (data) {
                 if (data.name === 'pass') {
                     action_popup.alert2(regTypeNm + ' 되었습니다.', function () {
-                        location.href = '/product/management/coupon';
+                        location.href = '/promotion/coupon/list';
                     })
                 } else {
                     action_popup.alert(data.popupMsg);
