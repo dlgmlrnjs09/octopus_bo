@@ -6,26 +6,29 @@
 </head>
 <body>
     <script>
-
         // datepicker init
         $(function () {
-            initPrivacyDatePicker($("#startReg"), $("#endReg"));
+            initPrivacyDatePicker($("#startDate"), $("#endDate"));
         });
 
         // 회원 리스트 조회
         function getUserList(page) {
-            let startDate = $("#startReg").val();
-            let endDate = $("#endReg").val();
-            let searchType = $("#searchType").val();
-            let searchKeyword = $("#searchKeyword").val();
+            const pageParam = Number(new URLSearchParams(location.search).get('curPage'));
+            page = (page) ? page : ((pageParam) ? pageParam : 1);
 
+            const form = document.getElementById('frmDefault');
             let params = {
-                'curPage' : (page) ? page : '1',
-                'startDate' : startDate,
-                'endDate' : endDate,
-                'searchType' : searchType,
-                'searchKeyword' : searchKeyword
+                'curPage' : page,
+                'startDate' : form.startDate.value,
+                'endDate' : form.endDate.value,
+                'searchType' : form.searchType.value,
+                'searchKeyword' : form.searchKeyword.value,
             };
+
+            // 쿼리스트링을 포함한 URI 세팅
+            const queryString = new URLSearchParams(params).toString();
+            const replaceUri = location.pathname + '?' + queryString;
+            history.replaceState({}, '', replaceUri);
 
             $.ajax({
                 type : "GET",
@@ -43,17 +46,14 @@
 
         // 회원 정보 상세 페이지
         $(document).on("click", ".memberData", function() {
+            const queryString = new URLSearchParams(location.search).toString();
+
             let seq = $(this).data("seq");
-            window.location.href = "/member/member-detail?memberSeq=" + seq;
+            window.location.href = "/member/member-detail?memberSeq=" + seq + "&" + queryString;
         });
 
         // 회원 정보 엑셀 다운로드
         $(document).on("click", "#excelMemberDownload", function() {
-            let startDate = $("#startReg").val();
-            let endDate = $("#endReg").val();
-            let searchType = $("#searchType").val();
-            let searchKeyword = $("#searchKeyword").val();
-
             let memberSeqList = [];
 
             $("input:checkbox[name='select']").each(function() {
@@ -62,11 +62,12 @@
                }
             });
 
+            const form = document.getElementById('frmDefault');
             let params = {
-                'startDate' : startDate,
-                'endDate' : endDate,
-                'searchType' : searchType,
-                'searchKeyword' : searchKeyword,
+                'startDate' : form.startDate.value,
+                'endDate' : form.endDate.value,
+                'searchType' : form.searchType.value,
+                'searchKeyword' : form.searchKeyword.value,
                 'memberSeqList' : memberSeqList
             };
 
@@ -91,6 +92,8 @@
                 }
             });
 
+            // 쿼리스트링 해당 form에 매핑
+            setQueryStringParams('frmDefault');
             getUserList();
         });
 
@@ -111,14 +114,14 @@
                                     <div class="con-td">
                                         <div class="datepicker-box-wrap" style="display: inline-block">
                                             <div class="input-box datepicker-box">
-                                                <input type="text" class="" name="startDate" id="startReg" title="등록일자 시작일 입력" value="" autocomplete='off'>
+                                                <input type="text" class="" name="startDate" id="startDate" title="등록일자 시작일 입력" value="" autocomplete='off'>
                                                 <span class="border-focus"><i></i></span>
                                             </div>
                                         </div>
                                         ~
                                         <div class="datepicker-box-wrap" style="display: inline-block">
                                             <div class="input-box datepicker-box">
-                                                <input type="text" class="" name="endDate" id="endReg" title="등록일자 만료일 입력" value="" autocomplete='off'>
+                                                <input type="text" class="" name="endDate" id="endDate" title="등록일자 만료일 입력" value="" autocomplete='off'>
                                                 <span class="border-focus"><i></i></span>
                                             </div>
                                         </div>

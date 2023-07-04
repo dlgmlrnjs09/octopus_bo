@@ -45,6 +45,23 @@ function setDefaultDatepicker () {
     });
 }
 
+/**
+ * 쿼리 스트링 파라미터 셋팅
+ */
+function setQueryStringParams(formId) {
+    if ( !location.search ) {
+        return false;
+    }
+
+    const form = document.getElementById(formId);
+
+    new URLSearchParams(location.search).forEach((value, key) => {
+        if (form[key]) {
+            form[key].value = value;
+        }
+    });
+}
+
 function initDatePicker(startSelector, endSelector) {
     setDefaultDatepicker();
 

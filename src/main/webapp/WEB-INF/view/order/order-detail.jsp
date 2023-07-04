@@ -139,7 +139,8 @@
 
             //목록 버튼
             $("#toListBtn").click(function() {
-                window.location.href = '/order/main';
+                const queryString = new URLSearchParams(location.search).toString();
+                window.location.href = '/order/main' + '?' + queryString;
             });
 
             //주소 변경 버튼
@@ -480,7 +481,7 @@
                                     <th class="row-th" scope="row"><div class="con-th">금액</div></th>
                                     <td class="cell-td dt-left">
                                         <div class="con-td">
-                                            <fmt:formatNumber value="${product.product_price * product.order_product_stock}" pattern="#,###"/> 원
+                                            <fmt:formatNumber value="${(product.product_price + product.additional_price) * product.order_product_stock}" pattern="#,###"/> 원
                                         </div>
                                     </td>
                                 </tr>

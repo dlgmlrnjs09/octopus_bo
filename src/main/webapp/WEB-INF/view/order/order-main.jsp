@@ -6,18 +6,15 @@
 </head>
 <body>
     <script>
-
         // datepicker init
         $(function () {
-            initPrivacyDatePicker($("#startReg"), $("#endReg"));
+            initPrivacyDatePicker($("#startDate"), $("#endDate"));
         });
 
         // 주문 리스트 조회
         function getOrderList(page) {
-            let startDate = $("#startReg").val();
-            let endDate = $("#endReg").val();
-            let searchType = $("#searchType").val();
-            let searchKeyword = $("#searchKeyword").val();
+            const pageParam = Number(new URLSearchParams(location.search).get('curPage'));
+            page = (page) ? page : ((pageParam) ? pageParam : 1);
 
             let orderStatusList = [];
 
@@ -27,14 +24,20 @@
                }
             });
 
+            const form = document.getElementById('frmDefault');
             let params = {
-                'curPage' : (page) ? page : '1',
-                'startDate' : startDate,
-                'endDate' : endDate,
-                'searchType' : searchType,
-                'searchKeyword' : searchKeyword,
+                'curPage' : page,
+                'startDate' : form.startDate.value,
+                'endDate' : form.endDate.value,
+                'searchType' : form.searchType.value,
+                'searchKeyword' : form.searchKeyword.value,
                 'orderStatusList' : orderStatusList
             };
+
+            // 쿼리스트링을 포함한 URI 세팅
+            const queryString = new URLSearchParams(params).toString();
+            const replaceUri = location.pathname + '?' + queryString;
+            history.replaceState({}, '', replaceUri);
 
             $.ajax({
                 type : "POST",
@@ -58,21 +61,15 @@
 
         // 주문 정보 상세 페이지
         $(document).on("click", ".orderData", function() {
-            let oseq = $(this).data("oseq");
-            window.location.href = "/order/order-detail?orderSeq=" + oseq;
+            const queryString = new URLSearchParams(location.search).toString();
 
-            // let opseq = $(this).data("opseq");
-            // window.location.href = "/order/order-detail?orderSeq=" + oseq + "&orderProductSeq=" + opseq;
+            let oseq = $(this).data("oseq");
+            window.location.href = "/order/order-detail?orderSeq=" + oseq + "&" + queryString;
         });
 
         // 주문 정보 엑셀 다운로드
         $(document).on("click", "#excelOrderDownload", function() {
-            let startDate = $("#startReg").val();
-            let endDate = $("#endReg").val();
-            let searchType = $("#searchType").val();
-            let searchKeyword = $("#searchKeyword").val();
-
-            let sDate = new Date(startDate);
+            let sDate = new Date($("#startDate").val());
             let nowDate = new Date();
 
             let orderSeqList = [];
@@ -96,11 +93,12 @@
                }
             });
 
+            const form = document.getElementById('frmDefault');
             let params = {
-                'startDate' : startDate,
-                'endDate' : endDate,
-                'searchType' : searchType,
-                'searchKeyword' : searchKeyword,
+                'startDate' : form.startDate.value,
+                'endDate' : form.endDate.value,
+                'searchType' : form.searchType.value,
+                'searchKeyword' : form.searchKeyword.value,
                 'orderSeqList' : orderSeqList,
                 'orderStatusList' : orderStatusList
             };
@@ -137,22 +135,22 @@
             };
 
             $.ajax({
-                    type : "POST",
-                    url : "/order/order-status-update",
-                    dataType:"text",
-                    contentType : 'application/json; charset=utf-8',
-                    data : JSON.stringify(params),
-                    success : function(result){
-                        if(result == 'success') {
-                            alert(btnText + "가 완료되었습니다.");
-                            window.location.reload();
-                        } else if(result == '404') {
-                            alert(btnText + "에 문제가 생겼습니다.");
-                        } else {
-                            alert(result);
-                        }
+                type : "POST",
+                url : "/order/order-status-update",
+                dataType:"text",
+                contentType : 'application/json; charset=utf-8',
+                data : JSON.stringify(params),
+                success : function(result){
+                    if(result == 'success') {
+                        alert(btnText + "가 완료되었습니다.");
+                        window.location.reload();
+                    } else if(result == '404') {
+                        alert(btnText + "에 문제가 생겼습니다.");
+                    } else {
+                        alert(result);
                     }
-                });
+                }
+            });
         });
 
         $(document).ready(function() {
@@ -170,6 +168,22 @@
             //주문 상태 체크박스
             $("input[name='orderStatusSelectAll'], input[name='statusSelect']").change(function() {
                 getOrderList(1);
+            });
+
+            // 쿼리스트링 해당 form에 매핑
+            setQueryStringParams('frmDefault');
+
+            var array = [];
+            if($("#orderStatusList").val()) {
+                array = $("#orderStatusList").val().replace("[", "").replace("]", "").split(',');
+            }
+
+            $("input:checkbox[name='statusSelect']").each(function() {
+                for (var i = 0; i < array.length; i++) {
+                    if(array[i].toUpperCase() == $(this).attr("id").split("_")[1]) {
+                        $(this).prop('checked', true);
+                    }
+                }
             });
 
             getOrderList();
@@ -191,6 +205,7 @@
                 <section class="section home-sec">
                     <form id="frmDefault" name="default" action="" method="post">
                         <input type="hidden" id="dataJson" name="dataJson" value="">
+                        <input type="hidden" name="orderStatusList" id="orderStatusList" value="">
                         <table class="common-table" summary="검색">
                             <tbody>
                             <tr>
@@ -199,14 +214,14 @@
                                     <div class="con-td">
                                         <div class="datepicker-box-wrap" style="display: inline-block">
                                             <div class="input-box datepicker-box">
-                                                <input type="text" class="" name="startDate" id="startReg" title="등록일자 시작일 입력" value="" autocomplete='off'>
+                                                <input type="text" class="" name="startDate" id="startDate" title="등록일자 시작일 입력" value="" autocomplete='off'>
                                                 <span class="border-focus"><i></i></span>
                                             </div>
                                         </div>
                                         ~
                                         <div class="datepicker-box-wrap" style="display: inline-block">
                                             <div class="input-box datepicker-box">
-                                                <input type="text" class="" name="endDate" id="endReg" title="등록일자 만료일 입력" value="" autocomplete='off'>
+                                                <input type="text" class="" name="endDate" id="endDate" title="등록일자 만료일 입력" value="" autocomplete='off'>
                                                 <span class="border-focus"><i></i></span>
                                             </div>
                                         </div>

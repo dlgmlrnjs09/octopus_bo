@@ -45,8 +45,8 @@
             //취소 버튼
             $("#cancelBtn").click(function() {
                 if(confirm("수정을 취소하시겠습니까?")) {
-                    //history.back();
-                    window.location.href = '/member/main'
+                    const queryString = new URLSearchParams(location.search).toString();
+                    window.location.href = '/member/main' + '?' + queryString;
                 }
             });
 
