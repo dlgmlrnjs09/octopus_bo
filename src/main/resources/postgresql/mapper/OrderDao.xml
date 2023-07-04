@@ -134,13 +134,12 @@
 --              p.product_price AS productPrice,
 --              op.order_product_stock AS orderProductStock,
                 (SELECT
-					COALESCE (SUM(p.product_price * op.order_product_stock), 0)
+					COALESCE (SUM((p.product_price + COALESCE(poc.additional_price, 0)) * op.order_product_stock), 0)
 				FROM
-					octopus.product_info p,
 					octopus.order_product_info op
+                    LEFT JOIN octopus.product_info p ON op.product_seq = p.product_seq
+                    LEFT JOIN octopus.product_option_combine_info poc ON op.option_seq = poc.option_combine_seq
 				WHERE
-					op.product_seq = p.product_seq
-				AND
 					op.order_seq = o.order_seq) AS orderTotalPrice,
                 TO_CHAR(o.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
             FROM
@@ -175,19 +174,18 @@
                     OR combine.option_detail_seq_3 = detail.option_detail_seq)
              AND info.is_use = true
              AND detail.is_use = true
-             AND combine.option_combine_seq = op.option_seq) AS order_option,
+             AND combine.option_combine_seq = op.option_seq
+             AND detail.product_seq = p.product_seq) AS order_option,
             p.product_price,
+            COALESCE(poc.additional_price, 0) as additional_price,
             op.order_product_stock,
             pc.product_category_nm
         FROM
-            octopus.order_product_info op,
-            octopus.product_info p,
-            octopus.product_category_info pc
+            octopus.order_product_info op
+            LEFT JOIN octopus.product_info p ON op.product_seq = p.product_seq
+            LEFT JOIN octopus.product_option_combine_info poc ON op.option_seq = poc.option_combine_seq
+            LEFT JOIN octopus.product_category_info pc ON op.order_product_category_seq = pc.product_category_seq
         WHERE
-            op.product_seq = p.product_seq
-        AND
-            op.order_product_category_seq = pc.product_category_seq
-        AND
             op.order_seq = #{orderSeq}
     </select>
 
@@ -379,7 +377,8 @@
                     OR combine.option_detail_seq_3 = detail.option_detail_seq)
              AND info.is_use = true
              AND detail.is_use = true
-             AND combine.option_combine_seq = op.option_seq) AS orderOption,
+             AND combine.option_combine_seq = op.option_seq
+             AND detail.product_seq = p.product_seq) AS orderOption,
             m.member_nm AS memberNm,
             m.member_id AS memberId,
             o.order_to_name AS orderToName,

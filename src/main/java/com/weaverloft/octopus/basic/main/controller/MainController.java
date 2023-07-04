@@ -41,24 +41,9 @@ public class MainController {
     private OrderService orderService;
 
     @GetMapping("/main-page")
-    public String showMainPage(HttpServletRequest request, HttpServletResponse response, Model model) {
-        List<String> roleList = Arrays.asList("ADMIN", "MANAGER");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication != null && !authentication.getPrincipal().equals("anonymousUser")) {
-            CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
-
-            if(user.getUserRole() == null) {
-                new SecurityContextLogoutHandler().logout(request, response, authentication);   // 로그인 정보 삭제
-                return "/main/denied.admin";
-            }
-            if(!roleList.contains(user.getUserRole())) {
-                new SecurityContextLogoutHandler().logout(request, response, authentication);   // 로그인 정보 삭제
-                return "/main/denied.admin";
-            }
-        }
-
+    public String showMainPage(Model model) {
         LocalDate currentDate = LocalDate.now();
+
         OrderVo orderVo = new OrderVo();
         orderVo.setStartDate(currentDate.format(DateTimeFormatter.ISO_DATE));
         orderVo.setEndDate(currentDate.format(DateTimeFormatter.ISO_DATE));

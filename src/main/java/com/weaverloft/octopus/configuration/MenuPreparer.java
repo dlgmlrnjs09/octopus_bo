@@ -1,5 +1,6 @@
 package com.weaverloft.octopus.configuration;
 
+import com.weaverloft.octopus.basic.common.util.CommonUtil;
 import com.weaverloft.octopus.basic.option.menu.service.MenuService;
 import com.weaverloft.octopus.basic.security.CustomUserDetails;
 import org.apache.tiles.Attribute;
@@ -29,7 +30,7 @@ public class MenuPreparer implements ViewPreparer {
         if(authentication != null) {
             if(!authentication.getPrincipal().equals("anonymousUser")) {
                  CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
-                 roleName = user.getUserRole();
+                 roleName = CommonUtil.isEmpty(user.getUserRole()) ? "" : user.getUserRole();
 
                  System.out.println("사용자이름 : " + user.getUserRealName());
                  System.out.println("사용자아이디 : " + user.getUsername());
