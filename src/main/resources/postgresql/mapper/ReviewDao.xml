@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.product.review.dao.ReviewDao">
+
+    <!-- 기본 where절 -->
+    <sql id="defaultWhere">
+        <choose>
+            <when test="!@org.springframework.util.CollectionUtils@isEmpty(reviewSeqList)">
+                AND r.review_seq IN
+                <foreach collection="reviewSeqList" item="arr" open="(" close=")" separator=",">
+                    #{arr}::int4
+                </foreach>
+            </when>
+            <otherwise>
+                <if test="searchKeyword != null and searchKeyword !=''">
+                    <if test="searchType == 'regId' ">
+                        AND UPPER(r.reg_id) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                    <if test="searchType == 'productName' ">
+                        AND UPPER(p.product_name) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                    <if test="searchType == 'memberNm' ">
+                        AND UPPER(m.member_nm) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                </if>
+
+                <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
+                    AND r.reg_dt <![CDATA[>=]]> #{startDate}::timestamp
+                </if>
+
+                <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
+                    AND r.reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
+                </if>
+
+                <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
+                    AND r.reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND r.reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+                </if>
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="selectReviewCountForMainPage" parameterType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo" resultType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo">
+        SELECT
+            r.review_seq AS reviewSeq,
+            r.review_content AS reviewContent,
+            p.product_name AS productName,
+            r.star_point AS starPoint,
+            r.like_count AS likeCount,
+            (SELECT file_path FROM octopus.file_info WHERE foreign_seq = r.review_seq AND type_depth1 = 'review' LIMIT 1) AS reviewImagePath
+        FROM
+            octopus.product_review_info r,
+            octopus.order_product_info op,
+            octopus.product_info p
+        WHERE
+            r.order_product_seq = op.order_product_seq
+        AND
+            op.product_seq = p.product_seq
+        <include refid="defaultWhere"/>
+        ORDER BY
+        <choose>
+            <when test="orderType != null and orderType !='' and sort != null and sort != ''">
+                <choose>
+                    <when test="orderType == 'regDt'">
+                        r.reg_dt DESC
+                    </when>
+                    <when test="orderType == 'starPoint'">
+                        r.star_point
+                        <if test="sort == 'DESC'">
+                            DESC
+                        </if>
+                        <if test="sort == 'ASC'">
+                            ASC
+                        </if>
+                    </when>
+                    <when test="orderType == 'likeCount'">
+                        r.like_count
+                        <if test="sort == 'DESC'">
+                            DESC
+                        </if>
+                        <if test="sort == 'ASC'">
+                            ASC
+                        </if>
+                    </when>
+                </choose>
+            </when>
+            <otherwise>
+                r.reg_dt DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="selectReviewCount" parameterType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            octopus.product_review_info r,
+            octopus.order_product_info op,
+            octopus.product_info p,
+            octopus.member_info m
+        WHERE
+            r.reg_id = m.member_id
+        AND
+            r.order_product_seq = op.order_product_seq
+        AND
+            op.product_seq = p.product_seq
+        <include refid="defaultWhere"/>
+    </select>
+
+    <select id="selectReviewList" parameterType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo" resultType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo">
+        SELECT
+            A.*
+        FROM
+            (SELECT
+                r.review_seq AS reviewSeq,
+                r.review_content AS reviewContent,
+                p.product_seq AS productSeq,
+                p.product_name AS productName,
+                op.option_seq AS optionCombineSeq,
+                (SELECT
+                        COALESCE(array_to_string(array_agg(info.option_name || ' : ' || detail.option_detail_name), ' / '), '')
+                     FROM
+                        octopus.product_option_combine_info combine
+                        LEFT OUTER JOIN octopus.product_option_info info ON combine.product_seq = info.product_seq
+                        LEFT OUTER JOIN octopus.product_option_detail detail ON detail.option_seq = info.option_seq
+                     WHERE 1=1
+                     AND (combine.option_detail_seq_1 = detail.option_detail_seq
+                            OR combine.option_detail_seq_2 = detail.option_detail_seq
+                            OR combine.option_detail_seq_3 = detail.option_detail_seq)
+                     AND info.is_use = true
+                     AND detail.is_use = true
+                     AND combine.option_combine_seq = op.option_seq
+                     AND detail.product_seq = p.product_seq) AS orderOption,
+                r.reg_id AS regId,
+                m.member_nm AS memberNm,
+                r.star_point AS starPoint,
+                r.like_count AS likeCount,
+                TO_CHAR(r.reg_dt, 'yyyy-mm-dd hh24:mi:ss') as regDt,
+                r.udt_dt AS udtDt,
+                r.del_dt AS delDt
+            FROM
+                octopus.product_review_info r,
+                octopus.order_product_info op,
+                octopus.product_info p,
+                octopus.member_info m
+            WHERE
+                r.reg_id = m.member_id
+            AND
+                r.order_product_seq = op.order_product_seq
+            AND
+                op.product_seq = p.product_seq
+            <include refid="defaultWhere"/>
+            ORDER BY
+                r.reg_dt DESC) A
+        LIMIT
+            #{pagingModel.pageSize}
+        OFFSET
+            (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+    <select id="getReviewDetail" parameterType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo" resultType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo">
+        SELECT
+            r.review_seq AS reviewSeq,
+            r.review_content AS reviewContent,
+            p.product_seq AS productSeq,
+            p.product_name AS productName,
+            op.option_seq AS optionCombineSeq,
+            (SELECT
+                    COALESCE(array_to_string(array_agg(info.option_name || ' : ' || detail.option_detail_name), ' / '), '')
+                 FROM
+                    octopus.product_option_combine_info combine
+                    LEFT OUTER JOIN octopus.product_option_info info ON combine.product_seq = info.product_seq
+                    LEFT OUTER JOIN octopus.product_option_detail detail ON detail.option_seq = info.option_seq
+                 WHERE 1=1
+                 AND (combine.option_detail_seq_1 = detail.option_detail_seq
+                        OR combine.option_detail_seq_2 = detail.option_detail_seq
+                        OR combine.option_detail_seq_3 = detail.option_detail_seq)
+                 AND info.is_use = true
+                 AND detail.is_use = true
+                 AND combine.option_combine_seq = op.option_seq
+                 AND detail.product_seq = p.product_seq) AS orderOption,
+            r.reg_id AS regId,
+            m.member_nm AS memberNm,
+            r.star_point AS starPoint,
+            r.like_count AS likeCount,
+            TO_CHAR(r.reg_dt, 'yyyy-mm-dd hh24:mi:ss') as regDt,
+            r.udt_dt AS udtDt,
+            r.del_dt AS delDt
+        FROM
+            octopus.product_review_info r,
+            octopus.order_product_info op,
+            octopus.product_info p,
+            octopus.member_info m
+        WHERE
+            r.reg_id = m.member_id
+        AND
+            r.order_product_seq = op.order_product_seq
+        AND
+            op.product_seq = p.product_seq
+        AND
+            r.review_seq = #{reviewSeq}
+    </select>
+
+    <select id="getReviewImagePathList" parameterType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo" resultType="String">
+        SELECT
+            file_path
+        FROM
+            octopus.file_info
+        WHERE
+            foreign_seq = #{reviewSeq}
+        AND
+            type_depth1 = 'review'
+    </select>
+
+    <select id="selectExcelReviewList" parameterType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo" resultType="com.weaverloft.octopus.basic.product.review.vo.ReviewVo">
+        SELECT
+            r.review_seq AS reviewSeq,
+            p.product_name AS productName,
+            (SELECT
+                    COALESCE(array_to_string(array_agg(info.option_name || ' : ' || detail.option_detail_name), ' / '), '')
+                 FROM
+                    octopus.product_option_combine_info combine
+                    LEFT OUTER JOIN octopus.product_option_info info ON combine.product_seq = info.product_seq
+                    LEFT OUTER JOIN octopus.product_option_detail detail ON detail.option_seq = info.option_seq
+                 WHERE 1=1
+                 AND (combine.option_detail_seq_1 = detail.option_detail_seq
+                        OR combine.option_detail_seq_2 = detail.option_detail_seq
+                        OR combine.option_detail_seq_3 = detail.option_detail_seq)
+                 AND info.is_use = true
+                 AND detail.is_use = true
+                 AND combine.option_combine_seq = op.option_seq
+                 AND detail.product_seq = p.product_seq) AS orderOption,
+            r.review_content AS reviewContent,
+            r.reg_id AS regId,
+            m.member_nm AS memberNm,
+            r.star_point AS starPoint,
+            r.like_count AS likeCount,
+            TO_CHAR(r.reg_dt, 'yyyy-mm-dd hh24:mi:ss') as regDt
+        FROM
+            octopus.product_review_info r,
+            octopus.order_product_info op,
+            octopus.product_info p,
+            octopus.member_info m
+        WHERE
+            r.reg_id = m.member_id
+        AND
+            r.order_product_seq = op.order_product_seq
+        AND
+            op.product_seq = p.product_seq
+        <include refid="defaultWhere"/>
+        ORDER BY
+            r.reg_dt DESC
+    </select>
+
+</mapper>
