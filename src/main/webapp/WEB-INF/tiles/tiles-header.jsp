@@ -271,36 +271,7 @@
     </div>
 </div>
 <script>
-
-    <%--var styleElem = document.head.appendChild(document.createElement("style"));--%>
-
-    <%--styleElem.innerHTML = "";--%>
-    <%--// styleElem.innerHTML += ".menu02 > a:before {background-image: url('../../asset/img/admin/header-icon10.svg'); background-size: cover;}";--%>
-
-    <%--var menuSeqList = '${menuIconUrl}'.slice(0, -1).split(',');--%>
-
-    <%--let params = {--%>
-    <%--    'menuSeqList' : menuSeqList,--%>
-    <%--    'typeDepth1' : 'menu'--%>
-    <%--};--%>
-
-    <%--$.ajax({--%>
-    <%--    type : "POST",--%>
-    <%--    url : "/menu/select-menu-icon",--%>
-    <%--    dataType:"json",--%>
-    <%--    contentType : 'application/json; charset=utf-8',--%>
-    <%--    data : JSON.stringify(params),--%>
-    <%--    success : function(data){--%>
-    <%--        for(var i = 0;  i < data.length; i++) {--%>
-    <%--            menuSeqList.forEach(function(seq) {--%>
-    <%--                if(data[i].foreign_seq == seq) {--%>
-    <%--                    styleElem.innerHTML += ".icon" + seq +" > a:before {background-image: url('../../asset/upload/img" + data[i].file_path + "'); background-size: cover;} ";--%>
-    <%--                }--%>
-    <%--            });--%>
-    <%--        }--%>
-    <%--    }--%>
-    <%--});--%>
-
+    // get menu icon
     $(document).ready(function() {
         var styleElem = document.head.appendChild(document.createElement("style"));
         styleElem.innerHTML = "";
@@ -314,7 +285,6 @@
            styleElem.innerHTML += ".icon" + seq +" > a:before {background-image: url('../../asset/upload/img" + path + "'); background-size: cover;} ";
         });
     });
-
 
     // bubble
     $(".bubble-btn").click(function () {

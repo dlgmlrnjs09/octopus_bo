@@ -71,9 +71,9 @@
             octopus.file_info
         WHERE
             1=1
-        <if test="!@org.springframework.util.CollectionUtils@isEmpty(menuSeqList)">
+        <if test="!@org.springframework.util.CollectionUtils@isEmpty(foreignSeqList)">
             AND foreign_seq IN
-            <foreach collection="menuSeqList" item="arr" open="(" close=")" separator=",">
+            <foreach collection="foreignSeqList" item="arr" open="(" close=")" separator=",">
                 #{arr}::int4
             </foreach>
         </if>

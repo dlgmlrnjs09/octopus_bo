@@ -60,7 +60,7 @@ public class FileVo {
     private String redDt;
     private String modDt;
     private String delDt;
-    private List<Integer> menuSeqList;
+    private List<Integer> foreignSeqList;
     
     /* 이미지 CROP용 */
     private Integer imgX;
@@ -72,12 +72,20 @@ public class FileVo {
     private String cropImgID;
     private String cropNameSpace;
 
-	public List<Integer> getMenuSeqList() {
-		return menuSeqList;
+	public List<Integer> getForeignSeqList() {
+		return foreignSeqList;
 	}
 
-	public void setMenuSeqList(List<Integer> menuSeqList) {
-		this.menuSeqList = menuSeqList;
+	public void setForeignSeqList(List<Integer> foreignSeqList) {
+		this.foreignSeqList = foreignSeqList;
+	}
+
+	public boolean isUse() {
+		return isUse;
+	}
+
+	public void setUse(boolean use) {
+		isUse = use;
 	}
 
 	public File getTargetFile() {
