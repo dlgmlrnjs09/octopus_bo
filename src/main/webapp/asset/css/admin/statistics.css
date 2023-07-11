@@ -12,7 +12,7 @@
 .page-statistics section { width: 100%; margin-bottom: 30px; padding: 16px 0 20px; border-radius: 6px; border: 1px solid #E2E2EE; background-color: #fff; overflow: hidden; }
 
 /*========== Search Filter ==========*/
-.search-filter-sec { padding: 0; background-color: #fff;}
+.section.search-filter-sec { padding: 0; background-color: #fff;}
 .search-filter-list li{ display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: center; min-height: 44px; border-bottom: 1px solid #E2E2EE; }
 .search-filter-list li:last-child{ border-bottom: 0;}
 .search-filter-list li .tit{ width: 140px; padding: 17.5px 0 17.5px 20px; border-right: 1px solid #E2E2EE; background-color: #FBFBFB; font-size: 15px; font-weight: 600; color: #555; line-height: 1.2; }
