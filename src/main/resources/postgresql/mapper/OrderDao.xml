@@ -93,6 +93,38 @@
         ) B
     </select>
 
+    <select id="selectOrderCountForStat" parameterType="map" resultType="int">
+        SELECT
+            count(TO_CHAR(reg_dt, 'yyyy-mm'))
+        FROM
+            octopus.order_info RIGHT OUTER JOIN
+            (SELECT TO_CHAR(DATE,'YYYY-MM') AS DT
+             FROM (( WITH date_series AS
+                        ( SELECT DATE(GENERATE_SERIES(TO_DATE(#{year} || '-01-01', 'YYYY-MM-DD'), TO_DATE(#{year} || '-12-31', 'YYYY-MM-DD'),'1 MONTH')) AS DATE )
+                     SELECT DATE
+                     FROM date_series )
+                  ) D1
+            ) D2 ON TO_CHAR(reg_dt, 'yyyy-mm') = D2.dt
+        GROUP BY TO_CHAR(reg_dt, 'yyyy-mm'), D2.dt
+        ORDER BY D2.dt
+    </select>
+
+    <select id="selectSalesPriceForStat" parameterType="map" resultType="double">
+        SELECT
+            COALESCE(SUM(order_total_price), 0)::numeric / 10000
+        FROM
+            octopus.order_info RIGHT OUTER JOIN
+            (SELECT TO_CHAR(DATE,'YYYY-MM') AS DT
+             FROM (( WITH date_series AS
+                        ( SELECT DATE(GENERATE_SERIES(TO_DATE(#{year} || '-01-01', 'YYYY-MM-DD'), TO_DATE(#{year} || '-12-31', 'YYYY-MM-DD'),'1 MONTH')) AS DATE )
+                     SELECT DATE
+                     FROM date_series )
+                  ) D1
+            ) D2 ON TO_CHAR(reg_dt, 'yyyy-mm') = D2.dt
+        GROUP BY TO_CHAR(reg_dt, 'yyyy-mm'), D2.dt
+        ORDER BY D2.dt
+    </select>
+
     <select id="selectOrderCount" parameterType="com.weaverloft.octopus.basic.order.vo.OrderVo" resultType="int">
         SELECT
             count(*)

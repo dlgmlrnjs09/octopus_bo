@@ -139,12 +139,4 @@ public class MenuController {
 
         return result;
     }
-
-    @PostMapping("/select-menu-icon")
-    @ResponseBody
-    public List<Map<String, Object>> selectMenuIcon(@RequestBody FileVo fileVo) {
-        List<Map<String, Object>> menuIconList = fileService.selectFileInfoList(fileVo);
-
-        return menuIconList;
-    }
 }

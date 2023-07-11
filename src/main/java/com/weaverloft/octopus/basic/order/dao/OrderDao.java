@@ -41,4 +41,8 @@ public interface OrderDao {
     List<String> selectOrderNoList(OrderVo orderVo);
 
     int updateOrderDeliveryByDeliveryNo(OrderVo orderVo);
+
+    List<Integer> selectOrderCountForStat(Map<String, Object> map);
+
+    List<Float> selectSalesPriceForStat(Map<String, Object> map);
 }

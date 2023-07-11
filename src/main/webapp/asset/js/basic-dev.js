@@ -62,6 +62,22 @@ function setQueryStringParams(formId) {
     });
 }
 
+function leftPad(value) {
+    if (value >= 10) {
+        return value;
+    }
+    return `0${value}`;
+}
+
+// Date format [yyyy-MM-dd]
+function toStringByFormatting(source, delimiter = '-') {
+    const year = source.getFullYear();
+    const month = leftPad(source.getMonth() + 1);
+    const day = leftPad(source.getDate());
+
+    return [year, month, day].join(delimiter);
+}
+
 function initDatePicker(startSelector, endSelector) {
     setDefaultDatepicker();
 
@@ -202,4 +218,101 @@ function execDaumPostcode() {
             }
         }
     }).open();
+}
+
+// chart.js config
+const MONTHS = [
+    '1월',
+    '2월',
+    '3월',
+    '4월',
+    '5월',
+    '6월',
+    '7월',
+    '8월',
+    '9월',
+    '10월',
+    '11월',
+    '12월'
+];
+
+function months(config) {
+    var cfg = config || {};
+    var count = cfg.count || 12;
+    var section = cfg.section;
+    var values = [];
+    var i, value;
+
+    for (i = 0; i < count; ++i) {
+        value = MONTHS[Math.ceil(i) % 12];
+        values.push(value.substring(0, section));
+    }
+
+    return values;
+}
+
+const CHART_COLORS = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)'
+};
+
+function transparentize(value, opacity) {
+    var Color = Chart.helpers.color;
+    var alpha = opacity === undefined ? 0.5 : 1 - opacity;
+
+    return Color(value).alpha(alpha).rgbString();
+}
+
+function restartAnims(chart) {
+    chart.stop();
+    const meta0 = chart.getDatasetMeta(0);
+    const meta1 = chart.getDatasetMeta(1);
+    for (let i = 0; i < data.length; i++) {
+        const ctx0 = meta0.controller.getContext(i);
+        const ctx1 = meta1.controller.getContext(i);
+        ctx0.xStarted = ctx0.yStarted = false;
+        ctx1.xStarted = ctx1.yStarted = false;
+    }
+    chart.update();
+}
+
+const DATA_COUNT = new Date().getMonth() + 1;
+const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
+
+var _seed = Date.now();
+
+function numbers(config) {
+    var cfg = config || {};
+    var min = cfg.min || 0;
+    var max = cfg.max || 100;
+    var from = cfg.from || [];
+    var count = cfg.count || 8;
+    var decimals = cfg.decimals || 8;
+    var continuity = cfg.continuity || 1;
+    var dfactor = Math.pow(10, decimals) || 0;
+    var data = [];
+    var i, value;
+
+    for (i = 0; i < count; ++i) {
+        value = (from[i] || 0) + this.rand(min, max);
+        if (this.rand() <= continuity) {
+            data.push(Math.round(dfactor * value) / dfactor);
+        } else {
+            data.push(null);
+        }
+    }
+
+    return data;
+}
+
+function rand(min, max) {
+    min = min || 0;
+    max = max || 0;
+    _seed = (_seed * 9301 + 49297) % 233280;
+    return min + (_seed / 233280) * (max - min);
 }

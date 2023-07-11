@@ -1,10 +1,14 @@
 package com.weaverloft.octopus.basic.order.service;
 
+import com.weaverloft.octopus.basic.common.util.CommonUtil;
 import com.weaverloft.octopus.basic.order.dao.OrderDao;
 import com.weaverloft.octopus.basic.order.vo.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +26,34 @@ public class OrderServiceImpl implements OrderService{
 
     public int selectOrderCount(OrderVo orderVo) { return orderDao.selectOrderCount(orderVo); }
 
-    public Map<String, Object> selectOrderCountForMainPage(OrderVo orderVo) { return orderDao.selectOrderCountForMainPage(orderVo); }
+    public Map<String, Object> selectOrderCountForMainPage(OrderVo orderVo) {
+        LocalDate currentDate = LocalDate.now();
+
+        if(CommonUtil.isEmpty(orderVo)) {
+            orderVo = new OrderVo();
+            orderVo.setStartDate(currentDate.format(DateTimeFormatter.ISO_DATE));
+            orderVo.setEndDate(currentDate.format(DateTimeFormatter.ISO_DATE));
+            orderVo.setSearchType("day");
+        }
+
+        Map<String, Object> countMap = orderDao.selectOrderCountForMainPage(orderVo);
+
+        countMap.put("year", currentDate.getYear());
+        countMap.put("type", "order");
+        List<Integer> orderList = orderDao.selectOrderCountForStat(countMap);
+
+        countMap.put("type", "sales");
+        List<Float> salesPriceList = orderDao.selectSalesPriceForStat(countMap);
+
+        int compare = Integer.parseInt(String.valueOf(countMap.get("curr_count"))) - Integer.parseInt(String.valueOf(countMap.get("prev_count")));
+
+        countMap.put("now", currentDate.format(DateTimeFormatter.ofPattern("YY.MM.dd")));
+        countMap.put("compare", compare);
+        countMap.put("orderList", orderList);
+        countMap.put("salesPriceList", salesPriceList);
+
+        return countMap;
+    }
 
     public List<OrderVo> selectOrderList(OrderVo orderVo) { return orderDao.selectOrderList(orderVo); }
 
