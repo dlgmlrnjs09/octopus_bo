@@ -1,6 +1,7 @@
 package com.weaverloft.octopus.basic.main.controller;
 
 import com.weaverloft.octopus.basic.member.vo.MemberVo;
+import com.weaverloft.octopus.basic.option.notice.service.NoticeService;
 import com.weaverloft.octopus.basic.order.service.OrderService;
 import com.weaverloft.octopus.basic.product.review.service.ReviewService;
 import com.weaverloft.octopus.basic.product.review.vo.ReviewVo;
@@ -31,13 +32,19 @@ public class MainController {
     @Autowired
     private ReviewService reviewService;
 
+    @Autowired
+    private NoticeService noticeService;
+
     @GetMapping("/main-page")
     public String showMainPage(Model model) {
         Map<String, Object> orderCountMap =  orderService.selectOrderCountForMainPage(null);
         Map<String, Object> reviewCountMap =  reviewService.selectReviewCountForMainPage(new ReviewVo());
+        Map<String, Object> noticeMap = noticeService.selectNoticeForMainPage(0);
+        noticeMap.put("offsetNum", 0);
 
         model.addAttribute("orderCountMap", orderCountMap);
         model.addAttribute("reviewCountMap", reviewCountMap);
+        model.addAttribute("noticeMap", noticeMap);
         return "/main/main-page.admin";
     }
 

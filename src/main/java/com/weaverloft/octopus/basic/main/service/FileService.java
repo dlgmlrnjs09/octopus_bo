@@ -30,4 +30,6 @@ public interface FileService {
 	public int updateFileInfo(FileVo fileVo);
 
 	public List<Map<String, Object>> selectFileInfoList(FileVo fileVo);
+
+	public int deleteFileInfo(int fileSeq);
 }

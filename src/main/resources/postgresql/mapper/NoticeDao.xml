@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.option.notice.dao.NoticeDao">
+
+    <!-- 기본 where절 -->
+    <select id="selectNoticeList" parameterType="map" resultType="map">
+        select
+        A.*
+        from (
+        select
+        n.notice_seq,
+        n.notice_title,
+        n.notice_description,
+        n.reg_id,
+        mi.member_nm as reg_nm,
+        n.reg_dt,
+        to_char(n.reg_dt, 'yyyy-mm-dd') as reg_dt_str,
+        (select count(*) from octopus.notice_reply nr where notice_seq = n.notice_seq) reply_cnt
+        from
+        octopus.notice n inner join octopus.member_info mi on mi.member_id = n.reg_id
+        order by notice_seq desc
+        ) A
+        where
+        1=1
+        <include refid="defaultWhere"/>
+        <if test="pagingModel.pageSize > 0">
+            LIMIT
+                #{pagingModel.pageSize}
+        </if>
+        OFFSET
+        (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+    <sql id="defaultWhere">
+        <if test="searchKeyword != null and searchKeyword !=''">
+            <if test="searchType == 'regNm' ">
+                AND UPPER(reg_nm) LIKE '%'||UPPER(#{searchKeyword})||'%'
+            </if>
+            <if test="searchType == 'noticeTitle' ">
+                AND UPPER(notice_title) LIKE '%'||UPPER(#{searchKeyword})||'%'
+            </if>
+        </if>
+
+        <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp
+        </if>
+
+        <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
+            AND reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
+        </if>
+
+        <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+        </if>
+    </sql>
+
+    <select id="selectNoticeListCnt" parameterType="map" resultType="int">
+        select
+            count(*)
+        from (
+                select
+                    n.notice_seq,
+                    n.notice_title,
+                    n.notice_description,
+                    n.reg_id,
+                    mi.member_nm as reg_nm,
+                    n.reg_dt
+                from
+                    octopus.notice n inner join octopus.member_info mi on mi.member_id = n.reg_id
+                order by notice_seq desc
+            ) A
+        where
+            1=1
+        <include refid="defaultWhere"/>
+    </select>
+
+    <select id="selectNoticeDetail" parameterType="int" resultType="map">
+        select
+            n.notice_seq ,
+            n.notice_title,
+            n.notice_description,
+            n.reg_id,
+            mi.member_nm as reg_nm,
+            n.reg_dt,
+            to_char(n.reg_dt, 'yyyy-mm-dd') as reg_dt_str
+        from
+            octopus.notice n inner join octopus.member_info mi on n.reg_id = mi.member_id
+        where
+            notice_seq = ${value}
+    </select>
+
+    <insert id="insertNotice" parameterType="map">
+        <selectKey keyProperty="noticeSeq" resultType="int" order="BEFORE">
+            select nextval('octopus.notice_seq_seq')
+        </selectKey>
+        insert into octopus.notice (
+                                    notice_seq
+                                   ,notice_title
+                                   ,notice_description
+                                   ,reg_id
+                                   ,reg_dt)
+        values (
+               #{noticeSeq}
+               ,#{noticeTitle}
+               ,#{noticeDescription}
+               ,#{memberId}
+               ,now() )
+    </insert>
+
+    <update id="updateNotice" parameterType="map">
+        update octopus.notice
+        set notice_title = #{noticeTitle}
+            ,notice_description = #{noticeDescription}
+            ,mod_dt = now()
+        where notice_seq = ${noticeSeq}
+    </update>
+
+    <delete id="deleteNotice">
+        delete from octopus.notice
+        where notice_seq = ${noticeSeq}
+    </delete>
+
+    <select id="selectNoticeForMainPage" parameterType="int" resultType="map">
+        select
+            notice_seq,
+            notice_title,
+            notice_description,
+            reg_dt,
+            to_char(reg_dt, 'yyyy. fmmm. fmdd') as reg_dt_str,
+            current_date - reg_dt::date as diff_days
+        from
+            octopus.notice
+        order by
+            notice_seq desc
+            limit 1
+            offset ${value}
+    </select>
+
+</mapper>

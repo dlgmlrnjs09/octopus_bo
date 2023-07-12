@@ -60,12 +60,18 @@
         AND
             foreign_seq = #{foreignSeq}::int4
         </if>
+        <if test="fileSeq != null and fileSeq != ''">
+        AND
+            seq = #{fileSeq}
+        </if>
     </select>
 
     <select id="selectFileInfoList" parameterType="com.weaverloft.octopus.basic.main.vo.FileVo" resultType="map">
         SELECT
             seq,
             foreign_seq,
+            file_org_name,
+            file_saved_name,
             file_path
         FROM
             octopus.file_info
@@ -100,4 +106,12 @@
         AND
             foreign_seq = #{foreignSeq}::int4
     </update>
+
+    <delete id="deleteFileInfo" parameterType="int">
+        DELETE
+        FROM
+            octopus.file_info
+        WHERE
+            seq = #{value}
+    </delete>
 </mapper>

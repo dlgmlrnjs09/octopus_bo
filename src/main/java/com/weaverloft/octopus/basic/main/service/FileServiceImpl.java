@@ -68,6 +68,11 @@ public class FileServiceImpl implements FileService{
     	return fileDao.selectFileInfoList(fileVo);
 	}
 
+	@Override
+	public int deleteFileInfo(int fileSeq) {
+		return fileDao.deleteFileInfo(fileSeq);
+	}
+
 	public void createThumbnailFile(File saveFile, String saveName) throws IOException {
 
 //        try{
@@ -105,5 +110,5 @@ public class FileServiceImpl implements FileService{
 		return datePath.toString();
 	}
 
-	
+
 }

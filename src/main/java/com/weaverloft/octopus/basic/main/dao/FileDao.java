@@ -22,4 +22,6 @@ public interface FileDao {
     List<Map<String, Object>> selectFileInfoList(FileVo fileVo);
 
     int updateFileInfo(FileVo fileVo);
+
+    int deleteFileInfo(int fileSeq);
 }

@@ -14,15 +14,27 @@
                 <!-- notice-sec -->
                 <section class="section home-sec notice-sec">
                     <h2 class="sec-title">Notice</h2>
+                    <input type="hidden" id="noticeOffsetNum" value="${noticeMap['offsetNum']}">
                     <ul class="notice-list">
-                        <li class="new"><a href="#none"><p>4월 30일 부로 리페어로션 단종 처리 됩니다. <span class="new">new</span></p><span class="date">2023.05.12</span></a></li>
+                        <li class="new">
+                            <a href="/notice/detail?seq=${noticeMap['notice_seq']}">
+                                <p>${noticeMap['notice_title']}
+                                    <fmt:parseNumber var="diff_days" value="${noticeMap['diff_days']}" type="number"/>
+                                    <c:if test="${diff_days <= 7}">
+                                        <span class="new">new</span>
+                                    </c:if>
+                                </p>
+                                <span class="date">${noticeMap['reg_dt_str']}</span>
+                            </a>
+                        </li>
+                        <%--<li class="new"><a href="#none"><p>4월 30일 부로 리페어로션 단종 처리 됩니다. <span class="new">new</span></p><span class="date">2023.05.12</span></a></li>
                         <li class="mid-line"></li>
-                        <li><a href="#none"><span>리페어로션 단종 처리 됩니다.</span><span class="date">2023.05.14</span></a></li>
+                        <li><a href="#none"><span>리페어로션 단종 처리 됩니다.</span><span class="date">2023.05.14</span></a></li>--%>
                     </ul>
                     <div class="btn-wrap">
-                        <button type="button" aria-label="이전 공지사항" class="btn prev"><img src="/asset/img/admin/icon-arrow-prev.svg" alt="이전 공지사항"></button>
+                        <button type="button" aria-label="이전 공지사항" class="btn prev" onclick="selectNoticeDetail('prev')"><img src="/asset/img/admin/icon-arrow-prev.svg" alt="이전 공지사항"></button>
                         <span class="mid-line"></span>
-                        <button type="button" aria-label="다음 공지사항" class="btn next"><img src="/asset/img/admin/icon-arrow-next.svg" alt="다음 공지사항"></button>
+                        <button type="button" aria-label="다음 공지사항" class="btn next" onclick="selectNoticeDetail('next')"><img src="/asset/img/admin/icon-arrow-next.svg" alt="다음 공지사항"></button>
                     </div>
                 </section>
 
@@ -900,6 +912,38 @@
 
             window.location.href = "/order/main?startDate=" + startDate + "&endDate=" + endDate;
         }
+    }
+
+    function selectNoticeDetail(flag) {
+        let offsetNum = Number($('#noticeOffsetNum').val());
+        if (flag === 'prev') {
+            offsetNum++;
+        } else {
+            offsetNum--;
+        }
+
+        $.ajax({
+            type : 'GET',
+            url : '/notice/detail-ajax/'+offsetNum,
+            dataType:'json',
+            success : function(data){
+
+                let obj = $('.notice-list');
+                let noticeSeq = data['notice_seq'];
+                let noticeTitle = data['notice_title'];
+                let regDtStr = data['reg_dt_str'];
+                let htmlStr = '<li><a href="/notice/detail?seq='+noticeSeq+'"><p>'+noticeTitle+'</p><span class="date">'+regDtStr+'</span></a></li>';
+
+                obj.empty();
+                obj.html(htmlStr);
+
+                if (Number(data['diff_days']) <= 7) {
+                    $('.notice-list > li > a > p').append('<span class="new">new</span>');
+                }
+
+                $('#noticeOffsetNum').val(data['offsetNum']);
+            }
+        })
     }
 
     $(document).ready(function() {
