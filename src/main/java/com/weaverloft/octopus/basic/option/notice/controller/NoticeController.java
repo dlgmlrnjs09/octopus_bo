@@ -182,7 +182,7 @@ public class NoticeController {
 
                         FileVo fileVo = new FileVo();
                         if (file.getSize() > 0) {
-                            int noticeSeq = Integer.parseInt((String) paramMap.get("noticeSeq"));
+                            int noticeSeq = (int) paramMap.get("noticeSeq");
                             fileVo = fileService.saveFileProduct(file, filePath);
 
                             fileVo.setTypeDepth1("notice");
