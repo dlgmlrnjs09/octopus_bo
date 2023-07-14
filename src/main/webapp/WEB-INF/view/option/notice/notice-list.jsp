@@ -137,10 +137,18 @@
                                             <c:forEach var="noticeInfo" items="${noticeList}" varStatus="status">
                                                 <tr onclick="goView(${noticeInfo.notice_seq})">
                                                     <!-- 총 개수 - ( ((현재페이지 - 1) * 화면당 게시글 로우행 수) + 로우인덱스) -->
-                                                    <td class="cell-td" data-seq="${noticeInfo.notice_seq}"><div class="con-td">${pagingModel.listCnt - (((pagingModel.curPage - 1) * pagingModel.pageSize) + status.index)}</div></td>
-                                                    <td class="cell-td" data-seq="${noticeInfo.notice_seq}"><div class="con-td">${noticeInfo.notice_title}<c:if test="${noticeInfo.reply_cnt gt 0}">(${reply_cnt})</c:if></div></td>
-                                                    <td class="cell-td" data-seq="${noticeInfo.notice_seq}"><div class="con-td">${noticeInfo.reg_nm}</div></td>
-                                                    <td class="cell-td" data-seq="${noticeInfo.notice_seq}"><div class="con-td">${noticeInfo.reg_dt_str}</div></td>
+                                                    <td class="cell-td" data-seq="${noticeInfo.notice_seq}" <c:if test="${noticeInfo.is_pin eq 1}">style="background-color: #fff7e5"</c:if>>
+                                                        <div class="con-td">${pagingModel.listCnt - (((pagingModel.curPage - 1) * pagingModel.pageSize) + status.index)}</div>
+                                                    </td>
+                                                    <td class="cell-td" data-seq="${noticeInfo.notice_seq}" <c:if test="${noticeInfo.is_pin eq 1}">style="background-color: #fff7e5"</c:if>>
+                                                        <div class="con-td">${noticeInfo.notice_title}</div>
+                                                    </td>
+                                                    <td class="cell-td" data-seq="${noticeInfo.notice_seq}" <c:if test="${noticeInfo.is_pin eq 1}">style="background-color: #fff7e5"</c:if>>
+                                                        <div class="con-td">${noticeInfo.reg_nm}</div>
+                                                    </td>
+                                                    <td class="cell-td" data-seq="${noticeInfo.notice_seq}" <c:if test="${noticeInfo.is_pin eq 1}">style="background-color: #fff7e5"</c:if>>
+                                                        <div class="con-td">${noticeInfo.reg_dt_str}</div>
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </c:otherwise>

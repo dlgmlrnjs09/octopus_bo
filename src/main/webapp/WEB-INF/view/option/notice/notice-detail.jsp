@@ -60,17 +60,21 @@
                                 <td class="cell-td dt-left">
                                     <div class="con-td">
                                         <div class="input-box-wrap">
-                                            <div class="input-box text">
-                                                <c:choose>
-                                                    <c:when test="${flag eq 'select'}">
-                                                        ${noticeDetail.notice_title}
-                                                    </c:when>
-                                                    <c:otherwise>
+                                            <c:choose>
+                                                <c:when test="${flag eq 'select'}">
+                                                    ${noticeDetail.notice_title}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="input-box text">
                                                         <input type="text" id="noticeTitle" name="noticeTitle" value="${noticeDetail.notice_title}">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <span class="border-focus"><i></i></span>
-                                            </div>
+                                                        <span class="border-focus"><i></i></span>
+                                                    </div>
+                                                    <div class="basic-check-box" style="margin-top: 5px;">
+                                                        <input type="checkbox" name="isPin" id="isPin" value="1" <c:if test="${noticeDetail.is_pin eq 1}">checked</c:if> >
+                                                        <label for="isPin" style="margin-right:5px">상단고정</label>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                     </div>
                                 </td>

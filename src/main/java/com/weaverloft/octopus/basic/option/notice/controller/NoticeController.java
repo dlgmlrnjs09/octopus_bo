@@ -4,6 +4,8 @@ import com.weaverloft.octopus.basic.common.util.CommonUtil;
 import com.weaverloft.octopus.basic.common.util.PagingModel;
 import com.weaverloft.octopus.basic.main.service.FileService;
 import com.weaverloft.octopus.basic.main.vo.FileVo;
+import com.weaverloft.octopus.basic.member.service.MemberService;
+import com.weaverloft.octopus.basic.member.vo.MemberVo;
 import com.weaverloft.octopus.basic.option.notice.service.NoticeService;
 import com.weaverloft.octopus.basic.security.CustomUserDetails;
 import org.apache.commons.io.FileUtils;
@@ -41,7 +43,10 @@ public class NoticeController {
     private NoticeService noticeService;
 
     @Autowired
-    protected FileService fileService;
+    private FileService fileService;
+
+    @Autowired
+    private MemberService memberService;
 
     @RequestMapping("/list")
     public String showNoticeListPage(@RequestParam Map<String, Object> paramMap, Model model) {
@@ -93,7 +98,12 @@ public class NoticeController {
                 fileVo.setForeignSeqList(Arrays.asList(noticeSeq));
                 List<Map<String, Object>> fileList = fileService.selectFileInfoList(fileVo);
 
-                if (userId.equals(noticeDetail.get("reg_id"))) {
+                //권한체크
+                MemberVo memberVo = new MemberVo();
+                memberVo.setMemberId(userId);
+                memberVo = memberService.getMemberRole(memberVo);
+                String memberRole = memberVo.getMemberRole();
+                if ("ADMIN".equals(memberRole) || userId.equals(noticeDetail.get("reg_id"))) {
                     flag = "update";
                 } else {
                     flag = "select";

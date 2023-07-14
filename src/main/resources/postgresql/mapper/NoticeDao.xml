@@ -14,17 +14,18 @@
         n.notice_seq,
         n.notice_title,
         n.notice_description,
+        n.is_use,
+        n.is_pin,
         n.reg_id,
         mi.member_nm as reg_nm,
         n.reg_dt,
-        to_char(n.reg_dt, 'yyyy-mm-dd') as reg_dt_str,
-        (select count(*) from octopus.notice_reply nr where notice_seq = n.notice_seq) reply_cnt
+        to_char(n.reg_dt, 'yyyy-mm-dd') as reg_dt_str
         from
         octopus.notice n inner join octopus.member_info mi on mi.member_id = n.reg_id
-        order by notice_seq desc
+        order by is_pin, notice_seq desc
         ) A
         where
-        1=1
+            is_use = true
         <include refid="defaultWhere"/>
         <if test="pagingModel.pageSize > 0">
             LIMIT
@@ -65,6 +66,8 @@
                     n.notice_seq,
                     n.notice_title,
                     n.notice_description,
+                    n.is_use,
+                    n.is_pin,
                     n.reg_id,
                     mi.member_nm as reg_nm,
                     n.reg_dt
@@ -73,7 +76,7 @@
                 order by notice_seq desc
             ) A
         where
-            1=1
+            is_use = true
         <include refid="defaultWhere"/>
     </select>
 
@@ -82,6 +85,7 @@
             n.notice_seq ,
             n.notice_title,
             n.notice_description,
+            n.is_pin,
             n.reg_id,
             mi.member_nm as reg_nm,
             n.reg_dt,
@@ -100,12 +104,14 @@
                                     notice_seq
                                    ,notice_title
                                    ,notice_description
+                                   ,is_pin
                                    ,reg_id
                                    ,reg_dt)
         values (
                #{noticeSeq}
                ,#{noticeTitle}
                ,#{noticeDescription}
+               ,#{isPin}::int4
                ,#{memberId}
                ,now() )
     </insert>
@@ -114,14 +120,16 @@
         update octopus.notice
         set notice_title = #{noticeTitle}
             ,notice_description = #{noticeDescription}
+            ,is_pin = #{isPin}::int4
             ,mod_dt = now()
         where notice_seq = ${noticeSeq}
     </update>
 
-    <delete id="deleteNotice">
-        delete from octopus.notice
+    <update id="deleteNotice">
+        update octopus.notice
+        set is_use = false
         where notice_seq = ${noticeSeq}
-    </delete>
+    </update>
 
     <select id="selectNoticeForMainPage" parameterType="int" resultType="map">
         select
@@ -133,6 +141,8 @@
             current_date - reg_dt::date as diff_days
         from
             octopus.notice
+        where
+            is_use = true
         order by
             notice_seq desc
             limit 1
