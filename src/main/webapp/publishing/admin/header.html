@@ -1,19 +1,146 @@
 <!--========== HEADER ==========-->
 <header id="header">
     <div class="header-wrap">
-        <div class="header-left pc">
-            <div class="search-area">
+        <div class="header-left ">
+            <div class="search-area pc">
                 <div class="input-box text">
                     <input type="text" placeholder="검색어를 입력하세요.">
                     <span class="border-focus"><i></i></span>
-                    <button type="button" class="search-btn" onclick="" aria-label="검색하기"><img src="/src/main/webapp/asset/img/admin/icon-search.svg" alt="검색하기"></button>
+                    <!-- 텍스트 입력 후 버튼을 누르거나 엔터를 쳤을 시 그에 해당하는 검색 팝업창 오픈 -->
+                    <button type="button" class="search-btn" aria-label="검색하기"><img src="/src/main/webapp/asset/img/admin/icon-search.svg" alt="검색하기"></button>
+                </div>
+            </div>
+            <div class="search-popup-box">
+                <div class="search-head">
+                    <div class="input-box text">
+                        <input type="text" placeholder="검색어를 입력하세요." value="문어는 똑똑한가요?">
+                        <span class="border-focus"><i></i></span>
+                        <button type="button" class="text-del-btn" onclick="" aria-label="텍스트 삭제"><img src="/src/main/webapp/asset/img/admin/icon-x.svg" alt="텍스트 삭제"></button>
+                    </div>
+                    <button type="button" class="search-popup-close-btn" onclick="" aria-label="검색 팝업창 닫기"><img src="/src/main/webapp/asset/img/icon-close.svg" alt="검색 팝업창 닫기"></button>
+                </div>
+                <div class="sch-pop-tab-container">
+                    <ul class="sch-pop-tab-menu">
+                        <li class="sch-tab-link sch-tab-all current" data-tab="sch-tab-con-all"><a href="javascript:;"><span>전체(16)</span></a></li>
+                        <li class="sch-tab-link sch-tab01" data-tab="sch-tab-con01"><a href="javascript:;"><span>가이드(2)</span></a></li>
+                        <li class="sch-tab-link sch-tab02" data-tab="sch-tab-con02"><a href="javascript:;"><span>자주묻는질문(4)</span></a></li>
+                        <li class="sch-tab-link sch-tab03" data-tab="sch-tab-con03"><a href="javascript:;"><span>메뉴(0)</span></a></li>
+                        <li class="sch-tab-link sch-tab04" data-tab="sch-tab-con04"><a href="javascript:;"><span>공지/소식(12)</span></a></li>
+                    </ul>
+                    <div class="tab-con-wrap sch-pop-tab-con-wrap">
+                        <div id="sch-tab-con-all" class="sch-pop-tab-con sch-pop-tab-con-all current">
+                            <div class="sch-content-box" data-tab="sch-tab-con01">
+                                <strong class="tit">가이드(2)</strong>
+                                <ul class="sch-content">
+                                    <!-- 검색결과가 없을 경우 empty -->
+                                    <!-- <li class="empty"><p>검색결과가 없습니다.</p></li> -->
+                                    <li><a href="#none">1. 문어는 똑똑한가요?</a></li>
+                                    <li><a href="#none">2. 문어는 똑똑한가요? 그런것 같습니다.</a></li>
+                                </ul>
+                                <!-- tit 안에 숫자가 6개 이상일 경우 버튼 활성화 -->
+                                <!-- <a href="javascript:;" class="view-more-tab">전체보기</a> -->
+                            </div>
+                            <div class="sch-content-box" data-tab="sch-tab-con02">
+                                <strong class="tit">자주묻는질문(4)</strong>
+                                <ul class="sch-content">
+                                    <!-- 검색결과가 없을 경우 empty -->
+                                    <!-- <li class="empty"><p>검색결과가 없습니다.</p></li> -->
+                                    <li><a href="#none">1. 문어는 똑똑한가요?</a></li>
+                                    <li><a href="#none">2. 문어는 똑똑한가요? 과연 그럴까?</a></li>
+                                    <li><a href="#none">3. 문어는 똑똑한가요? 녜니오.</a></li>
+                                    <li><a href="#none">4. 문어는 귀엽나요?</a></li>
+                                </ul>
+                                <!-- tit 안에 숫자가 6개 이상일 경우 버튼 활성화 -->
+                                <!-- <a href="javascript:;" class="view-more-tab">전체보기</a> -->
+                            </div>
+                            <div class="sch-content-box" data-tab="sch-tab-con03">
+                                <strong class="tit">메뉴(0)</strong>
+                                <ul class="sch-content">
+                                    <!-- 검색결과가 없을 경우 empty -->
+                                    <li class="empty"><p>검색결과가 없습니다.</p></li>
+                                </ul>
+                                <!-- tit 안에 숫자가 6개 이상일 경우 버튼 활성화 -->
+                                <!-- <a href="javascript:;" class="view-more-tab">전체보기</a> -->
+                            </div>
+                            <div class="sch-content-box" data-tab="sch-tab-con04">
+                                <strong class="tit">공지/소식(12)</strong>
+                                <ul class="sch-content">
+                                    <!-- 검색결과가 없을 경우 empty -->
+                                    <!-- <li class="empty"><p>검색결과가 없습니다.</p></li> -->
+                                    <li><a href="#none">1. 문어는 똑똑한가요?</a></li>
+                                    <li><a href="#none">2. 문어는 똑똑한가요? 과연 그럴까?</a></li>
+                                    <li><a href="#none">3. 문어는 똑똑한가요? 녜니오.</a></li>
+                                    <li><a href="#none">4. 문어는 귀엽나요?</a></li>
+                                    <li><a href="#none">5. 문어는 귀엽나요? 귀욥징</a></li>
+                                </ul>
+                                <!-- tit 안에 숫자가 6개 이상일 경우 버튼 활성화 -->
+                                <a href="javascript:;" class="view-more-tab">전체보기</a>
+                            </div>
+                        </div>
+                        <div id="sch-tab-con01" class="sch-pop-tab-con">
+                            <div class="sch-content-box">
+                                <strong class="tit">가이드(2)</strong>
+                                <ul class="sch-content">
+                                    <!-- 검색결과가 없을 경우 empty -->
+                                    <!-- <li class="empty"><p>검색결과가 없습니다.</p></li> -->
+                                    <li><a href="#none">1. 문어는 똑똑한가요?</a></li>
+                                    <li><a href="#none">2. 문어는 똑똑한가요? 그런것 같습니다.</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="sch-tab-con02" class="sch-pop-tab-con">
+                            <div class="sch-content-box">
+                                <strong class="tit">자주묻는질문(4)</strong>
+                                <ul class="sch-content">
+                                    <!-- 검색결과가 없을 경우 empty -->
+                                    <!-- <li class="empty"><p>검색결과가 없습니다.</p></li> -->
+                                    <li><a href="#none">1. 문어는 똑똑한가요?</a></li>
+                                    <li><a href="#none">2. 문어는 똑똑한가요? 과연 그럴까?</a></li>
+                                    <li><a href="#none">3. 문어는 똑똑한가요? 녜니오.</a></li>
+                                    <li><a href="#none">4. 문어는 귀엽나요?</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="sch-tab-con03" class="sch-pop-tab-con">
+                            <div class="sch-content-box">
+                                <strong class="tit">메뉴(0)</strong>
+                                <ul class="sch-content">
+                                    <!-- 검색결과가 없을 경우 empty -->
+                                    <li class="empty"><p>검색결과가 없습니다.</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="sch-tab-con04" class="sch-pop-tab-con">
+                            <div class="sch-content-box">
+                                <strong class="tit">공지/소식(12)</strong>
+                                <ul class="sch-content">
+                                    <!-- 검색결과가 없을 경우 empty -->
+                                    <!-- <li class="empty"><p>검색결과가 없습니다.</p></li> -->
+                                    <li><a href="#none">1. 문어는 똑똑한가요?</a></li>
+                                    <li><a href="#none">2. 문어는 똑똑한가요? 과연 그럴까?</a></li>
+                                    <li><a href="#none">3. 문어는 똑똑한가요? 녜니오.</a></li>
+                                    <li><a href="#none">4. 문어는 귀엽나요?</a></li>
+                                    <li><a href="#none">5. 문어는 귀엽나요? 귀욥징</a></li>
+                                    <li><a href="#none">6. 문어는 똑똑한가요?</a></li>
+                                    <li><a href="#none">7. 문어는 똑똑한가요? 과연 그럴까?</a></li>
+                                    <li><a href="#none">8. 문어는 똑똑한가요? 녜니오.</a></li>
+                                    <li><a href="#none">9. 문어는 귀엽나요?</a></li>
+                                    <li><a href="#none">10. 문어는 귀엽나요? 귀욥징</a></li>
+                                    <li><a href="#none">11. 문어는 똑똑한가요?</a></li>
+                                    <li><a href="#none">12. 문어는 똑똑한가요? 과연 그럴까?</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <script>
+        </script>
         <div class="header-right">
             <ul>
                 <li class="search-area mo">
-                    <a href="javascript:;" onclick="modalPopup('#searchPop')" class="search-btn"><img src="/src/main/webapp/asset/img/admin/icon-search.svg" alt="검색하기"></a>
+                    <a href="javascript:;" class="search-btn"><img src="/src/main/webapp/asset/img/admin/icon-search.svg" alt="검색하기"></a>
                 </li>
                 <li class="mid-line mo"><span></span></li>
                 <li class="alarm-area">
@@ -93,11 +220,11 @@
     </div>
 </header>
 <div class="popup-group">
-    <div id="searchPop" class="modal searchPop">
+    <div id="searchMainPop" class="modal searchMainPop">
         <div class="modal-wrap">
             <section class="modal-content">
+                <h3 class="modal-tit hidden">검색창 팝업</h3>
                 <div class="modal-tit-wrap">
-                    <h3 class="modal-tit">팝업 예제</h3>
                 </div>
                 <div class="modal-cont-wrap">
                     <div class="scroll-wrap">
@@ -106,7 +233,7 @@
                     </div>
                 </div>
                 <div class="modal-close-btn">
-                    <a href="javascript:;" onclick="modalPopupClose('#searchPop')" title="팝업창 닫기">팝업창 닫기</a>
+                    <a href="javascript:;" onclick="modalPopupClose('#searchMainPop')" title="팝업창 닫기">팝업창 닫기</a>
                 </div>
             </section>
         </div>
@@ -549,6 +676,54 @@
     </div>
 </div>
 <script>
+    $(document).ready(function() {
+        $(".search-area .search-btn").click(function() {
+        if ($(".search-popup-box").hasClass("on")) {
+            $(".search-popup-box").removeClass("on");
+        } else {
+            $(".search-popup-box").addClass("on");
+        }
+    });
+        // close
+        $(".search-popup-close-btn").click(function() {
+            $(".search-popup-box").removeClass("on");
+        });
+
+        // input
+        $(".text-del-btn").show();
+        $(".input-box.text input[type='text']").on("input", function() {
+            if ($(this).val() === "") {
+            $(this).siblings(".text-del-btn").fadeOut(200);
+            } else {
+            $(this).siblings(".text-del-btn").fadeIn(200);
+            }
+        });
+        $(".text-del-btn").click(function() {
+            $(this).siblings("input[type='text']").val("").trigger("input");
+        });
+        
+         // Tab 클릭 이벤트 처리
+        $('.sch-tab-link').click(function() {
+            var tabId = $(this).attr('data-tab');
+
+            $('.sch-tab-link').removeClass('current');
+            $(this).addClass('current');
+
+            $('.sch-pop-tab-con').removeClass('current');
+            $('#' + tabId).addClass('current');
+        });
+
+        // view-more-tab 클릭 이벤트 처리
+        $('.view-more-tab').click(function(e) {
+            e.preventDefault();
+            var tabId = $(this).parents('.sch-content-box').attr('data-tab');
+
+            $('.sch-tab-link').removeClass('current');
+            $('.sch-tab-link[data-tab="' + tabId + '"]').addClass('current');
+            $('.sch-pop-tab-con').removeClass('current');
+            $('#' + tabId).addClass('current');
+        });
+    });
     // bubble
     $(".bubble-btn").click(function () {
         $(this).toggleClass('on');

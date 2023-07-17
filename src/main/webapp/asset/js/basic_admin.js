@@ -179,3 +179,19 @@ $(function () {
         $('.event-slide.swiper-slide-duplicate div').removeClass('skeleton-box').removeClass('skeleton-loading');
     };
 })
+
+/*========== Tooltip ==========*/
+$(function () {
+    if ($(".tooltip").length > 0) {
+        $(".tooltip img").click(function () {
+            // $(this).toggleClass('on');
+            $(this).next('.tooltip-con').toggleClass('on');
+        });
+        $(document).mouseup(function (e) {
+            if ($(".tooltip-con, .tooltip.on").has(e.target).length === 0) {
+                $(".tooltip").removeClass('on');
+                $(".tooltip-con").removeClass('on');
+            }
+        });
+    }
+});
