@@ -41,4 +41,11 @@ public class MemberServiceImpl implements MemberService{
     public List<String> selectMemberIdList() { return memberDao.selectMemberIdList(); }
 
     public List<?> selectExcelMemberList(MemberVo memberVo) { return memberDao.selectExcelMemberList(memberVo); }
+
+    @Override
+    public int updateMembership(MemberVo memberVo) {
+        return memberDao.updateMembership(memberVo);
+    }
+
+
 }

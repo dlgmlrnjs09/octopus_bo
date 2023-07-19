@@ -34,8 +34,8 @@
             <tr>
                 <th class="cell-th check-th">
                     <div class="basic-check-box all-check-box">
-                        <input type="checkbox" class="table-check-box" name="selectAll" id="selectAll" tabindex="-1">
-                        <label for="selectAll" tabindex="0"></label>
+                        <input type="checkbox" class="table-check-box" name="memberChkAll" id="memberChkAll" tabindex="-1">
+                        <label for="memberChkAll" tabindex="0"></label>
                     </div>
                 </th>
                 <th class="cell-th">
@@ -46,6 +46,9 @@
                 </th>
                 <th class="cell-th">
                     <div class="con-th">회원 이름</div>
+                </th>
+                <th class="cell-th">
+                    <div class="con-th">회원 등급</div>
                 </th>
                 <th class="cell-th">
                     <div class="con-th">휴대전화번호</div>
@@ -71,13 +74,14 @@
                             <!-- 총 개수 - ( ((현재페이지 - 1) * 화면당 게시글 로우행 수) + 로우인덱스) -->
                             <td class="cell-td check-td">
                                 <div class="basic-check-box">
-                                    <input type="checkbox" name="select" id="chk_${member.memberSeq}" tabindex="-1" class="chkgroup table-check-box">
+                                    <input type="checkbox" name="select" id="chk_${member.memberSeq}" tabindex="-1" class="memberChkgroup table-check-box">
                                     <label for="chk_${member.memberSeq}" tabindex="0"></label>
                                 </div>
                             </td>
                             <td class="cell-td memberData" data-seq="${member.memberSeq}"><div class="con-td">${pagingModel.listCnt - (((pagingModel.curPage - 1) * pagingModel.pageSize) + status.index)}</div></td>
                             <td class="cell-td memberData" data-seq="${member.memberSeq}"><div class="con-td">${member.memberId}</div></td>
                             <td class="cell-td memberData" data-seq="${member.memberSeq}"><div class="con-td">${member.memberNm}</div></td>
+                            <td class="cell-td memberData" data-seq="${member.memberSeq}"><div class="con-td">${member.membershipName} <c:if test="${member.isMembershipFixed}"><span class="fixed-membership">고정</span></c:if></div></td>
                             <td class="cell-td memberData" data-seq="${member.memberSeq}"><div class="con-td">${member.memberPhoneFull}</div></td>
                             <td class="cell-td memberData" data-seq="${member.memberSeq}"><div class="con-td">${member.memberEmailFull}</div></td>
                             <td class="cell-td memberData" data-seq="${member.memberSeq}"><div class="con-td">${member.regDt}</div></td>
@@ -88,6 +92,57 @@
             </tbody>
         </table>
     </div>
+    <div class="common-table-top">
+        <div class="left-wrap" style="margin-top:20px">
+            <h3 class="table-title">일괄 설정</h3>
+        </div>
+    </div>
+    <table class="common-table" summary="검색" style="width:100%;">
+        <colgroup>
+            <col width="10%">
+            <col width="90%">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th class="row-th" scope="row"><div class="con-th">회원 등급 변경</div></th>
+                <td class="cell-td dt-left">
+                    <div class="con-td">
+                        <div class="basic-select-box" style="display: inline-block;">
+                            <select id="membershipSeqSelect">
+                                <c:forEach var="membership" items="${membershipList}">
+                                    <option value="${membership.membership_seq}">${membership.membership_name}</option>
+                                </c:forEach>
+                            </select>
+                            <span class="border-focus"><i></i></span>
+                        </div>
+                        <button type="button" class="common-btn setMembershipBtn" aria-label="title" data-flag="seq" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;">
+                            <span>저장</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th class="row-th" scope="row"><div class="con-th">회원 등급 고정</div></th>
+                <td class="cell-td dt-left">
+                    <div class="con-td">
+                        <div class="radio-box-wrap" style="display: inline-block">
+                            <div class="basic-radio-box">
+                                <input type="radio" id="fixedTrue" name="isMembershipFixed" value="true">
+                                <label for="fixedTrue"><span>고정</span></label>
+                            </div>
+                            <div class="basic-radio-box">
+                                <input type="radio" id="fixedFalse" name="isMembershipFixed" value="false" checked>
+                                <label for="fixedFalse"><span>고정해제</span></label>
+                            </div>
+                        </div>
+                        <button type="button" class="common-btn setMembershipBtn" aria-label="title" data-flag="fix" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;">
+                            <span>저장</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <!--페이징-->
     <div class="common-table-bottom">
         <div class="left-wrap">

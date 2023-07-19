@@ -75,7 +75,7 @@
             });
 
             //권한 변경 버튼
-            $("#roleModifyBtn").click(function() {
+            /*$("#roleModifyBtn").click(function() {
                 if(confirm("권한을 변경하시겠습니까?")) {
                     $.ajax({
                         type : "GET",
@@ -92,8 +92,7 @@
                         }
                     });
                 }
-            });
-
+            });*/
         });
     </script>
 
@@ -161,21 +160,34 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="row-th" scope="row"><div class="con-th">권한</div></th>
+                                <th class="row-th" scope="row"><div class="con-th">회원 등급</div></th>
                                 <td class="cell-td dt-left">
                                     <div class="con-td">
-                                        <div id="roleDiv" style="display: inline-block">
-                                            <div class="basic-select-box">
-                                                <select id="memberRole" name="memberRole" style="">
-                                                    <c:forEach var="role" items="${roleList}" varStatus="status">
-                                                        <option value="${role.roleSeq}" <c:if test="${member.memberRole eq role.roleId}">selected</c:if>>${role.roleName}</option>
-                                                    </c:forEach>
-                                                    <option value="" <c:if test="${member.memberRole == null}">selected</c:if>>권한 없음</option>
-                                                </select>
-                                                <span class="border-focus"><i></i></span>
+                                        <div class="basic-select-box" style="display:inline-block;">
+                                            <%--<select id="memberRole" name="memberRole" style="">
+                                                <c:forEach var="role" items="${roleList}" varStatus="status">
+                                                    <option value="${role.roleSeq}" <c:if test="${member.memberRole eq role.roleId}">selected</c:if>>${role.roleName}</option>
+                                                </c:forEach>
+                                                <option value="" <c:if test="${member.memberRole == null}">selected</c:if>>권한 없음</option>
+                                            </select>--%>
+                                            <select id="membership" name="membershipSeq">
+                                                <c:forEach var="membership" items="${membershipList}">
+                                                    <option value="${membership.membership_seq}" <c:if test="${membership.membership_seq eq member.membershipSeq or empty member.membershipSeq}">selected</c:if>>${membership.membership_name}<c:if test="${membership.membership_is_auto eq false}"> (수동)</c:if></option>
+                                                </c:forEach>
+                                            </select>
+                                            <span class="border-focus"><i></i></span>
+                                        </div>
+                                        <div class="radio-box-wrap" style="display: inline-block; margin-left: 10px">
+                                            <div class="basic-radio-box">
+                                                <input type="radio" id="fixedTrue" name="isMembershipFixed" value="true" <c:if test="${member.isMembershipFixed eq true}">checked</c:if> >
+                                                <label for="fixedTrue"><span>고정</span></label>
+                                            </div>
+                                            <div class="basic-radio-box">
+                                                <input type="radio" id="fixedFalse" name="isMembershipFixed" value="false" <c:if test="${member.isMembershipFixed ne true}">checked</c:if>>
+                                                <label for="fixedFalse"><span>고정해제</span></label>
                                             </div>
                                         </div>
-                                        <button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="roleModifyBtn"><span>변경</span></button>
+                                        <%--<button type="button" style="padding: 8px 5px; font-size: 15px; min-width: 60px; margin-left: 10px;" class="common-btn" aria-label="title" id="roleModifyBtn"><span>변경</span></button>--%>
                                     </div>
                                 </td>
                                 <th class="row-th" scope="row"><div class="con-th">상태</div></th>

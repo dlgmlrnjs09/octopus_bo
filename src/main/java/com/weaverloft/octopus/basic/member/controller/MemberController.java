@@ -8,6 +8,7 @@ import com.weaverloft.octopus.basic.main.service.ExcelService;
 import com.weaverloft.octopus.basic.main.service.FileService;
 import com.weaverloft.octopus.basic.member.service.MemberService;
 import com.weaverloft.octopus.basic.main.vo.FileVo;
+import com.weaverloft.octopus.basic.member.service.MembershipService;
 import com.weaverloft.octopus.basic.member.vo.MemberVo;
 import com.weaverloft.octopus.basic.option.role.service.RoleService;
 import com.weaverloft.octopus.basic.option.role.vo.RoleVo;
@@ -51,6 +52,9 @@ public class MemberController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private MembershipService membershipService;
+
     /** File Service */
     @Autowired
     protected FileService fileService;
@@ -63,13 +67,19 @@ public class MemberController {
     private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("/main")
-    public String showMemberMainPage(Model model) {
+    public String showMemberMainPage(@RequestParam(required = false) String srchMembershipSeq, Model model) {
+
+        List<Map<String, Object>> membershipList = membershipService.selectMembershipList();
+
+        model.addAttribute("membershipList", membershipList);
+        model.addAttribute("srchMembershipSeq", srchMembershipSeq);
+
         return "/member/member-main.admin";
     }
 
-    @GetMapping("/select-member-list")
+    @PostMapping("/select-member-list")
     @ResponseBody
-    public ModelAndView selectMemberList(Model model, @ModelAttribute MemberVo memberVo) {
+    public ModelAndView selectMemberList(Model model, @RequestBody MemberVo memberVo) {
         ModelAndView mv = new ModelAndView();
 
         try{
@@ -79,6 +89,7 @@ public class MemberController {
             memberVo.setPagingModel(pagingModel);
 
             List<MemberVo> memberList = memberService.selectMemberList(memberVo);
+            List<Map<String, Object>> membershipList = membershipService.selectMembershipList();
 
             for(MemberVo member : memberList) {
                 if(member.getMemberNm() != null) {
@@ -92,8 +103,9 @@ public class MemberController {
             mv.setViewName("/member/setUserList");
             mv.addObject("memberList", memberList);
             mv.addObject("pagingModel", pagingModel);
+            mv.addObject("membershipList", membershipList);
         }catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
 
             mv.setViewName("404");
             return mv;
@@ -113,10 +125,12 @@ public class MemberController {
                 return "redirect:/main/denied";
             }
 
-            List<RoleVo> roleList = roleService.selectRoleList(new RoleVo());
+//            List<RoleVo> roleList = roleService.selectRoleList(new RoleVo());
+            List<Map<String, Object>> membershipList = membershipService.selectMembershipList();
             MemberVo member = memberService.getMemberDetail(memberVo);
 
-            model.addAttribute("roleList", roleList);
+//            model.addAttribute("roleList", roleList);
+            model.addAttribute("membershipList", membershipList);
             model.addAttribute("member", member);
         }catch (Exception e) {
             System.out.println(e);
@@ -174,6 +188,25 @@ public class MemberController {
         }catch (Exception e) {
             System.out.println(e);
             return "404";
+        }
+
+        return "success";
+    }
+
+    @PostMapping("/membership-update")
+    @ResponseBody
+    public String updateMembership(@RequestBody MemberVo memberVo) {
+
+        List<Integer> seqList = memberVo.getMemberSeqList();
+        if (seqList == null || seqList.size() == 0) {
+            return "none";
+        }
+
+        try {
+            memberService.updateMembership(memberVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "failed";
         }
 
         return "success";

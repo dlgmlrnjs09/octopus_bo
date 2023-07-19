@@ -24,8 +24,15 @@ public class MemberVo extends PagingVo {
     private String memberEmailFull;
     private String memberRole;
     private String memberRoleName;
+    private int membershipSeq;
+    private boolean isMembershipFixed;
+    private String membershipName;
+    private String flag;
     private String regDt;
     private boolean isUse;
+
+    private List<Integer> membershipSeqList;
+
     private List<Integer> memberSeqList;
 
     public boolean getIsUse() {
@@ -202,5 +209,36 @@ public class MemberVo extends PagingVo {
 
     public void setRegDt(String regDt) {
         this.regDt = regDt;
+    }
+
+    public int getMembershipSeq() { return membershipSeq; }
+
+    public void setMembershipSeq(int membershipSeq) { this.membershipSeq = membershipSeq; }
+
+    public String getMembershipName() {
+        return membershipName;
+    }
+
+    public void setMembershipName(String membershipName) {
+        this.membershipName = membershipName;
+    }
+
+    public List<Integer> getMembershipSeqList() {
+        return membershipSeqList;
+    }
+    public void setMembershipSeqList(List<Integer> membershipSeqList) {
+        this.membershipSeqList = membershipSeqList;
+    }
+
+    public boolean getIsMembershipFixed() { return isMembershipFixed; }
+
+    public void setIsMembershipFixed(boolean isMembershipFixed) { this.isMembershipFixed = isMembershipFixed; }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

@@ -14,6 +14,12 @@
                     #{arr}
                 </foreach>
             </when>
+            <when test="!@org.springframework.util.CollectionUtils@isEmpty(membershipSeqList)">
+                AND membership_seq IN
+                <foreach collection="membershipSeqList" item="arr" open="(" close=")" separator=",">
+                    #{arr}::int4
+                </foreach>
+            </when>
             <otherwise>
                 <if test="searchKeyword != null and searchKeyword !=''">
                     <if test="searchType == 'memberId' ">
@@ -69,10 +75,12 @@
                 member_email_id AS memberEmailId,
                 member_email_domain AS memberEmailDomain,
                 member_email_full AS memberEmailFull,
+                (SELECT membership_name FROM octopus.membership_info ms WHERE ms.membership_seq = mi.membership_seq::int4) AS membershipName,
+                is_membership_fixed AS isMembershipFixed,
                 (SELECT role_name FROM octopus.role_info WHERE member_role = role_seq::varchar) AS memberRole,
                 TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
             FROM
-                octopus.member_info
+                octopus.member_info mi
             WHERE
                 1=1
             <include refid="defaultWhere"/>
@@ -127,10 +135,14 @@
                 m.member_email_domain AS memberEmailDomain,
                 m.member_email_full AS memberEmailFull,
                 r.role_id AS memberRole,
+                m.membership_seq as membershipSeq,
+                s.membership_name as membershipName,
+                m.is_membership_fixed as isMembershipFixed,
                 m.is_use AS isUse,
                 TO_CHAR(m.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
         FROM
             octopus.member_info m LEFT OUTER JOIN octopus.role_info r ON m.member_role = r.role_seq::varchar
+            INNER JOIN octopus.membership_info s ON m.membership_seq = s.membership_seq
         WHERE
             member_seq = #{memberSeq}
     </select>
@@ -149,6 +161,24 @@
             m.member_id = #{memberId}
     </select>
 
+    <update id="updateMembership" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo">
+        UPDATE
+        octopus.member_info
+        SET
+        <if test="'seq'.equals(flag)">
+            membership_seq = #{membershipSeq},
+        </if>
+        <if test="'fix'.equals(flag)">
+            is_membership_fixed = #{isMembershipFixed}::bool,
+        </if>
+        udt_dt = now()
+        WHERE
+            member_seq IN
+            <foreach collection="memberSeqList" item="arr" open="(" close=")" separator=",">
+                #{arr}
+            </foreach>
+    </update>
+
     <update id="updateMember" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo">
         UPDATE
             octopus.member_info
@@ -163,9 +193,13 @@
                 member_addr2 = #{memberAddr2},
                 member_addr_detail = #{memberAddrDetail},
             </if>
-<!--            <if test="memberRole != null and memberRole != ''">-->
+            <if test="memberRole != null and memberRole != ''">
                 member_role = #{memberRole},
-<!--            </if>-->
+            </if>
+            <if test="membershipSeq != null and membershipSeq > 0">
+                membership_seq = #{membershipSeq},
+            </if>
+            is_membership_fixed = #{isMembershipFixed}::bool,
             member_email_id = #{memberEmailId},
             member_email_domain = #{memberEmailDomain},
             member_email_full = #{memberEmailFull},

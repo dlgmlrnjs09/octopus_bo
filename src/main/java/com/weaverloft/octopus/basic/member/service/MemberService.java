@@ -30,4 +30,6 @@ public interface MemberService {
     List<String> selectMemberIdList();
 
     List<?> selectExcelMemberList(MemberVo memberVo);
+
+    int updateMembership(MemberVo memberVo);
 }

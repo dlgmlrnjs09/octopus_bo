@@ -32,4 +32,7 @@ public interface MemberDao {
     List<String> selectMemberIdList();
 
     List<?> selectExcelMemberList(MemberVo memberVo);
+
+    int updateMembership(MemberVo memberVo);
+
 }

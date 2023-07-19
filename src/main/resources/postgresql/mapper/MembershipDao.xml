@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.member.dao.MembershipDao">
+
+    <select id="selectMembershipList" resultType="map">
+        select
+            membership_seq ,
+            membership_name ,
+            membership_description ,
+            membership_is_auto ,
+            membership_auto_amount ,
+            membership_priority ,
+            benefit_flag ,
+            dc_min_amount ,
+            mg_min_amount ,
+            dv_min_amount ,
+            dc_rate ,
+            mg_rate ,
+            dc_init ,
+            mg_init ,
+            to_char(reg_dt, 'yyyy-mm-dd') as reg_dt,
+            (select count(1) from octopus.member_info where membership_seq = mi.membership_seq) as member_cnt
+        from
+            octopus.membership_info mi
+        where
+            is_use = true
+        order by
+            membership_is_auto desc, membership_auto_amount desc, membership_seq desc
+    </select>
+
+    <select id="selectMembershipInfo" parameterType="int" resultType="map">
+        select
+            membership_seq ,
+            membership_name ,
+            membership_description ,
+            membership_is_auto ,
+            membership_auto_amount ,
+            membership_priority ,
+            benefit_flag ,
+            dc_min_amount ,
+            mg_min_amount ,
+            dv_min_amount ,
+            dc_rate ,
+            mg_rate ,
+            dc_init ,
+            mg_init ,
+            to_char(reg_dt, 'yyyy-mm-dd') as reg_dt
+        from
+            octopus.membership_info
+        where
+            membership_seq = ${value}
+    </select>
+
+    <select id="selectCountMembershipInfo" parameterType="map" resultType="int">
+        select
+            count(*)
+        from octopus.membership_info
+        where
+            is_use = true
+        <if test="'true'.equals(membershipIsAuto)">
+          and membership_is_auto = true
+          and membership_auto_amount = #{membershipAutoAmount}::int4
+        </if>
+        <if test="membershipSeq != null and !''.equals(membershipSeq)">
+          and membership_seq != #{membershipSeq}::int4
+        </if>
+    </select>
+
+    <insert id="insertMembershipInfo" parameterType="map">
+        <selectKey keyProperty="membershipSeq" resultType="int" order="BEFORE">
+            select nextval('octopus.membership_info_membership_seq_seq')
+        </selectKey>
+        insert
+        into
+            octopus.membership_info (
+            membership_seq ,
+            membership_name ,
+            membership_description ,
+            membership_is_auto ,
+            <if test="'true'.equals(membershipIsAuto)">
+                membership_auto_amount ,
+                membership_priority,
+            </if>
+            <if test="benefitFlag != null and !''.equals(benefitFlag)">
+                <if test="hasDiscount">
+                    dc_min_amount ,
+                    dc_rate ,
+                    dc_init ,
+                </if>
+                <if test="hasMileage">
+                    mg_min_amount ,
+                    mg_rate ,
+                    mg_init ,
+                </if>
+                <if test="hasDelivery">
+                    dv_min_amount ,
+                </if>
+            </if>
+            benefit_flag
+        )
+        values (
+                   #{membershipSeq},
+                   #{membershipName} ,
+                   #{membershipDescription},
+                   #{membershipIsAuto}::boolean,
+                   <if test="'true'.equals(membershipIsAuto)">
+                        #{membershipAutoAmount}::int4,
+                        #{membershipPriority}::int4,
+                   </if>
+                   <if test="benefitFlag != null and !''.equals(benefitFlag)">
+                       <if test="hasDiscount">
+                           #{dcMinAmount}::int4,
+                           #{dcRate}::int4,
+                           #{dcInit},
+                       </if>
+                       <if test="hasMileage">
+                           #{mgMinAmount}::int4,
+                           #{mgRate}::int4,
+                           #{mgInit},
+                       </if>
+                       <if test="hasDelivery">
+                           #{dvMinAmount}::int4,
+                       </if>
+                   </if>
+                   #{benefitFlag}
+               )
+    </insert>
+
+    <update id="updateMembershipInfo" parameterType="map">
+        update
+            octopus.membership_info
+        set
+            membership_name = #{membershipName},
+            membership_description = #{membershipDescription},
+            <if test="membershipSeq != 1">
+                membership_is_auto = #{membershipIsAuto}::bool,
+                <if test="'true'.equals(membershipIsAuto)">
+                    membership_auto_amount = #{membershipAutoAmount}::int4,
+                    membership_priority = #{membershipPriority}::int4,
+                </if>
+            </if>
+            benefit_flag = #{benefitFlag},
+            <if test="benefitFlag != null and !''.equals(benefitFlag)">
+                <if test="hasDiscount">
+                    dc_min_amount = #{dcMinAmount}::int4,
+                    dc_rate = #{dcRate}::int4,
+                    dc_init = #{dcInit},
+                </if>
+                <if test="hasMileage">
+                    mg_min_amount = #{mgMinAmount}::int4,
+                    mg_rate = #{mgRate}::int4,
+                    mg_init = #{mgInit},
+                </if>
+                <if test="hasDelivery">
+                    dv_min_amount = #{dvMinAmount}::int4,
+                </if>
+            </if>
+            udt_dt = now()
+        where
+            membership_seq = ${membershipSeq}
+    </update>
+
+    <delete id="deleteMembershipInfo" parameterType="map">
+        update
+            octopus.membership_info
+        set
+            is_use = false
+        where
+            membership_seq = ${membershipSeq}
+    </delete>
+
+    <select id="getMaxMembershipPriority" resultType="int">
+        select
+            coalesce(max(membership_priority), 0) + 1
+        from
+            octopus.membership_info
+    </select>
+
+    <update id="updateMembershipPriority" parameterType="map">
+        update
+            octopus.membership_info
+        set
+            membership_priority = #{membershipPriority}
+        where
+            membership_seq = ${membershipSeq}
+    </update>
+
+    <update id="updateMembershipSeq">
+        update
+            octopus.member_info BB
+        set
+            membership_seq = AA.membership_seq
+        from (
+            select *, (
+                select
+                    membership_seq
+                from
+                    octopus.membership_info mi2
+                where
+                    is_use = true
+                    and A.totalOrderPrice > mi2.membership_auto_amount
+                    and membership_priority is not null
+                order by membership_priority
+                limit 1
+            )
+            from (
+                select
+                    mi.member_seq,
+                    sum(oi.order_total_price) as totalOrderPrice
+                from
+                    octopus.member_info mi
+                inner join octopus.order_info oi on (mi.member_seq = oi.member_seq)
+                inner join octopus.membership_info ms on (mi.membership_seq = ms.membership_seq)
+                where
+                    mi.is_use = true
+                    and oi.order_status in ('PP', 'DP', 'DS', 'DD')
+                    and oi.reg_dt > current_date - cast( (select sum_order_period from octopus.membership_info limit 1) || 'month' as interval)
+                    and ms.membership_is_auto is true
+                    and mi.is_membership_fixed is false
+                group by
+                    mi.member_seq
+            ) A
+        ) AA
+        where BB.member_seq = AA.member_seq
+    </update>
+
+    <select id="getSumOrderPeriod" resultType="int">
+        select
+            sum_order_period
+        from
+            octopus.membership_info
+        limit 1
+    </select>
+
+    <update id="updateSumOrderPeriod" parameterType="int">
+        update
+            octopus.membership_info
+        set
+            sum_order_period = #{value}::int4
+        where 1=1
+    </update>
+
+</mapper>
