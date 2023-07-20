@@ -74,8 +74,8 @@
                             <!-- 총 개수 - ( ((현재페이지 - 1) * 화면당 게시글 로우행 수) + 로우인덱스) -->
                             <td class="cell-td check-td">
                                 <div class="basic-check-box">
-                                    <input type="checkbox" name="select" id="chk_${member.memberSeq}" tabindex="-1" class="memberChkgroup table-check-box">
-                                    <label for="chk_${member.memberSeq}" tabindex="0"></label>
+                                    <input type="checkbox" name="select" id="member_${member.memberSeq}" tabindex="-1" class="memberChkgroup table-check-box">
+                                    <label for="member_${member.memberSeq}" tabindex="0"></label>
                                 </div>
                             </td>
                             <td class="cell-td memberData" data-seq="${member.memberSeq}"><div class="con-td">${pagingModel.listCnt - (((pagingModel.curPage - 1) * pagingModel.pageSize) + status.index)}</div></td>

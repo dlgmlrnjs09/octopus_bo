@@ -50,9 +50,6 @@ public class MemberController {
     private CommonService commonService;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
     private MembershipService membershipService;
 
     /** File Service */
@@ -62,9 +59,6 @@ public class MemberController {
     /** ExcelService */
     @Autowired
     ExcelService excelService;
-
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("/main")
     public String showMemberMainPage(@RequestParam(required = false) String srchMembershipSeq, Model model) {
@@ -125,11 +119,9 @@ public class MemberController {
                 return "redirect:/main/denied";
             }
 
-//            List<RoleVo> roleList = roleService.selectRoleList(new RoleVo());
             List<Map<String, Object>> membershipList = membershipService.selectMembershipList();
             MemberVo member = memberService.getMemberDetail(memberVo);
 
-//            model.addAttribute("roleList", roleList);
             model.addAttribute("membershipList", membershipList);
             model.addAttribute("member", member);
         }catch (Exception e) {
@@ -159,32 +151,6 @@ public class MemberController {
             }
 
             memberService.updateMember(memberVo);
-
-            // security 새로운 인증 생성
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
-
-            SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication, user.getUsername()));
-        }catch (Exception e) {
-            System.out.println(e);
-            return "404";
-        }
-
-        return "success";
-    }
-
-    @GetMapping("/role-update")
-    @ResponseBody
-    public String updateMemberRole(Model model, @ModelAttribute MemberVo memberVo) {
-
-        try{
-            memberService.updateMemberRole(memberVo);
-
-            // security 새로운 인증 생성
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
-
-            SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication, user.getUsername()));
         }catch (Exception e) {
             System.out.println(e);
             return "404";
@@ -210,20 +176,6 @@ public class MemberController {
         }
 
         return "success";
-    }
-
-    /**
-      * @description 새로운 인증 생성
-      * @param currentAuth 현재 auth 정보
-      * @param username	현재 사용자 Id
-      * @return Authentication
-      * @author Armton
-    */
-    protected Authentication createNewAuthentication(Authentication currentAuth, String username) {
-        CustomUserDetails newPrincipal = (CustomUserDetails) customUserDetailsService.loadUserByUsername(username);
-        UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(newPrincipal, currentAuth.getCredentials(), newPrincipal.getAuthorities());
-        newAuth.setDetails(currentAuth.getDetails());
-        return newAuth;
     }
 
     @GetMapping("/insert-member-list-popup")
@@ -374,12 +326,12 @@ public class MemberController {
         setting.put("번호", "seq");
         setting.put("회원 아이디", "MemberId");
         setting.put("회원 이름", "MemberNm");
+        setting.put("회원 등급", "MembershipName");
         setting.put("휴대전화번호", "MemberPhoneFull");
         setting.put("생년월일", "MemberBirth");
         setting.put("우편번호", "MemberZipCode");
         setting.put("주소", "MemberAddrFull");
         setting.put("이메일", "MemberEmailFull");
-        setting.put("사용자 권한", "MemberRole");
         setting.put("등록일", "RegDt");
 
         // 개인정보 다운로드 로그 저장
@@ -387,4 +339,11 @@ public class MemberController {
 
         excelService.down(setting, excelMemberList, response , request, fileSetting);
     }
+
+    @GetMapping("/select-member-age-list")
+    @ResponseBody
+    public Map<String, Object> selectMemberAgeList() {
+        return memberService.selectMemberAgeList();
+    }
+
 }

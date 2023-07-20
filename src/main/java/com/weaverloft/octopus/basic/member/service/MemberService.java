@@ -19,17 +19,15 @@ public interface MemberService {
 
     MemberVo getMemberDetail(MemberVo memberVo);
 
-    MemberVo getMemberRole(MemberVo memberVo);
-
     int updateMember(MemberVo memberVo);
-
-    int updateMemberRole(MemberVo memberVo);
 
     int insertMember(MemberVo memberVo);
 
     List<String> selectMemberIdList();
 
     List<?> selectExcelMemberList(MemberVo memberVo);
+
+    Map<String, Object> selectMemberAgeList();
 
     int updateMembership(MemberVo memberVo);
 }

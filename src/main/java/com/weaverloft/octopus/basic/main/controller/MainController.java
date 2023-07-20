@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -49,20 +50,12 @@ public class MainController {
     }
 
     @RequestMapping("/login-form")
-    public String loginForm(HttpServletRequest request, MemberVo memberVo) {
+    public String loginForm(HttpServletRequest request, MemberVo memberVo, Model model, @RequestParam(required = false) String error) {
+        if(error != null) {
+            HttpSession session = request.getSession();
+            model.addAttribute("msg", session.getAttribute("msg"));
+            session.invalidate();
+        }
         return "/main/login-form.admin";
-    }
-
-    @RequestMapping("/login-error")
-    public String loginError(HttpServletRequest request, Model model){
-        HttpSession session = request.getSession();
-
-        model.addAttribute("msg", session.getAttribute("msg"));
-        return "/main/login-error.admin";
-    }
-
-    @RequestMapping("/denied")
-    public String denied(){
-        return "/main/denied.admin";
     }
 }

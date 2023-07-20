@@ -20,6 +20,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @ComponentScan(basePackages = "com.weaverloft.octopus")
@@ -66,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-				.antMatchers("/", "/main/main-page", "/main/login-error", "/main/denied").permitAll()
+				.antMatchers("/", "/main/login-form", "/front/*/**").permitAll()
 				.anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -80,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout()
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/main/main-page")
+                    .logoutSuccessUrl("/main/login-form")
 				.and()
 					.exceptionHandling()
 //				   	.authenticationEntryPoint( new AuthenticationEntryPoint() {	//인증실패
@@ -93,7 +94,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				  	.accessDeniedHandler( new AccessDeniedHandler() {	//인가실패
 						@Override
 						public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-							response.sendRedirect("/main/denied");
+							HttpSession session = request.getSession();
+        					session.setAttribute("msg", "관리자 페이지에 접근 권한이 없습니다.");
+
+							response.sendRedirect("/main/login-form?error=1");
 						}
 				 	});
     }

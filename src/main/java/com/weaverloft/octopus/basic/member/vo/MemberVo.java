@@ -22,8 +22,6 @@ public class MemberVo extends PagingVo {
     private String memberEmailId;
     private String memberEmailDomain;
     private String memberEmailFull;
-    private String memberRole;
-    private String memberRoleName;
     private int membershipSeq;
     private boolean isMembershipFixed;
     private String membershipName;
@@ -49,22 +47,6 @@ public class MemberVo extends PagingVo {
 
     public void setMemberSeqList(List<Integer> memberSeqList) {
         this.memberSeqList = memberSeqList;
-    }
-
-    public String getMemberRole() {
-        return memberRole;
-    }
-
-    public void setMemberRole(String memberRole) {
-        this.memberRole = memberRole;
-    }
-
-    public String getMemberRoleName() {
-        return memberRoleName;
-    }
-
-    public void setMemberRoleName(String memberRoleName) {
-        this.memberRoleName = memberRoleName;
     }
 
     public int getMemberSeq() {

@@ -1,5 +1,7 @@
 package com.weaverloft.octopus.basic.option.notice.controller;
 
+import com.weaverloft.octopus.basic.admin.service.AdminService;
+import com.weaverloft.octopus.basic.admin.vo.AdminVo;
 import com.weaverloft.octopus.basic.common.util.CommonUtil;
 import com.weaverloft.octopus.basic.common.util.PagingModel;
 import com.weaverloft.octopus.basic.main.service.FileService;
@@ -46,7 +48,7 @@ public class NoticeController {
     private FileService fileService;
 
     @Autowired
-    private MemberService memberService;
+    private AdminService adminService;
 
     @RequestMapping("/list")
     public String showNoticeListPage(@RequestParam Map<String, Object> paramMap, Model model) {
@@ -99,10 +101,10 @@ public class NoticeController {
                 List<Map<String, Object>> fileList = fileService.selectFileInfoList(fileVo);
 
                 //권한체크
-                MemberVo memberVo = new MemberVo();
-                memberVo.setMemberId(userId);
-                memberVo = memberService.getMemberRole(memberVo);
-                String memberRole = memberVo.getMemberRole();
+                AdminVo adminVo = new AdminVo();
+                adminVo.setAdminId(userId);
+                adminVo = adminService.getAdminRole(adminVo);
+                String memberRole = adminVo.getAdminRoleId();
                 if ("ADMIN".equals(memberRole) || userId.equals(noticeDetail.get("reg_id"))) {
                     flag = "update";
                 } else {

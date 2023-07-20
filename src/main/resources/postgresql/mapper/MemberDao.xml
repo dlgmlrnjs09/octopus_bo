@@ -77,7 +77,6 @@
                 member_email_full AS memberEmailFull,
                 (SELECT membership_name FROM octopus.membership_info ms WHERE ms.membership_seq = mi.membership_seq::int4) AS membershipName,
                 is_membership_fixed AS isMembershipFixed,
-                (SELECT role_name FROM octopus.role_info WHERE member_role = role_seq::varchar) AS memberRole,
                 TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
             FROM
                 octopus.member_info mi
@@ -85,7 +84,7 @@
                 1=1
             <include refid="defaultWhere"/>
             ORDER BY
-                memberId DESC) A
+                reg_dt DESC) A
         LIMIT
             #{pagingModel.pageSize}
         OFFSET
@@ -94,27 +93,23 @@
 
     <select id="selectExcelMemberList" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="com.weaverloft.octopus.basic.member.vo.MemberVo">
         SELECT
-            member_seq AS memberSeq,
-            member_id AS memberId,
-            member_nm AS memberNm,
-            member_phone1 || '-' || member_phone2 || '-' || member_phone3 AS memberPhoneFull,
-            member_birth AS memberBirth,
-            member_zip_code AS memberZipCode,
-            member_addr1 || ' ' || member_addr2 || ' ' || member_addr_detail AS memberAddrFull,
-            member_email_full AS memberEmailFull,
---             CASE WHEN member_role = 'ADMIN' THEN '어드민'
---                  WHEN member_role = 'USER' THEN '일반 회원'
---                  WHEN member_role = 'MANAGER' THEN '매장 관리자'
---                  ELSE '-' END AS memberRole,
-            (SELECT role_name FROM octopus.role_info WHERE member_role = role_seq::varchar) AS memberRole,
-            TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+            mi.member_seq AS memberSeq,
+            mi.member_id AS memberId,
+            mi.member_nm AS memberNm,
+            (SELECT membership_name FROM octopus.membership_info ms WHERE ms.membership_seq = mi.membership_seq::int4) AS membershipName,
+            mi.member_phone1 || '-' || mi.member_phone2 || '-' || mi.member_phone3 AS memberPhoneFull,
+            mi.member_birth AS memberBirth,
+            mi.member_zip_code AS memberZipCode,
+            mi.member_addr1 || ' ' || mi.member_addr2 || ' ' || mi.member_addr_detail AS memberAddrFull,
+            mi.member_email_full AS memberEmailFull,
+            TO_CHAR(mi.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
         FROM
-            octopus.member_info
+            octopus.member_info mi
         WHERE
             1=1
         <include refid="defaultWhere"/>
         ORDER BY
-            member_id DESC
+            mi.reg_dt DESC
     </select>
 
     <select id="getMemberDetail" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="com.weaverloft.octopus.basic.member.vo.MemberVo">
@@ -134,31 +129,16 @@
                 m.member_email_id AS memberEmailId,
                 m.member_email_domain AS memberEmailDomain,
                 m.member_email_full AS memberEmailFull,
-                r.role_id AS memberRole,
                 m.membership_seq as membershipSeq,
                 s.membership_name as membershipName,
                 m.is_membership_fixed as isMembershipFixed,
                 m.is_use AS isUse,
                 TO_CHAR(m.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
         FROM
-            octopus.member_info m LEFT OUTER JOIN octopus.role_info r ON m.member_role = r.role_seq::varchar
+            octopus.member_info m
             INNER JOIN octopus.membership_info s ON m.membership_seq = s.membership_seq
         WHERE
             member_seq = #{memberSeq}
-    </select>
-
-    <select id="getMemberRole" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo" resultType="com.weaverloft.octopus.basic.member.vo.MemberVo">
-        SELECT
-                m.member_seq AS memberSeq,
-                m.member_id AS memberId,
-                m.member_nm AS memberNm,
-                m.member_pw AS memberPw,
-                r.role_id AS memberRole,
-                m.is_use AS isUse
-        FROM
-            octopus.member_info m LEFT OUTER JOIN octopus.role_info r ON m.member_role = r.role_seq::varchar
-        WHERE
-            m.member_id = #{memberId}
     </select>
 
     <update id="updateMembership" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo">
@@ -193,9 +173,6 @@
                 member_addr2 = #{memberAddr2},
                 member_addr_detail = #{memberAddrDetail},
             </if>
-            <if test="memberRole != null and memberRole != ''">
-                member_role = #{memberRole},
-            </if>
             <if test="membershipSeq != null and membershipSeq > 0">
                 membership_seq = #{membershipSeq},
             </if>
@@ -203,18 +180,6 @@
             member_email_id = #{memberEmailId},
             member_email_domain = #{memberEmailDomain},
             member_email_full = #{memberEmailFull},
-            udt_dt = now()
-        WHERE
-            member_seq = #{memberSeq}
-    </update>
-
-    <update id="updateMemberRole" parameterType="com.weaverloft.octopus.basic.member.vo.MemberVo">
-        UPDATE
-            octopus.member_info
-        SET
-        <if test="memberRole != null and memberRole != ''">
-            member_role = #{memberRole},
-        </if>
             udt_dt = now()
         WHERE
             member_seq = #{memberSeq}
@@ -249,6 +214,29 @@
             DISTINCT member_id
         FROM
             octopus.member_info
+    </select>
+
+    <select id="selectMemberAgeList" resultType="map">
+        <![CDATA[
+        WITH age_table (age) AS (
+            SELECT
+                EXTRACT( year FROM age(CURRENT_DATE, to_date(member_birth, 'YYYYMMDD'))) AS age
+            FROM
+                octopus.member_info
+        )
+        SELECT
+            COUNT(CASE WHEN age >= 10 AND age < 20 THEN 1 END) AS age10,
+            COUNT(CASE WHEN age >= 20 AND age < 30 THEN 1 END) AS age20,
+            COUNT(CASE WHEN age >= 30 AND age < 40 THEN 1 END) AS age30,
+            COUNT(CASE WHEN age >= 40 AND age < 50 THEN 1 END) AS age40,
+            COUNT(CASE WHEN age >= 50 AND age < 60 THEN 1 END) AS age50,
+            COUNT(CASE WHEN age >= 60 AND age < 70 THEN 1 END) AS age60,
+            COUNT(CASE WHEN age >= 70 AND age < 80 THEN 1 END) AS age70
+--             COUNT(CASE WHEN age >= 80 AND age < 90 THEN 1 END) AS age80,
+--             COUNT(CASE WHEN age >= 90 AND age < 100 THEN 1 END) AS age90
+        FROM
+            age_table
+        ]]>
     </select>
 
 </mapper>

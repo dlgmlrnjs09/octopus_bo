@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.admin.dao.AdminDao">
+
+    <!-- 기본 where절 -->
+    <sql id="defaultWhere">
+        <choose>
+            <when test="!@org.springframework.util.CollectionUtils@isEmpty(adminSeqList)">
+                AND member_seq IN
+                <foreach collection="adminSeqList" item="arr" open="(" close=")" separator=",">
+                    #{arr}
+                </foreach>
+            </when>
+            <otherwise>
+                <if test="searchKeyword != null and searchKeyword !=''">
+                    <if test="searchType == 'adminId' ">
+                        AND UPPER(admin_id) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                    <if test="searchType == 'adminName' ">
+                        AND UPPER(admin_name) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                    <if test="searchType == 'adminEmail' ">
+                        AND UPPER(admin_email_full) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                    </if>
+                </if>
+
+                <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
+                    AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp
+                </if>
+
+                <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
+                    AND reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
+                </if>
+
+                <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
+                    AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+                </if>
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="selectAdminCount" parameterType="com.weaverloft.octopus.basic.admin.vo.AdminVo" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            octopus.admin_info
+        WHERE
+            1=1
+        <include refid="defaultWhere"/>
+    </select>
+
+    <select id="selectAdminList" parameterType="com.weaverloft.octopus.basic.admin.vo.AdminVo" resultType="com.weaverloft.octopus.basic.admin.vo.AdminVo">
+        SELECT
+            A.*
+        FROM
+            (SELECT
+                admin_seq AS adminSeq,
+                admin_id AS adminId,
+                admin_name AS adminName,
+                admin_phone1 || '-' || admin_phone2 || '-' || admin_phone3 AS adminPhoneFull,
+                admin_birth AS adminBirth,
+                admin_email_id AS adminEmailId,
+                admin_email_domain AS adminEmailDomain,
+                admin_email_full AS adminEmailFull,
+                (SELECT role_name FROM octopus.role_info WHERE admin_role = role_seq::varchar) AS adminRoleName,
+                TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+            FROM
+                octopus.admin_info
+            WHERE
+                1=1
+            <include refid="defaultWhere"/>
+            ORDER BY
+                reg_dt DESC) A
+        LIMIT
+            #{pagingModel.pageSize}
+        OFFSET
+            (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+    <select id="selectExcelAdminList" parameterType="com.weaverloft.octopus.basic.admin.vo.AdminVo" resultType="com.weaverloft.octopus.basic.admin.vo.AdminVo">
+        SELECT
+            admin_seq AS adminSeq,
+            admin_id AS adminId,
+            admin_name AS adminName,
+            admin_phone1 || '-' || admin_phone2 || '-' || admin_phone3 AS adminPhoneFull,
+            admin_birth AS adminBirth,
+            admin_email_full AS adminEmailFull,
+            (SELECT role_name FROM octopus.role_info WHERE admin_role = role_seq::varchar) AS adminRoleName,
+            TO_CHAR(reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+        FROM
+            octopus.admin_info
+        WHERE
+            1=1
+        <include refid="defaultWhere"/>
+        ORDER BY
+            reg_dt DESC
+    </select>
+
+    <select id="getAdminDetail" parameterType="com.weaverloft.octopus.basic.admin.vo.AdminVo" resultType="com.weaverloft.octopus.basic.admin.vo.AdminVo">
+        SELECT
+                a.admin_seq AS adminSeq,
+                a.admin_id AS adminId,
+                a.admin_name AS adminName,
+                a.admin_phone1 AS adminPhone1,
+                a.admin_phone2 AS adminPhone2,
+                a.admin_phone3 AS adminPhone3,
+                TO_CHAR(TO_DATE(a.admin_birth, 'YYYYMMDD'), 'YYYY/MM/DD') AS adminBirth,
+                a.admin_email_id AS adminEmailId,
+                a.admin_email_domain AS adminEmailDomain,
+                a.admin_email_full AS adminEmailFull,
+                r.role_id AS adminRoleId,
+                a.is_dormant AS isDormant,
+                TO_CHAR(a.reg_dt, 'yyyy-mm-dd hh24:mi:ss') AS regDt
+        FROM
+            octopus.admin_info a LEFT OUTER JOIN octopus.role_info r ON a.admin_role = r.role_seq::varchar
+        WHERE
+            admin_seq = #{adminSeq}
+    </select>
+
+    <select id="getAdminRole" parameterType="com.weaverloft.octopus.basic.admin.vo.AdminVo" resultType="com.weaverloft.octopus.basic.admin.vo.AdminVo">
+        SELECT
+                a.admin_seq AS adminSeq,
+                a.admin_id AS adminId,
+                a.admin_name AS adminName,
+                a.admin_pw AS adminPw,
+                r.role_id AS adminRoleId,
+                a.is_dormant AS isDormant
+        FROM
+            octopus.admin_info a LEFT OUTER JOIN octopus.role_info r ON a.admin_role = r.role_seq::varchar
+        WHERE
+            a.admin_id = #{adminId}
+    </select>
+
+    <update id="updateAdmin" parameterType="com.weaverloft.octopus.basic.admin.vo.AdminVo">
+        UPDATE
+            octopus.admin_info
+        SET
+            admin_name = #{adminName},
+            admin_phone1 = #{adminPhone1},
+            admin_phone2 = #{adminPhone2},
+            admin_phone3 = #{adminPhone3},
+            admin_role = #{adminRole},
+            admin_email_id = #{adminEmailId},
+            admin_email_domain = #{adminEmailDomain},
+            admin_email_full = #{adminEmailFull},
+            udt_dt = now()
+        WHERE
+            admin_seq = #{adminSeq}
+    </update>
+
+    <update id="updateAdminRole" parameterType="com.weaverloft.octopus.basic.admin.vo.AdminVo">
+        UPDATE
+            octopus.admin_info
+        SET
+        <if test="adminRole != null and adminRole != ''">
+            admin_role = #{adminRole},
+        </if>
+            udt_dt = now()
+        WHERE
+            admin_seq = #{adminSeq}
+    </update>
+
+    <insert id="insertAdmin" parameterType="com.weaverloft.octopus.basic.admin.vo.AdminVo">
+        INSERT INTO octopus.admin_info (
+            admin_seq,
+            admin_id,
+            admin_pw,
+            admin_phone1,
+            admin_phone2,
+            admin_phone3,
+            admin_email_id,
+            admin_email_domain,
+            admin_email_full
+        ) VALUES (
+            nextval('octopus.admin_info_admin_seq_seq'),
+            #{adminId},
+            #{adminPw},
+            #{adminPhone1},
+            #{adminPhone2},
+            #{adminPhone3},
+            #{adminEmailId},
+            #{adminEmailDomain},
+            #{adminEmailFull}
+        )
+    </insert>
+
+    <select id="selectAdminIdList" resultType="String">
+        SELECT
+            DISTINCT admin_id
+        FROM
+            octopus.admin_info
+    </select>
+
+</mapper>

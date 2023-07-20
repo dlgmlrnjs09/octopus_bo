@@ -24,14 +24,6 @@
         <div class="header-right">
             <ul>
                 <tiles:importAttribute name="user"/>
-                <c:choose>
-                    <c:when test="${user eq 'anonymousUser'}">
-                        <li><a href="/main/login-form">로그인</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li><a href="/logout">로그아웃</a></li>
-                    </c:otherwise>
-                </c:choose>
                 <li class="alarm-area">
                     <button type="button" class="bubble-btn alarm" aria-label="알림창 보기">
                         <img src="../../asset/img/admin/icon-alarm.svg" alt="알림">

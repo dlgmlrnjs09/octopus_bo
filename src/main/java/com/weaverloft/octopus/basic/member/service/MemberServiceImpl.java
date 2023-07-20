@@ -30,17 +30,15 @@ public class MemberServiceImpl implements MemberService{
 
     public MemberVo getMemberDetail(MemberVo memberVo) { return memberDao.getMemberDetail(memberVo); }
 
-    public MemberVo getMemberRole(MemberVo memberVo) { return memberDao.getMemberRole(memberVo); }
-
     public int updateMember(MemberVo memberVo) { return memberDao.updateMember(memberVo); }
-
-    public int updateMemberRole(MemberVo memberVo) { return memberDao.updateMemberRole(memberVo); }
 
     public int insertMember(MemberVo memberVo) { return memberDao.insertMember(memberVo); }
 
     public List<String> selectMemberIdList() { return memberDao.selectMemberIdList(); }
 
     public List<?> selectExcelMemberList(MemberVo memberVo) { return memberDao.selectExcelMemberList(memberVo); }
+
+    public Map<String, Object> selectMemberAgeList() { return memberDao.selectMemberAgeList(); }
 
     @Override
     public int updateMembership(MemberVo memberVo) {
