@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        stroke-width: 1.5px;
+      }
+
+      .cls-2, .cls-3 {
+        fill: none;
+        stroke: #989898;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g id="_그룹_3359" data-name="그룹 3359">
+        <g id="_그룹_1203" data-name="그룹 1203">
+          <rect id="_사각형_433" data-name="사각형 433" class="cls-1" width="42" height="42"/>
+          <g id="_그룹_1202" data-name="그룹 1202">
+            <path id="_패스_397" data-name="패스 397" class="cls-2" d="m13.65,8.76l-3.66,4.89v17.1c0,1.35,1.09,2.44,2.44,2.44h17.1c1.35,0,2.44-1.09,2.44-2.44h0V13.65l-3.66-4.89h-14.66Z"/>
+            <path id="_패스_398" data-name="패스 398" class="cls-2" d="m9.98,13.65h21.99"/>
+            <path id="_패스_399" data-name="패스 399" class="cls-3" d="m25.86,18.54c0,2.7-2.19,4.89-4.89,4.89s-4.89-2.19-4.89-4.89h0"/>
+          </g>
+        </g>
+      </g>
+      <g id="_그룹_3362" data-name="그룹 3362">
+        <rect id="_사각형_433-2" data-name="사각형 433" class="cls-1" x="42" width="42" height="42"/>
+        <g id="_그룹_3074" data-name="그룹 3074">
+          <path id="_패스_35268" data-name="패스 35268" class="cls-2" d="m48.75,29.08h-.27c-.97-.15-1.65-1.04-1.54-2.01v-15.16c-.05-1.05.76-1.95,1.81-2.02h22.2c1.05.06,1.86.96,1.81,2.02v.59"/>
+          <rect id="_사각형_1011" data-name="사각형 1011" class="cls-2" x="52.42" y="15.78" width="25.81" height="17.21" rx="2.02" ry="2.02"/>
+          <line id="_선_114" data-name="선 114" class="cls-2" x1="55.55" y1="29.08" x2="59.46" y2="29.08"/>
+          <line id="_선_115" data-name="선 115" class="cls-2" x1="62.59" y1="29.08" x2="66.5" y2="29.08"/>
+          <line id="_선_116" data-name="선 116" class="cls-2" x1="69.63" y1="29.08" x2="74.32" y2="29.08"/>
+          <circle id="_타원_124" data-name="타원 124" class="cls-2" cx="72.36" cy="22.43" r="1.96"/>
+        </g>
+      </g>
+      <g id="_그룹_3363" data-name="그룹 3363">
+        <rect id="_사각형_433-3" data-name="사각형 433" class="cls-1" x="84" width="42" height="42"/>
+        <g id="_그룹_3072" data-name="그룹 3072">
+          <path id="_패스_35270" data-name="패스 35270" class="cls-2" d="m94.72,17.89l-3.3,2.62v14.6h27.27v-14.6l-3.32-2.63"/>
+          <path id="_패스_35271" data-name="패스 35271" class="cls-2" d="m118.68,35.11l-10.6-7.37c-1.84-1.16-4.18-1.17-6.03-.03l-10.64,7.4"/>
+          <line id="_선_123" data-name="선 123" class="cls-2" x1="91.7" y1="21.3" x2="101.62" y2="27.69"/>
+          <line id="_선_124" data-name="선 124" class="cls-2" x1="118.39" y1="21.3" x2="108.47" y2="27.69"/>
+          <line id="_선_125" data-name="선 125" class="cls-2" x1="113.51" y1="15.62" x2="113.51" y2="22.07"/>
+          <path id="_패스_35272" data-name="패스 35272" class="cls-2" d="m96.58,22.01v-13.19c.15-.7.7-1.25,1.41-1.41h7.18"/>
+          <path id="_패스_35273" data-name="패스 35273" class="cls-2" d="m113.51,13.53h-5.12c-.55,0-1-.45-1-1v-5.12l6.12,6.12h0Z"/>
+          <line id="_선_126" data-name="선 126" class="cls-2" x1="100.41" y1="12.9" x2="101.96" y2="12.9"/>
+          <line id="_선_127" data-name="선 127" class="cls-2" x1="100.41" y1="17.42" x2="109.68" y2="17.42"/>
+          <line id="_선_129" data-name="선 129" class="cls-2" x1="100.41" y1="22.07" x2="105.05" y2="22.07"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

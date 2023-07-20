@@ -51,7 +51,7 @@
 }
 .skeleton-box .skeleton-loading {
 	position: absolute;
-	z-index: 999;
+	z-index: 100;
 	width: 100%;
 	height: 100%;
 	background-image: url('../../img/skeleton_bg.jpg');
@@ -85,7 +85,9 @@
 }
 .skeleton-img-box .skeleton-loading{
 	position: absolute;
-	z-index: 999;
+	top: 0;
+	left: 0;
+	z-index: 100;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -805,15 +807,16 @@ input[type="checkbox"] + label{
 	padding: 18px 0;
 	font-size: 20px;
 }
-.tab-menu.tab-menu02 li.tab-link a .tab-bubble{
+.bubble{
 	display: inline-block;
 	height: 24px;
 	margin-left: 12px;
-	padding: 5px 8px;
+	padding: 4px 8px;
 	border-radius: 12px;
 	background-color: #E9EEFF;
 	font-weight: 500;
 	font-size: 14px;
+	line-height: 1;
 	color: var(--point-color);
 	transform: translateY(-2px);
 }
@@ -1092,6 +1095,31 @@ input[type="checkbox"] + label{
 .tooltip-basic.arrow:hover .tooltip-text::after{
 	right: 9px;
 }
+
+/*========== order-step-header ==========*/
+.order-step-header{display: flex; align-items: center; justify-content: space-between;}
+.order-step-header .order-step-tit{font-weight: 700; font-size: 32px; line-height: 38px;}
+.order-step-header .order-step-list{display: flex;}
+.order-step-header .order-step-list li{position: relative; padding: 0 0 0 47px; font-weight: 600; font-size: 18px; line-height: 42px; color: #999;}
+.order-step-header .order-step-list li.on{color: #333;}
+
+.order-step-header .order-step-list li:nth-child(n+1):nth-child(-n+2){margin-right: 12px; padding-right: 42px;}
+.order-step-header .order-step-list li:nth-child(n+1):nth-child(-n+2)::after{content: ""; position: absolute; top: 50%; right: 0; width: 30px; height: 30px; background: url("../img/icon-order-step-arrow.svg") no-repeat center center; transform: translateY(-50%);}
+
+.order-step-header .order-step-list li::before{content: ""; display: block; position: absolute; left: 0; top: 0; width: 42px; height: 42px; background-image: url("../img/icon-order-step-g.svg"); background-repeat: no-repeat; background-size: cover;}
+.order-step-header .order-step-list li.on::before{background-image: url("../img/icon-order-step.svg");}
+.order-step-header .order-step-list li:nth-child(1)::before{background-position: 0 0;}
+.order-step-header .order-step-list li:nth-child(2)::before{background-position: -42px 0;}
+.order-step-header .order-step-list li:nth-child(3)::before{background-position: -84px 0;}
+
+/*========== coupon-down-btn ==========*/
+.coupon-down-btn{position: relative; width: 74px; height: 20px; padding-right: 14px; background: linear-gradient(to right, #385CE2, #7E69F3); font-size: 12px; line-height: 20px; color: #fff; transition: all 0.3s;}
+.coupon-down-btn::after{content: ""; position: absolute; top: 50%; right: 8px; width: 14px; height: 14px; background: url("../img/icon-cart-download.svg") no-repeat center center; transform: translateY(-50%);}
+.coupon-down-btn:disabled{padding-right: 12px; opacity: 0.6; cursor: default;}
+.coupon-down-btn:disabled::after{right: 6px; background-image: url("../img/icon-chk-on.svg");}
+.coupon-down-btn:hover{opacity: 0.8;}
+.coupon-down-btn:disabled:hover{opacity: 0.6;}
+
 /*========== Grid 테이블 공통 스타일 ==========*/
 /* 필수항목표시 */
 .required { position: relative; }

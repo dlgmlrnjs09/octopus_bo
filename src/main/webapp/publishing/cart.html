@@ -5,250 +5,790 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../asset/css/common.css">
+    <link rel="stylesheet" href="../asset/css/cart.css">
+    <!-- <link rel="stylesheet" href="../asset/css/access.css"> -->
     <script src="../asset/js/jquery-3.6.0.min.js"></script>
     <script src="../asset/js/prefixfree.min.js"></script>
-    <script src="../asset/js/basic.js"></script>
-    <title>Octopus-Cart</title>
-    <style>
-        /* 테이블 전체 */
-        .cart-table {width: 100%; margin-bottom: 2%;}
-        tr {border-bottom: 1px solid #000;}
-        th {padding: 1%; box-sizing: border-box; font-weight: bold;}
-        td {padding: 2% 1%; box-sizing: border-box;}
-        tr, th, td {vertical-align: middle;}
-        /* 장바구니 각 리스트 */
-        .cart-info-wrap {display: flex; justify-content: space-between;}
-        .cart-info-wrap .thum {width: 30vw; border-radius: 10px; overflow: hidden; border: 1px solid #bbb; margin-right: 3%;}
-        .cart-info-wrap .cart-info {width: 100%; padding: 0.2%; box-sizing: border-box;}
-        
-        .cart-info-wrap .cart-info .brand {border: 1px solid #bbb; border-radius: 5px; display: inline-block; padding: 0; font-size: 14px;}
-        .cart-info-wrap .cart-info .product {text-decoration: underline;}
-        .cart-info-wrap .cart-info .option {display: flex; flex-wrap: wrap;}
-        .cart-info-wrap .cart-info .flag {display: inline-block; border: 1px solid #bbb; border-radius: 5px; font-size: 14px;}
-        .price-wrap {text-align: center;}
-        .price-wrap .normal-price {text-decoration: line-through;}
-        .price-wrap .sale-price, .price-wrap .soldout p {color: red; font-weight: bold;}
-        .quantity-wrap input::-webkit-outer-spin-button,
-        .quantity-wrap input::-webkit-inner-spin-button {opacity: 1; appearance: textfield; -moz-appearance: textfield; -webkit-appearance: textfield;}
-        .cart-table .btn-wrap {margin: 1%;}
-        .cart-table .btn-wrap .add-wish {color: royalblue;}
-        .cart-table .btn-wrap .buy-now {color: red;}
-        /* 장바구니 내용 종합 (테이블 끝나고) */
-        .cart-summary {width: 100%; display: flex; justify-content: space-between;}
-        .cart-summary .btn-delet {width: 48%;}
-        .cart-summary .price-wrap {width: 20%;}
-        .cart-summary .btn-order {width: 15%;}
-        .price-wrap .price-list {display: flex; margin-bottom: 2%;}
-        .info-btn {min-width: initial; padding: 2px 8px; margin: 0 5px; border-radius: 50%; border: 1px solid royalblue; color: royalblue; font-weight: bold;}
-        .price-wrap .sale-price {font-weight: normal;}
-        .price-wrap .price-list .price-title {width: 50%; color: #000;}
-        .price-wrap .price-list .price-num {width: 50%; text-align: right;}
-        .delivery-price .price-num {color: red;}
-        .last-price .price-num {color: red; font-weight: bold; font-size: 18px;}
-        .btn-order .order {display: block; width: 80%; margin: 0 auto 2%; padding: 20px; color: red; font-weight: bold;}
-        .btn-order .gift {display: block; width: 80%; margin: 0 auto;}
-        /* 최종 결제 금액 */
-        .price-summary {width: 100%; margin: 3% auto; padding: 2%; display: flex; justify-content: space-between; background: #eee;}
-        .price-summary .price-list {width: 14.2%; text-align: center;}
-        .price-summary .last-price {font-weight: bold;}
-        .price-summary .sale-price .price-num {color: red;}
-    </style>
+    <!-- <script src="../asset/js/swiper.min.js"></script> -->
+    <script src="../asset/js/swiper-bundle.js"></script>
+    <script src="../asset/js/jquery-ui.js"></script>
+    <!-- <script src="../asset/js/swiper-bundle.min.js"></script> -->
+    <script src="../asset/js/cart.js"></script>
+    <title>Octopus</title>
 </head>
 <body>
-    <div id="container" style="width:90%; margin: 0 auto;">
-        <!--========== HEADER ==========-->
-        <header id="header">
-            <h1 class="header-logo" style="display: block; width: 200px; margin: 30px auto;"><a href="/"><img src="../asset/img/logo.png" alt="Octopus_logo"><span class="hidden">Octopus</span></a></h1>
-        </header>
+    <div id="container">
+        <div class="head-area">
+            <div class="header-wrap"></div>
+            <aside id="side-header"></aside>
+            <div class="my-menu logout mo">
+                <ul class="my-menu-list">
+                    <li>
+                        <button type="button" class="menu-trigger mo" aria-label="전체메뉴 열기">
+                            <img src="../asset/img/icon-burger.svg" alt="MENU">
+                        </button>
+                        <p>MENU</p>
+                    </li>
+                    <li>
+                        <a href="#none">
+                            <img src="../asset/img/icon-heart.svg" alt="WISH">
+                            <p>WISH</p>
+                        </a>
+                    </li>
+                    <li class="on">
+                        <a href="#none">
+                            <img src="../asset/img/icon-home.svg" alt="HOME">
+                            <p>HOME</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="login.html">
+                            <img src="../asset/img/icon-person.svg" alt="MY">
+                            <p>MY</p> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none">
+                            <span class="circle"></span><p>WATCH</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <script>
+                $(function(){
+                    $('.header-wrap').load("include/header.html");
+                    $('#side-header').load("include/side-header.html");
+                });
+            </script>
+        </div>
 
         <!--========== CONTENTS ==========-->
         <main id="main" class="page-cart">
-            <section class="section sub-sec cart-sec">
-                <div class="tit-wrap cart">
-                    <h2 class="sec-title">장바구니</h2>
-                </div>
-                <div class="cart-wrap">
-                    <!-- table -->
-                    <table class="common-table cart-table">
-                        <caption class="hidden">장바구니</caption>
-                        <thead>
-                            <tr>
-                                <th style="width: 5%">
-                                    <div class="basic-check-box all-check-box cart-all">
-                                        <input type="checkbox" name="selectAll" id="selectAll" tabindex="-1">
-                                        <label for="selectAll" tabindex="0"></label>
-                                    </div>
-                                </th>
-                                <th style="width: 50%">상품정보</th>
-                                <th style="width: 15%">상품금액</th>
-                                <th style="width: 15%">수량</th>
-                                <th style="width: 15%">선택</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="cart-list01">
-                                <td class="check-box-wrap">
-                                    <div class="basic-check-box">
-                                        <input type="checkbox" name="select" id="select01" tabindex="-1" class="chkgroup">
-                                        <label for="select01" tabindex="0"></label>
-                                    </div>
-                                </td>
-                                <td class="cart-info-wrap">
-                                    <div class="thum"><a href=""><figure><img src="../asset/img/temp.png" alt="썸네일"></figure></a></div> 
-                                    <div class="cart-info">
-                                        <div class="brand"><a href="#"><p>브랜드명</p></a></div>
-                                        <div class="product"><a href="#"><p>상품명</p></a></div>
-                                        <div class="option">
-                                            <p>선택옵션 : </p>
-                                            <p>선택옵션명</p>
-                                            <a href="javascript:;" onclick="modalPopup('#option')" class="common-btn" tabindex="0">옵션변경</a>
-                                            <a href="javascript:;" onclick="modalPopup('#coupone')" class="common-btn" tabindex="0">쿠폰받기</a>
-                                        </div>
-                                        <div class="flag-wrap">
-                                            <span class="flag point">구매적립포인트</span>
-                                            <span class="flag free-delivery">무료배송여부</span>
-                                            <span class="flag today-delivery">당일배송여부</span>
-                                            <span class="flag gift">판촉물</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="price-wrap">
-                                    <div class="sale-price"><p>할인가</p></div>
-                                    <div class="normal-price"><p>정상가</p></div>
-                                    <div class="soldout">
-                                        <p>품절</p>
-                                        <a href="javascript:;" onclick="modalPopup('#restock')" class="common-btn" tabindex="0">재입고알림</a>
-                                    </div>
-                                </td>
-                                <td class="quantity-wrap">
-                                    <div class="basic-select-box">
-                                        <select>
-                                            <option value="" selected>직접입력</option>
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">...</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-box num">
-                                        <input type="number" min="0" placeholder="수량입력">
-                                    </div>
-                                </td>
-                                <td class="btn-wrap">
-                                    <button class="common-btn buy-now" onclick="location.href='#'"><span>바로구매</span></button>
-                                    <button class="common-btn add-wish" onclick="location.href='#'"><span>관심상품추가</span></button>
-                                    <button class="common-btn delet" onclick="location.href='#'"><span>삭제</span></button>
-                                    <button class="common-btn regular-delivery" onclick="location.href='#'"><span>정기배송받기</span></button>
-                                    <button class="common-btn gift" onclick="location.href='#'"><span>선물하기</span></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- 장바구니 내용 종합 -->
-                    <div class="cart-summary">
-                        <div class="btn-wrap btn-delet">
-                            <button class="common-btn select-delet" onclick="location.href='#'"><span>선택 상품 삭제</span></button>
-                            <button class="common-btn soldout-delet" onclick="location.href='#'"><span>품절 상품 삭제</span></button>
+            <section class="section cart-sec cart-tit-sec">
+                <div class="inner">
+                    <header class="order-step-header">
+                        <h2 class="order-step-tit">장바구니</h2>
+                        <ul class="order-step-list">
+                            <li class="on">장바구니</li>
+                            <li>주문&sol;결제</li>
+                            <li>주문완료</li>
+                        </ul>
+                    </header>
+                    <div class="cart-personal-box skeleton-img-box">
+                        <div class="skeleton-loading"></div>
+                        <div class="membership">
+                            <div class="membership-graph"></div>
+                            <div class="membership-txt-box">
+                                <p class="desc"><span class="class">ROYAL</span> 등급으로 승급까지 <br><span class="price-left">20,000원</span> 남았어요!</p>
+                                <span class="period">2023.1.23 &#8275; 2023.06.20까지</span>
+                            </div>
                         </div>
-                        <ul class="price-wrap">
-                            <li class="price-list total-price">
-                                <p class="price-title">총금액</p>
-                                <p class="price-num">4,000,000원</p>
+                        <ul class="membership-info-list">
+                            <li class="point-available">
+                                <strong class="membership-info-tit">사용 가능 포인트</strong>
+                                <a href="javascript:;">
+                                    <span class="membership-info-count">1,000<span class="unit">P</span></span>
+                                </a>
                             </li>
-                            <li class="price-list sale-price">
-                                <p class="price-title">할인예상금액</p>
-                                <p class="price-num">-1,200,000원</p>
+                            <li class="point-disappear">
+                                <strong class="membership-info-tit">소멸 예정 포인트</strong>
+                                <a href="javascript:;">
+                                    <span class="membership-info-count">0<span class="unit">P</span></span>
+                                </a>
                             </li>
-                            <li class="price-list delivery-price">
-                                <p class="price-title">예상배송비 <a href="javascript:;" onclick="modalPopup('#delivery-fee')" class="common-btn info-btn" tabindex="0"><span>i</span></a></p>
-                                <p class="price-num">+2,500원</p>
-                            </li>
-                            <li class="price-list last-price">
-                                <p class="price-title">결제예정금액</p>
-                                <p class="price-num">2,800,000원</p>
+                            <li class="coupon">
+                                <strong class="membership-info-tit">보유한 쿠폰</strong>
+                                <a href="javascript:;">
+                                    <span class="membership-info-count">3</span>
+                                </a>
                             </li>
                         </ul>
-                        <div class="btn-wrap btn-order">
-                            <button class="common-btn order" onclick="location.href='#'"><span>0건 주문하기</span></button>
-                            <button class="common-btn gift" onclick="location.href='#'"><span>0건 선물하기</span></button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section cart-sec cart-contents-sec">
+                <div class="inner">
+                    <div class="tab-container">
+                        <ul class="tab-menu tab-menu02">
+                            <li class="tab-link current" data-tab="delivery01"><a href="javascript:;"><span>일반배송<span class="bubble">3건</span></span></a></li>
+                            <li class="tab-link" data-tab="delivery02"><a href="javascript:;"><span>정기배송<span class="bubble">5건</span></span></a></li>
+                        </ul>
+                        <div class="tab-content-wrap">
+                            <div id="delivery01" class="tab-content delivery-tab-con basic-delivery current">
+                                <div class="delivery-tab-con-header">
+                                    <div class="basic-check-box all-check-box">
+                                        <input type="checkbox" name="selectAll" id="selectAll" tabindex="-1">
+                                        <label for="selectAll" tabindex="0">전체 선택</label>
+                                    </div>
+                                    <button type="button" class="delivery-btn select-delete"><span>선택상품 삭제</span></button>
+                                    <button type="button" class="delivery-btn sold-out-delete"><span>품절상품 삭제</span></button>
+                                </div>
+                                <ul class="brand-box-prd-list skeleton-img-box">
+                                    <!-- 장바구니에 상품이 없을 경우 prd-box에 empty 클래스 추가 -->
+                                    <li class="prd-box empty">
+                                        <div class="skeleton-loading"></div>
+                                        <p class="prd-box-empty-desc">장바구니에 담긴 상품이 없습니다.</p>
+                                        <a href="pr=" class="prd-box-empty-btn">상품 담으러 가기</a>
+                                    </li>
+                                    <li class="prd-box">
+                                        <div class="skeleton-loading"></div>
+                                        <div class="basic-check-box prd-box-check-box">
+                                            <input type="checkbox" name="select" id="chk01" tabindex="-1" class="chkgroup">
+                                            <label for="chk01" tabindex="0"></label>
+                                        </div>
+                                        <a href="prd_detail.html" class="prd-box-img-wrap">
+                                            <figure class="prd-box-img">
+                                                <img src="../asset/img/temp/img-detail-thumb-img01.jpg" alt="">
+                                            </figure>
+                                        </a>
+                                        <div class="prd-box-txt-wrap">
+                                            <p class="prd-box-name"><span class="prd-box-brand-name">MAC.</span>스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</p>
+                                            <div class="coupon-wrap">
+                                                <button type="button" class="coupon-down-btn">쿠폰받기</button>
+                                                <div class="coupon-down-wrap">
+                                                    <div class="coupon-down-box">
+                                                        <div class="coupon-down-box-header">
+                                                            <strong class="coupon-down-box-tit">쿠폰 받기</strong>
+                                                            <p class="coupon-down-box-desc">쿠폰은 선택한 상품 옵션 1개에 적용 가능</p>
+                                                        </div>
+                                                        <ul class="coupon-list">
+                                                            <li>
+                                                                <button disabled type="button" class="coupon">
+                                                                    <strong class="coupon-tit"><span class="coupon-price">3,000<span class="unit">원</span></span>상품할인</strong>
+                                                                    <p class="coupon-terms">3만원이상 구매시 적용 가능</p>
+                                                                    <span class="coupon-period">사용기한 : 2023.06.26</span>
+                                                                    <div class="coupon-down-confirm-desc">다운완료</div>
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button type="button" class="coupon">
+                                                                    <strong class="coupon-tit"><span class="coupon-price">5,000<span class="unit">원</span></span>상품할인</strong>
+                                                                    <p class="coupon-terms">5만원이상 구매시 적용 가능</p>
+                                                                    <span class="coupon-period">사용기한 : 2023.06.26</span>
+                                                                    <div class="coupon-down-confirm-desc">다운받기</div>
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button type="button" class="coupon">
+                                                                    <strong class="coupon-tit"><span class="coupon-price">7,000<span class="unit">원</span></span>상품할인</strong>
+                                                                    <p class="coupon-terms">7만원이상 구매시 적용 가능</p>
+                                                                    <span class="coupon-period">사용기한 : 2023.06.26</span>
+                                                                    <div class="coupon-down-confirm-desc">다운받기</div>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                        <button type="button" class="coupon-down-confirm-btn">확인</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="prd-box-option-desc">선택옵션 &colon; <span>스튜디오 픽스 프로셋 &times; 2세트</span></p>
+                                            <button type="button" class="option-change-btn">옵션변경</button>
+                                            <div class="option-change-wrap">
+                                                <span class="option-change-wrap-tit">선택 옵션 변경 &colon;</span>
+                                                <div class="custom-select-box cart-prd-option-select-box">
+                                                    <ul class="list-unstyled">
+                                                        <li class="init">상품을 선택해 주세요.</li>
+                                                        <li data-value="value 1">스튜디오 픽스 프로셋</li>
+                                                        <li data-value="value 2">스튜디오 픽스 프로셋 &times; 2세트</li>
+                                                        <li data-value="value 3" class="disabled">블러 웨이트리스 루스 파우더 <span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                                        <li data-value="value 4">스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</li>
+                                                    </ul>
+                                                </div>
+                                                <button type="button" class="option-change-apply-btn">적용</button>
+                                                <em class="option-change-apply-price">금액&colon; <span class="sum">240,000 원</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="prd-box-price-wrap">
+                                            <div class="selected-item-count-box cart-prd-count-box">
+                                                <button type="button" class="remove-btn" title="수량 1개 빼기"></button>
+                                                <div class="selected-item-number">
+                                                    <label for="buy-number"></label>
+                                                    <input type="number" name="buy-number" id="buy-number" value="1">
+                                                </div>
+                                                <button type="button" class="add-btn" title="수량 1개 더하기"></button>
+                                            </div>
+                                            <span class="prd-box-delivery-fee">무료배송</span>
+                                            <span class="prd-box-price"><span class="original-price">40,000원</span>20,000원</span>
+                                        </div>
+                                        <div class="prd-box-notice-wrap">
+                                            <p class="prd-box-notice-desc">지금 구매 시 <span> 6&sol;26 &lpar;월&rpar; 도착예정</span></p>
+                                            <div class="prd-box-button-box">
+                                                <button type="button" class="prd-box-button heart-btn">찜</button>
+                                                <button type="button" class="prd-box-button gift-btn">선물하기</button>
+                                                <button type="button" class="prd-box-button buy-btn">바로구매</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="prd-box-close-btn"></button>
+                                    </li>
+                                    <li class="prd-box">
+                                        <div class="skeleton-loading"></div>
+                                        <div class="basic-check-box prd-box-check-box">
+                                            <input type="checkbox" name="select" id="chk02" tabindex="-1" class="chkgroup">
+                                            <label for="chk02" tabindex="0"></label>
+                                        </div>
+                                        <a href="prd_detail.html" class="prd-box-img-wrap">
+                                            <figure class="prd-box-img">
+                                                <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                            </figure>
+                                        </a>
+                                        <div class="prd-box-txt-wrap">
+                                            <p class="prd-box-name"><span class="prd-box-brand-name">W cosmetic</span>모이스처 더블유 토닝 (30ml&plus;30ml 증정)
+                                                나이트케어</p>
+                                            <div class="coupon-wrap">
+                                                <!-- 쿠폰 다운 완료 후 button에 disabled 추가 -->
+                                                <button disabled type="button" class="coupon-down-btn">다운완료</button>
+                                            </div>
+                                            <p class="prd-box-option-desc">선택옵션 &colon; <span>스튜디오 픽스 프로셋 &times; 2세트</span></p>
+                                            <button type="button" class="option-change-btn">옵션변경</button>
+                                            <div class="option-change-wrap">
+                                                <span class="option-change-wrap-tit">선택 옵션 변경 &colon;</span>
+                                                <div class="custom-select-box cart-prd-option-select-box">
+                                                    <ul class="list-unstyled">
+                                                        <li class="init">상품을 선택해 주세요.</li>
+                                                        <li data-value="value 1">스튜디오 픽스 프로셋</li>
+                                                        <li data-value="value 2">스튜디오 픽스 프로셋 &times; 2세트</li>
+                                                        <li data-value="value 3" class="disabled">블러 웨이트리스 루스 파우더 <span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                                        <li data-value="value 4">스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</li>
+                                                    </ul>
+                                                </div>
+                                                <button type="button" class="option-change-apply-btn">적용</button>
+                                                <em class="option-change-apply-price">금액&colon; <span class="sum">24,000 원</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="prd-box-price-wrap">
+                                            <div class="selected-item-count-box cart-prd-count-box">
+                                                <button type="button" class="remove-btn" title="수량 1개 빼기"></button>
+                                                <div class="selected-item-number">
+                                                    <label for="buy-number"></label>
+                                                    <input type="number" name="buy-number" id="buy-number" value="1">
+                                                </div>
+                                                <button type="button" class="add-btn" title="수량 1개 더하기"></button>
+                                            </div>
+                                            <span class="prd-box-delivery-fee">3,500원</span>
+                                    
+                                            <span class="prd-box-price"><span class="original-price">40,000원</span>20,000원</span>
+                                        </div>
+                                        <a href="prd_detail.html" class="tooltip-basic arrow bottom">
+                                            <span class="tooltip-text">상품 추가하고 배송비 아껴요!</span>
+                                        </a>
+                                        <div class="prd-box-notice-wrap">
+                                            <p class="prd-box-notice-desc">지금 구매 시 <span>6&sol;26 &lpar;월&rpar; 도착예정</span></p>
+                                            <div class="prd-box-button-box">
+                                                <button type="button" class="prd-box-button heart-btn">찜</button>
+                                                <button type="button" class="prd-box-button gift-btn">선물하기</button>
+                                                <button type="button" class="prd-box-button buy-btn">바로구매</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="prd-box-close-btn"></button>
+                                    </li>
+                                    <!-- 품절상품은 prd-box에 sold-out 클래스 추가 -->
+                                    <li class="prd-box sold-out">
+                                        <div class="skeleton-loading"></div>
+                                        <div class="basic-check-box prd-box-check-box">
+                                            <input type="checkbox" name="select" id="chk03" tabindex="-1" class="chkgroup">
+                                            <label for="chk03" tabindex="0"></label>
+                                        </div>
+                                        <a href="prd_detail.html" class="prd-box-img-wrap">
+                                            <figure class="prd-box-img">
+                                                <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                            </figure>
+                                        </a>
+                                        <div class="prd-box-txt-wrap">
+                                            <p class="prd-box-name"><span class="prd-box-brand-name">W cosmetic</span>모이스처 더블유 토닝 (30ml&plus;30ml 증정)
+                                                나이트케어</p>
+                                            <div class="coupon-wrap">
+                                                <button type="button" class="coupon-down-btn">쿠폰받기</button>
+                                            </div>
+                                            <p class="prd-box-option-desc">선택옵션 &colon; <span>스튜디오 픽스 프로셋 &times; 2세트</span></p>
+                                            <button type="button" class="option-change-btn">옵션변경</button>
+                                            <div class="option-change-wrap">
+                                                <span class="option-change-wrap-tit">선택 옵션 변경 &colon;</span>
+                                                <div class="custom-select-box cart-prd-option-select-box">
+                                                    <ul class="list-unstyled">
+                                                        <li class="init">상품을 선택해 주세요.</li>
+                                                        <li data-value="value 1">스튜디오 픽스 프로셋</li>
+                                                        <li data-value="value 2">스튜디오 픽스 프로셋 &times; 2세트</li>
+                                                        <li data-value="value 3" class="disabled">블러 웨이트리스 루스 파우더 <span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                                        <li data-value="value 4">스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</li>
+                                                    </ul>
+                                                </div>
+                                                <button type="button" class="option-change-apply-btn">적용</button>
+                                                <em class="option-change-apply-price">금액&colon; <span class="sum">24,000 원</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="prd-box-price-wrap">
+                                            <div class="selected-item-count-box cart-prd-count-box">
+                                                <button type="button" class="remove-btn" title="수량 1개 빼기"></button>
+                                                <div class="selected-item-number">
+                                                    <label for="buy-number"></label>
+                                                    <input type="number" name="buy-number" id="buy-number" value="1">
+                                                </div>
+                                                <button type="button" class="add-btn" title="수량 1개 더하기"></button>
+                                            </div>
+                                            <span class="prd-box-delivery-fee">무료배송</span>
+                                            <span class="prd-box-price"><span class="original-price">40,000원</span>20,000원</span>
+                                        </div>
+                                        <div class="prd-box-notice-wrap">
+                                            <p class="prd-box-notice-desc">5월 10일 이후 입고예정</p>
+                                            <div class="prd-box-button-box">
+                                                <button type="button" class="prd-box-button alarm-btn">재입고 알림</button>
+                                                <button disabled type="button" class="prd-box-button sold-out-btn">품절상품</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="prd-box-close-btn"></button>
+                                    </li>
+                                </ul>
+                                <div class="cart-precautions-wrap">
+                                    <a href="javascript:;" class="cart-precautions-tit">장바구니 유의 사항</a>
+                                    <ul class="cart-precautions-list">
+                                        <li>쿠폰 적용된 가격은 결제할 때 확인 가능합니다.</li>
+                                        <li>일부 도서산간 지역은 추가 배송비가 부과됩니다.</li>
+                                        <li>최종 결제 금액은 주문서 내 고객님의 쿠폰&sol;할인 적용에 따라 달라집니다.</li>
+                                        <li>상품은 최대 50개까지 담을 수 있습니다.</li>
+                                    </ul>
+                                </div>
+                                <!-- 사이드 결제 요청 박스-->
+                                <div class="cart-prd-total-price-wrap skeleton-img-box">
+                                    <div class="skeleton-loading"></div>
+                                    <div class="cart-prd-total-price-box">
+                                        <strong class="cart-total-price-tit">결제 요청</strong>
+                                        <dl class="total-price">
+                                            <dt>총 금액</dt>
+                                            <dd>90,000 원</dd>
+                                        </dl>
+                                        <dl class="total-discount">
+                                            <dt>할인예상금액</dt>
+                                            <dd>&minus; 30,000 원</dd>
+                                        </dl>
+                                        <dl class="total-delivery-fee">
+                                            <dt>
+                                                <span>배송비</span>
+                                                <span class="question-mark">
+                                                    <a href="javascript:void(0);" class="tooltip-basic top">
+                                                        <span class="tooltip-text">배송비 tip</span>
+                                                    </a>
+                                                </span>
+                                            </dt>
+                                            <dd>무료배송</dd>
+                                        </dl>
+                                        <dl class="total-price-result">
+                                            <dt>결제 예정 금액</dt>
+                                            <dd><span class="sum">60,000</span>원</dd>
+                                        </dl> 
+                                        <dl class="total-point-accumulate">
+                                            <dt>적립 예정 포인트</dt>
+                                            <dd>1,004P</dd>
+                                        </dl>
+                                        <ul class="total-price-wrap-descs">
+                                            <li>쿠폰&sol;적립금은 결제 주문서에서 사용 가능합니다.</li>
+                                            <li>쿠폰&sol;적립금 사용금액을 제외한 실 결제 금액 기준으로 최종 산정됩니다.</li>
+                                        </ul>
+                                    </div>
+                                    <!-- 장바구니에 상품이 없을 경우 disabled 속성 추가, count span 삭제 -->
+                                    <button type="button" class="cart-total-price-wrap-btn">
+                                        <span>상품 주문하기</span> 
+                                        <span class="count">( 2 )</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="delivery02" class="tab-content delivery-tab-con regular-delivery">
+                                <div class="delivery-tab-con-header">
+                                    <div class="basic-check-box all-check-box">
+                                        <input type="checkbox" name="selectAll" id="selectAll" tabindex="-1">
+                                        <label for="selectAll" tabindex="0">전체 선택</label>
+                                    </div>
+                                    <button type="button" class="delivery-btn select-delete"><span>선택상품 삭제</span></button>
+                                    <button type="button" class="delivery-btn sold-out-delete"><span>품절상품 삭제</span></button>
+                                </div>
+                                <ul class="brand-box-prd-list">
+                                    <li class="prd-box">
+                                        <div class="basic-check-box prd-box-check-box">
+                                            <input type="checkbox" name="select" id="chk01" tabindex="-1" class="chkgroup">
+                                            <label for="chk01" tabindex="0"></label>
+                                        </div>
+                                        <a href="prd_detail.html" class="prd-box-img-wrap">
+                                            <figure class="prd-box-img">
+                                                <img src="../asset/img/temp/img-detail-thumb-img01.jpg" alt="">
+                                            </figure>
+                                        </a>
+                                        <div class="prd-box-txt-wrap">
+                                            <p class="prd-box-name"><span class="prd-box-brand-name">MAC.</span>스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</p>
+                                            <div class="coupon-wrap">
+                                                <button type="button" class="coupon-down-btn">쿠폰받기</button>
+                                                <div class="coupon-down-wrap">
+                                                    <div class="coupon-down-box">
+                                                        <div class="coupon-down-box-header">
+                                                            <strong class="coupon-down-box-tit">쿠폰 받기</strong>
+                                                            <p class="coupon-down-box-desc">쿠폰은 선택한 상품 옵션 1개에 적용 가능</p>
+                                                        </div>
+                                                        <ul class="coupon-list">
+                                                            <li>
+                                                                <button disabled type="button" class="coupon">
+                                                                    <strong class="coupon-tit"><span class="coupon-price">3,000<span class="unit">원</span></span>상품할인</strong>
+                                                                    <p class="coupon-terms">3만원이상 구매시 적용 가능</p>
+                                                                    <span class="coupon-period">사용기한 : 2023.06.26</span>
+                                                                    <div class="coupon-down-confirm-desc">다운완료</div>
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button type="button" class="coupon">
+                                                                    <strong class="coupon-tit"><span class="coupon-price">5,000<span class="unit">원</span></span>상품할인</strong>
+                                                                    <p class="coupon-terms">5만원이상 구매시 적용 가능</p>
+                                                                    <span class="coupon-period">사용기한 : 2023.06.26</span>
+                                                                    <div class="coupon-down-confirm-desc">다운받기</div>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                        <button type="button" class="coupon-down-confirm-btn">확인</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="prd-box-option-desc">선택옵션 &colon; <span>스튜디오 픽스 프로셋 &times; 2세트</span></p>
+                                            <button type="button" class="option-change-btn">옵션변경</button>
+                                            <div class="option-change-wrap">
+                                                <span class="option-change-wrap-tit">선택 옵션 변경 &colon;</span>
+                                                <div class="custom-select-box cart-prd-option-select-box">
+                                                    <ul class="list-unstyled">
+                                                        <li class="init">상품을 선택해 주세요.</li>
+                                                        <li data-value="value 1">스튜디오 픽스 프로셋</li>
+                                                        <li data-value="value 2">스튜디오 픽스 프로셋 &times; 2세트</li>
+                                                        <li data-value="value 3" class="disabled">블러 웨이트리스 루스 파우더 <span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                                        <li data-value="value 4">스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</li>
+                                                    </ul>
+                                                </div>
+                                                <button type="button" class="option-change-apply-btn">적용</button>
+                                                <em class="option-change-apply-price">금액&colon; <span class="sum">240,000 원</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="prd-box-price-wrap">
+                                            <div class="selected-item-count-box cart-prd-count-box">
+                                                <button type="button" class="remove-btn" title="수량 1개 빼기"></button>
+                                                <div class="selected-item-number">
+                                                    <label for="buy-number"></label>
+                                                    <input type="number" name="buy-number" id="buy-number" value="1">
+                                                </div>
+                                                <button type="button" class="add-btn" title="수량 1개 더하기"></button>
+                                            </div>
+                                            <span class="prd-box-delivery-fee">무료배송</span>
+                                            <span class="prd-box-price"><span class="original-price">40,000원</span>20,000원</span>
+                                        </div>
+                                        <div class="prd-box-notice-wrap">
+                                            <p class="prd-box-notice-desc">지금 정기배송 신청 시 <span>6&sol;26 &lpar;월&rpar; 도착예정</span></p>
+                                            <div class="prd-box-button-box">
+                                                <button type="button" class="prd-box-button heart-btn">찜</button>
+                                                <button type="button" class="prd-box-button buy-btn">바로구매</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="prd-box-close-btn"></button>
+                                    </li>
+                                    <li class="prd-box">
+                                        <div class="basic-check-box prd-box-check-box">
+                                            <input type="checkbox" name="select" id="chk02" tabindex="-1" class="chkgroup">
+                                            <label for="chk02" tabindex="0"></label>
+                                        </div>
+                                        <a href="prd_detail.html" class="prd-box-img-wrap">
+                                            <figure class="prd-box-img">
+                                                <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                            </figure>
+                                        </a>
+                                        <div class="prd-box-txt-wrap">
+                                            <p class="prd-box-name"><span class="prd-box-brand-name">W cosmetic</span>모이스처 더블유 토닝 (30ml&plus;30ml 증정)
+                                                나이트케어</p>
+                                            <div class="coupon-wrap">
+                                                <!-- 쿠폰 다운 완료 후 button에 disabled 추가 -->
+                                                <button disabled type="button" class="coupon-down-btn">다운완료</button>
+                                            </div>
+                                            <p class="prd-box-option-desc">선택옵션 &colon; <span>스튜디오 픽스 프로셋 &times; 2세트</span></p>
+                                            <button type="button" class="option-change-btn">옵션변경</button>
+                                            <div class="option-change-wrap">
+                                                <span class="option-change-wrap-tit">선택 옵션 변경 &colon;</span>
+                                                <div class="custom-select-box cart-prd-option-select-box">
+                                                    <ul class="list-unstyled">
+                                                        <li class="init">상품을 선택해 주세요.</li>
+                                                        <li data-value="value 1">스튜디오 픽스 프로셋</li>
+                                                        <li data-value="value 2">스튜디오 픽스 프로셋 &times; 2세트</li>
+                                                        <li data-value="value 3" class="disabled">블러 웨이트리스 루스 파우더 <span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                                        <li data-value="value 4">스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</li>
+                                                    </ul>
+                                                </div>
+                                                <button type="button" class="option-change-apply-btn">적용</button>
+                                                <em class="option-change-apply-price">금액&colon; <span class="sum">24,000 원</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="prd-box-price-wrap">
+                                            <div class="selected-item-count-box cart-prd-count-box">
+                                                <button type="button" class="remove-btn" title="수량 1개 빼기"></button>
+                                                <div class="selected-item-number">
+                                                    <label for="buy-number"></label>
+                                                    <input type="number" name="buy-number" id="buy-number" value="1">
+                                                </div>
+                                                <button type="button" class="add-btn" title="수량 1개 더하기"></button>
+                                            </div>
+                                            <span class="prd-box-delivery-fee">무료배송</span>                                    
+                                            <span class="prd-box-price"><span class="original-price">40,000원</span>20,000원</span>
+                                        </div>
+                                        <div class="prd-box-notice-wrap">
+                                            <p class="prd-box-notice-desc">지금 정기배송 신청 시 <span>6&sol;26 &lpar;월&rpar; 도착예정</span></p>
+                                            <div class="prd-box-button-box">
+                                                <button type="button" class="prd-box-button heart-btn">찜</button>
+                                                <button type="button" class="prd-box-button buy-btn">바로구매</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="prd-box-close-btn"></button>
+                                    </li>
+                                    <!-- 품절상품은 prd-box에 sold-out 클래스 추가 -->
+                                    <li class="prd-box sold-out">
+                                        <div class="basic-check-box prd-box-check-box">
+                                            <input type="checkbox" name="select" id="chk03" tabindex="-1" class="chkgroup">
+                                            <label for="chk03" tabindex="0"></label>
+                                        </div>
+                                        <a href="prd_detail.html" class="prd-box-img-wrap">
+                                            <figure class="prd-box-img">
+                                                <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                            </figure>
+                                        </a>
+                                        <div class="prd-box-txt-wrap">
+                                            <p class="prd-box-name"><span class="prd-box-brand-name">W cosmetic</span>모이스처 더블유 토닝 (30ml&plus;30ml 증정)
+                                                나이트케어</p>
+                                            <div class="coupon-wrap">
+                                                <button type="button" class="coupon-down-btn">쿠폰받기</button>
+                                            </div>
+                                            <p class="prd-box-option-desc">선택옵션 &colon; <span>스튜디오 픽스 프로셋 &times; 2세트</span></p>
+                                            <button type="button" class="option-change-btn">옵션변경</button>
+                                            <div class="option-change-wrap">
+                                                <span class="option-change-wrap-tit">선택 옵션 변경 &colon;</span>
+                                                <div class="custom-select-box cart-prd-option-select-box">
+                                                    <ul class="list-unstyled">
+                                                        <li class="init">상품을 선택해 주세요.</li>
+                                                        <li data-value="value 1">스튜디오 픽스 프로셋</li>
+                                                        <li data-value="value 2">스튜디오 픽스 프로셋 &times; 2세트</li>
+                                                        <li data-value="value 3" class="disabled">블러 웨이트리스 루스 파우더 <span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                                        <li data-value="value 4">스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</li>
+                                                    </ul>
+                                                </div>
+                                                <button type="button" class="option-change-apply-btn">적용</button>
+                                                <em class="option-change-apply-price">금액&colon; <span class="sum">24,000 원</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="prd-box-price-wrap">
+                                            <div class="selected-item-count-box cart-prd-count-box">
+                                                <button type="button" class="remove-btn" title="수량 1개 빼기"></button>
+                                                <div class="selected-item-number">
+                                                    <label for="buy-number"></label>
+                                                    <input type="number" name="buy-number" id="buy-number" value="1">
+                                                </div>
+                                                <button type="button" class="add-btn" title="수량 1개 더하기"></button>
+                                            </div>
+                                            <span class="prd-box-delivery-fee">3,500원</span>
+                                            <span class="prd-box-price"><span class="original-price">40,000원</span>20,000원</span>
+                                        </div>
+                                        <div class="prd-box-notice-wrap">
+                                            <p class="prd-box-notice-desc">5월 10일 이후 입고예정</p>
+                                            <div class="prd-box-button-box">
+                                                <button type="button" class="prd-box-button alarm-btn">재입고 알림</button>
+                                                <button disabled type="button" class="prd-box-button sold-out-btn">품절상품</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="prd-box-close-btn"></button>
+                                    </li>
+                                </ul>
+                                <div class="cart-precautions-wrap">
+                                    <a href="javascript:;" class="cart-precautions-tit">장바구니 유의 사항</a>
+                                    <ul class="cart-precautions-list">
+                                        <li>쿠폰 적용된 가격은 결제할 때 확인 가능합니다.</li>
+                                        <li>최종 결제 금액은 주문서 내 고객님의 쿠폰&sol;할인 적용에 따라 달라집니다.</li>
+                                        <li>20,000원 이상 구매 시 무료 배송입니다.</li>
+                                        <li>일부 도서산간 지역은 추가 배송비가 부과됩니다.</li>
+                                    </ul>
+                                </div>
+                                <!-- 사이드 결제 요청 박스-->
+                                <div class="cart-prd-total-price-wrap regular-delivery skeleton-img-box">
+                                    <div class="skeleton-loading"></div>
+                                    <div class="cart-prd-total-price-box">
+                                        <strong class="cart-total-price-tit">결제 요청</strong>
+                                        <dl class="total-price">
+                                            <dt>총 금액</dt>
+                                            <dd>90,000 원</dd>
+                                        </dl>
+                                        <dl class="total-discount">
+                                            <dt>할인예상금액</dt>
+                                            <dd>&minus; 30,000 원</dd>
+                                        </dl>
+                                        <dl class="total-delivery-fee">
+                                            <dt>
+                                                <span>배송비</span>
+                                                <span class="question-mark"></span>
+                                            </dt>
+                                            <dd>무료배송</dd>
+                                        </dl>
+                                        <div class="total-delivery-item total-delivery-period">
+                                            <strong class="total-delivery-tit">배송주기</strong>
+                                            <div class="custom-select-box">
+                                                <ul class="list-unstyled">
+                                                    <li class="init">배송주기를 선택하세요.</li>
+                                                    <li data-value="value 1">1주에 한 번</li>
+                                                    <li data-value="value 2">2주에 한 번</li>
+                                                    <li data-value="value 3">3주에 한 번</li>
+                                                    <li data-value="value 4">4주에 한 번</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="total-delivery-item total-delivery-times">
+                                            <strong class="total-delivery-tit">이용횟수</strong>
+                                            <div class="custom-select-box">
+                                                <ul class="list-unstyled">
+                                                    <li class="init">이용횟수를 선택하세요.</li>
+                                                    <li data-value="value 1">4회</li>
+                                                    <li data-value="value 2">8회<span class="total-delivery-discount">15,000원</span><span class="total-delivery-bubble">3%</span></li>
+                                                    <li data-value="value 3">12회<span class="total-delivery-discount">22,000원</span><span class="total-delivery-bubble">5%</span></li>
+                                                    <li data-value="value 4">직접입력</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="total-delivery-item total-delivery-date">
+                                            <strong class="total-delivery-tit">첫 배송 희망일<span class="question-mark"></span></strong>
+                                            <input type="text" class="datepicker total-delivery-date-input" title="첫 배송 희망일 선택" inputmode="none">
+                                        </div>
+                                        <dl class="total-price-result">
+                                            <dt>결제 예정 금액</dt>
+                                            <dd><span class="sum">60,000</span>원</dd>
+                                        </dl> 
+                                        <dl class="total-point-accumulate">
+                                            <dt>적립 예정 포인트</dt>
+                                            <dd>1,004P</dd>
+                                        </dl>
+                                        <!-- <ul class="total-price-wrap-descs">
+                                            <li>쿠폰&sol;적립금은 결제 주문서에서 사용 가능합니다.</li>
+                                            <li>쿠폰&sol;적립금 사용금액을 제외한 실 결제 금액 기준으로 최종 산정됩니다.</li>
+                                        </ul> -->
+                                    </div>
+                                    <!-- 장바구니에 상품이 없을 경우 disabled 속성 추가 -->
+                                    <button type="button" class="cart-total-price-wrap-btn regular-delivery-btn">정기배송 받기</button>
+                                    <div class="total-price-wrap-banner">
+                                        <a href="javascript:;">
+                                            <figure>
+                                                <img src="../asset/img/temp/img-cart-banner.png" alt="">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- 최종 결제 금액 -->
-                    <ul class="price-summary">
-                        <li class="price-list total-price">
-                            <p class="price-title">총금액</p>
-                            <p class="price-num">4,000,000원</p>
-                        </li>
-                        <li class="cal">-</li>
-                        <li class="price-list sale-price">
-                            <p class="price-title">할인예상금액</p>
-                            <p class="price-num">1,200,000원</p>
-                        </li>
-                        <li class="cal">+</li>
-                        <li class="price-list delivery-price">
-                            <p class="price-title"><a href="javascript:;" onclick="modalPopup('#delivery-fee')" class="common-btn info-btn" tabindex="0"><span>i</span></a>예상배송비</p>
-                            <p class="price-num">2,500원</p>
-                        </li>
-                        <li class="cal">=</li>
-                        <li class="price-list last-price">
-                            <p class="price-title">결제예정금액</p>
-                            <p class="price-num">2,800,000원</p>
-                        </li>
-                    </ul>
+                </div>
+            </section>
+            <section class="section cart-sec prd-relative-sec prd-relative-sec02">
+                <div class="inner">
+                    <h2 class="prd-relative-list-tit">함께 많이 담은 제품</h2>
+                    <div class="contents con-recommend-view">
+                        <div class="swiper prd-detail-recommend-swiper prd-detail-recommend-swiper-normal prd-detail-recommend-swiper05">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide slide01 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img04.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide02 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img05.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide03 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img06.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide04 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img03.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide05 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img02.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prd-detail-recommend-swiper-btn-wrap">
+                            <div class="swiper-button-prev swiper-button"></div>
+                            <div class="swiper-button-next swiper-button"></div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
-
-        <div class="popup-group">
-            <div id="option" class="modal option">
-                <div class="modal-wrap">
-                    <section class="modal-content">
-                        <div class="modal-tit-wrap">
-                            <h3 class="modal-tit">옵션 변경</h3> 
-                        </div>
-                        <div class="modal-cont-wrap">
-                            <div class="scroll-wrap" style="height: 140px; overflow-y: auto;">
-                            </div>
-                        </div>
-                        <div class="modal-close-btn">
-                            <a href="javascript:;" onclick="modalPopupClose('#option')" title="팝업창 닫기">팝업창 닫기</a>
-                        </div>
-                    </section>
-                </div>
-            </div>
-            <div id="coupone" class="modal coupone">
-                <div class="modal-wrap">
-                    <section class="modal-content">
-                        <div class="modal-tit-wrap">
-                            <h3 class="modal-tit">쿠폰 받기</h3> 
-                        </div>
-                        <div class="modal-cont-wrap">
-                            <div class="scroll-wrap" style="height: 140px; overflow-y: auto;">
-                            </div>
-                        </div>
-                        <div class="modal-close-btn">
-                            <a href="javascript:;" onclick="modalPopupClose('#coupone')" title="팝업창 닫기">팝업창 닫기</a>
-                        </div>
-                    </section>
-                </div>
-            </div>
-            <div id="restock" class="modal restock">
-                <div class="modal-wrap">
-                    <section class="modal-content">
-                        <div class="modal-tit-wrap">
-                            <h3 class="modal-tit">재입고 알림이 설정되었습니다.</h3> 
-                        </div>
-                        <div class="modal-cont-wrap">
-                            <div class="scroll-wrap" style="height: 140px; overflow-y: auto;">
-                            </div>
-                        </div>
-                        <div class="modal-close-btn">
-                            <a href="javascript:;" onclick="modalPopupClose('#restock')" title="팝업창 닫기">팝업창 닫기</a>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
 
         <!--========== FOOTER ==========-->
         <footer id="footer">
@@ -257,8 +797,13 @@
             </div>
         </footer>
         <div id="top-btn">
-            <a href="javascript:;" tabindex="0" title="선택적 제목">페이지 맨 위로</a>
+            <a href="javascript:;" tabindex="0" title="-"></a>
         </div>
     </div>
+
+    <div class="popup-group">
+        
+    </div>
+    <script src="../asset/js/basic.js"></script>
 </body>
 </html>

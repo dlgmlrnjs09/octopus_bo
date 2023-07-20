@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../asset/css/common.css">
+    <link rel="stylesheet" href="../asset/css/detail.css">
+    <!-- <link rel="stylesheet" href="../asset/css/access.css"> -->
+    <script src="../asset/js/jquery-3.6.0.min.js"></script>
+    <script src="../asset/js/prefixfree.min.js"></script>
+    <!-- <script src="../asset/js/swiper.min.js"></script> -->
+    <script src="../asset/js/swiper-bundle.js"></script>
+    <!-- <script src="../asset/js/swiper-bundle.min.js"></script> -->
+    <script src="../asset/js/detail.js"></script>
+    <title>Octopus</title>
+</head>
+<body>
+    <div id="container">
+        <div class="head-area">
+            <div class="header-wrap"></div>
+            <aside id="side-header"></aside>
+            <div class="my-menu logout mo">
+                <ul class="my-menu-list">
+                    <li>
+                        <button type="button" class="menu-trigger mo" aria-label="전체메뉴 열기">
+                            <img src="../asset/img/icon-burger.svg" alt="MENU">
+                        </button>
+                        <p>MENU</p>
+                    </li>
+                    <li>
+                        <a href="#none">
+                            <img src="../asset/img/icon-heart.svg" alt="WISH">
+                            <p>WISH</p>
+                        </a>
+                    </li>
+                    <li class="on">
+                        <a href="#none">
+                            <img src="../asset/img/icon-home.svg" alt="HOME">
+                            <p>HOME</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="login.html">
+                            <img src="../asset/img/icon-person.svg" alt="MY">
+                            <p>MY</p> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none">
+                            <span class="circle"></span><p>WATCH</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <script>
+                $(function(){
+                    $('.header-wrap').load("include/header.html");
+                    $('#side-header').load("include/side-header.html");
+                });
+            </script>
+        </div>
+
+        <!--========== CONTENTS ==========-->
+        <main id="main" class="page-prd-detail">
+            <section class="section prd-detail-sec prd-info-sec">
+                <h2 class="hidden">상품 정보</h2>
+                <div class="inner">
+                    <!-- 상품 썸네일 슬라이더  -->
+                    <div class="info-thumbnail">
+                        <div class="swiper prd-info-swiper-top">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide slide01">
+                                    <div class="prd-info-swiper-top-img skeleton-img-box">
+                                        <div class="skeleton-loading">
+                                            <div class="skeleton-img"></div>
+                                        </div>
+                                         <!-- 큰 썸네일 img 01-->
+                                        <img src="../asset/img/temp/img-detail-thumb-img01.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide slide02">
+                                    <div class="prd-info-swiper-top-img skeleton-img-box">
+                                        <div class="skeleton-loading">
+                                            <div class="skeleton-img"></div>
+                                        </div>
+                                        <!-- 큰 썸네일 img 02 -->
+                                        <img src="../asset/img/temp/img-detail-thumb-img02.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide slide03">
+                                    <div class="prd-info-swiper-top-img skeleton-img-box">
+                                        <div class="skeleton-loading">
+                                            <div class="skeleton-img"></div>
+                                        </div>
+                                        <!-- 큰 썸네일 img 03  -->
+                                        <img src="../asset/img/temp/img-detail-thumb-img03.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide slide04">
+                                    <div class="prd-info-swiper-top-img skeleton-img-box">
+                                        <div class="skeleton-loading">
+                                            <div class="skeleton-img"></div>
+                                        </div>
+                                        <!-- 큰 썸네일 img 04 -->
+                                        <img src="../asset/img/temp/img-detail-thumb-img04.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide slide05">
+                                    <div class="prd-info-swiper-top-img skeleton-img-box">
+                                        <div class="skeleton-loading">
+                                            <div class="skeleton-img"></div>
+                                        </div>
+                                        <!-- 큰 썸네일 img 05 -->
+                                        <img src="../asset/img/temp/img-detail-thumb-img05.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide slide06">
+                                    <div class="prd-info-swiper-top-img skeleton-img-box">
+                                        <div class="skeleton-loading">
+                                            <div class="skeleton-img"></div>
+                                        </div>
+                                        <!-- 큰 썸네일 img 05 -->
+                                        <img src="../asset/img/temp/img-detail-thumb-img05.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="prd-info-swiper-thumb-wrap">
+                            <div class="swiper mySwiper prd-info-swiper-thumb">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide slide01">
+                                        <div class="prd-info-swiper-thumb-img skeleton-img-box">
+                                            <div class="skeleton-loading">
+                                                <div class="skeleton-img"></div>
+                                            </div>
+                                            <!-- 작은 썸네일 img 01 -->
+                                            <img src="../asset/img/temp/img-detail-thumb-img01.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide slide02">
+                                        <div class="prd-info-swiper-thumb-img skeleton-img-box">
+                                            <div class="skeleton-loading">
+                                                <div class="skeleton-img"></div>
+                                            </div>
+                                            <!-- 작은 썸네일 img 02 -->
+                                            <img src="../asset/img/temp/img-detail-thumb-img02.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide slide03">
+                                        <div class="prd-info-swiper-thumb-img skeleton-img-box">
+                                            <div class="skeleton-loading">
+                                                <div class="skeleton-img"></div>
+                                            </div>
+                                            <!-- 작은 썸네일 img 03 -->
+                                            <img src="../asset/img/temp/img-detail-thumb-img03.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide slide04">
+                                        <div class="prd-info-swiper-thumb-img skeleton-img-box">
+                                            <div class="skeleton-loading">
+                                                <div class="skeleton-img"></div>
+                                            </div>
+                                            <!-- 작은 썸네일 img 04 -->
+                                            <img src="../asset/img/temp/img-detail-thumb-img04.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide slide05">
+                                        <div class="prd-info-swiper-thumb-img skeleton-img-box">
+                                            <div class="skeleton-loading">
+                                                <div class="skeleton-img"></div>
+                                            </div>
+                                            <!-- 작은 썸네일 img 05-->
+                                            <img src="../asset/img/temp/img-detail-thumb-img05.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide slide06">
+                                        <div class="prd-info-swiper-thumb-img skeleton-img-box">
+                                            <div class="skeleton-loading">
+                                                <div class="skeleton-img"></div>
+                                            </div>
+                                            <!-- 작은 썸네일 img 06-->
+                                            <img src="../asset/img/temp/img-detail-thumb-img05.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="prd-info-swiper-thumb-button-wrap">
+                                <div class="prd-info-swiper-thumb-button swiper-button-prev swiper-button"></div>
+                                <div class="prd-info-swiper-thumb-button swiper-button-next swiper-button"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-notice">
+                        <a href="javascript:;" class="info-notice-brand">MAC.</a>
+                        <h3 class="prd-title">스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</h3>
+                        <div class="info-notice-grade">
+                            <div class="rating-box">
+                                <div class="rating-star star-wrap">
+                                    <div class="star five"></div>
+                                </div>
+                                <span class="rating-grade">5.0</span>
+                            </div>
+                            <div class="review-box">
+                                <span class="review-tit">리뷰</span>
+                                <a href="javascript:;" class="review-count">1,004개</a>
+                            </div>
+                        </div>
+                        <div class="info-notice-price-wrap">
+                            <span class="discount-rate">10&percnt;</span>
+                            <em class="sale-price"><span>45,000</span> 원</em>							
+                            <span class="original-price">50,000원</span>
+                            <button type="button" class="coupon-btn">쿠폰받기</button>				
+                        </div>
+                        <ul class="info-notice-guide">
+                            <li class="guide-item mileage">
+                                <strong class="guide-tit">구매 마일리지</strong>
+                                <a href="javascript:;" class="guide-desc">최대 1,000점</a>
+                                <ul class="mileage-box">
+                                    <li><p class="mileage-tit">기본 구매 적립</p><span class="mileage-desc">500원</span></li>
+                                    <li><p class="mileage-tit">리뷰 등록</p><span class="mileage-desc">200원</span></li>
+                                    <li><p class="mileage-tit">포토&sol;동영상 리뷰 등록</p><span class="mileage-desc">300원</span></li>
+                                </ul>
+                            </li>
+                            <li class="guide-item benefit card-benefit">
+                                <strong class="guide-tit">카드혜택</strong>
+                                <p class="guide-desc">카드사 혜택 상세보기<span class="question-mark"></span></p>
+                            </li>
+                            <!-- <li class="guide-item benefit additional-benefit">
+                                <strong class="guide-tit">추가혜택</strong>
+                                <p class="guide-desc">카카오페이로 첫 구매시 <span>네이버 포인트 2,000원</span> 추가적립</p>
+                            </li> -->
+                            <li class="guide-item delivery">
+                                <strong class="guide-tit">배송정보</strong>
+                                <div class="delivery-details">
+                                    <p class="guide-desc">일반배송<span class="question-mark"></span></p>
+                                    <!-- <div class="delivery-price">
+                                        <span class="delivery-price-common">3000원 &lpar;제주 외 도서지역 추가 10,000원&rpar;</span>
+                                        <span class="delivery-price-free">무료배송 20000원 이상</span>
+                                    </div> -->
+                                </div>
+                            </li>
+                            <li class="guide-item regular-delivery">
+                                <strong class="guide-tit">배송정보</strong>
+                                <div class="radio-box-wrap">
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="delivery01" name="delivery-radio" value="01" checked="">
+                                        <label for="delivery01"><span>1회 구매</span></label>
+                                    </div>
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="delivery02" name="delivery-radio" value="02">
+                                        <label for="delivery02"><span>정기배송</span><span class="bubble">추가할인</span></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="guide-item option">
+                                <strong class="guide-tit">구성선택</strong>
+                                <div class="prd-option-select-wrap">
+                                    <div class="custom-select-box detail-product-select-box">
+                                        <ul class="list-unstyled">
+                                            <li class="init">상품을 선택해 주세요.</li>
+                                            <li data-value="value 1">스튜디오 픽스 프로셋</li>
+                                            <li data-value="value 2">스튜디오 픽스 프로셋 &times; 2세트</li>
+                                            <li data-value="value 3" class="disabled">블러 웨이트리스 루스 파우더 <span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                            <li data-value="value 4">스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</li>
+                                        </ul>
+                                    </div>
+                                    <div class="custom-select-box detail-product-select-box detail-additional-product-select-box">
+                                        <ul class="list-unstyled">
+                                            <li class="init">추가 구매상품을 선택해 주세요.</li>
+                                            <li data-value="value 1">추가 구매상품입니다.</li>
+                                            <li data-value="value 2">추가 구매상품입니다.</li>
+                                            <li data-value="value 3" class="disabled">추가 구매상품입니다.<span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                            <li data-value="value 4">추가 구매상품입니다.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="option-select-active-area">
+                                    <ul class="selected-item-list">
+                                        <li class="selected-item">
+                                            <strong class="selected-item-tit">스튜디오 픽스 프로셋</strong>
+                                            <div class="selected-item-count-box">
+                                                <button type="button" class="remove-btn" title="수량 1개 빼기"></button>
+                                                <div class="selected-item-number">
+                                                    <label for="buy-number"></label>
+                                                    <input type="number" name="buy-number" id="buy-number" value="1">
+                                                </div>
+                                                <button type="button" class="add-btn" title="수량 1개 더하기"></button>
+                                            </div>
+                                            <span class="selected-item-price">45,000 <span>원</span></span>
+                                            <button type="button" class="buy-item-close" title="상품 개수 선택창 닫기"></button>
+                                        </li>
+                                    </ul>
+                                    <div class="regular-delivery-check basic-check-box">
+                                        <input type="checkbox" id="regular-check" tabindex="-1">
+                                        <label for="regular-check" tabindex="0">정기배송 신청</label>
+                                        <span class="bubble">추가할인</span>
+                                        <span class="question-mark"></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="info-notice-total">
+                            <strong class="info-notice-total-tit">상품금액 합계</strong>
+                            <strong class="info-notice-total-price"><span class="total-price">45,000</span>원</strong>
+                        </div>
+                        <p class="info-notice-delivery-desc">지금 구매 시 <span class="info-notice-delivery-date">내일(수) 3/29</span> 도착예정</p>
+                        <div class="info-notice-btn-wrap">
+                            <button type="button" class="detail-btn icon-btn heart-btn" aria-label="title" onclick="location.href='#none'"><span>찜</span></button>
+                            <button type="button" class="detail-btn icon-btn gift-btn" aria-label="title" onclick="location.href='#none'"><span>선물하기</span></button>
+                            <button type="button" class="detail-btn txt-btn cart-btn" aria-label="title" onclick="location.href='cart.html'"><span>장바구니</span></button>
+                            <button type="button" class="detail-btn txt-btn buy-btn" aria-label="title" onclick="location.href='#none'"><span>구매하기</span></button>
+                        </div>
+                        <!-- 품절 시 버튼 wrap -->
+                        <!-- <div class="info-notice-btn-wrap sold-out">
+                            <button type="button" class="detail-btn icon-btn heart-btn" aria-label="title" onclick="location.href='#none'"><span>찜</span></button>
+                            <button type="button" class="detail-btn txt-btn alarm-btn" aria-label="title" onclick="location.href='#none'"><span>재입고 알림</span></button>
+                            <button type="button" class="detail-btn txt-btn disabled sold-out-btn" aria-label="title" onclick="location.href='#none'"><span>품절 상품</span></button>
+                        </div> -->
+                        <div class="info-notice-sns">
+                            <button type="button" class="info-notice-sns-btn" title="SNS 공유하기"></button>
+                            <div class="info-notice-sns-box">
+                                <strong class="info-notice-sns-tit">친구와 공유해보세요.</strong>
+                                <ul class="info-notice-sns-list">
+                                    <li><button class="sns-btn url-btn" title="URL 공유하기"></button></li>
+                                    <li><button class="sns-btn kakao-btn" title="카카오톡 공유하기"></button></li>
+                                    <li><button class="sns-btn facebook-btn" title="페이스북 공유하기"></button></li>
+                                    <li><button class="sns-btn insta-btn" title="인스타그램 공유하기"></button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 상품 추천 슬라이더 탭 -->
+            <section class="section prd-detail-sec prd-recommend-sec">
+                <h2 class="hidden">상품 추천</h2>
+                <div class="tab-container">
+                    <div class="inner">
+                        <ul class="tab-menu">
+                            <li class="tab-link current" data-tab="recommend-tab-best"><a href="javascript:;"><h3>최다 판매 상품</h3></a></li>
+                            <li class="tab-link" data-tab="recommend-tab-new"><a href="javascript:;"><span>신상품</span></a></li>
+                            <li class="tab-link" data-tab="recommend-tab-view"><a href="javascript:;"><span>최대 조회 상품</span></a></li>
+                        </ul>
+                        <div class="tab-content-wrap">
+
+                            <!-- 최다 판매 상품 슬라이더 -->
+                            <div id="recommend-tab-best" class="tab-content current recommend-tab-best">
+                                <h3 class="hidden">최다 판매 상품</h3>
+                                <div class="contents con-recommend-best">
+                                    <div class="swiper prd-detail-recommend-swiper prd-detail-recommend-swiper-normal prd-detail-recommend-swiper01">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide slide01 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                             <!-- 최다 판매 상품 img01-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide02 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 최다 판매 상품 img02-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img02.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide03 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 최다 판매 상품 img03-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img03.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide04 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 최다 판매 상품 img04-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide05 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 최다 판매 상품 img05-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img02.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="prd-detail-recommend-swiper-btn-wrap">
+                                        <div class="swiper-button-prev swiper-button"></div>
+                                        <div class="swiper-button-next swiper-button"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 신상품 슬라이더 -->
+                            <div id="recommend-tab-new" class="tab-content recommend-tab-new">
+                                <h3 class="hidden">신상품</h3>
+                                <div class="contents con-recommend-new">
+                                    <div class="swiper prd-detail-recommend-swiper prd-detail-recommend-swiper-normal prd-detail-recommend-swiper02">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide slide01 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 신상품 img01-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img04.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide02 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 신상품 img02-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img05.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide03 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 신상품 img03-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img06.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide04 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 신상품 img04-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide05 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 신상품 img05-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img02.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="prd-detail-recommend-swiper-btn-wrap">
+                                        <div class="swiper-button-prev swiper-button"></div>
+                                        <div class="swiper-button-next swiper-button"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 최대 조회 상품 슬라이더 -->
+                            <div id="recommend-tab-view" class="tab-content recommend-tab-view">
+                                <h3 class="hidden">최대 조회 상품</h3>
+                                <div class="contents con-recommend-view">
+                                    <div class="swiper prd-detail-recommend-swiper prd-detail-recommend-swiper-normal prd-detail-recommend-swiper03">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide slide01 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 최대 조회 상품 img01-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img06.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide02 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 최대 조회 상품 img02-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img02.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide03 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 최대 조회 상품 img03-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img04.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide04 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 최대 조회 상품 img04-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img03.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="swiper-slide slide05 skeleton-box">
+                                                <div class="skeleton-loading"></div>
+                                                <a href="javascript:void(0);">
+                                                    <div class="prd-detail-recommend-swiper-img-wrap">
+                                                        <figure class="prd-detail-recommend-swiper-img">
+                                                            <!-- 최대 조회 상품 img05-->
+                                                            <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="prd-detail-recommend-swiper-txt-wrap">
+                                                        <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                                        <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                            증정&rpar; 나이트케어</p>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                                        <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="prd-detail-recommend-swiper-btn-wrap">
+                                        <div class="swiper-button-prev swiper-button"></div>
+                                        <div class="swiper-button-next swiper-button"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section prd-detail-sec prd-banner-sec prd-banner-sec01">
+                <h2 class="hidden">상품 상세페이지 - 배너</h2>
+                <div class="inner">
+                    <a href="">
+                        <!-- 상단 배너 이미지 -->
+                        <picture>
+                            <!-- 모바일 버전 ~720px 이미지 source -->
+                            <source srcset="../asset/img/temp/img-detail-banner-img01-mo.jpg" media="(max-width: 720px)">
+                            <!-- PC 버전 이미지 img -->
+                            <img src="../asset/img/temp/img-detail-banner-img01.jpg" alt="배너 제목">
+                        </picture>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section prd-detail-sec prd-detail-contents-sec">
+                <h2 class="hidden">상품 상세정보</h2>
+                <div class="inner">
+                    <div class="tab-container prd-detail-contents-tab">
+                        <div class="tab-menu prd-detail-contents-tab-menu">
+                            <ul>
+                                <li class="active"><a href="javascript:void(0);"><span>상세정보</span></a></li>
+                                <li><a href="javascript:void(0);"><span>리뷰</span><span class="tab-bubble">1004</span></a></li>
+                                <li><a href="javascript:void(0);"><span>문의</span><span class="tab-bubble">500</span></a></li>
+                                <li><a href="javascript:void(0);"><span>반품&sol;교환정보</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-con tab-con-detail">
+                            <h3 class="hidden">상세정보</h3>
+                            <div class="tab-con-detail-img-wrap">
+                                <figure class="tab-con-detail-img skeleton-img-box">
+                                    <div class="skeleton-loading">
+                                        <div class="skeleton-img"></div>
+                                    </div>
+                                    <!-- 제품 상세이미지 url -->
+                                    <img src="../asset/img/temp/img-detail-tab-img01.jpg" alt="">
+                                </figure>
+                                <button type="button" class="tab-con-detail-more-btn"><span>상품정보 더보기</span></button>
+                            </div>
+                            <div class="tab-con-detail-supply">
+                                <strong class="product-detail-supply-tit tab-con-tit">상품정보 제공 고시</strong>
+                                <ul class="tab-con-detail-supply-list">
+                                    <li>
+                                        <a href="javascript:void(0);" class="tab-con-detail-supply-box-tit">제품정보</a>
+                                        <ul class="tab-con-detail-supply-box">
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">상품명</strong>
+                                                <p class="detail-supply-content-desc">스튜디오 픽스 프로셋 파우더</p>
+                                            </li>
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">용량 또는 중량</strong>
+                                                <p class="detail-supply-content-desc">100g</p>
+                                            </li>
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">제품 주요 사양</strong>
+                                                <p class="detail-supply-content-desc">모든피부용</p>
+                                            </li>
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">사용기한 또는 개봉 후 사용기간</strong>
+                                                <p class="detail-supply-content-desc">개봉 전 제조일로부터 36개월간, 개봉 후에는 12개월 이내</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="tab-con-detail-supply-box-tit">주요성분</a>
+                                        <ul class="tab-con-detail-supply-box">
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">상품명</strong>
+                                                <p class="detail-supply-content-desc">스튜디오 픽스 프로셋 파우더</p>
+                                            </li>
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">용량 또는 중량</strong>
+                                                <p class="detail-supply-content-desc">100g</p>
+                                            </li>
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">제품 주요 사양</strong>
+                                                <p class="detail-supply-content-desc">모든피부용</p>
+                                            </li>
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">사용기한 또는 개봉 후 사용기간</strong>
+                                                <p class="detail-supply-content-desc">개봉 전 제조일로부터 36개월간, 개봉 후에는 12개월 이내</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="tab-con-detail-supply-box-tit">사용방법</a>
+                                        <ul class="tab-con-detail-supply-box">
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">상품명</strong>
+                                                <p class="detail-supply-content-desc">스튜디오 픽스 프로셋 파우더</p>
+                                            </li>
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">용량 또는 중량</strong>
+                                                <p class="detail-supply-content-desc">100g</p>
+                                            </li>
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">제품 주요 사양</strong>
+                                                <p class="detail-supply-content-desc">모든피부용</p>
+                                            </li>
+                                            <li class="detail-supply-box-content">
+                                                <strong class="detail-supply-content-tit">사용기한 또는 개봉 후 사용기간</strong>
+                                                <p class="detail-supply-content-desc">개봉 전 제조일로부터 36개월간, 개봉 후에는 12개월 이내</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-con tab-con-review">
+                            <!-- 상품리뷰 탭 -->
+                            <h3 class="tab-con-tit">리뷰<span class="count">1,004</span></h3>
+                            <button type="button" class="tab-con-write-btn">상품 리뷰 작성하기</button>
+                            <div class="tab-con-review-summary-box">
+                                <div class="tab-con-review-grade-box">
+                                    <span class="tab-con-review-grade">5.0</span>
+                                    <div class="star-wrap">
+                                        <div class="star five"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-con-review-graph-box">
+                                    <ul class="review-graph">
+                                        <li>
+                                            <span class="review-graph-grade">5점</span>
+                                            <div class="review-graph-bar"></div>
+                                            <span class="review-graph-count">720</span>                            
+                                        </li>
+                                        <li>
+                                            <span class="review-graph-grade">4점</span>
+                                            <div class="review-graph-bar"></div>
+                                            <span class="review-graph-count">200</span>                            
+                                        </li>
+                                        <li>
+                                            <span class="review-graph-grade">3점</span>
+                                            <div class="review-graph-bar"></div>
+                                            <span class="review-graph-count">84</span>                            
+                                        </li>
+                                        <li>
+                                            <span class="review-graph-grade">2점</span>
+                                            <div class="review-graph-bar"></div>
+                                            <span class="review-graph-count">0</span>                            
+                                        </li>
+                                        <li>
+                                            <span class="review-graph-grade">1점</span>
+                                            <div class="review-graph-bar"></div>
+                                            <span class="review-graph-count">0</span>                            
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- 상품 포토리뷰 모아보기 -->
+                            <div class="tab-con-review-photo-review-wrap">
+                                <a href="javascript:void(0);"><figure class="tab-con-review-photo-review-img"><img src="../asset/img/temp/img-detail-photo-review01.jpg" alt=""></figure></a>
+                                <a href="javascript:void(0);"><figure class="tab-con-review-photo-review-img"><img src="../asset/img/temp/img-detail-photo-review02.jpg" alt=""></figure></a>
+                                <a href="javascript:void(0);"><figure class="tab-con-review-photo-review-img"><img src="../asset/img/temp/img-detail-photo-review03.jpg" alt=""></figure></a>
+                                <a href="javascript:void(0);"><figure class="tab-con-review-photo-review-img"><img src="../asset/img/temp/img-detail-photo-review04.jpg" alt=""></figure></a>
+                                <a href="javascript:void(0);"><figure class="tab-con-review-photo-review-img"><img src="../asset/img/temp/img-detail-photo-review05.jpg" alt=""></figure></a>
+                                <a href="javascript:void(0);"><figure class="tab-con-review-photo-review-img"><img src="../asset/img/temp/img-detail-photo-review06.jpg" alt=""></figure><span>더보기</span></a>
+                            </div>
+                            <div class="tab-con-review-contents-wrap">
+                                <div class="review-contents-sorting-btn-wrap">
+                                    <button type="button" class="review-contents-sorting-btn best-review-btn active">베스트리뷰</button>
+                                    <button type="button" class="review-contents-sorting-btn latest-btn">최신순</button>
+                                    <button type="button" class="review-contents-sorting-btn photo-review-btn">사진리뷰</button>
+                                    <button type="button" class="review-contents-sorting-btn filter-btn" title="필터 옵션 창 열기"></button>
+                                </div>
+                                <!-- 필터 옵션 창 -->
+                                <div class="tab-con-review-filter-modal">
+                                    <div class="tab-con-review-filter-modal-box">
+                                        <button type="button" title="필터 옵션 창 닫기" class="review-filter-modal-close"></button>
+                                        <div class="review-filter-modal-header">
+                                            <h4 class="review-filter-modal-tit">필터 검색</h4>
+                                            <p class="review-filter-modal-desc">내 피부고민에 맞는 리뷰만 볼 수 있어요!</p>
+                                        </div>
+                                        <div class="review-filter-modal-contents problem">
+                                            <strong class="review-filter-modal-contents-tit">피부고민</strong>
+                                            <div class="radio-box-wrap review-filter-modal-radio-box">
+                                                <div class="basic-radio-box">
+                                                    <input type="radio" id="review-filter01" name="review-filter" value="01" checked="">
+                                                    <label for="review-filter01"><span>전체</span></label>
+                                                </div>
+                                                <div class="basic-radio-box">
+                                                    <input type="radio" id="review-filter02" name="review-filter" value="02">
+                                                    <label for="review-filter02"><span>내 피부고민 리뷰만</span></label>
+                                                </div>
+                                            </div>
+                                            <ul class="review-filter-modal-list">
+                                                <li><a href="javacript:void(0);">지성</a></li>
+                                                <li><a href="javacript:void(0);">건성</a></li>
+                                                <li><a href="javacript:void(0);">민감성</a></li>
+                                                <li><a href="javacript:void(0);">아토피</a></li>
+                                                <li><a href="javacript:void(0);">트러블</a></li>
+                                                <li><a href="javacript:void(0);">모공</a></li>
+                                                <li><a href="javacript:void(0);">피지</a></li>
+                                                <li><a href="javacript:void(0);">면연력</a></li>
+                                                <li><a href="javacript:void(0);">장건강</a></li>
+                                                <li><a href="javacript:void(0);">탄력</a></li>
+                                                <li><a href="javacript:void(0);">각질</a></li>
+                                                <li><a href="javacript:void(0);">영양</a></li>
+                                                <li><a href="javacript:void(0);">주름</a></li>
+                                                <li><a href="javacript:void(0);">미백</a></li>
+                                                <li><a href="javacript:void(0);">수분</a></li>
+                                                <li><a href="javacript:void(0);">태열</a></li>
+                                                <li><a href="javacript:void(0);">땀띠</a></li>
+                                                <li><a href="javacript:void(0);">침독</a></li>
+                                                <li><a href="javacript:void(0);">튼살</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="review-filter-modal-contents grade">
+                                            <strong class="review-filter-modal-contents-tit">별점</strong>
+                                            <ul class="review-filter-modal-list">
+                                                <li><a href="javacript:void(0);">5점</a></li>
+                                                <li><a href="javacript:void(0);">4점</a></li>
+                                                <li><a href="javacript:void(0);">3점</a></li>
+                                                <li><a href="javacript:void(0);">2점</a></li>
+                                                <li><a href="javacript:void(0);">1점</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="review-filter-modal-contents">
+                                            <strong class="review-filter-modal-contents-tit">성별</strong>
+                                            <ul class="review-filter-modal-list">
+                                                <li><a href="javacript:void(0);">여성</a></li>
+                                                <li><a href="javacript:void(0);">남성</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="review-filter-modal-contents">
+                                            <strong class="review-filter-modal-contents-tit">연령</strong>
+                                            <ul class="review-filter-modal-list">
+                                                <li><a href="javacript:void(0);">10대</a></li>
+                                                <li><a href="javacript:void(0);">20대</a></li>
+                                                <li><a href="javacript:void(0);">30대</a></li>
+                                                <li><a href="javacript:void(0);">40대</a></li>
+                                                <li><a href="javacript:void(0);">50대 이상</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="review-filter-modal-btn-wrap">
+                                            <button type="button" class="review-filter-modal-btn reset-btn">초기화</button>
+                                            <button type="button" class="review-filter-modal-btn apply-btn">필터 적용</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="review-contents-list">
+                                    <!-- 텍스트 리뷰일 때만 li에 text-only 클래스 추가 -->
+                                    <li class="review-contents-box">
+                                        <div class="review-contents-img-wrap">
+                                            <!-- 리뷰 사진 -->
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review01.jpg" alt=""></figure>
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review02.jpg" alt=""></figure>
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review03.jpg" alt=""></figure>
+                                            <!-- 리뷰 사진 개수 카운팅, 개수 1개 이하일 때 태그 삭제  -->
+                                            <span class="review-contents-img-count">3</span>
+                                        </div>
+                                        <div class="review-contents-text-wrap">
+                                            <div class="review-contents-text-header">
+                                                <div class="review-contents-text-name">
+                                                    <div class="star-wrap"><div class="star five"></div></div>
+                                                    <span class="review-contents-text-product">아토팜 베이비</span>
+                                                </div>
+                                                <div class="review-contents-text-problem">
+                                                    <em class="review-contents-text-problem-tit">피부고민</em>
+                                                    <ul class="review-contents-text-problem-list">
+                                                        <li>건성</li>
+                                                        <li>미백</li>
+                                                        <li>수분</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="review-contents-text-specific">
+                                                    <span class="review-contents-text-id">octo0777</span>
+                                                    <span class="review-contents-text-date">2023.04.08</span>
+                                                </div>
+                                            </div>
+                                            <div class="review-contents-text-desc">
+                                                <p>착붙템 드디어 발견, 너무 좋아서 유목민에서 이제 정착할 거에요! 발림성도 좋고 만족합니다! <br>지인에게도 적극 추천하려구요. <br>수분감이 느껴져요~ <br>재구매의사 100%입니다.</p>
+                                                <button type="button" class="review-contents-box-more-btn">자세히</button>
+                                            </div>
+                                            <div class="review-contents-box-thumbs-up-wrap">
+                                                <button type="button" class="review-contents-box-thumbs-up">도움이 돼요 &plus;<span class="count">9</span></button>
+                                                <p class="review-contents-box-thumbs-up-desc">이 리뷰가 도움이 되었어요!</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 텍스트 리뷰일 때만 li에 text-only 클래스 추가 -->
+                                    <li class="review-contents-box text-only">
+                                        <div class="review-contents-img-wrap">
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review01.jpg" alt=""></figure>
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review02.jpg" alt=""></figure>
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review03.jpg" alt=""></figure>
+                                            <!-- 리뷰 사진 개수 카운팅, 개수 1개 이하일 때 태그 삭제  -->
+                                            <span class="review-contents-img-count">3</span>
+                                        </div>
+                                        <div class="review-contents-text-wrap">
+                                            <div class="review-contents-text-header">
+                                                <div class="review-contents-text-name">
+                                                    <div class="star-wrap"><div class="star five"></div></div>
+                                                    <span class="review-contents-text-product">아토팜 베이비</span>
+                                                </div>
+                                                <div class="review-contents-text-problem">
+                                                    <em class="review-contents-text-problem-tit">피부고민</em>
+                                                    <ul class="review-contents-text-problem-list">
+                                                        <li>건성</li>
+                                                        <li>미백</li>
+                                                        <li>수분</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="review-contents-text-specific">
+                                                    <span class="review-contents-text-id">octo0777</span>
+                                                    <span class="review-contents-text-date">2023.04.08</span>
+                                                </div>
+                                            </div>
+                                            <div class="review-contents-text-desc">
+                                                <p>착붙템 드디어 발견, 너무 좋아서 유목민에서 이제 정착할 거에요! 발림성도 좋고 만족합니다! 지인에게도 적극 추천하려구요. 수분감이 느껴져요~ 재구매의사 100%입니다. 착붙템 드디어 발견, 너무 좋아서 유목민에서 이제 정착 할거에요! 발림성도 좋고 만족합니다! 지인에게도 적극 추천하려구요. 수분감이 느껴져요~ 재구매의사 100%입니다.</p>
+                                                <button type="button" class="review-contents-box-more-btn">자세히</button>
+                                            </div>
+                                            <div class="review-contents-box-thumbs-up-wrap">
+                                                <button type="button" class="review-contents-box-thumbs-up">도움이 돼요 &plus;<span class="count">9</span></button>
+                                                <p class="review-contents-box-thumbs-up-desc">이 리뷰가 도움이 되었어요!</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 텍스트 리뷰일 때만 li에 text-only 클래스 추가 -->
+                                    <li class="review-contents-box">
+                                        <div class="review-contents-img-wrap">
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review06.jpg" alt=""></figure>
+                                            <!-- 리뷰 사진 개수 카운팅, 개수 1개 이하일 때 태그 삭제  -->
+                                            <!-- <span class="review-contents-img-count">1</span> -->
+                                        </div>
+                                        <div class="review-contents-text-wrap">
+                                            <div class="review-contents-text-header">
+                                                <div class="review-contents-text-name">
+                                                    <div class="star-wrap"><div class="star five"></div></div>
+                                                    <span class="review-contents-text-product">아토팜 베이비</span>
+                                                </div>
+                                                <div class="review-contents-text-problem">
+                                                    <em class="review-contents-text-problem-tit">피부고민</em>
+                                                    <ul class="review-contents-text-problem-list">
+                                                        <li>건성</li>
+                                                        <li>미백</li>
+                                                        <li>수분</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="review-contents-text-specific">
+                                                    <span class="review-contents-text-id">octo0777</span>
+                                                    <span class="review-contents-text-date">2023.04.08</span>
+                                                </div>
+                                            </div>
+                                            <div class="review-contents-text-desc">
+                                                <p>착붙템 드디어 발견, 너무 좋아서 유목민에서 이제 정착할 거에요! 발림성도 좋고 만족합니다! <br>지인에게도 적극 추천하려구요. <br>수분감이 느껴져요~ <br>재구매의사 100%입니다.</p>
+                                                <button type="button" class="review-contents-box-more-btn">자세히</button>
+                                            </div>
+                                            <div class="review-contents-box-thumbs-up-wrap">
+                                                <button type="button" class="review-contents-box-thumbs-up">도움이 돼요 &plus;<span class="count">9</span></button>
+                                                <p class="review-contents-box-thumbs-up-desc">이 리뷰가 도움이 되었어요!</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 텍스트 리뷰일 때만 li에 text-only 클래스 추가 -->
+                                    <li class="review-contents-box">
+                                        <div class="review-contents-img-wrap">
+                                            <!-- 리뷰 사진 -->
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review04.jpg" alt=""></figure>
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review05.jpg" alt=""></figure>
+                                            <!-- 리뷰 사진 개수 카운팅, 개수 1개 이하일 때 태그 삭제  -->
+                                            <span class="review-contents-img-count">2</span>
+                                        </div>
+                                        <div class="review-contents-text-wrap">
+                                            <div class="review-contents-text-header">
+                                                <div class="review-contents-text-name">
+                                                    <div class="star-wrap"><div class="star five"></div></div>
+                                                    <span class="review-contents-text-product">아토팜 베이비</span>
+                                                </div>
+                                                <div class="review-contents-text-problem">
+                                                    <em class="review-contents-text-problem-tit">피부고민</em>
+                                                    <ul class="review-contents-text-problem-list">
+                                                        <li>건성</li>
+                                                        <li>미백</li>
+                                                        <li>수분</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="review-contents-text-specific">
+                                                    <span class="review-contents-text-id">octo0777</span>
+                                                    <span class="review-contents-text-date">2023.04.08</span>
+                                                </div>
+                                            </div>
+                                            <div class="review-contents-text-desc">
+                                                <p>착붙템 드디어 발견, 너무 좋아서 유목민에서 이제 정착할 거에요! 발림성도 좋고 만족합니다! <br>지인에게도 적극 추천하려구요. <br>수분감이 느껴져요~ <br>재구매의사 100%입니다.</p>
+                                                <button type="button" class="review-contents-box-more-btn">자세히</button>
+                                            </div>
+                                            <div class="review-contents-box-thumbs-up-wrap">
+                                                <button type="button" class="review-contents-box-thumbs-up">도움이 돼요 &plus;<span class="count">9</span></button>
+                                                <p class="review-contents-box-thumbs-up-desc">이 리뷰가 도움이 되었어요!</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 텍스트 리뷰일 때만 li에 text-only 클래스 추가 -->
+                                    <li class="review-contents-box text-only">
+                                        <div class="review-contents-img-wrap">
+                                            <figure class="review-contents-img"><img src="../asset/img/temp/img-detail-review07.jpg" alt=""></figure>
+                                            <!-- 리뷰 사진 개수 카운팅, 개수 1개 이하일 때 태그 삭제  -->
+                                            <span class="review-contents-img-count">1</span>
+                                        </div>
+                                        <div class="review-contents-text-wrap">
+                                            <div class="review-contents-text-header">
+                                                <div class="review-contents-text-name">
+                                                    <div class="star-wrap"><div class="star five"></div></div>
+                                                    <span class="review-contents-text-product">아토팜 베이비</span>
+                                                </div>
+                                                <div class="review-contents-text-problem">
+                                                    <em class="review-contents-text-problem-tit">피부고민</em>
+                                                    <ul class="review-contents-text-problem-list">
+                                                        <li>건성</li>
+                                                        <li>미백</li>
+                                                        <li>수분</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="review-contents-text-specific">
+                                                    <span class="review-contents-text-id">octo0777</span>
+                                                    <span class="review-contents-text-date">2023.04.08</span>
+                                                </div>
+                                            </div>
+                                            <div class="review-contents-text-desc">
+                                                <p>착붙템 드디어 발견, 너무 좋아서 유목민에서 이제 정착 할거에요!</p>
+                                            </div>
+                                            <div class="review-contents-box-thumbs-up-wrap">
+                                                <button type="button" class="review-contents-box-thumbs-up">도움이 돼요 &plus;<span class="count">9</span></button>
+                                                <p class="review-contents-box-thumbs-up-desc">이 리뷰가 도움이 되었어요!</p>
+                                            </div>
+                                            <!-- 리뷰 본문 텍스트 1줄 이하일 때 자세히 버튼 삭제 -->
+                                            <!-- <button type="button" class="review-contents-box-more-btn">자세히</button> -->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pagination-wrap">
+                                <button class="pagination-btn first" title="첫 페이지"><span class="hidden">첫 페이지</span></button>
+                                <button class="pagination-btn prev" title="이전 페이지"><span class="hidden">이전 페이지</span></button>
+                                <ul class="pagination-list">
+                                    <li class="current"><button>1</button></li>
+                                    <li><button>2</button></li>
+                                    <li><button>3</button></li>
+                                    <li><button>4</button></li>
+                                    <li><button>5</button></li>
+                                </ul>
+                                <button class="pagination-btn next" title="다음 페이지"><span class="hidden">다음 페이지</span></button>
+                                <button class="pagination-btn last" title="마지막 페이지"><span class="hidden">마지막 페이지</span></button>
+                            </div>
+                        </div>
+                        <div class="tab-con tab-con-qna">
+                            <h3 class="tab-con-tit">문의<span class="count">500</span></h3>
+                            <button type="button" class="tab-con-write-btn">상품 문의하기</button>
+                            <div class="tab-con-qna-wrap">
+                                <div class="tab-con-qna-header">
+                                    <div class="basic-check-box">
+                                        <input type="checkbox" id="check-box01" tabindex="-1">
+                                        <label for="check-box01" tabindex="0">내 문의글 보기</label>
+                                    </div>
+                                    <!-- 상품 문의 리스트 sorting -->
+                                    <div class="custom-select-box tab-con-qna-select-box">
+                                        <ul class="list-unstyled">
+                                            <li class="init">전체</li>
+                                            <li data-value="value 1">전체</li>
+                                            <li data-value="value 2">답변완료</li>
+                                            <li data-value="value 3">미답변</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- 상품 문의 리스트 -->
+                                <ul class="tab-con-qna-list">
+                                    <!-- 답변완료일 경우 li에 completed 클래스 추가 -->
+                                    <!-- 비밀글일 경우 li에 lock 클래스 추가 -->
+                                    <li class="completed lock">
+                                        <a href="javascript:void(0);">
+                                            <em class="tab-con-qna-list-sort">답변완료</em>
+                                            <strong class="tab-con-qna-list-tit">&lbrack;<span class="sort">배송문의</span>&rbrack; <span class="content">비밀글 입니다.</span></strong>
+                                            <span class="tab-con-qna-list-id">octo00</span>
+                                            <span class="tab-con-qna-list-date">2023.04.08</span>
+                                        </a>
+                                    </li>
+                                    <li class="completed lock">
+                                        <a href="javascript:void(0);">
+                                            <em class="tab-con-qna-list-sort">답변완료</em>
+                                            <strong class="tab-con-qna-list-tit">&lbrack;<span class="sort">입고문의</span>&rbrack; <span class="content">비밀글 입니다.</span></strong>
+                                            <span class="tab-con-qna-list-id">octo0000</span>
+                                            <span class="tab-con-qna-list-date">2023.04.07</span>
+                                        </a>
+                                    </li>
+                                    <li class="lock">
+                                        <a href="javascript:void(0);">
+                                            <em class="tab-con-qna-list-sort uncompleted">미답변</em>
+                                            <strong class="tab-con-qna-list-tit">&lbrack;<span class="sort">상품문의</span>&rbrack; <span class="content">비밀글 입니다.</span></strong>
+                                            <span class="tab-con-qna-list-id">octo210</span>
+                                            <span class="tab-con-qna-list-date">2023.04.06</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <em class="tab-con-qna-list-sort uncompleted">미답변</em>
+                                            <strong class="tab-con-qna-list-tit">&lbrack;<span class="sort">배송문의</span>&rbrack; <span class="content">지금 주문하면 배송 언제 받을 수 있나요?</span></strong>
+                                            <span class="tab-con-qna-list-id">octo777</span>
+                                            <span class="tab-con-qna-list-date">2023.03.14</span>
+                                        </a>
+                                    </li>
+                                    <li class="lock">
+                                        <a href="javascript:void(0);">
+                                            <em class="tab-con-qna-list-sort uncompleted">미답변</em>
+                                            <strong class="tab-con-qna-list-tit">&lbrack;<span class="sort">주문&sol;결제&sol;취소</span>&rbrack; <span class="content">지금 주문 취소 하고 싶습니다.</span></strong>
+                                            <span class="tab-con-qna-list-id">octo90566</span>
+                                            <span class="tab-con-qna-list-date">2023.03.11</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pagination-wrap">
+                                <button class="pagination-btn first" title="첫 페이지"><span class="hidden">첫 페이지</span></button>
+                                <button class="pagination-btn prev" title="이전 페이지"><span class="hidden">이전 페이지</span></button>
+                                <ul class="pagination-list">
+                                    <li class="current"><button>1</button></li>
+                                    <li><button>2</button></li>
+                                    <li><button>3</button></li>
+                                    <li><button>4</button></li>
+                                    <li><button>5</button></li>
+                                </ul>
+                                <button class="pagination-btn next" title="다음 페이지"><span class="hidden">다음 페이지</span></button>
+                                <button class="pagination-btn last" title="마지막 페이지"><span class="hidden">마지막 페이지</span></button>
+                            </div>
+                        </div>
+                        <div class="tab-con tab-con-delivery">
+                            <h3 class="tab-con-tit">반품&sol;교환정보</h3>
+                            <div class="tab-con-detail-supply">
+                                <ul class="tab-con-detail-supply-list">
+                                    <li>
+                                        <a href="javascript:void(0);" class="tab-con-detail-supply-box-tit">반품&sol;취소&sol;교환 안내 내용</a>
+                                        <div class="tab-con-detail-supply-box">
+                                            <p class="detail-supply-content">1. &lbrack;마이쇼핑>주문내역&rbrack; 메뉴에서 신청 &gt; 판매자 승인 후 반품&sol;취소&sol;교환이 진행됩니다.</p>
+                                            <p class="detail-supply-content">2. 진행상태는 &lbrack;마이쇼핑&gt;주문내역&rbrack; 메뉴에서 확인 가능합니다.</p>
+                                            <p class="detail-supply-content">3. 반품&sol;취소&sol;교환을 신청하시면 고객센터에서 안내 후 입력하신 수거지로 택배 기사님이 방문하여 수거합니다.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 하단 구매 bar -->
+                    <div class="prd-detail-contents-purchase-bar">
+                        <button type="button" class="close-btn" title="상품선택 창 닫기"></button>
+                        <div>
+                            <div class="prd-option-select-wrap">
+                                <!-- 옵션 상품 선택 select-box -->
+                                <div class="custom-select-box detail-product-select-box">
+                                    <ul class="list-unstyled">
+                                        <li class="init">상품을 선택해 주세요.</li>
+                                        <li data-value="value 1">스튜디오 픽스 프로셋</li>
+                                        <li data-value="value 2">스튜디오 픽스 프로셋 &times; 2세트</li>
+                                        <li data-value="value 3" class="disabled">블러 웨이트리스 루스 파우더 <span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                        <li data-value="value 4">스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스 파우더</li>
+                                    </ul>
+                                </div>
+                                <!-- 옵션 추가 구매 상품 선택 select-box -->
+                                <div class="custom-select-box detail-product-select-box detail-additional-product-select-box">
+                                    <ul class="list-unstyled">
+                                        <li class="init">추가 구매상품을 선택해 주세요.</li>
+                                        <li data-value="value 1">추가 구매상품입니다.</li>
+                                        <li data-value="value 2">추가 구매상품입니다.</li>
+                                        <li data-value="value 3" class="disabled">추가 구매상품입니다.<span class="sold-out-txt">&lpar;품절&rpar;</span></li>
+                                        <li data-value="value 4">추가 구매상품입니다.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- 셀렉트 박스 선택시 나오는 수량 선택 박스 wrap -->
+                            <div class="option-select-active-area">
+                                <ul class="selected-item-list">
+                                    <!-- 수량 선택 박스 -->
+                                    <li class="selected-item">
+                                        <strong class="selected-item-tit">스튜디오 픽스 프로셋</strong>
+                                        <div class="selected-item-count-box">
+                                            <button type="button" class="remove-btn" title="수량 1개 빼기"></button>
+                                            <div class="selected-item-number">
+                                                <label for="buy-number"></label>
+                                                <input type="number" name="buy-number" id="buy-number" value="1">
+                                            </div>
+                                            <button type="button" class="add-btn" title="수량 1개 더하기"></button>
+                                        </div>
+                                        <span class="selected-item-price">60,000 <span>원</span></span>
+                                        <button type="button" class="buy-item-close" title="상품 개수 선택창 닫기"></button>
+                                    </li>
+                                </ul>
+                                <div class="regular-delivery-check basic-check-box">
+                                    <input type="checkbox" id="regular-check" tabindex="-1">
+                                    <label for="regular-check" tabindex="0">정기배송 신청</label>
+                                </div>
+                            </div>
+                            <div class="info-notice-total">
+                                <strong class="info-notice-total-tit">상품금액 합계</strong>
+                                <strong class="info-notice-total-price"><span class="total-price">60,000</span>원</strong>
+                            </div>
+                        </div>
+                        <div class="info-notice-btn-wrap">
+                            <button type="button" class="detail-btn txt-btn cart-btn" aria-label="title" onclick="location.href='cart.html'"><span>장바구니</span></button>
+                            <button type="button" class="detail-btn txt-btn buy-btn" aria-label="title" onclick="location.href='#none'"><span>구매하기</span></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section prd-detail-sec prd-banner-sec prd-banner-sec02">
+                <h2 class="hidden">상품 상세페이지 - 배너</h2>
+                <div class="inner">
+                    <a href="javascript:;">
+                        <!-- 하단 배너 이미지 -->
+                        <picture>
+                            <!-- 모바일 버전 ~720px 이미지 source -->
+                            <source srcset="../asset/img/temp/img-detail-banner-img02-mo.png" media="(max-width: 720px)">
+                            <!-- PC 버전 이미지 img -->
+                            <img src="../asset/img/temp/img-detail-banner-img02.png" alt="배너 제목">
+                        </picture>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section prd-detail-sec prd-relative-sec prd-relative-sec01">
+                <div class="inner">
+                    <h2 class="prd-relative-list-tit">이런 상품은 어때요?</h2>
+                    <div class="contents con-recommend-view">
+                        <div class="swiper prd-detail-recommend-swiper prd-detail-recommend-swiper-transform prd-detail-recommend-swiper04">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide slide01 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide02 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img02.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide03 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img03.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide04 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img04.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide05 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img05.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide06 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img03.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide07 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img03.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide08 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img04.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide09 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img01.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prd-detail-recommend-swiper-btn-wrap">
+                            <div class="swiper-button-prev swiper-button"></div>
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-next swiper-button"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section prd-detail-sec prd-relative-sec prd-relative-sec02">
+                <div class="inner">
+                    <h2 class="prd-relative-list-tit">다른 고객이 함께 구매한 제품</h2>
+                    <div class="contents con-recommend-view">
+                        <div class="swiper prd-detail-recommend-swiper prd-detail-recommend-swiper-normal prd-detail-recommend-swiper05">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide slide01 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img04.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide02 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img05.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide03 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img06.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide04 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img03.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide slide05 skeleton-box">
+                                    <div class="skeleton-loading"></div>
+                                    <a href="javascript:void(0);">
+                                        <div class="prd-detail-recommend-swiper-img-wrap">
+                                            <figure class="prd-detail-recommend-swiper-img">
+                                                <!-- 추천상품 이미지 -->
+                                                <img src="../asset/img/temp/img-detail-recommend-img02.jpg" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="prd-detail-recommend-swiper-txt-wrap">
+                                            <strong class="prd-detail-recommend-swiper-txt-brand">W cosmetic</strong>
+                                            <p class="prd-detail-recommend-swiper-txt-name">모이스처 더블유 토닝 &lpar;30ml&plus;30ml
+                                                증정&rpar; 나이트케어</p>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-precent">50&percnt;</span>
+                                            <span class="prd-detail-recommend-swiper-txt-sale-price">20,000 원</span>
+                                            <span class="prd-detail-recommend-swiper-txt-original-price">40,000 원</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prd-detail-recommend-swiper-btn-wrap">
+                            <div class="swiper-button-prev swiper-button"></div>
+                            <div class="swiper-button-next swiper-button"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0" title="-"></a>
+        </div>
+    </div>
+
+    <div class="popup-group">
+        
+    </div>
+    <script src="../asset/js/basic.js"></script>
+</body>
+</html>

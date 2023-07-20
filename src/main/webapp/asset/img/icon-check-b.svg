@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 249 249">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #385ce2;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="_레이어_1" data-name="레이어 1">
+    <g id="_그룹_1281" data-name="그룹 1281">
+      <path id="_사각형_425" data-name="사각형 425" class="cls-2" d="m1,0h247c.6,0,1,.4,1,1v247c0,.6-.4,1-1,1H1c-.6,0-1-.4-1-1V1C0,.4.4,0,1,0Z"/>
+      <path id="Icon_ionic-ios-checkmark" data-name="Icon ionic-ios-checkmark" class="cls-1" d="m182.7,90.4l-10.3-10.6c-.4-.5-1-.7-1.6-.7h0c-.6,0-1.2.2-1.6.7l-71.3,71.8-25.9-25.9c-.9-.9-2.3-.9-3.2-.1l-.1.1-10.4,10.4c-.9.9-.9,2.4,0,3.3h0l32.7,32.7c1.8,1.9,4.2,3.1,6.8,3.3,3.1,0,5.8-2.3,6.8-3.2h.1l78.1-78.5c.8-.9.8-2.4-.1-3.3Z"/>
+    </g>
+  </g>
+</svg>

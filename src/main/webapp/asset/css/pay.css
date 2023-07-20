@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+/* Info
+   ========================================================================== */
+/**
+ * 1. Writer: Jinsong Kim. (Weaverloft Corp.)
+ * 2. Production Date: 2023-07-18
+ * 3. Client: Weaverloft UX
+ */
+
+/* ============= page-pay (공통) ============= */
+.page-pay{padding: 120px 0}
+
+/* ============= pay-tit-sec ============= */
+.page-pay .order-step-header{margin: 0 0 82px;}
+
+/* ============= pay-contents-sec ============= */
+.pay-basic-sec{padding: 0 330px 0 0;}
+.pay-basic-sec + .pay-basic-sec{margin: 80px 0 0;}
+.pay-basic-sec-tit{padding: 0 0 14px 0; border-bottom: 2px solid #333; font-weight: 700; font-size: 20px; line-height: 24px;}
+
+/* --- pay-prd-info --- */
+.pay-prd-info .pay-basic-sec-tit .bubble{margin: 0 0 0 7px; padding: 4px 9px 4px 8px;}
+
+.pay-prd-info .pay-prd-list{margin: 0 0 20px;}
+.pay-prd-info .pay-prd-box{display: flex; align-items: center; padding: 20px; border-bottom: 1px solid #D8D9D9;}
+.pay-prd-info .pay-prd-box-img{overflow: hidden; width: 130px; height: 130px; margin: 0 20px 0 0; border-radius: 5px;}
+.pay-prd-info .pay-prd-box-img img{width: 100%; height: 100%;}
+.pay-prd-info .pay-prd-box-txt-wrap{display: flex; flex-direction: column; width: 370px; margin: 0 auto 0 0;}
+.pay-prd-info .pay-prd-box-name{margin: 0 0 14px; padding: 0 40px 0 0; font-size: 16px; line-height: 22px; word-break: keep-all;}
+.pay-prd-info .pay-prd-box-brand-name{display: block; margin: 0 0 4px; font-weight: 500; font-size: 14px; line-height: 16px;}
+.pay-prd-info .pay-prd-box-option{font-size: 14px; color: #999;}
+.pay-prd-info .coupon-down-btn{order: -1; margin: 0 0 15px;}
+.pay-prd-info .pay-prd-box-quantity{padding: 0 40px; font-size: 14px;}
+.pay-prd-info .pay-prd-box-fee{padding: 0 40px; font-weight: 600; font-size: 14px;}
+.pay-prd-info .pay-prd-box-price{padding: 0 0 0 40px; font-weight: 700; font-size: 18px; text-align: right;}
+.pay-prd-info .pay-prd-box-price .original-price{display: block; font-weight: 500; font-size: 14px; line-height: 18px; color: #ccc; text-decoration: line-through;}
+
+.pay-setting-change-wrap{display: flex; justify-content: space-between;}
+.setting-change-btn{position: relative; width: fit-content; padding: 0 10px 0 25px; font-weight: 500; line-height: 20px;}
+.setting-change-btn::before{content: ""; position: absolute; top: -1px; left: 0; width: 20px; height: 20px; background: url("../img/icon-detail-arrow-3.svg") no-repeat center center;}
+.setting-change-desc{font-size: 14px; color: #777;}
+
+/* --- pay-schedule-info --- */
+.pay-schedule-info-tl{}
+.pay-schedule-info-tl thead th{height: 45px; background-color: #F7F8FA; font-weight: 600; font-size: 14px; vertical-align: middle;}
+.pay-schedule-info-tl thead th:nth-child(1){width: 160px}
+.pay-schedule-info-tl thead th:nth-child(2){width: 360px;}
+.pay-schedule-info-tl thead th:nth-child(3){width: 390px;}
+.pay-schedule-info-tl tr{border-bottom: 1px solid #D8D9D9;}
+.pay-schedule-info-tl tbody tr{height: 50px;}
+.pay-schedule-info-tl tbody tr{height: 50px;}
+.pay-schedule-info-tl tbody tr:nth-child(4) ~ tr{display: none;}
+.pay-schedule-info-tl tbody td{position: relative; text-align: center; vertical-align: middle;}
+.pay-schedule-info-tl tbody td .bubble{position: absolute; top: 50%; right: 120px; height: 20px; padding: 4px 8px; background-color: #385CE2; font-weight: 500; font-size: 12px; color: #fff; transform: translateY(-50%);}
+.pay-schedule-info-tl tbody td:last-child{font-weight: 700;}
+.pay-schedule-more-btn{display: block; width: 146px; height: 45px; margin: 22px auto 0; border: 1px solid #ccc; border-radius: 2px; transition: all 0.2s;}
+.pay-schedule-more-btn:hover{background-color: rgba(0, 0, 0, 0.05);}
+
+/* --- pay-schedule-info --- */
+.pay-address-info{position: relative;}
+.pay-address-info-box{padding: 20px 0 0;}
+.pay-address-info-box .address-name{display: block; margin: 0 0 20px; font-weight: 700; font-size: 18px; line-height: 24px;}
+.pay-address-info-box .address-name .bubble{padding: 4px 9px 4px 8px;}
+.pay-address-info-box .customer-address{margin: 0 0 12px; font-weight: 500; line-height: 1;}
+.pay-address-info-box .customer-name{display: inline-block; margin: 0 10px 20px 0; font-weight: 500; line-height: 1; color: #666;}
+.pay-address-info-box .customer-phone{font-weight: 500; line-height: 1; color: #666;}
+.pay-address-info .address-change-btn{position: absolute; top: -7px; right: 330px; width: 126px; height: 38px; border: 1px solid #385CE2; border-radius: 2px; font-weight: 500; font-size: 14px; color: #385CE2;}
+
+/* --- pay-customer-info --- */
+.pay-customer-info-list{padding: 20px 0 0;}
+.pay-customer-info-list li:last-child{display: flex; align-items: center;}
+.pay-customer-info-list > li + li{margin: 20px 0 0;}
+.pay-customer-info-list .input-tit{display: inline-block; width: 134px; padding: 0 0 0 15px; font-weight: 500;}
+.pay-customer-info-list .input-tit.necessary{position: relative;}
+.pay-customer-info-list .input-tit.necessary::before{content: ""; position: absolute; top: 50%; left: 0; width: 6px; height: 6px; border-radius: 50%; background-color: #385CE2; transform: translateY(-50%);}
+.pay-customer-info-list input{box-sizing: border-box; height: 44px; padding: 0 16px; border: 1px solid #ccc; border-radius: 2px;}
+.pay-customer-info-list input.mobile,
+.pay-customer-info-list input.order-name{width: calc( 100% - 138px );}
+.pay-customer-info-list .mail-wrap{display: flex; align-items: center;}
+.pay-customer-info-list input.mail,
+.pay-customer-info-list .custom-select-box{width: 290px;}
+.pay-customer-info-list .at{margin: 0 8px; color: #aaa;}
+
+/* --- pay-discount-info --- */
+.pay-discount-info-list > li{display: flex; justify-content: space-between; padding: 20px 20px 20px 0;}
+.pay-discount-info-list > li + li{border-top: 1px solid #ccc;}
+.pay-discount-info-list .info-discount-tit{width: 134px; font-weight: 700; font-size: 18px;}
+.pay-discount-info-list .info-discount-price{font-weight: 700; font-size: 18px;}
+.pay-discount-info-list .info-discount-coupon-wrap{margin: 0 auto 0 0;}
+.pay-discount-info-list .info-discount-coupon-wrap .radio-box-wrap{margin: 0 0 32px;}
+.pay-discount-info-list .info-discount-coupon-wrap .coupon-desc{font-weight: 500; font-size: 18px;}
+.pay-discount-info-list .info-discount-coupon-wrap .coupon-desc .color{color: #385CE2;}
+.pay-discount-info-list .info-discount-coupon-wrap .coupon-apply-desc{position: relative; margin: 0 0 16px; padding: 0 0 0 28px;}
+.pay-discount-info-list .info-discount-coupon-wrap .coupon-apply-desc::before{content: ""; position: absolute; top: 50%; left: 0; width: 17px; height: 17px; background: url("../img/Icon\ check-circle.svg") no-repeat center top / contain; transform: translateY(-50%);}
+.pay-discount-info-list .info-discount-coupon-wrap .coupon-apply-list{}
+.pay-discount-info-list .info-discount-coupon-wrap .coupon-apply-list li{font-weight: 400; font-size: 16px; color: #777;}
+.pay-discount-info-list .info-discount-coupon-wrap .coupon-apply-list li + li{margin: 8px 0 0;}
+.pay-discount-info-list .info-discount-coupon-wrap .coupon-apply-list li::before{content: "┗"; margin: 0 10px 0 0;}
+
+.pay-discount-info-list .info-discount-point-wrap{margin: 0 auto 0 0;}
+.pay-discount-info-list .info-discount-point-wrap input{width: 190px; height: 44px; margin: 0 8px 0 0; padding: 0 16px; border: 1px solid #ccc; border-radius: 2px; text-align: right;}  
+.pay-discount-info-list .info-discount-point-wrap .point-all-btn{width: 140px; height: 44px; border-radius: 2px; background-color: #666; font-weight: 500; font-size: 15px; color: #fff; transition: all 0.2s;}
+.pay-discount-info-list .info-discount-point-wrap .point-all-btn:hover{opacity: 0.8;}
+.pay-discount-info-list .info-discount-point-wrap .info-discount-point-desc{margin: 12px 0 0; font-weight: 500; color: #777;}
+.pay-discount-info-list .info-discount-point-wrap .info-discount-point-desc .color{margin: 0 0 0 3px; color: #385CE2;}
+
+.pay-discount-info .info-discount-sum{display: flex; align-items: center; justify-content: space-between; padding: 24px 20px; background-color: #F7F8FA;}
+.pay-discount-info .info-discount-sum-tit{font-weight: 700; font-size: 18px;}
+.pay-discount-info .info-discount-sum-price{font-weight: 700; font-size: 24px; line-height: 1; color: #385CE2;}
+
+/* --- pay-method-info --- */
+.pay-method-info .pay-basic-sec-header{display: flex; align-items: center; justify-content: space-between; padding: 0 0 14px 0; border-bottom: 2px solid #333;}
+.pay-method-info .pay-basic-sec-tit{padding: 0; border: 0;}
+
+.pay-method-info-list .basic-radio-box label{font-weight: 700; font-size: 18px; line-height: 20px;}
+.pay-method-info-list > li{padding: 20px 0; border-bottom: 1px solid #ccc;}
+.pay-method-info-list li.pay-method-card{padding: 20px 0;}
+.pay-method-info-list li.pay-method-card .pay-method-desc{display: inline-block; margin: 0 0 0 8px; line-height: 20px; color: #777; transform: translateY(1px);}
+
+.pay-method-card-list .add-card{display: block; width: 244px; height: 154px; border: 1px dashed #ccc; border-radius: 10px;}
+
+/* pay-card-swiper */
+.pay-card-swiper{overflow: hidden; width: 642px;}
+.pay-card-swiper .swiper-slide{width: 244px;}
+.pay-card-swiper .card-img{overflow: hidden; width: 244px; height: 154px; border-radius: 10px;}
+.pay-card-swiper .card-img img{width: 100%; height: 100%;}
+.pay-card-swiper .card-active-box{}
+.pay-card-swiper .card-txt-wrap{}
+.pay-card-swiper .card-txt-wrap .card-sort{}
+.pay-card-swiper .card-txt-wrap .card-name{}
+.pay-card-swiper .card-txt-wrap .bubble{}
+.pay-card-swiper .custom-select-box{}

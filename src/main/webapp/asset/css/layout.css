@@ -202,7 +202,7 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 .util-menu .util-list .util-link .cart-num i{ font-size: 10px; color: #fff; line-height: 1.2;}
 
 /* fix header */
-#header.fixed {position: fixed; top: 0; z-index: 3;}
+#header.fixed {position: fixed; top: 0; z-index: 300;}
 #header.fixed .top-area {display: none;}
 #header.fixed .nav-area {padding: 15px 0;}
 #header.fixed ~ #main {padding: 145px 0 0 0;}
@@ -213,6 +213,7 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-
 @media screen and (max-width: 1280px){
 	.category-menu .category-list .category-link a {width: 6vw; min-width: 52px;}
 }
+
 @media screen and (max-width: 767px){
 	/* top-area */
 	#header {border-bottom: none; box-shadow: 0px 1px 10px 1px var(--sub-color04);}

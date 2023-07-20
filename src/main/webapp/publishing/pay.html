@@ -4,282 +4,445 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../asset/css/swiper.min.css">
     <link rel="stylesheet" href="../asset/css/common.css">
+    <link rel="stylesheet" href="../asset/css/pay.css">
+    <!-- <link rel="stylesheet" href="../asset/css/access.css"> -->
     <script src="../asset/js/jquery-3.6.0.min.js"></script>
     <script src="../asset/js/prefixfree.min.js"></script>
-    <script src="../asset/js/basic.js"></script>
-    <title>Octopus-Pay(일반)</title>
-    <style>
-        /* base */
-        .sec-title {font-weight: bold; font-size: 20px; margin-bottom: 2%;}
-        .pay-wrap {display: flex; justify-content: space-between;}
-        .pay-inner.detail {width: 77%;}
-        .pay-inner.last-pay {width: 20%; position: relative;}
-        .sub-title {width: 100%; font-weight: bold; font-size: 18px; background: #eee;}
-        /* 상품 (table) */
-        table, thead, tbody {width: 100%;}
-        thead tr {border-bottom: 1px solid #000;}
-        .table-wrap {display: flex; flex-wrap: wrap;}
-        .table-inner.left {width: 80%;}
-        .prd-info-wrap {display: flex; justify-content: space-between;}
-        .prd-info-wrap .thum {width: 30vw; border-radius: 10px; overflow: hidden; border: 1px solid #bbb; margin-right: 3%;}
-        .prd-info-wrap .prd-info {width: 100%; padding: 0.2%; box-sizing: border-box;}
-        .prd-info-wrap .prd-info .brand {border: 1px solid #bbb; border-radius: 5px; display: inline-block; padding: 0; font-size: 14px;}
-        .prd-info-wrap .prd-info .product {text-decoration: underline;}
-        .prd-info-wrap .prd-info .option {display: flex; flex-wrap: wrap;}
-        .price-wrap {text-align: center;}
-        .price-wrap .normal-price {text-decoration: line-through;}
-        .price-wrap .sale-price {color: red; font-weight: bold;}
-        .basic-select-box {width: 90%; margin: 0 auto;}
-        select option[value=""][disabled] {display: none;} /* select box placeholder 기능 대체 */
-        .coupon-apply {color: red; font-size: 14px; text-align: right;}
-        .coupone-apply-price {font-weight: bold; margin-left: 5px;}
-        /* 장바구니 쿠폰 테이블 */
-        .table-inner.right {width: 20%;}
-        .table-inner.right table {height: 100%;}
-        .table-inner.right tbody tr {border: none;}
-        .table-inner.right .cart-coupon-wrap {position: relative;}
-        .table-inner.right .basic-select-box {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
-        .point-num {color: red;}
-        /* 사은품 */
-        .gift-wrap .check-box-wrap {display: flex;}
-        .gift-wrap .check-box-wrap .basic-check-box {width: 200px;}
-        /* 우측 최종 결제정보/결제 버튼 */
-        .last-pay-inner {position: sticky; top: 0; left: 0;}
-        .last-pay-inner .terms {color: #bbb;}
-        .last-pay-inner .price-wrap {text-align: left;}
-        .last-pay-inner .buy-now .pay-wrap {width: 100%;}
-        .last-pay-inner .price-wrap .sale-price {font-weight: normal;}
-        .last-pay-inner .point-price {color: red;}
-        .last-pay-inner .last-price {font-weight: bold;}
-        .last-pay-inner .last-price .price-num {color: red;}
-    </style>
+    <!-- <script src="../asset/js/swiper.min.js"></script> -->
+    <script src="../asset/js/swiper-bundle.js"></script>
+    <!-- <script src="../asset/js/swiper-bundle.min.js"></script> -->
+    <script src="../asset/js/pay.js"></script>
+    <title>Octopus</title>
 </head>
 <body>
-    <div id="container" style="width:90%; margin: 0 auto;">
-        <!--========== HEADER ==========-->
-        <header id="header">
-            <h1 class="header-logo" style="display: block; width: 200px; margin: 30px auto;"><a href="/"><img src="../asset/img/logo.png" alt="Octopus_logo"><span class="hidden">Octopus</span></a></h1>
-        </header>
+    <div id="container">
+        <div class="head-area">
+            <div class="header-wrap"></div>
+            <aside id="side-header"></aside>
+            <div class="my-menu logout mo">
+                <ul class="my-menu-list">
+                    <li>
+                        <button type="button" class="menu-trigger mo" aria-label="전체메뉴 열기">
+                            <img src="../asset/img/icon-burger.svg" alt="MENU">
+                        </button>
+                        <p>MENU</p>
+                    </li>
+                    <li>
+                        <a href="#none">
+                            <img src="../asset/img/icon-heart.svg" alt="WISH">
+                            <p>WISH</p>
+                        </a>
+                    </li>
+                    <li class="on">
+                        <a href="#none">
+                            <img src="../asset/img/icon-home.svg" alt="HOME">
+                            <p>HOME</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="login.html">
+                            <img src="../asset/img/icon-person.svg" alt="MY">
+                            <p>MY</p> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none">
+                            <span class="circle"></span><p>WATCH</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <script>
+                $(function(){
+                    $('.header-wrap').load("include/header.html");
+                    $('#side-header').load("include/side-header.html");
+                });
+            </script>
+        </div>
 
         <!--========== CONTENTS ==========-->
         <main id="main" class="page-pay">
-            <section class="section sub-sec pay-sec">
-                <div class="tit-wrap pay">
-                    <h2 class="sec-title">결제하기</h2>
-                </div>
-                <div class="pay-wrap">
-                    <!--==== 좌측 정보 영역====-->
-                    <div class="pay-inner detail">
-                        <!-- 상품 -->
-                        <div class="table-wrap">
-                            <p class="sub-title">상품</p>
-                            <div class="table-inner left">
-                                <table class="common-table pay-table">
-                                    <caption class="hidden">상품 정보 테이블</caption>
-                                    <thead>
-                                        <tr>
-                                            <th>상품정보</th>
-                                            <th>금액</th>
-                                            <th>상품 쿠폰</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="prd-info-wrap">
-                                                <div class="thum"><a href=""><figure><img src="../asset/img/temp.png" alt="썸네일"></figure></a></div> 
-                                                <div class="prd-info">
-                                                    <div class="brand"><a href="#"><p>브랜드명</p></a></div>
-                                                    <div class="product"><a href="#"><p>상품명</p></a></div>
-                                                    <div class="option">
-                                                        <p>선택옵션 : </p>
-                                                        <p>선택옵션명</p>
-                                                    </div>
-                                                    <div class="quantity">
-                                                        <p>0개</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="price-wrap">
-                                                <div class="sale-price"><p>할인가</p></div>
-                                                <div class="normal-price"><p>정상가</p></div>
-                                            </td>
-                                            <td class="prd-coupon-wrap">
-                                                <div class="basic-select-box">
-                                                    <select required>
-                                                        <option value="" disabled selected>사용 가능 쿠폰 (N)</option>
-                                                        <option value="holiday">주말한정 5% (최대 3만원)</option>
-                                                        <option value="octopusweek">옥토퍼스위크 5000원</option>
-                                                        <option value="signup">회원가입 축하 10%</option>
-                                                        <option value="highfive">월요일 문어지지마요 90%</option>
-                                                    </select>
-                                                    <div class="coupon-apply">
-                                                        <p>쿠폰할인 적용 
-                                                            <span class="coupone-apply-price">-5,000원</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="prd-info-wrap">
-                                                <div class="thum"><a href=""><figure><img src="../asset/img/temp.png" alt="썸네일"></figure></a></div> 
-                                                <div class="prd-info">
-                                                    <div class="brand"><a href="#"><p>브랜드명</p></a></div>
-                                                    <div class="product"><a href="#"><p>상품명</p></a></div>
-                                                    <div class="option">
-                                                        <p>선택옵션 : </p>
-                                                        <p>선택옵션명</p>
-                                                    </div>
-                                                    <div class="quantity">
-                                                        <p>0개</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="price-wrap">
-                                                <div class="sale-price"><p>할인가</p></div>
-                                                <div class="normal-price"><p>정상가</p></div>
-                                            </td>
-                                            <td class="prd-coupon-wrap">
-                                                <div class="basic-select-box">
-                                                    <select required>
-                                                        <option value="" disabled selected>사용 가능 쿠폰 (N)</option>
-                                                        <option value="holiday">주말한정 5% (최대 3만원)</option>
-                                                        <option value="octopusweek">옥토퍼스위크 5000원</option>
-                                                        <option value="signup">회원가입 축하 10%</option>
-                                                        <option value="highfive">월요일 문어지지마요 90%</option>
-                                                    </select>
-                                                    <div class="coupon-apply">
-                                                        <p>쿠폰할인 적용 
-                                                            <span class="coupone-apply-price">-5,000원</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="table-inner right">
-                                <table class="common-table pay-table">
-                                    <caption class="hidden">장바구니 쿠폰 테이블</caption>
-                                    <thead>
-                                        <tr>
-                                            <th>장바구니 쿠폰</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="cart-coupon-wrap">
-                                                <div class="basic-select-box">
-                                                    <select required>
-                                                        <option value="" disabled selected>사용 가능 쿠폰 (N)</option>
-                                                        <option value="holiday">주말한정 5% (최대 3만원)</option>
-                                                        <option value="octopusweek">옥토퍼스위크 5000원</option>
-                                                        <option value="signup">회원가입 축하 10%</option>
-                                                        <option value="highfive">월요일 문어지지마요 90%</option>
-                                                    </select>
-                                                    <div class="coupon-apply">
-                                                        <p>쿠폰할인 적용 
-                                                            <span class="coupone-apply-price">-5,000원</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- 포인트/예치금 -->
-                        <div class="point-deposit-wrap">
-                            <p class="sub-title">포인트/예치금</p>
-                            <div class="point-wrap">
-                                <div class="input-box number">
-                                    <p>포인트</p>
-                                    <input type="text" name="number">
-                                </div>
-                                <p><span class="point-num">1,200P</span>사용 가능</p>
-                                <div class="basic-check-box">
-                                    <input type="checkbox" id="check-box01" tabindex="-1">
-                                    <label for="check-box01" tabindex="0">전액사용</label>
-                                </div>
-                            </div>
-                            <div class="deposit-wrap">
-                                <div class="input-box number">
-                                    <p>예치금</p>
-                                    <input type="text" name="number">
-                                </div>
-                                <p><span class="point-num">5,000원</span>사용 가능</p>
-                                <div class="basic-check-box">
-                                    <input type="checkbox" id="check-box02" tabindex="-1">
-                                    <label for="check-box02" tabindex="0">전액사용</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 사은품 -->
-                        <div class="gift-wrap">
-                            <p class="sub-title">사은품</p>
-                            <p class="text">000원 이상 구매 대상 사은품 증정 <span class="gift-num">N</span>개 선택가능</p>
-                            <div class="check-box-wrap">
-                                <div class="basic-check-box">
-                                    <input type="checkbox" id="check-box03" tabindex="-1">
-                                    <label for="check-box03" tabindex="0"><img src="../asset/img/temp.png" alt="">문어 1kg</label>
-                                </div>
-                                <div class="basic-check-box">
-                                    <input type="checkbox" id="check-box04" tabindex="-1" checked>
-                                    <label for="check-box04" tabindex="0"><img src="../asset/img/temp.png" alt="">문어 10kg</label>
-                                </div>
-                                <div class="basic-check-box">
-                                    <input type="checkbox" id="check-box05" tabindex="-1">
-                                    <label for="check-box05" tabindex="0"><img src="../asset/img/temp.png" alt="">문어 100kg</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--==== 우측 최종결제정보/결제버튼 fixed ====-->
-                    <div class="pay-inner last-pay">
-                        <div class="last-pay-inner">
-                            <p class="sub-title">최종 결제정보</p>
-                            <div>
-                                <div class="terms">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum incidunt vero accusamus reprehenderit veniam voluptas at fugit nihil nesciunt recusandae sed eum obcaecati voluptates dolores quod, repellat hic, tempora architecto.</div>
-                                <div class="basic-check-box">
-                                    <input type="checkbox" name="select" id="select01" tabindex="-1" class="chkgroup">
-                                    <label for="select01" tabindex="0">동의</label>
-                                </div>
-                            </div>
-                            <ul class="price-wrap">
-                                <li class="price-list total-price">
-                                    <p class="price-title">총금액</p>
-                                    <p class="price-num">4,000,000원</p>
-                                </li>
-                                <li class="price-list sale-price">
-                                    <p class="price-title">할인금액</p>
-                                    <p class="price-num deduct">-1,200,000원</p>
-                                </li>
-                                <li class="price-list point-price">
-                                    <p class="price-title">포인트 사용 할인</p>
-                                    <p class="price-num deduct">-100,000원</p>
-                                </li>
-                                <li class="price-list delivery-price">
-                                    <p class="price-title">배송비</p>
-                                    <p class="price-num">+2,500원</p>
-                                </li>
-                                <li class="price-list last-price">
-                                    <p class="price-title">최종결제금액</p>
-                                    <p class="price-num">2,800,000원</p>
-                                </li>
-                                <li class="price-list add-point">
-                                    <p class="price-num"><span class="point-num">1,200p</span>적립예정</p>
-                                </li>
-                            </ul>
-                            <button class="common-btn buy-now" onclick="location.href='#'"><span>결제하기</span></button>
-                        </div>
-                    </div>
+            <section class="section pay-tit-sec">
+                <div class="inner">
+                    <header class="order-step-header">
+                        <h2 class="order-step-tit">주문결제</h2>
+                        <ul class="order-step-list">
+                            <li >장바구니</li>
+                            <li class="on">주문&sol;결제</li>
+                            <li>주문완료</li>
+                        </ul>
+                    </header>
                 </div>
             </section>
+
+            <section class="section pay-contents-sec">
+                <div class="inner">
+                    <form>
+                        <fieldset class="pay-basic-sec pay-prd-info">
+                            <h3 class="pay-basic-sec-tit">주문상품<span class="bubble">1건</span></h3>
+                            <ul class="pay-prd-list">
+                                <li class="pay-prd-box">
+                                    <figure class="pay-prd-box-img">
+                                        <img src="../asset/img/temp/img-detail-thumb-img01.jpg" alt="">
+                                    </figure>
+                                    <div class="pay-prd-box-txt-wrap">
+                                        <p class="pay-prd-box-name"><span class="pay-prd-box-brand-name">MAC.</span>스튜디오 픽스 프로셋 &plus; 블러 웨이트리스 루스파우더 기획세트</p>
+                                        <p class="pay-prd-box-option">선택옵션 &colon; 스튜디오 픽스 프로셋 &times; 2세트</p>
+                                        <button disabled type="button" class="coupon-down-btn">다운완료</button>
+                                    </div>
+                                    <span class="pay-prd-box-quantity">1개</span>
+                                    <span class="pay-prd-box-fee">무료배송</span>
+                                    <strong class="pay-prd-box-price"><span class="original-price">40,000원</span><span class="number">20,000</span>원</strong>
+                                </li>
+                            </ul>
+                            <div class="pay-setting-change-wrap">
+                                <a href="cart.html" class="setting-change-btn">장바구니 돌아가기</a>
+                                <p class="setting-change-desc">상품의 옵션 및 수량 변경은 상품상세 또는 장바구니에서 가능합니다.</p>
+                            </div>
+                        </fieldset>
+                        <fieldset class="pay-basic-sec pay-schedule-info">
+                            <h3 class="pay-basic-sec-tit">정기배송 회차정보<span class="question-mark"></span></h3>
+                            <table class="pay-schedule-info-tl">
+                                <caption class="hidden">정기배송 회차정보</caption>
+                                <thead>
+                                    <tr class="bg">
+                                        <th>회차</th>
+                                        <th>결제일</th>
+                                        <th>결제금액</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1회차</td>
+                                        <td>2023.06.27 &lpar;화&rpar;</td>
+                                        <td><span class="number">60,000</span>원</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2회차</td>
+                                        <td>2023.07.04 &lpar;화&rpar;</td>
+                                        <td><span class="number">60,000</span>원</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3회차</td>
+                                        <td>2023.07.11 &lpar;화&rpar;</td>
+                                        <td><span class="number">58,200</span>원<span class="bubble">3%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4회차</td>
+                                        <td>2023.07.18 &lpar;화&rpar;</td>
+                                        <td><span class="number">58,200</span>원<span class="bubble">3%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5회차</td>
+                                        <td>2023.07.25 &lpar;화&rpar;</td>
+                                        <td><span class="number">58,200</span>원<span class="bubble">3%</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="pay-schedule-more-btn">더보기</button>
+                        </fieldset>
+                        <fieldset class="pay-basic-sec pay-address-info">
+                            <h3 class="pay-basic-sec-tit">배송지 정보</h3>
+                            <div class="pay-address-info-box">
+                                <strong class="address-name">우리집<span class="bubble">기본 배송지</span></strong>
+                                <p class="customer-address">서울특별시 구로구 구로동 디지털로26길 123 지플러스타워, 411호</p>
+                                <span class="customer-name">이문어</span>
+                                <span class="customer-phone">01013245678</span>
+                                <div class="custom-select-box">
+                                    <ul class="list-unstyled">
+                                        <li class="init">배송메시지를 선택해주세요.</li>
+                                        <li data-value="value 1">배송 전에 미리 연락 부탁드립니다.</li>
+                                        <li data-value="value 2">부재시 문앞에 놓아주세요.</li>
+                                        <li data-value="value 3">부재시 경비실에 맡겨주세요.</li>
+                                        <li data-value="value 4">택배함에 넣어주세요.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button type="button" class="address-change-btn">배송지 변경</button>
+                        </fieldset>
+                        <fieldset class="pay-basic-sec pay-customer-info">
+                            <h3 class="pay-basic-sec-tit">주문자 정보</h3>
+                            <ul class="pay-customer-info-list">
+                                <li>
+                                    <label for="order-name" class="input-tit necessary">이름</label>
+                                    <input type="text" class="order-name" id="order-name">
+                                </li>
+                                <li>
+                                    <label for="mobile" class="input-tit necessary">휴대폰</label>
+                                    <input type="number" name="mobile" id="mobile" maxlength = "11" class="mobile">
+                                </li>
+                                <li>
+                                    <label for="mail" class="input-tit">이메일</label>
+                                    <div class="mail-wrap">
+                                        <input type="text" id="mail" class="mail">
+                                        <span class="at">&commat;</span>
+                                        <div class="custom-select-box">
+                                            <ul class="list-unstyled">
+                                                <li class="init">선택</li>
+                                                <li data-value="value 1">naver.com</li>
+                                                <li data-value="value 2">gmail.com</li>
+                                                <li data-value="value 3">daum.com</li>
+                                                <li data-value="value 4">직접 입력</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <fieldset class="pay-basic-sec pay-discount-info">
+                            <h3 class="pay-basic-sec-tit">할인혜택</h3>
+                            <ul class="pay-discount-info-list">
+                                <li>
+                                    <strong class="info-discount-tit">정기배송 할인</strong>
+                                    <span class="info-discount-price"><span class="number">&minus; 26,500</span>원</span>
+                                </li>
+                                <li class="coupon">
+                                    <strong class="info-discount-tit">보유쿠폰</strong>
+                                    <div class="info-discount-coupon-wrap">
+                                        <div class="radio-box-wrap">
+                                            <div class="basic-radio-box">
+                                                <input type="radio" id="coupon01" name="coupon" value="01" checked="">
+                                                <label for="coupon01"><span>최대 할인 추천</span></label>
+                                            </div>
+                                            <div class="basic-radio-box">
+                                                <input type="radio" id="coupon02" name="coupon" value="02">
+                                                <label for="coupon02"><span>직접선택</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="coupon-desc">
+                                            <p class="coupon-apply-desc">총 5장의 쿠폰 중 <span class="color">2장</span>의 쿠폰이 적용되었습니다. </p>
+                                            <ul class="coupon-apply-list">
+                                                <li>상품쿠폰 &colon; 3,000원&lpar;1만원이상 구매시 적용 가능&rpar;</li>
+                                                <li>문어몰 프로모션 할인쿠폰 &colon; 2,000원&lpar;1만원이상 구매시 적용 가능&rpar;</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <span class="info-discount-price"><span class="number">&minus; 5,000</span>원</span>
+                                </li>
+                                <li class="point">
+                                    <strong class="info-discount-tit">포인트</strong>
+                                    <div class="info-discount-point-wrap">
+                                        <input type="number" name="point" id="point" class="info-discount-point-input">
+                                        <button type="button" class="point-all-btn">전액 사용</button>
+                                        <p class="info-discount-point-desc">사용 가능 포인트 <span class="color">1,500P</span></p>
+                                    </div>
+                                    <!-- <span class="info-discount-price">&minus; 26,500원</span> -->
+                                </li>
+                            </ul>
+                            <div class="info-discount-sum">
+                                <strong class="info-discount-sum-tit">총 할인 금액</strong>
+                                <span class="info-discount-sum-price"><span class="number">&minus; 31,500</span>원</span>
+                            </div>
+                        </fieldset>
+                        <fieldset class="pay-basic-sec pay-method-info">
+                            <div class="pay-basic-sec-header">
+                                <h3 class="pay-basic-sec-tit">결제수단</h3>
+                                <div class="basic-check-box">
+                                    <input type="checkbox" id="pay-method-check" tabindex="-1">
+                                    <label for="pay-method-check" tabindex="0">선택한 결제수단을 다음 결제시 사용</label>
+                                </div>
+                            </div>
+                            <ul class="pay-method-info-list">
+                                <li class="pay-method-card">
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="method01" name="method" checked="">
+                                        <label for="method01"><span>신용카드</span></label>
+                                        <p class="pay-method-desc">정기배송은 &quot;간편결제카드등록&quot;이후 이용하실 수 있습니다.</p>
+                                    </div>
+                                    <div class="pay-method-card-list">
+                                        <div class="add-card">
+                                            <a href="javascript:;">
+                                                결제카드 추가
+                                            </a>
+                                        </div>
+                                        <div class="swiper mySwiper pay-card-swiper">
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide">
+                                                    <figure class="card-img">
+                                                        <img src="../asset/img/temp/img-pay-cart01.png" alt="토스 신용카드">
+                                                    </figure>
+                                                    <div class="card-active-box">
+                                                        <div class="card-txt-wrap">
+                                                            <span class="card-sort">신용</span>
+                                                            <span class="card-name">토스뱅크 &lpar;0011&rpar;</span>
+                                                            <span class="bubble recent">최근 결제카드</span>
+                                                        </div>
+                                                        <div class="custom-select-box">
+                                                            <ul class="list-unstyled">
+                                                                <li class="init">일시불</li>
+                                                                <li data-value="value 1">2개월 무이자</li>
+                                                                <li data-value="value 2">3개월 무이자</li>
+                                                                <li data-value="value 3">4개월</li>
+                                                                <li data-value="value 4">5개월</li>
+                                                                <li data-value="value 5">6개월 부분 무이자</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <figure class="card-img">
+                                                        <img src="../asset/img/temp/img-pay-cart02.png" alt="토스 신용카드">
+                                                    </figure>
+                                                    <div class="card-active-box">
+                                                        <div class="card-txt-wrap">
+                                                            <span class="card-sort">체크</span>
+                                                            <span class="card-name">신한카드 &lpar;4201&rpar;</span>
+                                                        </div>
+                                                        <div class="custom-select-box">
+                                                            <ul class="list-unstyled">
+                                                                <li class="init">일시불</li>
+                                                                <li data-value="value 1">2개월 무이자</li>
+                                                                <li data-value="value 2">3개월 무이자</li>
+                                                                <li data-value="value 3">4개월</li>
+                                                                <li data-value="value 4">5개월</li>
+                                                                <li data-value="value 5">6개월 부분 무이자</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <figure class="card-img">
+                                                        <img src="../asset/img/temp/img-pay-cart03.png" alt="토스 신용카드">
+                                                    </figure>
+                                                    <div class="card-active-box">
+                                                        <div class="card-txt-wrap">
+                                                            <span class="card-sort">신용</span>
+                                                            <span class="card-name">국민카드 &lpar;6002&rpar;</span>
+                                                        </div>
+                                                        <div class="custom-select-box">
+                                                            <ul class="list-unstyled">
+                                                                <li class="init">일시불</li>
+                                                                <li data-value="value 1">2개월 무이자</li>
+                                                                <li data-value="value 2">3개월 무이자</li>
+                                                                <li data-value="value 3">4개월</li>
+                                                                <li data-value="value 4">5개월</li>
+                                                                <li data-value="value 5">6개월 부분 무이자</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-button-next"></div>
+                                            <div class="swiper-button-prev"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="pay-method-account">
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="method02" name="method">
+                                        <label for="method02"><span>계좌 간편결제</span></label>
+                                    </div>
+                                </li>
+                                <li class="pay-method-common">
+                                    <div class="basic-radio-box">
+                                        <input type="radio" id="method03" name="method">
+                                        <label for="method03"><span>일반결제</span></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <fieldset class="pay-basic-sec pay-check-info">
+                            <h3 class="pay-basic-sec-tit">정기배송 및 결제대행 서비스 이용약관<span class="bubble">필수</span></h3>
+                            <div class="check-box-wrap">
+                                <div class="basic-check-box all-check-box">
+                                    <input type="checkbox" name="selectAll" id="pay-check-all" tabindex="-1">
+                                    <label for="pay-check-all" tabindex="0">모두 동의합니다.</label>
+                                </div>
+                                <ul class="chkgroup-list">
+                                    <li>
+                                        <div class="basic-check-box">
+                                            <input type="checkbox" name="select" id="chk01" tabindex="-1" class="chkgroup">
+                                            <label for="chk01" tabindex="0">개인정보 수집 이용 및 제 3자 제공 동의 <span class="small">&lpar;필수&rpar;</span></label>
+                                        </div>
+                                        <button type="button" class="more-btn">자세히</button>
+                                    </li>
+                                    <li>
+                                        <div class="basic-check-box">
+                                            <input type="checkbox" name="select" id="chk02" tabindex="-1" class="chkgroup">
+                                            <label for="chk02" tabindex="0">결제대행 서비스 이용약관 동의 <span class="small">&lpar;필수&rpar;</span></label>
+                                        </div>
+                                        <button type="button" class="more-btn">자세히</button>
+                                    </li>
+                                    <li>
+                                        <div class="basic-check-box">
+                                            <input type="checkbox" name="select" id="chk03" tabindex="-1" class="chkgroup">
+                                            <label for="chk03" tabindex="0">정기배송 이용약관 <span class="small">&lpar;필수&rpar;</span></label>
+                                        </div>
+                                        <button type="button" class="more-btn">자세히</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </fieldset>
+
+                        <!-- 사이드 최종 결제금액 박스-->
+                        <fieldset class="pay-aside-info regular-delivery skeleton-img-box">
+                            <div class="skeleton-loading"></div>
+                            <div class="pay-aside-price-box">
+                                <strong class="pay-total-price-tit">최종 결제금액</strong>
+                                <dl class="total-price">
+                                    <dt>총 금액</dt>
+                                    <dd>90,000 원</dd>
+                                </dl>
+                                <dl class="total-discount">
+                                    <dt>
+                                        <span>총 할인금액</span>
+                                        <span class="question-mark"></span>
+                                    </dt>
+                                    <dd>&minus; 31,500 원</dd>
+                                </dl>
+                                <dl class="total-delivery-fee">
+                                    <dt>총 배송비</dt>
+                                    <dd>무료배송</dd>
+                                </dl>
+                                <dl class="total-delivery-period">
+                                    <dt>배송주기</dt>
+                                    <dd>1주에 한 번</dd>
+                                </dl>
+                                <dl class="total-delivery-times">
+                                    <dt>이용횟수</dt>
+                                    <dd>5회</dd>
+                                </dl>
+                                <dl class="total-delivery-date">
+                                    <dt>첫 배송 희망일</dt>
+                                    <dd>2023년 7월 18일 &lpar;화&rpar;</dd>
+                                </dl>
+                                <dl class="total-price-result">
+                                    <dt>결제 예정 금액</dt>
+                                    <dd><span class="sum">60,000</span>원</dd>
+                                </dl> 
+                                <dl class="total-point-accumulate">
+                                    <dt>적립 예정 포인트</dt>
+                                    <dd>1,004P</dd>
+                                </dl>
+                            </div>
+                            <div class="basic-check-box">
+                                <input type="checkbox" id="pay-necessary-check" tabindex="-1">
+                                <label for="pay-necessary-check" tabindex="0">&lbrack;필수&rbrack; 주문하실 상품 및 결제, 주문정보 확인하였으며, 이에 동의합니다.</label>
+                            </div>
+                            <button type="button" class="pay-complete-btn">결제하기</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+            
         </main>
+
+        <!--========== FOOTER ==========-->
+        <footer id="footer">
+            <div class="copyright">
+                &copy; company. ALL RIGHTS RESERVED.
+            </div>
+        </footer>
+        <div id="top-btn">
+            <a href="javascript:;" tabindex="0" title="-"></a>
+        </div>
     </div>
+
+    <div class="popup-group">
+        
+    </div>
+    <script src="../asset/js/basic.js"></script>
 </body>
 </html>
