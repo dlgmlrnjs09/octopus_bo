@@ -12,26 +12,38 @@
 .page-statistics section { width: 100%; margin-bottom: 30px; padding: 16px 0 20px; border-radius: 6px; border: 1px solid #E2E2EE; background-color: #fff; overflow: hidden; }
 
 /*========== Search Filter ==========*/
-.section.search-filter-sec { padding: 0; background-color: #fff;}
-.search-filter-list li{ display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: stretch; min-height: 44px; border-bottom: 1px solid #E2E2EE; }
-.search-filter-list li:last-child{ border-bottom: 0;}
-.search-filter-list li .tit{ /*display: flex; align-items: center;*/ width: 140px; padding: 17.5px 0 17.5px 20px; border-right: 1px solid #E2E2EE; background-color: #FBFBFB; font-size: 15px; font-weight: 600; color: #555; line-height: 1.2; }
-.search-filter-list li .tit .tooltip-con { top: 48px; left: 20px;}
-.search-filter-list li .filter-box-wrap{ display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: center; gap: 6px; width: calc(100% - 140px); padding-left: 14px; font-size: 14px;}
-.search-filter-list li .filter-box-wrap input, .search-filter-list li .filter-box-wrap select{ height: 34px;}
-.search-filter-list li .filter-box-wrap .btnDate{ display: block; min-width: 44px; padding: 4.5px; border-radius: 2px; background-color: #F3F3F9; font-size: 13px; color: #777; line-height: 1; text-align: center;}
-.search-filter-list li .filter-box-wrap .btnDate.selected{ background-color: #DCD7F0; color: #6854A7;}
-.search-filter-list li .filter-box-wrap .common-btn.white { min-width: 86px;}
-.search-filter-list li .filter-box-wrap .datepicker-box-wrap {margin-left: 4px;}
-.search-filter-list li .filter-box-wrap .datepicker-box-wrap .input-box {width: 130px;}
-.search-filter-list li.category .filter-box-wrap select{ min-width: 140px; }
-.search-filter-list li.product .filter-box-wrap select{ min-width: 120px; }
-.search-filter-list li.product .filter-box-wrap .input-box{ width: 340px; }
-.search-filter-list li.price .filter-box-wrap .input-box{ width: 120px; }
-.search-filter-list li.filter-btn{justify-content: center; padding: 18px 0;}
-.search-filter-list li.filter-btn .common-btn { height: 40px;}
+.section.search-filter-sec { padding: 0 0 18px; background-color: #fff;}
+.search-filter-list > li{ display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: stretch; min-height: 44px; border-bottom: 1px solid #E2E2EE; }
+.search-filter-list > li .tit{ /*display: flex; align-items: center;*/ width: 140px; padding: 17.5px 0 17.5px 20px; border-right: 1px solid #E2E2EE; background-color: #FBFBFB; font-size: 15px; font-weight: 600; color: #555; line-height: 1.2; }
+/* .search-filter-list > li .tit .tooltip-con { top: 48px; left: 20px;} */
+.search-filter-list > li .filter-box-wrap{ display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: center; gap: 6px; width: calc(100% - 140px); padding-left: 14px; font-size: 14px;}
+.search-filter-list > li .filter-box-wrap input, .search-filter-list > li .filter-box-wrap select{ height: 34px;}
+.search-filter-list > li .filter-box-wrap .btnDate{ display: block; min-width: 46px; padding: 5.5px; border-radius: 2px; background-color: #F3F3F9; font-size: 13px; color: #777; line-height: 1; text-align: center;}
+.search-filter-list > li .filter-box-wrap .btnDate.selected{ background-color: #DCD7F0; color: #6854A7;}
+.search-filter-list > li .filter-box-wrap .common-btn.white { min-width: 86px;}
+.search-filter-list > li .filter-box-wrap .datepicker-box-wrap {margin-left: 4px;}
+.search-filter-list > li .filter-box-wrap .datepicker-box-wrap .input-box {width: 130px;}
+.search-filter-list > li.category .filter-box-wrap select{ min-width: 140px; }
+.search-filter-list > li.product .filter-box-wrap select{ min-width: 120px; }
+.search-filter-list > li.product .filter-box-wrap .input-box{ width: 340px; }
+.search-filter-list > li.price .filter-box-wrap .input-box{ width: 120px; }
+.search-filter-list > li.filter-btn{ justify-content: center; padding: 18px 0 0; border-bottom: 0;}
+.search-filter-list > li.filter-btn .common-btn { height: 40px;}
+.search-filter-list > li.password .input-box-wrap{ width: 160px;}
+.filter-box-wrap .saved-form-box {padding: 0 24px;}
+.filter-box-wrap .saved-form-box p{ font-weight: 600; color: #666;}
+.filter-box-wrap .saved-form-box .form-list{ width: 250px; max-height: 100px; margin-top: 4px; padding: 10px; border: 1px solid #D5D5E1; border-radius: 2px; overflow-y: auto;}
+.filter-box-wrap .saved-form-box .form-list::-webkit-scrollbar { width: 4px; background-color: #E5E5E5; border-radius: 6px;} 
+.filter-box-wrap .saved-form-box .form-list::-webkit-scrollbar-thumb { background-color: var(--pupple-color01); border-radius: 6px; } 
+.filter-box-wrap .saved-form-box .form-list::-webkit-scrollbar-track { background-color: #E5E5E5; border-radius: 6px;} 
+.filter-box-wrap .saved-form-box .form-list li{ margin-bottom: 10px;}
+.filter-box-wrap .saved-form-box .form-list li:last-child{ margin-bottom: 0;}
+
 /* vertical */
-/* .search-filter-list.vertical li .radio-box-wrap { flex-flow: column wrap; align-items: flex-start; gap: 12px; padding: 10px 0 10px 14px;} */
+.search-filter-list.vertical li .radio-box-wrap,
+.search-filter-list.vertical li .check-box-wrap { flex-flow: column wrap; align-items: flex-start; gap: 12px; padding: 10px 0 10px 14px;}
+
+.search-filter-list ~ .common-table-bottom { padding: 0 20px;}
 
 /*========== Rank Sales Prd ==========*/
 .rank-sales-prd-sec .sec-title-wrap {padding: 0 20px;}

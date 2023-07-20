@@ -195,3 +195,37 @@ $(function () {
         });
     }
 });
+
+/*========== Radio ~ Div show/hide ==========*/
+$(document).ready(function () {
+    function addChangeListener(element, callback) {
+        $(element).on("change", callback);
+    }
+
+    function setupShowHideElements(group) {
+        const triggerElements = $(`.show-hide-radio[data-group='${group}'] .basic-radio-box input[type='radio']`);
+        const targets = $(`.show-hide-radio[data-group='${group}'] .show-hide-div`);
+
+        $(triggerElements).each(function () {
+            addChangeListener(this, function () {
+                const otherTargets = $(`.show-hide-radio[data-group='${group}'] .show-hide-div:not([data-target='${$(this).attr("data-target")}'])`);
+                targets.hide();
+                $(this.getAttribute("data-target")).show();
+            });
+        });
+
+        // 초기 상태 설정 - 첫 번째로 checked 되어 있는 요소의 대상 요소 보여주기
+        const checkedElement = triggerElements.filter(":checked");
+        if (checkedElement.length > 0) {
+            targets.hide();
+            $(checkedElement.attr("data-target")).show();
+            console.log(triggerElements);
+            console.log(checkedElement);
+        }
+    }
+
+    setupShowHideElements("form-radio-group");
+    setupShowHideElements(".");
+    setupShowHideElements(".");
+    // 필요한 만큼 더 그룹에 대해 호출할 수 있습니다.
+});
