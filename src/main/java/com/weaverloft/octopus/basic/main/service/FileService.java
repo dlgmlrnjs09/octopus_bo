@@ -3,6 +3,7 @@ package com.weaverloft.octopus.basic.main.service;
 import com.weaverloft.octopus.basic.main.vo.FileVo;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -32,4 +33,6 @@ public interface FileService {
 	public List<Map<String, Object>> selectFileInfoList(FileVo fileVo);
 
 	public int deleteFileInfo(int fileSeq);
+
+	public Map<String, Object> getFileObject(HttpServletRequest request, int fileSeq);
 }

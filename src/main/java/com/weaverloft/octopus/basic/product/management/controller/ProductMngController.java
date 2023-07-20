@@ -117,30 +117,6 @@ public class ProductMngController {
         return validateMap;
     }
 
-    @PostMapping(value = "/image-upload")
-    @ResponseBody
-    public Map<String, Object> image(MultipartHttpServletRequest request) throws Exception {
-        Map<String, Object> resultMap = new HashMap<>();
-        int isSuccessUpload = 1;
-        String realPath = "/asset/upload/img";
-
-        try {
-            MultipartFile uploadFile = request.getFile("upload");
-            FileVo fileVo = fileService.saveFileProduct(uploadFile, request.getServletContext().getRealPath(realPath));
-            fileVo.setIsUse(false);
-            fileService.insertFileInfo(fileVo);
-
-            String url = "http://localhost:8999" + realPath + fileVo.getFilePath();
-            resultMap.put("url", url);
-            resultMap.put("fileName", fileVo.getOrginFileNm());
-        } catch (Exception e) {
-            isSuccessUpload = 0;
-        }
-
-        resultMap.put("uploaded", isSuccessUpload);
-        return resultMap;
-    }
-
 //    @GetMapping("/select-category-popup")
 //    public String showProductCategoryPopup() {
 //        return "";

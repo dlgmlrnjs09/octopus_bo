@@ -8,14 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author note-gram-015
@@ -110,5 +108,36 @@ public class FileServiceImpl implements FileService{
 		return datePath.toString();
 	}
 
+	/**
+	 * 파일 객체와 파일명을 맵에 담아 리턴
+	 * @param request
+	 * @param fileSeq
+	 * @return
+	 */
+	public Map<String, Object> getFileObject(HttpServletRequest request, int fileSeq) {
+
+		Map<String, Object> resultMap = new HashMap<>();
+
+		try {
+
+			FileVo fileVo = new FileVo();
+			fileVo.setFileSeq(fileSeq);
+
+			Map<String, Object> fileInfo = fileDao.selectFileInfo(fileVo);
+			String realPath = request.getServletContext().getRealPath("asset/upload/img");
+			String filePath = (String) fileInfo.get("file_path");
+			String originName = (String) fileInfo.get("file_org_name");
+
+			File file = new File(realPath + filePath);
+
+			resultMap.put("originName", originName);
+			resultMap.put("file", file);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultMap;
+	}
 
 }

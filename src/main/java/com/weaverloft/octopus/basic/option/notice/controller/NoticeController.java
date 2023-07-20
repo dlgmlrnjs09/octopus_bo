@@ -139,6 +139,7 @@ public class NoticeController {
 
         Map<String, Object> resultMap = new HashMap<>();
         int isSuccess = 0;
+        int noticeSeq = 0;
 
         try {
 
@@ -155,12 +156,15 @@ public class NoticeController {
             switch (flag) {
                 case "insert":
                     isSuccess = noticeService.insertNotice(paramMap);
+                    noticeSeq = (int) paramMap.get("noticeSeq");
                     break;
                 case "update":
                     isSuccess = noticeService.updateNotice(paramMap);
+                    noticeSeq = Integer.parseInt((String) paramMap.get("noticeSeq"));
                     break;
                 case "delete":
                     isSuccess = noticeService.deleteNotice(paramMap);
+                    noticeSeq = Integer.parseInt((String) paramMap.get("noticeSeq"));
                     break;
             }
 
@@ -182,7 +186,6 @@ public class NoticeController {
 
                         FileVo fileVo = new FileVo();
                         if (file.getSize() > 0) {
-                            int noticeSeq = (int) paramMap.get("noticeSeq");
                             fileVo = fileService.saveFileProduct(file, filePath);
 
                             fileVo.setTypeDepth1("notice");
@@ -199,7 +202,7 @@ public class NoticeController {
 
                     for(String seq : delSeqArr) {
                         int fileSeq = Integer.parseInt(seq);
-                        Map<String, Object> fileMap = getFileObject(request, fileSeq);
+                        Map<String, Object> fileMap = fileService.getFileObject(request, fileSeq);
                         File file = (File) fileMap.get("file");
 
                         file.delete();
@@ -219,61 +222,6 @@ public class NoticeController {
         }
 
         return resultMap;
-    }
-
-    @ResponseBody
-    @PostMapping("/image")
-    public Map<String, Object> iamgeUpload(MultipartHttpServletRequest request) throws Exception {
-
-        Map<String, Object> resultMap = new HashMap<>();
-        int successCnt = 1;
-        String realPath = "/asset/upload/img";
-
-        try {
-            MultipartFile uploadFile = request.getFile("upload");
-            FileVo fileVo = fileService.saveFileProduct(uploadFile, request.getServletContext().getRealPath(realPath));
-            fileVo.setIsUse(false);
-            fileService.insertFileInfo(fileVo);
-
-            String url = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort() + realPath + fileVo.getFilePath();
-
-            resultMap.put("url", url);
-            resultMap.put("fileName", fileVo.getOrginFileNm());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            successCnt = 0;
-        }
-
-        resultMap.put("uploaded", successCnt);
-
-        return resultMap;
-    }
-
-    @RequestMapping("/downloadFile/{fileSeq}")
-    public void downloadFile(@PathVariable int fileSeq, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        try {
-
-            Map<String, Object> fileMap = getFileObject(request, fileSeq);
-            File file = (File) fileMap.get("file");
-            String originName = (String) fileMap.get("originName");
-            originName = new String(originName.getBytes("utf-8"), "iso-8859-1"); //파일명에 한글이 있는 경우 처리
-
-            //다운로드 헤더 생성
-            response.setHeader("Content-Type", "application/octet-stream;");
-            response.setHeader("Content-Disposition", "attachment;filename=\"" + originName + "\";");
-            response.setHeader("Content-Transfer-Encoding", "binary;");
-            response.setContentLength((int) file.length());
-            response.setHeader("Pragma", "no-cache;");
-            response.setHeader("Expires", "-1;");
-
-            FileUtils.copyFile(file, response.getOutputStream());
-            response.getOutputStream().close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @ResponseBody
@@ -298,31 +246,5 @@ public class NoticeController {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    private Map<String, Object> getFileObject(HttpServletRequest request, int fileSeq) {
-
-        Map<String, Object> resultMap = new HashMap<>();
-
-        try {
-
-            FileVo fileVo = new FileVo();
-            fileVo.setFileSeq(fileSeq);
-
-            Map<String, Object> fileInfo = fileService.selectFileInfo(fileVo);
-            String realPath = request.getServletContext().getRealPath("asset/upload/img");
-            String filePath = (String) fileInfo.get("file_path");
-            String originName = (String) fileInfo.get("file_org_name");
-
-            File file = new File(realPath + filePath);
-
-            resultMap.put("originName", originName);
-            resultMap.put("file", file);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return resultMap;
     }
 }

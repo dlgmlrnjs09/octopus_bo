@@ -89,7 +89,7 @@
                                                     <c:forEach items="${fileList}" var="fileList">
                                                         <div class="input-box text">
                                                             <span class="file_input">
-                                                                <a href="/notice/downloadFile/${fileList.seq}" style="display:inline;" class="exist-files" data-seq="${fileList.seq}">${fileList.file_org_name}</a>
+                                                                <a href="/file/download/${fileList.seq}" style="display:inline;" class="exist-files" data-seq="${fileList.seq}">${fileList.file_org_name}</a>
                                                             </span>
                                                             <c:if test="${flag ne 'select'}">
                                                                 <button type="button" class="common-btn mini-del" onclick="removeExistFile(this, ${fileList.seq});" class="btns del_btn"><span>X</span></button>
@@ -148,7 +148,7 @@
 </main>
 
 <script>
-    if ('${flag}' != 'select') var editor = createCkEditor('/notice/image');
+    if ('${flag}' != 'select') var editor = createCkEditor('/file/image-upload');
 
     function submitData(FLAG) {
 
@@ -257,7 +257,6 @@
 
         //삭제
         $('#removeBtn').on('click', function () {
-            //TODO removeFiles input 만들기
             $('.exist-files').each(function() {
                 $('#frm').append('<input type="hidden" name="removeFiles" value="'+$(this).data('seq')+'">');
             });

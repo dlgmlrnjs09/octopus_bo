@@ -512,7 +512,7 @@
 
 <script>
 
-    var editor = createCkEditor('/product/management/image-upload');
+    var editor = createCkEditor('/file/image-upload');
 
     var regType = '${regType}';
     var regTypeNm = regType === 'insert' ? '등록' : '수정';
