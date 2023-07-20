@@ -319,6 +319,11 @@ input[type="checkbox"] + label{
 	margin: 0 6px 0 0;
 	border: 1px solid #D5D5E1;
 	border-radius: 2px;
+	background-image: url("../../img/icon-check.svg");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	cursor: pointer;
 	box-sizing: border-box;
 	vertical-align: middle;
 	transform: translateY(-2px);
@@ -327,11 +332,7 @@ input[type="checkbox"] + label{
 .basic-check-box input[type="checkbox"]:checked + label::before {
 	border: none;
 	background-color: var(--pupple-color01);
-	background-image: url("http://codeloft.kr/apbos/asset/css/../img/icon-chk-on.svg");
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
-	cursor: pointer;
+	background-image: url("../../img/icon-chk-on.svg");
 }
 
 /* Select */

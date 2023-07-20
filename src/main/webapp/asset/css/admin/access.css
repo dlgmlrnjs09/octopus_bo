@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+/* Info
+   ========================================================================== */
+/**
+ * 1. Writer: Jiyeon Song. (Weaverloft Corp.)
+ * 2. Production Date: 2023-04-06
+ * 3. Client: Weaverloft UX
+ */
+
+/*========== Common ==========*/
+#container.admin.login { padding: 0; }
+.error {display: none; margin: 6px 0 0 10px; font-size: var(--small-text-size); color: var(--red-text-color);}
+
+/*========== Login ==========*/
+#container.admin.login #main{ display: flex; justify-content: center; align-items: center; width: 100%; height: 100vh;}
+.login-sec { width: 520px; margin: 0 auto; padding: 60px; background-color: #fff;}
+.login-logo-box { display: flex; flex-flow: column wrap; align-items: center; justify-content: center;}
+.login-logo-box .logo { width: 50px;}
+.login-txt { margin: 20px auto 48px;}
+.login-txt p{ font-size: 18px; color: #444; line-height: 28px; text-align: center;}
+
+.login-form-wrap .input-box-wrap .input-box.text { margin-bottom: 16px;}
+.login-form-wrap .input-box-wrap input{ height: 52px; padding: 8px 20px; font-size: 18px;}
+.login-form-wrap .input-box-wrap input::placeholder{ font-size: 18px; }
+.login-form-wrap .input-box-wrap .input-box.password .eye-btn { top: 6px; width: 40px; height: 40px; }
+
+.login-middle-wrap { margin-top: 10px;}
+.login-middle-wrap .basic-check-box input[type="checkbox"] + label { color: #727272;}
+
+.input-box.submit.login input{ margin: 30px auto 12px; padding: 20px 16px; background-color: var(--pupple-color01); font-size: 18px; font-weight: 600; }
+
+.login-bottom-wrap .find-wrap { display: flex; flex-flow: row nowrap; align-items: center; justify-content: center; gap: 18px;}
+.login-bottom-wrap .find-wrap li a { color: #727272; transition: color 300ms;}
+.login-bottom-wrap .find-wrap li a:hover { color: #333; transition: color 300ms; }
+.login-bottom-wrap .find-wrap li.mid-circle span { display: inline-block; width: 2px; height: 2px; border-radius: 50%; background-color: #727272; vertical-align: middle;}
