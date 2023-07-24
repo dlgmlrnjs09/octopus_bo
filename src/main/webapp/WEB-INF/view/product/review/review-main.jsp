@@ -13,12 +13,16 @@
 
         // 리뷰 리스트 조회
         function getReviewList(page) {
+            let pageSize = $("#pageSize").val();
             const pageParam = Number(new URLSearchParams(location.search).get('curPage'));
+            const pageSizeParam = Number(new URLSearchParams(location.search).get('pageSize'));
             page = (page) ? page : ((pageParam) ? pageParam : 1);
+            pageSize = (pageSize) ? pageSize: ((pageSizeParam) ? pageSizeParam : 10);
 
             const form = document.getElementById('frmDefault');
             let params = {
                 'curPage' : page,
+                'pageSize' : pageSize,
                 'startDate' : form.startDate.value,
                 'endDate' : form.endDate.value,
                 'searchType' : form.searchType.value,

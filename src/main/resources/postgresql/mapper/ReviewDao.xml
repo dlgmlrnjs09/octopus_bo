@@ -23,7 +23,7 @@
                         AND UPPER(p.product_name) LIKE '%'||UPPER(#{searchKeyword})||'%'
                     </if>
                     <if test="searchType == 'memberNm' ">
-                        AND UPPER(m.member_nm) LIKE '%'||UPPER(#{searchKeyword})||'%'
+                        AND UPPER(r.member_nm) LIKE '%'||UPPER(#{searchKeyword})||'%'
                     </if>
                 </if>
 
@@ -52,12 +52,9 @@
             (SELECT file_path FROM octopus.file_info WHERE foreign_seq = r.review_seq AND type_depth1 = 'review' LIMIT 1) AS reviewImagePath
         FROM
             octopus.product_review_info r,
-            octopus.order_product_info op,
             octopus.product_info p
         WHERE
-            r.order_product_seq = op.order_product_seq
-        AND
-            op.product_seq = p.product_seq
+            r.product_seq  = p.product_seq
         <include refid="defaultWhere"/>
         ORDER BY
         <choose>
@@ -97,15 +94,9 @@
             count(*)
         FROM
             octopus.product_review_info r,
-            octopus.order_product_info op,
-            octopus.product_info p,
-            octopus.member_info m
+            octopus.product_info p
         WHERE
-            r.reg_id = m.member_id
-        AND
-            r.order_product_seq = op.order_product_seq
-        AND
-            op.product_seq = p.product_seq
+            r.product_seq = p.product_seq
         <include refid="defaultWhere"/>
     </select>
 
@@ -118,7 +109,7 @@
                 r.review_content AS reviewContent,
                 p.product_seq AS productSeq,
                 p.product_name AS productName,
-                op.option_seq AS optionCombineSeq,
+                r.option_seq AS optionCombineSeq,
                 (SELECT
                         COALESCE(array_to_string(array_agg(info.option_name || ' : ' || detail.option_detail_name), ' / '), '')
                      FROM
@@ -131,10 +122,10 @@
                             OR combine.option_detail_seq_3 = detail.option_detail_seq)
                      AND info.is_use = true
                      AND detail.is_use = true
-                     AND combine.option_combine_seq = op.option_seq
-                     AND detail.product_seq = p.product_seq) AS orderOption,
+                     AND combine.option_combine_seq = r.option_seq
+                     AND detail.product_seq = r.product_seq) AS orderOption,
                 r.reg_id AS regId,
-                m.member_nm AS memberNm,
+                r.member_nm AS memberNm,
                 r.star_point AS starPoint,
                 r.like_count AS likeCount,
                 TO_CHAR(r.reg_dt, 'yyyy-mm-dd hh24:mi:ss') as regDt,
@@ -142,15 +133,9 @@
                 r.del_dt AS delDt
             FROM
                 octopus.product_review_info r,
-                octopus.order_product_info op,
-                octopus.product_info p,
-                octopus.member_info m
+                octopus.product_info p
             WHERE
-                r.reg_id = m.member_id
-            AND
-                r.order_product_seq = op.order_product_seq
-            AND
-                op.product_seq = p.product_seq
+                r.product_seq = p.product_seq
             <include refid="defaultWhere"/>
             ORDER BY
                 r.reg_dt DESC) A
@@ -166,7 +151,7 @@
             r.review_content AS reviewContent,
             p.product_seq AS productSeq,
             p.product_name AS productName,
-            op.option_seq AS optionCombineSeq,
+            r.option_seq AS optionCombineSeq,
             (SELECT
                     COALESCE(array_to_string(array_agg(info.option_name || ' : ' || detail.option_detail_name), ' / '), '')
                  FROM
@@ -179,10 +164,10 @@
                         OR combine.option_detail_seq_3 = detail.option_detail_seq)
                  AND info.is_use = true
                  AND detail.is_use = true
-                 AND combine.option_combine_seq = op.option_seq
-                 AND detail.product_seq = p.product_seq) AS orderOption,
+                 AND combine.option_combine_seq = r.option_seq
+                 AND detail.product_seq = r.product_seq) AS orderOption,
             r.reg_id AS regId,
-            m.member_nm AS memberNm,
+            r.member_nm AS memberNm,
             r.star_point AS starPoint,
             r.like_count AS likeCount,
             TO_CHAR(r.reg_dt, 'yyyy-mm-dd hh24:mi:ss') as regDt,
@@ -190,15 +175,9 @@
             r.del_dt AS delDt
         FROM
             octopus.product_review_info r,
-            octopus.order_product_info op,
-            octopus.product_info p,
-            octopus.member_info m
+            octopus.product_info p
         WHERE
-            r.reg_id = m.member_id
-        AND
-            r.order_product_seq = op.order_product_seq
-        AND
-            op.product_seq = p.product_seq
+            r.product_seq = p.product_seq
         AND
             r.review_seq = #{reviewSeq}
     </select>
@@ -230,25 +209,19 @@
                         OR combine.option_detail_seq_3 = detail.option_detail_seq)
                  AND info.is_use = true
                  AND detail.is_use = true
-                 AND combine.option_combine_seq = op.option_seq
-                 AND detail.product_seq = p.product_seq) AS orderOption,
+                 AND combine.option_combine_seq = r.option_seq
+                 AND detail.product_seq = r.product_seq) AS orderOption,
             r.review_content AS reviewContent,
             r.reg_id AS regId,
-            m.member_nm AS memberNm,
+            r.member_nm AS memberNm,
             r.star_point AS starPoint,
             r.like_count AS likeCount,
             TO_CHAR(r.reg_dt, 'yyyy-mm-dd hh24:mi:ss') as regDt
         FROM
             octopus.product_review_info r,
-            octopus.order_product_info op,
-            octopus.product_info p,
-            octopus.member_info m
+            octopus.product_info p
         WHERE
-            r.reg_id = m.member_id
-        AND
-            r.order_product_seq = op.order_product_seq
-        AND
-            op.product_seq = p.product_seq
+            r.product_seq = p.product_seq
         <include refid="defaultWhere"/>
         ORDER BY
             r.reg_dt DESC

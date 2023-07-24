@@ -6,23 +6,24 @@
             <h3 class="table-title">회원 리스트</h3>
         </div>
         <div class="right-wrap">
-            <div class="common-sel-sch-wrap">
-                <div class="basic-select-box">
-                    <select>
-                        <option value="상품코드 검색">상품코드 검색</option>
-                        <option value="상품명 검색">상품명 검색</option>
-                        <option value="c">c</option>
-                        <option value="d">d</option>
-                    </select>
-                    <span class="border-focus"><i></i></span>
-                </div>
-                <div class="common-sch-box">
-                    <div class="input-box text">
-                        <input class="common-search" type="text" placeholder="검색어를 입력하세요.">
-                        <span class="border-focus"><i></i></span>
-                    </div>
-                    <button title="검색하기" type="button" class="search-btn" tabindex="0"><img src="../../asset/img/icon-search.svg" alt="검색하기"></button>
-                </div>
+            <button type="button" class="common-btn excel-download" aria-label="title" id="excelMemberDownload"><span>엑셀 다운로드</span></button>
+            <div class="basic-select-box">
+                <select>
+                    <option value="판매수량순">판매수량순</option>
+                    <option value="판매가순">판매가순</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                </select>
+                <span class="border-focus"><i></i></span>
+            </div>
+            <div class="basic-select-box">
+                <select name="pageSize" id="pageSize" onchange="getUserList(1)">
+                    <option value="10" <c:if test="${pagingModel.pageSize eq '10'}">selected</c:if>>10개씩 보기</option>
+                    <option value="20"<c:if test="${pagingModel.pageSize eq '20'}">selected</c:if>>20개씩 보기</option>
+                    <option value="30" <c:if test="${pagingModel.pageSize eq '30'}">selected</c:if>>30개씩 보기</option>
+                    <option value="0" <c:if test="${pagingModel.pageSize eq '0'}">selected</c:if>>전체</option>
+                </select>
+                <span class="border-focus"><i></i></span>
             </div>
         </div>
     </div>
@@ -146,17 +147,17 @@
     <!--페이징-->
     <div class="common-table-bottom">
         <div class="left-wrap">
-            <div class="pager-area" style="width: 224px;">
-                <div class="basic-select-box">
-                    <select>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="전체">전체</option>
-                    </select>
-                    <span class="border-focus"><i></i></span>
-                </div>
-                <span class="total-pager">총 <em>${pagingModel.listCnt}건</em></span>
+            <div class="pager-area" style="width: 120px;">
+<%--                <div class="basic-select-box">--%>
+<%--                    <select>--%>
+<%--                        <option value="10">10</option>--%>
+<%--                        <option value="20">20</option>--%>
+<%--                        <option value="30">30</option>--%>
+<%--                        <option value="전체">전체</option>--%>
+<%--                    </select>--%>
+<%--                    <span class="border-focus"><i></i></span>--%>
+<%--                </div>--%>
+<%--                <span class="total-pager">총 <em>${pagingModel.listCnt}건</em></span>--%>
             </div>
         </div>
         <div class="pagination-wrap">
@@ -179,7 +180,6 @@
         </div>
         <div class="right-wrap">
             <button type="button" id="excelMemberUpload" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" aria-label="title"><span>회원 일괄 등록</span></button>
-            <button type="button" id="excelMemberDownload" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>엑셀 다운로드</span></button>
         </div>
     </div>
 </div>

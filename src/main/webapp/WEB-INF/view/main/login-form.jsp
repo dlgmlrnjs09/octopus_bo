@@ -10,8 +10,6 @@
     let idCookie = $.cookie('userId');
 
     $(document).ready(function() {
-        var form = $('#loginForm')[0];
-
         if(idCookie) {
             $('#userId').val(idCookie);
             $('#id-save').prop('checked',true);
@@ -20,7 +18,6 @@
         }
 
         $('#loginForm').bind('submit', function () {
-
             if($('#id-save').is(':checked')) {
                 $.cookie('userId', $("#userId").val(), {expires:30});
             } else {

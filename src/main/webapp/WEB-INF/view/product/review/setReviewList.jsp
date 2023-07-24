@@ -108,11 +108,11 @@
         <div class="left-wrap">
             <div class="pager-area">
                 <div class="basic-select-box">
-                    <select>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="전체">전체</option>
+                    <select name="pageSize" id="pageSize" onchange="getReviewList(1)">
+                        <option value="10" <c:if test="${pagingModel.pageSize eq '10'}">selected</c:if>>10</option>
+                        <option value="20" <c:if test="${pagingModel.pageSize eq '20'}">selected</c:if>>20</option>
+                        <option value="30" <c:if test="${pagingModel.pageSize eq '30'}">selected</c:if>>30</option>
+                        <option value="0" <c:if test="${pagingModel.pageSize eq '0'}">selected</c:if>>전체</option>
                     </select>
                     <span class="border-focus"><i></i></span>
                 </div>

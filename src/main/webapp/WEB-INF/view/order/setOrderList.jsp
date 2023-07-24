@@ -6,23 +6,24 @@
             <h3 class="table-title">주문 내역 리스트</h3>
         </div>
         <div class="right-wrap">
-            <div class="common-sel-sch-wrap">
-                <div class="basic-select-box">
-                    <select>
-                        <option value="상품코드 검색">상품코드 검색</option>
-                        <option value="상품명 검색">상품명 검색</option>
-                        <option value="c">c</option>
-                        <option value="d">d</option>
-                    </select>
-                    <span class="border-focus"><i></i></span>
-                </div>
-                <div class="common-sch-box">
-                    <div class="input-box text">
-                        <input class="common-search" type="text" placeholder="검색어를 입력하세요.">
-                        <span class="border-focus"><i></i></span>
-                    </div>
-                    <button title="검색하기" type="button" class="search-btn" tabindex="0"><img src="../../asset/img/icon-search.svg" alt="검색하기"></button>
-                </div>
+            <button type="button" class="common-btn excel-download" aria-label="title" id="excelOrderDownload"><span>엑셀 다운로드</span></button>
+            <div class="basic-select-box">
+                <select>
+                    <option value="판매수량순">판매수량순</option>
+                    <option value="판매가순">판매가순</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                </select>
+                <span class="border-focus"><i></i></span>
+            </div>
+            <div class="basic-select-box">
+                <select name="pageSize" id="pageSize" onchange="getOrderList(1)">
+                    <option value="10" <c:if test="${pagingModel.pageSize eq '10'}">selected</c:if>>10개씩 보기</option>
+                    <option value="20"<c:if test="${pagingModel.pageSize eq '20'}">selected</c:if>>20개씩 보기</option>
+                    <option value="30" <c:if test="${pagingModel.pageSize eq '30'}">selected</c:if>>30개씩 보기</option>
+                    <option value="0" <c:if test="${pagingModel.pageSize eq '0'}">selected</c:if>>전체</option>
+                </select>
+                <span class="border-focus"><i></i></span>
             </div>
         </div>
     </div>
@@ -109,10 +110,8 @@
     </div>
     <!--페이징-->
     <div class="common-table-bottom">
-        <div class="left-wrap">
-            <button type="button" data-status="OC" name="orderStatusBtn" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>주문취소</span></button>
-            <button type="button" data-status="FD" name="orderStatusBtn" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>환불처리</span></button>
-            <button type="button" data-status="RP" name="orderStatusBtn" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>반품처리</span></button>
+        <div class="left-wrap" style="width: 342px;">
+            <button type="button" id="excelDeliveryNoUpload" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" aria-label="title"><span>운송장 일괄 등록</span></button>
         </div>
         <div class="pagination-wrap">
             <button class="pagination-btn first" title="첫 페이지" onclick="getOrderList(1)">첫 페이지</button>
@@ -133,8 +132,9 @@
             <button class="pagination-btn last" title="마지막 페이지" onclick="getOrderList(${pagingModel.endPage})">마지막 페이지</button>
         </div>
         <div class="right-wrap">
-            <button type="button" id="excelDeliveryNoUpload" style="padding: 10px; font-size: 16px; margin-right: 10px;" class="common-btn" aria-label="title"><span>운송장 일괄 등록</span></button>
-            <button type="button" id="excelOrderDownload" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>엑셀 다운로드</span></button>
+            <button type="button" data-status="OC" name="orderStatusBtn" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>주문취소</span></button>
+            <button type="button" data-status="FD" name="orderStatusBtn" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>환불처리</span></button>
+            <button type="button" data-status="RP" name="orderStatusBtn" style="padding: 10px; font-size: 16px;" class="common-btn" aria-label="title"><span>반품처리</span></button>
         </div>
     </div>
 </div>
