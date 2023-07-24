@@ -1,11 +1,13 @@
 package com.weaverloft.octopus.basic.main.controller;
 
+import com.weaverloft.octopus.basic.common.util.CommonUtil;
 import com.weaverloft.octopus.basic.main.service.FileService;
 import com.weaverloft.octopus.basic.main.vo.FileVo;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -17,6 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -214,6 +217,54 @@ public class FileController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 첨부파일 업로드
+     * jsp에서 File 객체 (name=files) 생성 후 ajax 요청
+     * 추가정보 : fileForeignSeq, typeDepth1~3, type
+     * @param multiPartRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/upload-ajax")
+    @ResponseBody
+    public int fileUploadAjax(MultipartHttpServletRequest multiPartRequest, HttpServletRequest request) {
+        int isSuccess = 0;
+
+        try {
+            String filePath = request.getServletContext().getRealPath("asset/upload/img");
+            int seq = Integer.parseInt(request.getParameter("fileForeignSeq"));
+            String typeDepth1 = CommonUtil.isEmpty(request.getParameter("typeDepth1")) ? "" : request.getParameter("typeDepth1");
+            String typeDepth2 = CommonUtil.isEmpty(request.getParameter("typeDepth2")) ? "" : request.getParameter("typeDepth2");
+            String typeDepth3 = CommonUtil.isEmpty(request.getParameter("typeDepth3")) ? "" : request.getParameter("typeDepth3");
+
+            File dir = new File(filePath);
+            if (!dir.isDirectory()) {
+                dir.mkdirs();
+            }
+
+            List<MultipartFile> files = multiPartRequest.getFiles("files");
+
+            for (MultipartFile file : files) {
+
+                FileVo fileVo = new FileVo();
+                if (!file.getOriginalFilename().isEmpty() && file.getSize() > 0) {
+                    fileVo = fileService.saveFileProduct(file, filePath);
+
+                    fileVo.setForeignSeq(seq);
+                    fileVo.setTypeDepth1(typeDepth1);
+                    fileVo.setTypeDepth2(typeDepth2);
+                    fileVo.setTypeDepth3(typeDepth3);
+
+                    isSuccess = fileService.insertFileInfo(fileVo);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return isSuccess;
     }
 
 }

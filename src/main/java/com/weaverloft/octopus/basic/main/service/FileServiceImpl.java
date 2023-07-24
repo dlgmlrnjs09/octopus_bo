@@ -50,6 +50,8 @@ public class FileServiceImpl implements FileService{
 			targetFile.mkdirs();
 		}
 		file.transferTo(targetFile);
+		createThumbnailFile(targetFile, strgeFileNm, targetPath + strgePath); // 썸네일 생성
+
 		FileVo vo = new FileVo(file, strgeFileNm, strgePath);
 		return vo;
 	}
@@ -71,27 +73,27 @@ public class FileServiceImpl implements FileService{
 		return fileDao.deleteFileInfo(fileSeq);
 	}
 
-	public void createThumbnailFile(File saveFile, String saveName) throws IOException {
+	public void createThumbnailFile(File saveFile, String saveName, String uploadPath) throws IOException {
 
-//        try{
-//            // thumbnailaotor 라이브러리 사용
-//            File thumbnailFile = new File(uploadPath, "s_" + saveName);
-//
-//            BufferedImage bo_image = ImageIO.read(saveFile);
-//
-//            /* 비율 */
-//            double ratio = 3;
-//            /*넓이 높이*/
-//            int width = (int) (bo_image.getWidth() / ratio);
-//            int height = (int) (bo_image.getHeight() / ratio);
-//
-//            Thumbnails.of(saveFile)
-//                    .size(width, height)
-//                    .toFile(thumbnailFile);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try{
+            // thumbnailaotor 라이브러리 사용
+            File thumbnailFile = new File(uploadPath, "s_" + saveName);
+
+            BufferedImage bo_image = ImageIO.read(saveFile);
+
+            /* 비율 */
+            double ratio = 3;
+            /*넓이 높이*/
+            int width = (int) (bo_image.getWidth() / ratio);
+            int height = (int) (bo_image.getHeight() / ratio);
+
+            Thumbnails.of(saveFile)
+                    .size(width, height)
+                    .toFile(thumbnailFile);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 	private String getDatePath() {

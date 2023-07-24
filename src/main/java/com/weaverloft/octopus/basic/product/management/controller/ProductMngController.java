@@ -15,10 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.*;
 
 /**
  * @author note-gram-015
@@ -79,10 +78,28 @@ public class ProductMngController {
                 List<Map<String, Object>> productOptionList = productMngService.getProductOptionList(productSeq);
                 List<Map<String, Object>> productCombinationOptionList = productMngService.getCombinationOptionList(productSeq);
 
+                FileVo fileVo = new FileVo();
+                fileVo.setTypeDepth1("product");
+                fileVo.setForeignSeqList(Arrays.asList(productSeq));
+                List<Map<String, Object>> fileList = fileService.selectFileInfoList(fileVo);
+
+                // 이미지를 썸네일(resize)로 변환
+                for (Map<String, Object> thumbnail : fileList) {
+                    String filePath = (String) thumbnail.get("file_path");
+                    int lastSlashIndex = filePath.lastIndexOf("/");
+                    StringBuffer sb = new StringBuffer();
+
+                    sb.append(filePath);
+                    sb.insert(lastSlashIndex+1, "s_");
+
+                    thumbnail.put("file_path", sb);
+                }
+
                 model.addAttribute("productDetailInfo", productDetailInfo);                         // 상품 상세 정보
                 model.addAttribute("productOptionList", productOptionList);                         // 옵션 명, 옵션 값
                 model.addAttribute("productCombinationOptionList", productCombinationOptionList);   // 옵션 조합별 정보
                 model.addAttribute("hierarchicalCategoryList", hierarchicalCategoryList);           // 차수 별 카테고리 목록, 선택된 카테고리 정보
+                model.addAttribute("fileList", fileList);
                 regType = "update";
             }
 
@@ -96,19 +113,35 @@ public class ProductMngController {
 
     @PostMapping("/submit-ajax/{regType}")
     @ResponseBody
-    public Map<String, Object> submitProductMngDetail(@RequestParam Map<String, Object> paramMap, Model model, @PathVariable String regType) {
+    public Map<String, Object> submitProductMngDetail(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, Model model, @PathVariable String regType) {
         Map<String, Object> validateMap = new HashMap<>();
         boolean isHasOption = Boolean.parseBoolean((String) paramMap.get("is_has_option"));
-
+        int productSeq = Integer.parseInt((String) paramMap.get("productSeq"));
         try {
             if ("insert".equals(regType)) {
-                paramMap.put("nextProductSeq", productMngService.getProductNextSeq());
+                productSeq = productMngService.getProductNextSeq();
+                paramMap.put("nextProductSeq", productSeq);
             }
             validateMap = productMngService.checkSubmitValidation(paramMap);
             if ("pass".equals(validateMap.get("name"))) {
                 boolean isSuccessSubmit = productMngService.submitProductMng(paramMap, regType);
                 if (isSuccessSubmit && isHasOption) {
                     productMngService.submitOptionMng(paramMap, regType);
+                }
+            }
+            validateMap.put("productSeq", productSeq);
+
+            //첨부파일 삭제
+            String[] delSeqArr = request.getParameterValues("removeImages");
+            if (delSeqArr != null && delSeqArr.length > 0) {
+
+                for(String seq : delSeqArr) {
+                    int fileSeq = Integer.parseInt(seq);
+                    Map<String, Object> fileMap = fileService.getFileObject(request, fileSeq);
+                    File file = (File) fileMap.get("file");
+
+                    file.delete();
+                    fileService.deleteFileInfo(fileSeq);
                 }
             }
         } catch (Exception e) {
@@ -121,6 +154,5 @@ public class ProductMngController {
 //    public String showProductCategoryPopup() {
 //        return "";
 //    }
-
 
 }

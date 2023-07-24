@@ -58,6 +58,29 @@
     .option-td {
         border: 1px solid #E8E8F1;
     }
+
+    .img-list img {
+        width: 6vw;
+        height: 6vw;
+        background-color: #69649c82;
+        border-radius: 6px;
+        margin: 10px 2px 3px 2px;
+    }
+
+    .mini {
+        background-color: #bbb;
+        width: 60px;
+        min-width: 60px;
+        padding: 5px;
+    }
+
+    .xBtn {
+        position: absolute;
+        margin-left: -16px;
+        margin-top: 13px;
+        cursor: pointer;
+    }
+
 </style>
 <main id="main" class="page-home">
     <div class="admin-section-wrap">
@@ -391,6 +414,21 @@
                             <th class="row-th" scope="row"><div class="con-th">대표 이미지</div></th>
                             <td class="cell-td dt-left">
                                 <div class="con-td">
+                                    <div class="input-box text file-div">
+                                        <span class="file_input">
+                                            <label class="common-btn mini" style="background-color: #8f95e4;"> 추가
+                                                <input type="file" name="files" onchange="setImageFile(this);" style="display: none;" accept="image/jpeg, image/png, image/jpg"/>
+                                            </label>
+                                        </span>
+                                    </div>
+                                    <div id="images_container" class="img-list">
+                                        <c:forEach var="thumbnail" items="${fileList}"  varStatus="status">
+                                            <div class="thumbnail-div" style="display: inline-block">
+                                                <img id="thumbnail_${thumbnail.seq}" class="product-thumbnail" src="../../asset/upload/img${thumbnail.file_path}"/>
+                                                <label for="thumbnail_${thumbnail.seq}" class="xBtn">X</label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -719,6 +757,73 @@
         return result;
     }
 
+    function setImageFile(element){
+        var reader = new FileReader();
+
+        reader.onload = function(event){
+
+            let img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            img.setAttribute("class", "col-lg-6");
+            // img.setAttribute("onclick", "removeImg(this)");
+
+            $('#images_container').append(img);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        $('.file-div').children('.file_input').hide();
+
+        let newFileInput = '<span class="file_input">' +
+            '<label class="common-btn mini" style="background-color: #8f95e4;"> 추가' +
+            '<input type="file" name="files" onchange="setImageFile(this);" style="display: none;" accept="image/jpeg, image/png, image/jpg"/>' +
+            '</label></span>';
+
+        $('.file-div').append(newFileInput);
+    }
+
+    function saveThumbnailImg(productSeq, regTypeNm){
+
+        let fileCnt = 0;
+
+        $('input[type=file]').each(function () {
+            if ($(this).val() != '') {
+                fileCnt++;
+            }
+        });
+
+        if (fileCnt == 0) {
+            return action_popup.alert2(regTypeNm + '되었습니다.', function() {
+                location.href = '/product/management/list';
+            })
+        }
+
+        $('#frm').append('<input type="hidden" name="fileForeignSeq" value="'+productSeq+'">');
+        $('#frm').append('<input type="hidden" name="typeDepth1" value="product">');
+
+        $.ajax({
+            url: '/file/upload-ajax',
+            type:  'POST',
+            data: new FormData($('#frm')[0]),
+            contentType: false,
+            processData: false,
+            cache:false,
+            success: function (result) {
+                if (result > 0) {
+                    action_popup.alert2(regTypeNm + '되었습니다.', function() {
+                        location.href = '/product/management/list';
+                    })
+                } else {
+                    action_popup.alert(data.popupMsg);
+                }
+            }
+        });
+    }
+
+    $('.xBtn').on('click', function () {
+        let seq = $(this).attr('for').split('_')[1];
+        $(this).parent('.thumbnail-div').remove();
+        $('#frm').append('<input type="hidden" name="removeImages" value="'+seq+'">');
+    });
+
     $('#cancelBtn').on('click', function () {
         location.href = '/product/management/list';
     });
@@ -779,9 +884,7 @@
             , data: $("#frm").serialize() + "&optionList=" + JSON.stringify(optionList) + "&optionCombinationList=" + JSON.stringify(optionByCombinationList)
             , success: function (data) {
                 if (data.name === 'pass') {
-                    action_popup.alert2(regTypeNm + ' 되었습니다.', function () {
-                        location.href = '/product/management/list';
-                    })
+                    saveThumbnailImg(data.productSeq, regTypeNm);
                 } else {
                     action_popup.alert(data.popupMsg);
                 }
