@@ -239,7 +239,7 @@ public class WebContextConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor())
                 .addPathPatterns("/*/**")
-                .excludePathPatterns("/main/main-page", "/main/login-form", "/front/**");
+                .excludePathPatterns("/main/main-page", "/main/login-form", "/api/**");
     }
 
     @Bean
