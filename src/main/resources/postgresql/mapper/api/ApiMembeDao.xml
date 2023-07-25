@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.api.dao.ApiMemberDao">
+
+    <select id="selectPointSumList" parameterType="map" resultType="map">
+        SELECT
+            *
+        FROM (
+            SELECT
+                sum(p.point)::int4 AS point,
+                p.parent_point_detail_seq,
+                to_char(p.expire_dt, 'yyyy-MM-dd hh24:mi:ss') as expire_dt,
+                (SELECT reason FROM octopus.point_detail_log WHERE point_detail_seq = p.parent_point_detail_seq) AS reason
+            FROM
+                octopus.point_detail_log p
+            WHERE
+                to_char(p.expire_dt, 'yyyy-MM-dd') >= to_char(now(), 'yyyy-MM-dd')
+            AND
+                p.member_seq = #{memberSeq}
+            <if test="pointType != null and pointType != '' and pointType == 'expire'">
+            AND
+                now() BETWEEN (p.expire_dt - interval '7 day') AND p.expire_dt
+            </if>
+            GROUP BY
+                p.parent_point_detail_seq, p.expire_dt
+        ) A
+        WHERE
+            point <![CDATA[>]]> 0
+    </select>
+
+    <select id="selectCouponList" parameterType="map" resultType="map">
+        SELECT
+            c.member_id,
+            c.coupon_seq,
+            p.coupon_name,
+            p.coupon_description,
+            p.coupon_benefit_type,
+            p.coupon_benefit_amount,
+            p.coupon_benefit_percentage,
+            p.coupon_use_start_date::varchar,
+            p.coupon_use_end_date::varchar,
+            p.coupon_coverage_type
+        FROM
+            octopus.coupon_publish_info c
+            LEFT OUTER JOIN octopus.promotion_coupon_info p ON c.coupon_seq = p.coupon_seq
+        WHERE
+            c.member_seq = #{memberSeq}
+        AND
+            c.is_use = true
+    </select>
+
+    <select id="selectCurrentMembershipInfo" parameterType="map" resultType="map">
+        SELECT
+            m.member_id,
+            m.member_nm,
+            mi.membership_seq::int4,
+            mi.membership_name,
+            mi.membership_is_auto,
+            mi.membership_auto_amount::int4,
+            mi.membership_priority,
+            m.is_membership_fixed,
+            COALESCE((
+                SELECT
+                    sum(oi.order_total_price)
+                FROM
+                    octopus.member_info m2
+                LEFT OUTER JOIN octopus.order_info oi ON (m2.member_seq = oi.member_seq)
+                INNER JOIN octopus.membership_info ms ON (m2.membership_seq = ms.membership_seq)
+                WHERE
+                    mi.is_use = true
+                    AND oi.order_status in ('PP', 'DP', 'DS', 'DD')
+                    AND oi.reg_dt > CURRENT_DATE - CAST( (SELECT sum_order_period FROM octopus.membership_info limit 1) || 'month' AS interval)
+                    AND ms.membership_is_auto is true
+                    AND m2.is_membership_fixed is false
+                    AND m2.member_seq = m.member_seq
+                GROUP BY
+                    m2.member_seq
+            ), 0)::int4 AS total_order_price
+        FROM
+            octopus.member_info m,
+            octopus.membership_info mi
+        WHERE
+            m.membership_seq = mi.membership_seq
+        AND
+            m.member_seq = #{memberSeq}
+    </select>
+
+    <select id="selectNextMembershipInfo" parameterType="map" resultType="map">
+        SELECT
+            membership_seq,
+            membership_name,
+            membership_priority,
+            membership_auto_amount::int4
+        FROM
+            octopus.membership_info
+        WHERE
+            is_use = true
+        AND
+            membership_priority is not null
+        AND
+            #{membership_priority} <![CDATA[>]]> membership_priority
+        ORDER BY
+            membership_priority DESC
+        limit 1
+    </select>
+
+</mapper>
