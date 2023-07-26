@@ -39,6 +39,7 @@ public class MainController {
 
     @GetMapping("/main-page")
     public String showMainPage(Model model) {
+
         Map<String, Object> orderCountMap =  orderService.selectOrderCountForMainPage(null);
         Map<String, Object> reviewCountMap =  reviewService.selectReviewCountForMainPage(new ReviewVo());
         Map<String, Object> noticeMap = noticeService.selectNoticeForMainPage(0);
