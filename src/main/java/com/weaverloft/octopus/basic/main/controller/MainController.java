@@ -36,6 +36,7 @@ public class MainController {
     @Autowired
     private NoticeService noticeService;
 
+
     @GetMapping("/main-page")
     public String showMainPage(Model model) {
         Map<String, Object> orderCountMap =  orderService.selectOrderCountForMainPage(null);
