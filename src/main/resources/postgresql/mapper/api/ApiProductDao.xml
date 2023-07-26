@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.api.dao.ApiProductDao">
+
+    <select id="selectProductDetail" parameterType="int" resultType="map">
+        SELECT
+            product_seq
+             , product_name
+             , product_description
+             , product_price
+             , product_stock
+             , category_seq
+             , brand_id
+             , is_discount
+             , discount_price
+             , delivery_charge
+             , is_use_conditional_delivery
+             , conditional_delivery_price
+             , is_pay_buy_point
+             , product_buy_point
+             , is_pay_normal_review_point
+             , product_normal_review_point
+             , is_pay_media_review_point
+             , product_media_review_point
+             , is_has_option
+             , is_set_product_order_coupon
+             , product_order_coupon_seq
+             , views_cnt
+             , (1 - discount_price / product_price::decimal) * 100 as discount_rate
+        FROM
+            octopus.product_info pi
+        WHERE
+            is_use = true
+          and product_seq = #{value}
+
+    </select>
+
+    <select id="selectRecommendedProductList" parameterType="map" resultType="map">
+        select A.* from (
+            SELECT
+                product_seq
+                , product_name
+                , product_price
+                , product_stock
+                , brand_id
+                , is_discount
+                , discount_price
+                , category_seq
+                , (1 - discount_price / product_price::decimal) * 100 as discount_rate
+                , (select sum(order_product_stock) from octopus.order_product_info opi where product_seq = pi.product_seq) as sell_count
+                , reg_dt
+                , views_cnt
+                -- TODO 함께 구매한 상품
+            FROM
+                octopus.product_info pi
+            WHERE
+                is_use = true
+              and product_stock > 0
+        ) A
+        <if test="'bestSeller'.equals(kind)">
+            order by sell_count desc nulls last
+        </if>
+        <if test="'newest'.equals(kind)">
+            order by reg_dt desc
+        </if>
+        <if test="'bestViews'.equals(kind)">
+            order by views_cnt desc
+        </if>
+        limit 10
+    </select>
+
+    <update id="setProductViews" parameterType="int">
+        update
+            octopus.product_info
+        set
+            views_cnt = views_cnt +1
+        where
+            product_seq = #{value}
+    </update>
+
+</mapper>

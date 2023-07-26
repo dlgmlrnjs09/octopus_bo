@@ -23,7 +23,7 @@ public class ContextSqlMapper {
     public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
-        factoryBean.setMapperLocations(applicationContext.getResources("classpath:/postgresql/mapper/*.xml"));
+        factoryBean.setMapperLocations(applicationContext.getResources("classpath:/postgresql/mapper/**/*.xml"));
 //        factoryBean.setTypeAliases(new Class<?>[] {CustomUserDetailVO.class});
         // Select 컬럼명 스네이크 케이스 -> 카멜케이스 자동변환
         Properties properties = new Properties();

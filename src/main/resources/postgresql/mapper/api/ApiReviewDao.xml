@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.api.dao.ApiReviewDao">
+
+
+    <select id="selectReviewCnt" parameterType="int" resultType="int">
+        select
+            count(*)
+        from
+            octopus.product_review_info
+        where
+            product_seq = #{value}
+            and is_use = true
+    </select>
+
+    <select id="selectReviewAvg" parameterType="int" resultType="double">
+        select
+            avg(star_point)
+        from
+            octopus.product_review_info
+        where
+            product_seq = #{value}
+            and is_use = true
+    </select>
+
+    <select id="selectReviewList" parameterType="map" resultType="map">
+        select
+            review_seq ,
+            review_content ,
+            reg_id ,
+            star_point ,
+            like_count ,
+            reg_dt ,
+            to_char(reg_dt, 'yyyy-MM-dd') as reg_dt_char,
+            product_seq ,
+            filter_seq_arr
+        from
+            octopus.product_review_info rv
+        where
+            product_seq = #{productSeq}
+            and is_use = true
+        order by
+            reg_dt desc
+        LIMIT
+            #{pagingModel.pageSize}
+        OFFSET
+            (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+    <select id="selectReviewCountList" parameterType="int" resultType="map">
+        select
+            star_point,
+            count(star_point) as star_cnt
+        from
+            octopus.product_review_info
+        where
+            product_seq = #{value}
+        group by
+            star_point
+        order by star_point desc
+    </select>
+
+    <insert id="insertProductReview" parameterType="map">
+        insert
+        into
+            octopus.product_review_info
+        (
+            review_seq,
+            review_content,
+            reg_id,
+            star_point ,
+            product_seq ,
+            <if test="order_seq != null and !''.equals(order_seq)">
+             order_seq ,
+            </if>
+            filter_seq_arr ,
+            <if test="option_seq != null and !''.equals(option_seq)">
+            option_seq ,
+            </if>
+            member_nm
+        ) values (
+                     nextval('octopus.product_review_info_review_seq_seq'),
+                     #{reviewContent},
+                     #{regId},
+                     cast(#{starPoint} as double precision),
+                     #{productSeq}::int4,
+                      <if test="order_seq != null and !''.equals(order_seq)">
+                         #{orderSeq}::int4,
+                      </if>
+                     #{filterSeqArr},
+                      <if test="option_seq != null and !''.equals(option_seq)">
+                          #{optionSeq}::int4,
+                      </if>
+                     #{memberNm}
+                 )
+    </insert>
+
+    <update id="updateProductReview" parameterType="map">
+        update
+            octopus.product_review_info
+        set
+            review_content = #{reviewContent},
+            star_point = #{star_point}::int4,
+            filter_seq_arr = #{filterSeqArr}
+        where
+            review_seq = #{reviewSeq}::int4
+    </update>
+
+    <select id="updateLikeCount" parameterType="map" resultType="int">
+        update
+            octopus.product_review_info
+        set
+            <if test="'plus'.equals(flag)">
+                like_count = like_count + 1
+            </if>
+            <if test="'minus'.equals(flag)">
+                like_count = like_count - 1
+            </if>
+        where
+            review_seq = #{reviewSeq}::int4
+        RETURNING like_count
+    </select>
+
+    <update id="deleteProductReview" parameterType="map">
+        update
+            octopus.product_review_info
+        set
+            is_use = false
+        where
+            review_seq = #{reviewSeq}::int4
+    </update>
+
+    <select id="selectProductReviewList" parameterType="map" resultType="map">
+        select
+            review_seq,
+            review_content,
+            reg_id,
+            star_point,
+            like_count,
+            reg_dt,
+            to_char(reg_dt, 'yyyy-MM-dd') as reg_dt_char,
+            udt_dt,
+            del_dt,
+            product_seq,
+            order_seq,
+            filter_seq_arr,
+            option_seq,
+            member_nm,
+            (select
+                array_to_string(array_agg(file_path), ',') as file_path
+             from (
+                    select
+                        seq,
+                        foreign_seq,
+                        file_path
+                    from
+                        octopus.file_info fi
+                    where
+                        type_depth1 = 'review'
+                        and foreign_seq = review_seq) A)
+        from
+            octopus.product_review_info
+        where
+            product_seq = #{productSeq}::int4
+        <if test="'best'.equals(sort)">
+        order by
+            like_count desc
+        </if>
+        <if test="'newest'.equals(sort)">
+        order by
+            review_seq desc
+        </if>
+        LIMIT
+            #{pagingModel.pageSize}
+        OFFSET
+            (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+</mapper>
