@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weaverloft.octopus.basic.product.inquiry.dao.ProductInquiryDao">
+
+    <sql id="defaultWhere">
+        and parent_seq is null
+        <if test="productSeq != null and !''.equals(productSeq)">
+            and product_seq = #{productSeq}::int4
+        </if>
+        <if test="memberId != null and !''.equals(memberId)">
+            and reg_id = #{memberId}::int4
+        </if>
+
+        <if test="hasAnswer == 'true'">
+            and answer_cnt > 0
+        </if>
+        <if test="hasAnswer == 'false'">
+            and answer_cnt = 0
+        </if>
+        <if test="searchKeyword != null and searchKeyword !=''">
+            AND UPPER(${searchType}) LIKE '%'||UPPER(#{searchKeyword})||'%'
+        </if>
+
+        <if test="startDate !=null and startDate !='' and (endDate ==null or endDate =='')">
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp
+        </if>
+
+        <if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
+            AND reg_dt <![CDATA[<=]]> #{endDate}::timestamp + interval '1 day'
+        </if>
+
+        <if test="endDate !=null and endDate !='' and startDate !=null and startDate !='' ">
+            AND reg_dt <![CDATA[>=]]> #{startDate}::timestamp AND reg_dt <![CDATA[<]]> #{endDate}::timestamp + interval '1 day'
+        </if>
+    </sql>
+
+    <select id="selectInquiryList" parameterType="map" resultType="map">
+        select
+            A.*
+        from (
+            select
+                inqr.inquiry_seq,
+                inqr.product_seq,
+                info.product_name,
+                inqr.parent_seq,
+                inqr.inquiry_flag,
+                inqr.title,
+                inqr.description,
+                inqr.reg_id,
+                inqr.reg_dt,
+                inqr.is_use,
+                to_char(inqr.reg_dt, 'yyyy-MM-dd HH24:MI:SS') reg_dt_char,
+                inqr.is_private,
+                (select count(*) from octopus.product_inquiry where parent_seq = inqr.inquiry_seq and is_use = true) as answer_cnt
+            from
+                octopus.product_inquiry inqr inner join octopus.product_info info on inqr.product_seq = info.product_seq
+        ) A
+        where
+            is_use = true
+        <include refid="defaultWhere"/>
+        order by
+            inquiry_seq desc
+        <if test="pagingModel.pageSize > 0">
+            LIMIT
+                #{pagingModel.pageSize}
+        </if>
+        OFFSET
+            (#{pagingModel.curPage} - 1) * #{pagingModel.pageSize}
+    </select>
+
+    <select id="selectCountInquiry" parameterType="map" resultType="int">
+        select
+            count(*)
+        from (
+            select
+                inqr.inquiry_seq,
+                inqr.product_seq,
+                info.product_name,
+                inqr.parent_seq,
+                inqr.inquiry_flag,
+                inqr.title,
+                inqr.description,
+                inqr.reg_id,
+                inqr.reg_dt,
+                inqr.is_private,
+                inqr.is_use,
+                (select count(*) from octopus.product_inquiry where parent_seq = inqr.inquiry_seq and is_use = true) as answer_cnt
+            from
+                octopus.product_inquiry inqr inner join octopus.product_info info on inqr.product_seq = info.product_seq
+        ) A
+        where
+            is_use = true
+        <include refid="defaultWhere"/>
+    </select>
+
+    <select id="selectInquiryDetail" parameterType="int" resultType="map">
+        select
+            inqr.inquiry_seq,
+            inqr.product_seq,
+            info.product_name,
+            inqr.parent_seq,
+            inqr.inquiry_flag,
+            inqr.title,
+            inqr.description,
+            inqr.reg_id,
+            inqr.reg_dt,
+            to_char(inqr.reg_dt, 'yyyy-MM-dd HH24:MI:SS') reg_dt_char,
+            inqr.is_private
+        from
+            octopus.product_inquiry inqr inner join octopus.product_info info on inqr.product_seq = info.product_seq
+        where
+            inqr.is_use = true
+          and (inquiry_seq = #{value} or parent_seq = #{value})
+        order by
+            parent_seq nulls first, inquiry_seq
+    </select>
+
+    <insert id="insertProductInquiry" parameterType="map">
+        insert
+            into
+            octopus.product_inquiry (
+                inquiry_seq,
+                product_seq,
+                inquiry_flag,
+                <if test="parentSeq != null and !''.equals(parentSeq)">
+                    parent_seq,
+                </if>
+                title,
+                description,
+                reg_id,
+                is_private
+            )
+        values (
+            nextval('octopus.product_inquiry_inquiry_seq_seq'),
+            #{productSeq}::int4,
+            #{inquiryFlag},
+            <if test="parentSeq != null and !''.equals(parentSeq)">
+                #{parentSeq}::int4,
+            </if>
+            #{title},
+            #{description},
+            #{id},
+            #{isPrivate}::boolean
+        )
+    </insert>
+
+    <update id="updateProductInquiry" parameterType="map">
+        update
+            octopus.product_inquiry
+        set
+            title = #{title},
+            description = #{description},
+            mod_id = #{id},
+            mod_dt = now()
+        where
+            inquiry_seq = #{inquirySeq}::int4
+    </update>
+
+    <update id="deleteProductInquiry" parameterType="map">
+        update
+            octopus.product_inquiry
+        set
+            is_use = false,
+            mod_id = #{id},
+            mod_dt = now()
+        where
+            inquiry_seq = #{inquirySeq}::int4
+    </update>
+
+</mapper>
