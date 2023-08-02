@@ -12,8 +12,12 @@ import org.springframework.context.annotation.Import;
 @Import({
         ContextDataSource.class
         , ContextSqlMapper.class
+		, SecurityConfig.class
 })
-@ComponentScan(basePackages = "com.weaverloft.octopus")
+@ComponentScan(basePackages = {
+	"com.weaverloft.octopus"
+	,"com.weaverloft.octopus.configuration"
+})
 public class RootContextConfiguration {
 
 }
